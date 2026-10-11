@@ -20,7 +20,7 @@
 - HTTP transport: Guzzle HTTP client.
 - Async HTTP transport: Guzzle asynchronous requests and promises.
 - Webhook signature computation: PHP built-in hash functions. No library.
-- Config parser library: none.
+- Config parser library: vlucas/phpdotenv, development-only for the E2E runner.
 - CLI argument parser library: none.
 - YouTube API client library: none.
 - Dev dependency: phpunit/phpunit ^11.0.
@@ -61,17 +61,20 @@
 - Tests MUST run on every PHP version in the CI PHP versions list.
 - Coverage threshold: none.
 - Coverage tools and coverage reports MUST NOT be configured.
-- Format check command: vendor/bin/pint --test.
-- Test command: vendor/bin/phpunit.
+- Format check command: composer lint.
+- Test command: composer test.
 
 ## 5. Configuration rules
 
 - Config file format: none.
 - The library MUST NOT read environment variables.
+- The development-only E2E runner MAY load `.env` with vlucas/phpdotenv for the
+  existing boundary probes.
 - Environment variable for the samples: PORTONE_API_SECRET.
 - Environment variable for the samples: PORTONE_WEBHOOK_SECRET.
 - Samples MUST read secrets from process environment variables.
-- A dotenv library MUST NOT be added.
+- vlucas/phpdotenv MUST remain a development-only dependency and MUST NOT be
+  used by the library classes or production package runtime.
 
 ## 6. Deployment rules
 
@@ -97,7 +100,7 @@
 - Static analysis tools.
 - Code coverage tools and thresholds.
 - Committing composer.lock.
-- Config parser libraries.
+- Production configuration parser libraries.
 - CLI argument parser libraries.
 - YouTube API client libraries.
 - Dotenv libraries.

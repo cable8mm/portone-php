@@ -1,31 +1,24 @@
-# PHP server sample
+# PHP 서버 샘플
 
-This directory implements the server-side payment flow used by the current
-PortOne sample repository's Express, FastAPI, Flask, Next.js, Spring Boot, and
-Ruby on Rails examples:
+이 디렉터리는 PortOne 공식 샘플 저장소의 Express, FastAPI, Flask, Next.js, Spring Boot, Ruby on Rails 예제에서 사용하는 서버 결제 흐름을 구현합니다.
 
-- `GET /api/item` returns the sample item.
-- `POST /api/payment/complete` retrieves and validates a payment with the PHP SDK.
-- `POST /api/payment/webhook` verifies the raw request body and synchronizes a payment webhook.
+- `GET /api/item`: 샘플 상품을 반환합니다.
+- `POST /api/payment/complete`: PHP SDK로 결제를 조회하고 검증합니다.
+- `POST /api/payment/webhook`: 원본 request body를 검증하고 webhook 결제를 동기화합니다.
 
-The framework variants in the reference repository have the same server-side
-scenario, so this repository provides one framework-free PHP implementation.
+참조 저장소의 프레임워크별 예제는 같은 서버 시나리오를 사용하므로, 이 저장소에서는 프레임워크가 없는 순수 PHP 구현 하나를 제공합니다.
 
-## Run
+## 실행
 
-Set secrets in the process environment. Do not put real credentials in this
-directory or commit them.
+저장소 루트의 `.env.example`을 `.env`로 복사하고 test credential을 입력합니다.
+샘플 서버는 개발 전용 `.env`를 자동으로 읽습니다. 실제 credential을 이 디렉터리에 넣거나 commit하지 마세요.
 
 ```sh
-export PORTONE_API_SECRET='your-api-secret'
-export PORTONE_WEBHOOK_SECRET='whsec_your-webhook-secret'
-php -S 127.0.0.1:8080 -t samples samples/index.php
+cp .env.example .env
+# .env에 test credential 입력
+composer serve
 ```
 
-Open `http://127.0.0.1:8080/` or expose the same port with a tunnel for a
-webhook endpoint. The webhook URL is `/api/payment/webhook`.
+`http://127.0.0.1:8080/`을 열어 샘플 서버를 확인할 수 있습니다. webhook endpoint를 외부에 노출하려면 같은 port를 tunnel로 공개합니다. webhook URL은 `/api/payment/webhook`입니다.
 
-The sample also works without credentials for its item endpoint. API calls
-without `PORTONE_API_SECRET` and webhook calls without
-`PORTONE_WEBHOOK_SECRET` return a controlled error instead of using a default
-or embedded secret.
+credential 없이도 상품 endpoint는 사용할 수 있습니다. `PORTONE_API_SECRET`이 없는 API 요청과 `PORTONE_WEBHOOK_SECRET`이 없는 webhook 요청은 기본값이나 내장 secret을 사용하지 않고 통제된 오류를 반환합니다.
