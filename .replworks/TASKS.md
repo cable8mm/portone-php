@@ -314,3 +314,11 @@
     - Platform setting, account holder, filter option, B2B upload payload, and B2B certificate models expose JVM-matching fields.
     - Required scalar fields reject missing or invalid values, while nullable fields preserve JVM defaults.
     - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass.
+
+- [X] T-034 Confirmation and company payload DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Billing-key confirmation, payment confirmation, and Platform company-state payloads expose JVM-matching fields.
+    - Required scalar and object fields reject missing or invalid values.
+    - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass.

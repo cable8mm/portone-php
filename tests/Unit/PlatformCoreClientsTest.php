@@ -46,7 +46,7 @@ final class PlatformCoreClientsTest extends TestCase
         self::assertSame('Test', $account->getPlatformAccountHolder('SHINHAN', '1234567890')->holderName);
 
         $company = $this->client(CompanyClient::class, new MockHandler([
-            new Response(200, [], '{"status":"ACTIVE"}'),
+            new Response(200, [], '{"companyState":{"status":"ACTIVE"},"companyVerificationId":"verification-id"}'),
         ]));
         self::assertInstanceOf(
             GetPlatformCompanyStatePayload::class,
