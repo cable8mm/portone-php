@@ -1,0 +1,8 @@
+{
+    "status": "observed",
+    "operation": "getIdentityVerifications",
+    "result": {
+        "status": "success",
+        "resultType": "Cable8mm\\PortonePhp\\Response\\GetIdentityVerificationsResponse"
+    }
+}

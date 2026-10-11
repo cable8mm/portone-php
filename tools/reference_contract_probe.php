@@ -205,8 +205,8 @@ function parseParameters(string $parameters): array
     $names = [];
     foreach (preg_split('/\R/', $parameters) ?: [] as $line) {
         $line = preg_replace('/\/\/.*$/', '', $line) ?? $line;
-        if (preg_match('/^\s*([A-Za-z_]\w*)\s*(?::|=)/', $line, $match)) {
-            $names[] = $match[1];
+        if (preg_match('/^\s*(?:`([^`]+)`|([A-Za-z_]\w*))\s*(?::|=)/', $line, $match)) {
+            $names[] = $match[1] !== '' ? $match[1] : $match[2];
         }
     }
 

@@ -647,6 +647,7 @@
                         "customer",
                         "customData",
                         "bypass",
+                        "operator",
                         "method"
                     ],
                     "returnType": "SendIdentityVerificationResponse",
