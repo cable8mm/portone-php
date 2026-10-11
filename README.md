@@ -1,12 +1,24 @@
 # PortOne PHP
 
-PortOne V2 REST API용 PHP 서버 SDK입니다. 공식 JVM 서버 SDK의 클라이언트와 operation을 PHP에서 사용할 수 있으며, PortOne webhook 서명 검증과 비동기 operation도 지원합니다.
+PortOne V2 REST API용 PHP 서버 SDK입니다. 공식 OpenAPI 명세의 전체 operation을 PHP에서 호출할 수 있으며, PortOne webhook 서명 검증과 비동기 operation도 지원합니다.
 
 - Composer 패키지: `cable8mm/portone-php`
 - PHP: `^8.2`
 - HTTP: Guzzle 8
 - 네임스페이스: `Cable8mm\PortonePhp`
 - 라이선스: MIT
+
+## 지원 범위
+
+이 패키지의 API 범위와 요청·응답 스키마의 기준은 [PortOne V2 OpenAPI 문서](https://developers.portone.io/api/schema/v2/openapi.json)입니다.
+
+- 115개 path, 147개 operation
+- 모든 operation에 동기 메서드와 `Async` 메서드 제공
+- 응답은 PHP typed response object로 decode
+- `PortOneException` 계열로 API, transport, decode, webhook 오류 전달
+- `PortOneClient`의 `payment`, `identityVerification`, `pgSpecific`, `auth`, `reconciliation`, `platform`, `b2b`, `common`, `checkout`, `paymentSession` accessor 제공
+
+명세에 없는 operation이나 V1 API는 지원 범위가 아닙니다.
 
 ## 요구 사항
 
@@ -48,13 +60,14 @@ require __DIR__.'/vendor/autoload.php';
 
 use Cable8mm\PortonePhp\PortOneClient;
 
+$apiSecret = $config['apiSecret'];
 $client = new PortOneClient($apiSecret);
 $payment = $client->payment->getPayment($paymentId);
 
 var_dump($payment->data);
 ```
 
-모든 operation은 JVM SDK와 같은 camelCase 이름을 사용하며, 동기 메서드와 `Async` 접미사가 붙은 비동기 메서드를 함께 제공합니다.
+모든 operation은 OpenAPI `operationId`의 camelCase 이름을 사용하며, 동기 메서드와 `Async` 접미사가 붙은 비동기 메서드를 함께 제공합니다.
 
 ### 비동기 operation
 
@@ -130,7 +143,7 @@ composer test
 
 ### JVM 계약 검증
 
-기준 JVM 소스 경로는 `PORTONE_JVM_PATH`로 지정합니다. 이 값이 `.env`에 없거나 존재하지 않는 디렉터리이면 계약 검증이 명확한 오류와 함께 종료됩니다.
+선택적인 과거 계약 비교 도구는 `PORTONE_JVM_PATH`를 사용합니다. 이 경로는 보조 비교 자료일 뿐이며, PHP SDK의 API·응답·동작을 정의하지 않습니다. 값이 `.env`에 없거나 존재하지 않는 디렉터리이면 비교 도구가 명확한 오류와 함께 종료됩니다.
 
 ```sh
 php tools/reference_contract_probe.php --verify-record
@@ -138,7 +151,12 @@ php tools/reference_contract_probe.php \
   --verify-public-contract=tests/fixtures/jvm-v0.24.0-contract.json
 ```
 
-이 검증은 JVM `jvm-v0.24.0`의 client, operation, parameter, async method, webhook type과 PHP public contract가 일치하는지 확인합니다.
+이 검증은 저장된 보조 계약 자료와 PHP public contract의 차이를 확인합니다. 최종 operation·path·parameter 계약 검증은 OpenAPI 명세를 대상으로 다음 명령을 사용합니다.
+
+```sh
+composer openapi:check
+composer openapi:signatures
+```
 
 ## Live E2E 테스트
 
@@ -153,29 +171,16 @@ Live E2E는 실제 `https://api.portone.io`와 실제 webhook secret을 사용�
 composer e2e
 ```
 
-`composer e2e`는 개발 전용 `vlucas/phpdotenv`로 `.env`를 읽은 뒤 각 probe를 별도 PHP 프로세스로 실행합니다. SDK 본체나 production runtime에는 dotenv가 들어가지 않습니다.
+`composer e2e`는 개발 전용 `vlucas/phpdotenv`로 `.env`를 읽은 뒤 각 probe를 별도 PHP 프로세스로 실행합니다. SDK 본체나 production runtime에는 dotenv가 들어가지 않습니다. API Secret은 출력하지 않습니다.
 
-Webhook까지 포함해 한 번에 실행하려면 다음을 사용합니다.
+`composer e2e`에는 OpenAPI 전체 matrix probe도 포함됩니다. 이 probe는 OpenAPI의 147개 operation을 각각 실제 API에 호출하고, `tests/fixtures/portone-v2-openapi-matrix-observations.json`에 operation별 JSON 결과를 기록합니다. 입력을 생략할 수 있는 operation은 test store를 변경하지 않도록 빈 입력으로 호출합니다. API가 반환한 `InvalidRequestException`, `PlatformNotEnabledException`, `UnknownException` 등은 `controlled-failure`로 기록되며, 로컬 PHP 오류나 operation 누락은 probe 실패입니다. 정상적인 결과의 요약은 다음과 같습니다.
 
-```sh
-for probe in \
-  tools/portone_boundary_probe.php \
-  tools/portone_operation_probe.php \
-  tools/portone_auth_probe.php \
-  tools/portone_payment_operations_probe.php \
-  tools/portone_identity_verification_probe.php \
-  tools/portone_pg_specific_probe.php \
-  tools/portone_reconciliation_probe.php \
-  tools/portone_platform_core_probe.php \
-  tools/portone_platform_bulk_payout_probe.php \
-  tools/portone_platform_partner_transfer_probe.php \
-  tools/portone_policy_probe.php \
-  tools/portone_tax_invoice_probe.php \
-  tools/portone_counterparty_probe.php \
-  tools/portone_webhook_probe.php
-do
-  php "$probe" || exit 1
-done
+```text
+status=observed
+operationCount=147
+observedCount=147
+missingOperations=0
+localFailures=0
 ```
 
 일부 operation은 test store의 기능 활성화 여부나 존재하지 않는 resource에 따라 `InvalidRequestException`, `PlatformNotEnabledException`, `UnknownException`을 기록할 수 있습니다. 이것은 probe가 의도한 controlled failure이며, 스크립트가 성공적으로 종료되고 JSON 결과를 기록하는지 확인해야 합니다.
@@ -227,7 +232,7 @@ done
 
 ### PHP sample E2E
 
-먼저 `composer serve`로 샘플 HTTP 서버를 실행합니다.
+먼저 별도 terminal에서 `composer serve`로 샘플 HTTP 서버를 실행합니다. 이 명령이 실행 중인 동안에만 아래 HTTP 요청을 보낼 수 있습니다.
 
 서버가 실행된 상태에서 다른 터미널로 다음 요청을 보내 응답을 확인할 수 있습니다.
 
@@ -238,6 +243,8 @@ curl -X POST http://127.0.0.1:8080/api/payment/complete \
   -H 'Content-Type: application/json' \
   -d '{"paymentId":"<test-payment-id>"}'
 ```
+
+상품 endpoint는 secret 없이도 확인할 수 있습니다. 결제 complete endpoint는 `.env`의 `PORTONE_API_SECRET`으로 PortOne에 결제를 조회하므로, 실제 test payment ID가 필요합니다. 성공하면 결제 상태 JSON을 반환하고, secret 누락·결제 조회 실패·완료되지 않은 결제는 오류 JSON을 반환합니다.
 
 Webhook URL은 다음과 같습니다.
 
@@ -256,6 +263,17 @@ composer install --no-interaction --prefer-dist
 composer lint
 composer test
 ```
+
+문서에 적힌 개발 환경을 처음부터 확인하려면 저장소를 새 디렉터리에 checkout한 뒤 다음을 순서대로 실행합니다.
+
+```sh
+composer install --no-interaction --prefer-dist
+composer validate --no-check-publish
+composer lint
+composer test
+```
+
+실제 API와 webhook까지 확인하려면 `.env`를 작성한 뒤 `composer e2e`를 추가로 실행합니다.
 
 ## 예외 처리
 

@@ -429,7 +429,7 @@
     - Public method names, parameters, return types, authentication, timeouts, and async behavior remain unchanged.
     - Unit tests, format checks, and the OpenAPI contract checks pass before and after the refactor.
 
-- [ ] T-047 README and sample documentation for the complete OpenAPI client
+- [X] T-047 README and sample documentation for the complete OpenAPI client
   - Satisfies: PRODUCT_SPEC.md FR-001, FR-014, FR-019, FR-020, FR-021, AC-001, AC-010, AC-011, AC-012
   - External boundary: no
   - Acceptance criteria:
