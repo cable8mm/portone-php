@@ -238,3 +238,12 @@
     - `ResendWebhookResponse` exposes a validated webhook object payload.
     - JVM empty success responses expose a successful empty DTO and ignore unknown response fields.
     - Unit tests, format checks, the payment live probe, and the JVM response schema comparison pass for these response models.
+
+- [X] T-025 Cross-domain scalar and empty response DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Simple scalar responses across payment, PG-specific, platform, and B2B domains expose their JVM-matching fields and validate scalar types.
+    - Nullable scalar fields preserve the JVM default/null behavior.
+    - Empty success responses decode as empty DTOs rather than raw arrays.
+    - Unit tests, format checks, a live E2E probe, and the JVM response schema comparison pass for these response models.

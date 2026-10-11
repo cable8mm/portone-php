@@ -51,7 +51,7 @@ final class PlatformBulkPayoutClientsTest extends TestCase
     {
         $history = [];
         $client = $this->client(PayoutClient::class, new MockHandler([
-            new Response(200, [], '{"id":"payout-id"}'),
+            new Response(200, [], '{"bulkPayoutId":"payout-id","payoutCount":0,"partnerSettlementCount":0}'),
         ]), $history);
 
         $result = $client->completePlatformPayoutByPartnerSettlementIds(
