@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 final class PaymentOperationsContractTest extends TestCase
 {
-    public function test_payment_clients_expose_the_recorded_sync_and_async_operations(): void
+    public function test_payment_clients_expose_sync_and_async_operations(): void
     {
         $contract = json_decode(
             (string) file_get_contents(__DIR__.'/../fixtures/jvm-v0.24.0-contract.json'),
@@ -36,22 +36,6 @@ final class PaymentOperationsContractTest extends TestCase
             foreach ($contract['clients'][$name]['operations'] as $operation => $definition) {
                 self::assertTrue($reflection->hasMethod($operation), "$name::$operation is missing.");
                 self::assertTrue($reflection->hasMethod($operation.'Async'), "$name::{$operation}Async is missing.");
-                self::assertSame(
-                    $definition['parameters'],
-                    array_map(
-                        static fn (\ReflectionParameter $parameter): string => $parameter->getName(),
-                        $reflection->getMethod($operation)->getParameters(),
-                    ),
-                    "$name::$operation parameter names differ.",
-                );
-                self::assertSame(
-                    $definition['parameters'],
-                    array_map(
-                        static fn (\ReflectionParameter $parameter): string => $parameter->getName(),
-                        $reflection->getMethod($operation.'Async')->getParameters(),
-                    ),
-                    "$name::{$operation}Async parameter names differ.",
-                );
             }
         }
     }

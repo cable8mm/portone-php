@@ -22,7 +22,8 @@
         "schema:record": "php tools/response_schema_probe.php record",
         "schema:check": "php tools/response_schema_probe.php --compare-php",
         "schema:verify": "php tools/response_schema_probe.php verify-record",
-        "openapi:check": "php tools/openapi_contract_probe.php --check-php"
+        "openapi:check": "php tools/openapi_contract_probe.php --check-php",
+        "openapi:signatures": "php tools/openapi_contract_probe.php --check-signatures"
     },
     "autoload": {
         "psr-4": {

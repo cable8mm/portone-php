@@ -331,3 +331,118 @@
     - An executable contract tool enumerates every OpenAPI operation and compares its operationId with the PHP public operation methods and async counterparts.
     - The report identifies missing and unexpected operations without using the JVM catalog as the authority.
     - Unit tests, format checks, and the OpenAPI inventory check pass for the implemented scope.
+
+- [X] T-036 OpenAPI operation signature comparison
+  - Satisfies: PRODUCT_SPEC.md FR-008, FR-009, FR-010, FR-026, AC-007, AC-008
+  - External boundary: no
+  - Acceptance criteria:
+    - The contract tool compares each PHP operation method and async counterpart with the OpenAPI path, HTTP method, path parameters, query parameters, and request body fields.
+    - Required and optional OpenAPI inputs are reported separately from type mismatches.
+    - The comparison fails with an actionable operation-level report when a signature diverges.
+    - Unit tests, format checks, and the complete signature comparison pass.
+
+- [ ] T-037 OpenAPI response schema inventory
+  - Satisfies: PRODUCT_SPEC.md FR-011, AC-009
+  - External boundary: no
+  - Acceptance criteria:
+    - Every OpenAPI success response is mapped to its response schema and operation.
+    - The tool identifies missing PHP response classes, raw response wrappers, missing fields, unexpected fields, nullable mismatches, and union schemas.
+    - The inventory is reproducible from the committed OpenAPI snapshot and does not use the JVM schema as its authority.
+    - Unit tests, format checks, and the response schema inventory pass for the current implementation.
+
+- [ ] T-038 Common, checkout, and payment-session schema completion
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009, AC-022
+  - External boundary: yes
+  - Acceptance criteria:
+    - Bank, checkout profile, payment-session request, and payment-session response models match the OpenAPI schemas.
+    - Nested products, agreements, colors, payment methods, and optional fields are decoded according to the OpenAPI nullability and required-field rules.
+    - Synchronous and asynchronous operations return the same typed results and failures.
+    - Unit tests, format checks, representative live probes, and async tests pass.
+
+- [ ] T-039 Payment-domain OpenAPI response models
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-016, FR-017, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Payment, billing-key, cash-receipt, payment-schedule, promotion, and payment-event nested models match the OpenAPI schemas.
+    - All OpenAPI `oneOf` and discriminator responses preserve unknown variants without crashing.
+    - Required, nullable, enum, and list fields are validated according to the OpenAPI contract.
+    - Unit tests, format checks, representative live probes, and unknown-variant tests pass.
+
+- [ ] T-040 Identity, PG-specific, authentication, and reconciliation response models
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-016, FR-017, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Identity verification, PG-specific, authentication, and reconciliation response models match the OpenAPI schemas.
+    - Date-time, enum, nullable, and union fields preserve the documented response behavior.
+    - Synchronous and asynchronous operations expose the same typed result model.
+    - Unit tests, format checks, representative live probes, and unknown-variant tests pass.
+
+- [ ] T-041 B2B OpenAPI response models
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-016, FR-017, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Tax invoice, counterparty, certificate, file, and bulk-tax-invoice models match the OpenAPI schemas.
+    - Nested contacts, business information, invoice items, and status unions are typed and forward-compatible.
+    - Unit tests, format checks, representative live probes, and asynchronous operation tests pass.
+
+- [ ] T-042 Platform OpenAPI response models
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-016, FR-017, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Company, account, policy, partner, payout, settlement, transfer, and bulk-transfer models match the OpenAPI schemas.
+    - Platform enums, nested fee/contract/account models, nullable fields, and union statuses are typed and forward-compatible.
+    - Unit tests, format checks, representative live probes, and asynchronous operation tests pass.
+
+- [ ] T-043 OpenAPI error catalog and operation error mapping
+  - Satisfies: PRODUCT_SPEC.md ERR-003, ERR-004, ERR-008, AC-018, AC-019
+  - External boundary: yes
+  - Acceptance criteria:
+    - Every OpenAPI error response is mapped to a PHP PortOneException subtype or the operation's UnknownException.
+    - HTTP status, OpenAPI error type, message, and raw body are preserved without exposing credentials.
+    - Defined errors and unknown errors are tested against recorded or live observations.
+    - Unit tests, format checks, and representative live error probes pass.
+
+- [ ] T-044 Complete synchronous/asynchronous operation parity
+  - Satisfies: PRODUCT_SPEC.md FR-013, FR-026, FR-027, ERR-009, AC-015, AC-022
+  - External boundary: yes
+  - Acceptance criteria:
+    - Every OpenAPI operation has one synchronous and one asynchronous PHP method.
+    - Both paths use the same request definition, response decoder, timeout, authentication, and error mapping.
+    - Representative success, decode failure, API failure, and transport failure cases produce equivalent outcomes.
+    - Unit tests, format checks, and live async probes pass.
+
+- [ ] T-045 Complete OpenAPI live E2E matrix
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-013, AC-009, AC-014, AC-018, AC-019
+  - External boundary: yes
+  - Acceptance criteria:
+    - Every OpenAPI operation has a runnable probe with safe test-store inputs or an explicit controlled-failure expectation.
+    - Probe output records success result types or observed PortOneException types and status codes as JSON.
+    - The E2E runner executes the complete matrix without treating documented feature-disabled or invalid-resource failures as infrastructure failures.
+    - The full live matrix completes successfully and its observations are reviewed.
+
+- [ ] T-046 PHP API and internal architecture refactor
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-026, FR-027 and ARCHITECTURE.md COMP-001 to COMP-006
+  - External boundary: no
+  - Acceptance criteria:
+    - Repeated operation declarations and response decoding code are reduced without changing the OpenAPI public API.
+    - Clients, request execution, response interpretation, model decoding, errors, and Future responsibilities remain separated according to ARCHITECTURE.md.
+    - Public method names, parameters, return types, authentication, timeouts, and async behavior remain unchanged.
+    - Unit tests, format checks, and the OpenAPI contract checks pass before and after the refactor.
+
+- [ ] T-047 README and sample documentation for the complete OpenAPI client
+  - Satisfies: PRODUCT_SPEC.md FR-001, FR-014, FR-019, FR-020, FR-021, AC-001, AC-010, AC-011, AC-012
+  - External boundary: no
+  - Acceptance criteria:
+    - README documents installation, configuration, synchronous and asynchronous operation usage, webhook verification, and the complete OpenAPI scope.
+    - E2E setup, `.env`, sample server, probe commands, controlled failures, and expected outputs are documented in Korean.
+    - Documentation does not describe the JVM SDK as the implementation or API authority.
+    - Documentation verification passes from a clean Composer install.
+
+- [ ] T-048 Clean-install, CI, and release verification
+  - Satisfies: PRODUCT_SPEC.md FR-001, FR-011, FR-022, FR-023, FR-024, FR-025, AC-001, AC-013, AC-014
+  - External boundary: yes
+  - Acceptance criteria:
+    - A clean PHP 8.2 installation can install the package and run the documented unit, lint, contract, and sample checks.
+    - CI runs lint and tests on every required PHP version and does not require the local JVM checkout.
+    - No secrets, local paths, generated credentials, or `composer.lock` are committed.
+    - The package is ready for a semver release and Packagist installation.
