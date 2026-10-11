@@ -185,3 +185,14 @@
     - Live E2E checks pass for authenticated operations, timeout and no-retry behavior, defined and unknown failures, unrecognized success, webhook verification, known webhooks, unknown webhooks, and samples.
     - Representative asynchronous operations start without waiting and resolve to the same typed results or failures as their synchronous counterparts.
     - No acceptance criterion in PRODUCT_SPEC.md remains unverified.
+
+- [X] T-020 JVM response schema comparison
+  - Satisfies: PRODUCT_SPEC.md FR-011, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - An executable probe against the JVM SDK at tag jvm-v0.24.0 records every generated response model's fields and declared Kotlin types.
+    - The probe compares the recorded JVM response models with PHP response classes by class name and constructor property name.
+    - The probe reports missing PHP response classes, missing PHP fields, unexpected PHP fields, and response classes that currently expose only an untyped raw data array.
+    - The recorded JVM schema and comparison result are reproducible from the local JVM path configured in `.env`.
+    - Unit tests pass for the comparison parser and the probe exits non-zero when a known response model does not match.
+    - The comparison report is explicitly treated as an intermediate JVM compatibility check; PortOne V2 documentation remains the final authority for response schemas.

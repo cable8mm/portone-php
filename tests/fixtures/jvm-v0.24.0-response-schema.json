@@ -1,0 +1,857 @@
+{
+    "reference": {
+        "tag": "jvm-v0.24.0",
+        "commit": "69c97740c171f6266705413770e23e8ac6d53478"
+    },
+    "models": {
+        "ApplyEscrowLogisticsResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/ApplyEscrowLogisticsResponse.kt",
+            "kind": "class",
+            "fields": {
+                "appliedAt": "Instant",
+                "invoiceNumber": "String",
+                "sentAt": "Instant"
+            },
+            "variants": []
+        },
+        "ArchivePlatformAdditionalFeePolicyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/policy/ArchivePlatformAdditionalFeePolicyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "additionalFeePolicy": "PlatformAdditionalFeePolicy"
+            },
+            "variants": []
+        },
+        "ArchivePlatformContractResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/policy/ArchivePlatformContractResponse.kt",
+            "kind": "class",
+            "fields": {
+                "contract": "PlatformContract"
+            },
+            "variants": []
+        },
+        "ArchivePlatformDiscountSharePolicyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/policy/ArchivePlatformDiscountSharePolicyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "discountSharePolicy": "PlatformDiscountSharePolicy"
+            },
+            "variants": []
+        },
+        "ArchivePlatformPartnerResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/partner/ArchivePlatformPartnerResponse.kt",
+            "kind": "class",
+            "fields": {
+                "partner": "PlatformPartner"
+            },
+            "variants": []
+        },
+        "CancelB2bTaxInvoiceIssuanceResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/taxinvoice/CancelB2bTaxInvoiceIssuanceResponse.kt",
+            "kind": "class",
+            "fields": {
+                "taxInvoice": "B2bTaxInvoice"
+            },
+            "variants": []
+        },
+        "CancelB2bTaxInvoiceRequestResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/taxinvoice/CancelB2bTaxInvoiceRequestResponse.kt",
+            "kind": "class",
+            "fields": {
+                "taxInvoice": "B2bTaxInvoice"
+            },
+            "variants": []
+        },
+        "CancelCashReceiptResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/cashreceipt/CancelCashReceiptResponse.kt",
+            "kind": "class",
+            "fields": {
+                "cancelledAmount": "Long",
+                "cancelledAt": "Instant"
+            },
+            "variants": []
+        },
+        "CancelPaymentResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/CancelPaymentResponse.kt",
+            "kind": "class",
+            "fields": {
+                "cancellation": "PaymentCancellation"
+            },
+            "variants": []
+        },
+        "CloseVirtualAccountResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/CloseVirtualAccountResponse.kt",
+            "kind": "class",
+            "fields": {
+                "closedAt": "Instant"
+            },
+            "variants": []
+        },
+        "CompletePlatformPayoutByPartnerSettlementIdsResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/payout/CompletePlatformPayoutByPartnerSettlementIdsResponse.kt",
+            "kind": "class",
+            "fields": {
+                "bulkPayoutGraphqlId": "String?",
+                "bulkPayoutId": "String?",
+                "partnerSettlementCount": "Int",
+                "payoutCount": "Int"
+            },
+            "variants": []
+        },
+        "ConfirmEscrowResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/ConfirmEscrowResponse.kt",
+            "kind": "class",
+            "fields": {
+                "completedAt": "Instant"
+            },
+            "variants": []
+        },
+        "ConfirmIdentityVerificationResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/identityverification/ConfirmIdentityVerificationResponse.kt",
+            "kind": "class",
+            "fields": {
+                "identityVerification": "VerifiedIdentityVerification"
+            },
+            "variants": []
+        },
+        "ConnectBulkPartnerCounterpartyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/partner/ConnectBulkPartnerCounterpartyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "bulkTask": "PlatformBulkTask"
+            },
+            "variants": []
+        },
+        "ConnectPartnerCounterpartyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/partner/ConnectPartnerCounterpartyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "partner": "PlatformPartner"
+            },
+            "variants": []
+        },
+        "CreateB2bCounterpartyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/counterparty/CreateB2bCounterpartyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "counterparty": "B2bCounterparty"
+            },
+            "variants": []
+        },
+        "CreateManualTransferResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/transfer/CreateManualTransferResponse.kt",
+            "kind": "class",
+            "fields": {
+                "transfer": "PlatformManualTransfer"
+            },
+            "variants": []
+        },
+        "CreateOrderCancelTransferResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/transfer/CreateOrderCancelTransferResponse.kt",
+            "kind": "class",
+            "fields": {
+                "transfer": "PlatformOrderCancelTransfer"
+            },
+            "variants": []
+        },
+        "CreateOrderTransferResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/transfer/CreateOrderTransferResponse.kt",
+            "kind": "class",
+            "fields": {
+                "transfer": "PlatformOrderTransfer"
+            },
+            "variants": []
+        },
+        "CreatePaymentScheduleResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/paymentschedule/CreatePaymentScheduleResponse.kt",
+            "kind": "class",
+            "fields": {
+                "schedule": "PaymentScheduleSummary"
+            },
+            "variants": []
+        },
+        "CreatePlatformAdditionalFeePolicyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/policy/CreatePlatformAdditionalFeePolicyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "additionalFeePolicy": "PlatformAdditionalFeePolicy"
+            },
+            "variants": []
+        },
+        "CreatePlatformContractResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/policy/CreatePlatformContractResponse.kt",
+            "kind": "class",
+            "fields": {
+                "contract": "PlatformContract"
+            },
+            "variants": []
+        },
+        "CreatePlatformDiscountSharePolicyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/policy/CreatePlatformDiscountSharePolicyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "discountSharePolicy": "PlatformDiscountSharePolicy"
+            },
+            "variants": []
+        },
+        "CreatePlatformPartnerResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/partner/CreatePlatformPartnerResponse.kt",
+            "kind": "class",
+            "fields": {
+                "partner": "PlatformPartner"
+            },
+            "variants": []
+        },
+        "CreatePlatformPartnersResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/partner/CreatePlatformPartnersResponse.kt",
+            "kind": "class",
+            "fields": {
+                "partners": "List<PlatformPartner>"
+            },
+            "variants": []
+        },
+        "DeleteBillingKeyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/billingkey/DeleteBillingKeyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "deletedAt": "Instant"
+            },
+            "variants": []
+        },
+        "DisconnectBulkPartnerCounterpartyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/partner/DisconnectBulkPartnerCounterpartyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "bulkTask": "PlatformBulkTask"
+            },
+            "variants": []
+        },
+        "DisconnectPartnerCounterpartyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/partner/DisconnectPartnerCounterpartyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "partner": "PlatformPartner"
+            },
+            "variants": []
+        },
+        "DraftB2bTaxInvoiceResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/taxinvoice/DraftB2bTaxInvoiceResponse.kt",
+            "kind": "class",
+            "fields": {
+                "taxInvoice": "B2bTaxInvoice"
+            },
+            "variants": []
+        },
+        "FailedNotOkResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/PaymentWebhookStatus.kt",
+            "kind": "object",
+            "fields": [],
+            "variants": []
+        },
+        "FailedPgBillingKeyIssueResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/billingkey/FailedPgBillingKeyIssueResponse.kt",
+            "kind": "class",
+            "fields": {
+                "failure": "BillingKeyFailure"
+            },
+            "variants": []
+        },
+        "GetAllPaymentEventsByCursorResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/GetAllPaymentEventsByCursorResponse.kt",
+            "kind": "class",
+            "fields": {
+                "items": "List<PaymentEventWithCursor>"
+            },
+            "variants": []
+        },
+        "GetAllPaymentsByCursorResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/GetAllPaymentsByCursorResponse.kt",
+            "kind": "class",
+            "fields": {
+                "items": "List<PaymentWithCursor>"
+            },
+            "variants": []
+        },
+        "GetB2bBusinessInfosResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/company/GetB2bBusinessInfosResponse.kt",
+            "kind": "class",
+            "fields": {
+                "result": "List<B2bBusinessInfoResult>"
+            },
+            "variants": []
+        },
+        "GetB2bCounterpartiesResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/counterparty/GetB2bCounterpartiesResponse.kt",
+            "kind": "class",
+            "fields": {
+                "items": "List<B2bCounterparty>",
+                "page": "PageInfo"
+            },
+            "variants": []
+        },
+        "GetB2bCounterpartyCertificateRegistrationUrlResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/counterparty/GetB2bCounterpartyCertificateRegistrationUrlResponse.kt",
+            "kind": "class",
+            "fields": {
+                "url": "String"
+            },
+            "variants": []
+        },
+        "GetB2bTaxInvoiceAttachmentsResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/taxinvoice/GetB2bTaxInvoiceAttachmentsResponse.kt",
+            "kind": "class",
+            "fields": {
+                "attachments": "List<B2bTaxInvoiceAttachment>"
+            },
+            "variants": []
+        },
+        "GetB2bTaxInvoicePdfDownloadUrlResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/taxinvoice/GetB2bTaxInvoicePdfDownloadUrlResponse.kt",
+            "kind": "class",
+            "fields": {
+                "url": "String"
+            },
+            "variants": []
+        },
+        "GetB2bTaxInvoicePopupUrlResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/taxinvoice/GetB2bTaxInvoicePopupUrlResponse.kt",
+            "kind": "class",
+            "fields": {
+                "url": "String"
+            },
+            "variants": []
+        },
+        "GetB2bTaxInvoicePrintUrlResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/taxinvoice/GetB2bTaxInvoicePrintUrlResponse.kt",
+            "kind": "class",
+            "fields": {
+                "url": "String"
+            },
+            "variants": []
+        },
+        "GetB2bTaxInvoicesResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/taxinvoice/GetB2bTaxInvoicesResponse.kt",
+            "kind": "class",
+            "fields": {
+                "items": "List<B2bTaxInvoiceSummary>",
+                "page": "PageInfo"
+            },
+            "variants": []
+        },
+        "GetBillingKeyInfosResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/billingkey/GetBillingKeyInfosResponse.kt",
+            "kind": "class",
+            "fields": {
+                "items": "List<BillingKeyInfo>",
+                "page": "PageInfo"
+            },
+            "variants": []
+        },
+        "GetCashReceiptsResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/cashreceipt/GetCashReceiptsResponse.kt",
+            "kind": "class",
+            "fields": {
+                "items": "List<CashReceipt>",
+                "page": "PageInfo"
+            },
+            "variants": []
+        },
+        "GetIdentityVerificationsResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/identityverification/GetIdentityVerificationsResponse.kt",
+            "kind": "class",
+            "fields": {
+                "items": "List<IdentityVerification>",
+                "page": "PageInfo"
+            },
+            "variants": []
+        },
+        "GetKakaopayPaymentOrderResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/pgspecific/GetKakaopayPaymentOrderResponse.kt",
+            "kind": "class",
+            "fields": {
+                "body": "String",
+                "statusCode": "Int"
+            },
+            "variants": []
+        },
+        "GetPaymentReconciliationSettlementVatReportResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/reconciliation/GetPaymentReconciliationSettlementVatReportResponse.kt",
+            "kind": "class",
+            "fields": {
+                "items": "List<PaymentReconciliationVatReportItem>?",
+                "pgSpecifiers": "List<ReconciliationPgSpecifier>?",
+                "summary": "PaymentReconciliationVatReportSummary"
+            },
+            "variants": []
+        },
+        "GetPaymentReconciliationTransactionVatReportResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/reconciliation/GetPaymentReconciliationTransactionVatReportResponse.kt",
+            "kind": "class",
+            "fields": {
+                "items": "List<PaymentReconciliationVatReportItem>?",
+                "pgSpecifiers": "List<ReconciliationPgSpecifier>?",
+                "summary": "PaymentReconciliationVatReportSummary"
+            },
+            "variants": []
+        },
+        "GetPaymentSchedulesResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/paymentschedule/GetPaymentSchedulesResponse.kt",
+            "kind": "class",
+            "fields": {
+                "items": "List<PaymentSchedule>",
+                "page": "PageInfo"
+            },
+            "variants": []
+        },
+        "GetPaymentTransactionsResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/GetPaymentTransactionsResponse.kt",
+            "kind": "class",
+            "fields": {
+                "items": "List<PaymentTransaction>"
+            },
+            "variants": []
+        },
+        "GetPaymentsResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/GetPaymentsResponse.kt",
+            "kind": "class",
+            "fields": {
+                "items": "List<Payment>",
+                "page": "PageInfo"
+            },
+            "variants": []
+        },
+        "GetPgCardPromotionsResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/additionalfeature/GetPgCardPromotionsResponse.kt",
+            "kind": "class",
+            "fields": {
+                "promotions": "List<PgCardPromotion>?"
+            },
+            "variants": []
+        },
+        "GetPlatformAccountTransfersResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/accounttransfer/GetPlatformAccountTransfersResponse.kt",
+            "kind": "class",
+            "fields": {
+                "counts": "PlatformAccountTransferStatusStats",
+                "items": "List<PlatformAccountTransfer>",
+                "page": "PageInfo"
+            },
+            "variants": []
+        },
+        "GetPlatformAdditionalFeePoliciesResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/policy/GetPlatformAdditionalFeePoliciesResponse.kt",
+            "kind": "class",
+            "fields": {
+                "items": "List<PlatformAdditionalFeePolicy>",
+                "page": "PageInfo"
+            },
+            "variants": []
+        },
+        "GetPlatformBulkAccountTransfersResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/bulkaccounttransfer/GetPlatformBulkAccountTransfersResponse.kt",
+            "kind": "class",
+            "fields": {
+                "counts": "PlatformBulkAccountTransferStatusStats",
+                "items": "List<PlatformBulkAccountTransfer>",
+                "page": "PageInfo"
+            },
+            "variants": []
+        },
+        "GetPlatformBulkPayoutsResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/bulkpayout/GetPlatformBulkPayoutsResponse.kt",
+            "kind": "class",
+            "fields": {
+                "counts": "PlatformBulkPayoutStatusStats",
+                "items": "List<PlatformBulkPayout>",
+                "page": "PageInfo"
+            },
+            "variants": []
+        },
+        "GetPlatformContractsResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/policy/GetPlatformContractsResponse.kt",
+            "kind": "class",
+            "fields": {
+                "items": "List<PlatformContract>",
+                "page": "PageInfo"
+            },
+            "variants": []
+        },
+        "GetPlatformDiscountSharePoliciesResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/policy/GetPlatformDiscountSharePoliciesResponse.kt",
+            "kind": "class",
+            "fields": {
+                "items": "List<PlatformDiscountSharePolicy>",
+                "page": "PageInfo"
+            },
+            "variants": []
+        },
+        "GetPlatformPartnerSettlementsResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/partnersettlement/GetPlatformPartnerSettlementsResponse.kt",
+            "kind": "class",
+            "fields": {
+                "counts": "PlatformPartnerSettlementStatusStats",
+                "items": "List<PlatformPartnerSettlement>",
+                "page": "PageInfo"
+            },
+            "variants": []
+        },
+        "GetPlatformPartnersResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/partner/GetPlatformPartnersResponse.kt",
+            "kind": "class",
+            "fields": {
+                "items": "List<PlatformPartner>",
+                "page": "PageInfo"
+            },
+            "variants": []
+        },
+        "GetPlatformPayoutsResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/payout/GetPlatformPayoutsResponse.kt",
+            "kind": "class",
+            "fields": {
+                "counts": "PlatformPayoutStatusStats",
+                "items": "List<PlatformPayout>",
+                "page": "PageInfo"
+            },
+            "variants": []
+        },
+        "GetPlatformTransferSummariesResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/transfer/GetPlatformTransferSummariesResponse.kt",
+            "kind": "class",
+            "fields": {
+                "page": "PageInfo",
+                "transferSummaries": "List<PlatformTransferSummary>"
+            },
+            "variants": []
+        },
+        "IssueB2bTaxInvoiceImmediatelyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/taxinvoice/IssueB2bTaxInvoiceImmediatelyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "taxInvoice": "B2bTaxInvoice"
+            },
+            "variants": []
+        },
+        "IssueB2bTaxInvoiceResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/taxinvoice/IssueB2bTaxInvoiceResponse.kt",
+            "kind": "class",
+            "fields": {
+                "taxInvoice": "B2bTaxInvoice"
+            },
+            "variants": []
+        },
+        "IssueBillingKeyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/billingkey/IssueBillingKeyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "billingKeyInfo": "BillingKeyInfoSummary",
+                "channelSpecificFailures": "List<ChannelSpecificFailure>?"
+            },
+            "variants": []
+        },
+        "IssueCashReceiptResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/cashreceipt/IssueCashReceiptResponse.kt",
+            "kind": "class",
+            "fields": {
+                "cashReceipt": "CashReceiptSummary"
+            },
+            "variants": []
+        },
+        "IssuedPgBillingKeyIssueResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/billingkey/IssuedPgBillingKeyIssueResponse.kt",
+            "kind": "class",
+            "fields": {
+                "method": "BillingKeyPaymentMethod?",
+                "pgTxId": "String?"
+            },
+            "variants": []
+        },
+        "LoginViaApiSecretResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/auth/LoginViaApiSecretResponse.kt",
+            "kind": "class",
+            "fields": {
+                "accessToken": "String",
+                "refreshToken": "String"
+            },
+            "variants": []
+        },
+        "ModifyEscrowLogisticsResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/ModifyEscrowLogisticsResponse.kt",
+            "kind": "class",
+            "fields": {
+                "invoiceNumber": "String",
+                "modifiedAt": "Instant",
+                "sentAt": "Instant"
+            },
+            "variants": []
+        },
+        "PayInstantlyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/PayInstantlyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "payment": "InstantPaymentSummary"
+            },
+            "variants": []
+        },
+        "PayWithBillingKeyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/PayWithBillingKeyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "payment": "BillingKeyPaymentSummary"
+            },
+            "variants": []
+        },
+        "PaymentWebhookResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/PaymentWebhookResponse.kt",
+            "kind": "class",
+            "fields": {
+                "body": "String",
+                "code": "String",
+                "header": "String",
+                "respondedAt": "Instant"
+            },
+            "variants": []
+        },
+        "PgBillingKeyIssueResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/billingkey/PgBillingKeyIssueResponse.kt",
+            "kind": "interface",
+            "fields": {
+                "channel": "SelectedChannel"
+            },
+            "variants": []
+        },
+        "RecoverPlatformAdditionalFeePolicyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/policy/RecoverPlatformAdditionalFeePolicyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "additionalFeePolicy": "PlatformAdditionalFeePolicy"
+            },
+            "variants": []
+        },
+        "RecoverPlatformContractResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/policy/RecoverPlatformContractResponse.kt",
+            "kind": "class",
+            "fields": {
+                "contract": "PlatformContract"
+            },
+            "variants": []
+        },
+        "RecoverPlatformDiscountSharePolicyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/policy/RecoverPlatformDiscountSharePolicyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "discountSharePolicy": "PlatformDiscountSharePolicy"
+            },
+            "variants": []
+        },
+        "RecoverPlatformPartnerResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/partner/RecoverPlatformPartnerResponse.kt",
+            "kind": "class",
+            "fields": {
+                "partner": "PlatformPartner"
+            },
+            "variants": []
+        },
+        "RefreshTokenResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/auth/RefreshTokenResponse.kt",
+            "kind": "class",
+            "fields": {
+                "accessToken": "String",
+                "refreshToken": "String"
+            },
+            "variants": []
+        },
+        "RefuseB2bTaxInvoiceRequestResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/taxinvoice/RefuseB2bTaxInvoiceRequestResponse.kt",
+            "kind": "class",
+            "fields": {
+                "taxInvoice": "B2bTaxInvoice"
+            },
+            "variants": []
+        },
+        "RegisterStoreReceiptResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/RegisterStoreReceiptResponse.kt",
+            "kind": "class",
+            "fields": {
+                "receiptUrl": "String?"
+            },
+            "variants": []
+        },
+        "RequestB2bTaxInvoiceResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/taxinvoice/RequestB2bTaxInvoiceResponse.kt",
+            "kind": "class",
+            "fields": {
+                "taxInvoice": "B2bTaxInvoice"
+            },
+            "variants": []
+        },
+        "RequestB2bTaxInvoiceReverseIssuanceResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/taxinvoice/RequestB2bTaxInvoiceReverseIssuanceResponse.kt",
+            "kind": "class",
+            "fields": {
+                "taxInvoice": "B2bTaxInvoice"
+            },
+            "variants": []
+        },
+        "ReschedulePlatformAdditionalFeePolicyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/ReschedulePlatformAdditionalFeePolicyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "scheduledAdditionalFeePolicy": "PlatformAdditionalFeePolicy"
+            },
+            "variants": []
+        },
+        "ReschedulePlatformContractResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/ReschedulePlatformContractResponse.kt",
+            "kind": "class",
+            "fields": {
+                "scheduledContract": "PlatformContract"
+            },
+            "variants": []
+        },
+        "ReschedulePlatformDiscountSharePolicyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/ReschedulePlatformDiscountSharePolicyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "scheduledDiscountSharePolicy": "PlatformDiscountSharePolicy"
+            },
+            "variants": []
+        },
+        "ReschedulePlatformPartnerResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/ReschedulePlatformPartnerResponse.kt",
+            "kind": "class",
+            "fields": {
+                "scheduledPartner": "PlatformPartner"
+            },
+            "variants": []
+        },
+        "ResendWebhookResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/ResendWebhookResponse.kt",
+            "kind": "class",
+            "fields": {
+                "webhook": "PaymentWebhook"
+            },
+            "variants": []
+        },
+        "RevokePaymentSchedulesResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/paymentschedule/RevokePaymentSchedulesResponse.kt",
+            "kind": "class",
+            "fields": {
+                "revokedAt": "Instant?",
+                "revokedScheduleIds": "List<String>"
+            },
+            "variants": []
+        },
+        "SchedulePlatformAdditionalFeePolicyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/SchedulePlatformAdditionalFeePolicyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "scheduledAdditionalFeePolicy": "PlatformAdditionalFeePolicy"
+            },
+            "variants": []
+        },
+        "SchedulePlatformContractResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/SchedulePlatformContractResponse.kt",
+            "kind": "class",
+            "fields": {
+                "scheduledContract": "PlatformContract"
+            },
+            "variants": []
+        },
+        "SchedulePlatformDiscountSharePolicyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/SchedulePlatformDiscountSharePolicyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "scheduledDiscountSharePolicy": "PlatformDiscountSharePolicy"
+            },
+            "variants": []
+        },
+        "SchedulePlatformPartnerResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/SchedulePlatformPartnerResponse.kt",
+            "kind": "class",
+            "fields": {
+                "scheduledPartner": "PlatformPartner"
+            },
+            "variants": []
+        },
+        "SendToNtsB2bTaxInvoiceResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/taxinvoice/SendToNtsB2bTaxInvoiceResponse.kt",
+            "kind": "class",
+            "fields": {
+                "taxInvoice": "B2bTaxInvoice"
+            },
+            "variants": []
+        },
+        "StopPaymentCancellationResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/StopPaymentCancellationResponse.kt",
+            "kind": "class",
+            "fields": {
+                "stoppedAt": "Instant"
+            },
+            "variants": []
+        },
+        "UpdateB2bCounterpartyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/counterparty/UpdateB2bCounterpartyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "counterparty": "B2bCounterparty"
+            },
+            "variants": []
+        },
+        "UpdateB2bTaxInvoiceDraftResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/taxinvoice/UpdateB2bTaxInvoiceDraftResponse.kt",
+            "kind": "class",
+            "fields": {
+                "taxInvoice": "B2bTaxInvoice"
+            },
+            "variants": []
+        },
+        "UpdatePlatformAdditionalFeePolicyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/policy/UpdatePlatformAdditionalFeePolicyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "additionalFeePolicy": "PlatformAdditionalFeePolicy"
+            },
+            "variants": []
+        },
+        "UpdatePlatformContractResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/policy/UpdatePlatformContractResponse.kt",
+            "kind": "class",
+            "fields": {
+                "contract": "PlatformContract"
+            },
+            "variants": []
+        },
+        "UpdatePlatformDiscountSharePolicyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/policy/UpdatePlatformDiscountSharePolicyResponse.kt",
+            "kind": "class",
+            "fields": {
+                "discountSharePolicy": "PlatformDiscountSharePolicy"
+            },
+            "variants": []
+        },
+        "UpdatePlatformPartnerResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/partner/UpdatePlatformPartnerResponse.kt",
+            "kind": "class",
+            "fields": {
+                "partner": "PlatformPartner"
+            },
+            "variants": []
+        },
+        "UpdatePlatformSettingResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/UpdatePlatformSettingResponse.kt",
+            "kind": "class",
+            "fields": {
+                "setting": "PlatformSetting"
+            },
+            "variants": []
+        },
+        "ValidateB2bCounterpartyCertificateResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/counterparty/ValidateB2bCounterpartyCertificateResponse.kt",
+            "kind": "class",
+            "fields": {
+                "isValid": "Boolean"
+            },
+            "variants": []
+        }
+    }
+}
