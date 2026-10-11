@@ -14,4 +14,25 @@ class OperationResponse
     {
         return new static($data);
     }
+
+    /** @return array<string,mixed> */
+    protected static function requireObject(array $data, string $field, string $response): array
+    {
+        if (! is_array($data[$field] ?? null)) {
+            throw new \UnexpectedValueException($response.' must contain an '.$field.' object.');
+        }
+
+        return $data[$field];
+    }
+
+    /** @return list<array<string,mixed>> */
+    protected static function requireObjectList(array $data, string $field, string $response): array
+    {
+        $value = $data[$field] ?? null;
+        if (! is_array($value) || ! array_is_list($value) || array_filter($value, 'is_array') !== $value) {
+            throw new \UnexpectedValueException($response.' must contain a list of '.$field.' objects.');
+        }
+
+        return $value;
+    }
 }

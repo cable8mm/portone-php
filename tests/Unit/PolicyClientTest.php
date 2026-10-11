@@ -23,7 +23,7 @@ final class PolicyClientTest extends TestCase
     {
         $history = [];
         $client = $this->client(new MockHandler([
-            new Response(200, [], '{"items":[]}'),
+            new Response(200, [], '{"items":[],"page":{}}'),
         ]), $history);
 
         $result = $client->getPlatformContracts(true, ['number' => 0], ['status' => ['ACTIVE']]);
@@ -50,7 +50,7 @@ final class PolicyClientTest extends TestCase
     public function test_discount_share_policy_async_returns_a_future(): void
     {
         $client = $this->client(new MockHandler([
-            new Response(200, [], '{"items":[]}'),
+            new Response(200, [], '{"items":[],"page":{}}'),
         ]));
 
         $future = $client->getPlatformDiscountSharePoliciesAsync();

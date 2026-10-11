@@ -273,3 +273,11 @@
     - Platform update responses expose their JVM-matching policy, contract, and partner object fields.
     - Required object fields reject missing or non-array values; extra fields are ignored.
     - Unit tests, format checks, Platform live probes, and the JVM response schema comparison pass for these response models.
+
+- [X] T-029 Platform list response DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Platform list responses expose JVM-matching `items`, `counts`, `page`, `partners`, and `transferSummaries` fields.
+    - List and object envelope fields are validated consistently through the response model base helpers.
+    - Unit tests, format checks, Platform live probes, and the JVM response schema comparison pass for these response models.

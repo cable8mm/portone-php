@@ -58,7 +58,7 @@ final class PlatformCoreClientsTest extends TestCase
     {
         $history = [];
         $transfers = $this->client(AccountTransferClient::class, new MockHandler([
-            new Response(200, [], '{"items":[]}'),
+            new Response(200, [], '{"counts":{},"items":[],"page":{}}'),
         ]), $history);
         $result = $transfers->getPlatformAccountTransfers(true, false, ['number' => 0], ['status' => ['PENDING']]);
 
