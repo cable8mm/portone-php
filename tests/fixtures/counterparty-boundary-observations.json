@@ -6,7 +6,17 @@
             "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
             "statusCode": 400
         },
+        "getB2bCounterpartiesAsync": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400
+        },
         "getB2bCounterparty": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400
+        },
+        "getB2bCounterpartyAsync": {
             "status": "portone-failure",
             "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
             "statusCode": 400

@@ -16,8 +16,11 @@ if ($apiSecret === false || $apiSecret === '') {
 $client = new TaxInvoiceClient($apiSecret);
 $operations = [
     'getB2bTaxInvoices' => static fn () => $client->getB2bTaxInvoices(true, 0, 1, [], []),
+    'getB2bTaxInvoicesAsync' => static fn () => $client->getB2bTaxInvoicesAsync(true, 0, 1, [], [])->wait(),
     'createB2bFileUploadUrl' => static fn () => $client->createB2bFileUploadUrl(true, 'codex-t015-invoice.csv'),
+    'createB2bFileUploadUrlAsync' => static fn () => $client->createB2bFileUploadUrlAsync(true, 'codex-t015-invoice.csv')->wait(),
     'getB2bTaxInvoice' => static fn () => $client->getB2bTaxInvoice('__codex_t015_missing_tax_invoice__', null, null, true),
+    'getB2bTaxInvoiceAsync' => static fn () => $client->getB2bTaxInvoiceAsync('__codex_t015_missing_tax_invoice__', null, null, true)->wait(),
 ];
 $observations = [];
 
