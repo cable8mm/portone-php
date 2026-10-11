@@ -20,7 +20,7 @@ final class TaxInvoiceClientTest extends TestCase
     {
         $history = [];
         $client = $this->client(new MockHandler([
-            new Response(200, [], '{"url":"https://example.test/upload"}'),
+            new Response(200, [], '{"fileId":"file-id","url":"https://example.test/upload"}'),
         ]), $history);
 
         $result = $client->createB2bFileUploadUrl(true, 'invoice.csv');
@@ -34,12 +34,12 @@ final class TaxInvoiceClientTest extends TestCase
     {
         $history = [];
         $client = $this->client(new MockHandler([
-            new Response(200, [], '{"items":[]}'),
+            new Response(200, [], '{"items":[],"page":{}}'),
         ]), $history);
 
         $result = $client->getB2bTaxInvoices(true, 0, 1, [], []);
 
-        self::assertSame([], $result->data['items']);
+        self::assertSame([], $result->items);
         self::assertStringContainsString('requestBody=', (string) $history[0]['request']->getUri());
     }
 

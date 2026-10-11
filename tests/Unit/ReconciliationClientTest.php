@@ -22,7 +22,7 @@ final class ReconciliationClientTest extends TestCase
     {
         $history = [];
         $client = $this->client(new MockHandler([
-            new Response(200, [], '{"items":[]}'),
+            new Response(200, [], '{"items":[],"summary":{}}'),
         ]), $history);
 
         $result = $client->getPaymentReconciliationSettlementVatReport(
@@ -31,7 +31,7 @@ final class ReconciliationClientTest extends TestCase
         );
 
         self::assertInstanceOf(GetPaymentReconciliationSettlementVatReportResponse::class, $result);
-        self::assertSame([], $result->data['items']);
+        self::assertSame([], $result->items);
         self::assertSame('/payment-reconciliations/settlements/vat-report', $history[0]['request']->getUri()->getPath());
         self::assertSame(
             '{"dateRange":{"from":"2026-01-01","until":"2026-01-31"},"filter":{"storeIds":["store-id"]}}',
@@ -42,13 +42,13 @@ final class ReconciliationClientTest extends TestCase
     public function test_transaction_report_async_returns_a_future_with_the_typed_result(): void
     {
         $client = $this->client(new MockHandler([
-            new Response(200, [], '{"items":[]}'),
+            new Response(200, [], '{"items":[],"summary":{}}'),
         ]));
 
         $future = $client->getPaymentReconciliationTransactionVatReportAsync(['from' => '2026-01-01', 'until' => '2026-01-31']);
 
         self::assertInstanceOf(Future::class, $future);
-        self::assertSame([], $future->wait()->data['items']);
+        self::assertSame([], $future->wait()->items);
     }
 
     public function test_forbidden_error_is_classified_as_a_port_one_failure(): void

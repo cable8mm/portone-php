@@ -28,7 +28,8 @@ final class AuthClientTest extends TestCase
         $result = $client->loginViaApiSecret('operation-secret');
 
         self::assertInstanceOf(LoginViaApiSecretResponse::class, $result);
-        self::assertSame('access', $result->data['accessToken']);
+        self::assertSame('access', $result->accessToken);
+        self::assertSame('refresh', $result->refreshToken);
         self::assertCount(1, $history);
         self::assertSame('POST', $history[0]['request']->getMethod());
         self::assertSame('/login/api-secret', $history[0]['request']->getUri()->getPath());
@@ -44,7 +45,7 @@ final class AuthClientTest extends TestCase
         $future = $client->refreshTokenAsync('refresh');
 
         self::assertInstanceOf(Future::class, $future);
-        self::assertSame('access', $future->wait()->data['accessToken']);
+        self::assertSame('access', $future->wait()->accessToken);
     }
 
     public function test_refresh_token_maps_the_observed_unauthorized_error(): void

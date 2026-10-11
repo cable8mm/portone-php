@@ -1,0 +1,95 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Cable8mm\PortonePhp\Tests\Unit;
+
+use Cable8mm\PortonePhp\Response\ConfirmIdentityVerificationResponse;
+use Cable8mm\PortonePhp\Response\CreatePaymentScheduleResponse;
+use Cable8mm\PortonePhp\Response\FailedNotOkResponse;
+use Cable8mm\PortonePhp\Response\FailedPgBillingKeyIssueResponse;
+use Cable8mm\PortonePhp\Response\IssueBillingKeyResponse;
+use Cable8mm\PortonePhp\Response\IssueCashReceiptResponse;
+use Cable8mm\PortonePhp\Response\IssuedPgBillingKeyIssueResponse;
+use Cable8mm\PortonePhp\Response\PgBillingKeyIssueResponse;
+use Cable8mm\PortonePhp\Response\ResendIdentityVerificationResponse;
+use Cable8mm\PortonePhp\Response\RevokePaymentSchedulesResponse;
+use Cable8mm\PortonePhp\Response\SchedulePlatformPartnersResponse;
+use Cable8mm\PortonePhp\Response\SendIdentityVerificationResponse;
+use PHPUnit\Framework\TestCase;
+
+final class RemainingResponseTest extends TestCase
+{
+    public function test_remaining_object_responses_expose_jvm_fields(): void
+    {
+        self::assertSame(['id' => 'verification-id'], ConfirmIdentityVerificationResponse::fromArray([
+            'identityVerification' => ['id' => 'verification-id'],
+        ])->identityVerification);
+        self::assertSame(['id' => 'schedule-id'], CreatePaymentScheduleResponse::fromArray([
+            'schedule' => ['id' => 'schedule-id'],
+        ])->schedule);
+        self::assertSame(['id' => 'billing-key-id'], IssueBillingKeyResponse::fromArray([
+            'billingKeyInfo' => ['id' => 'billing-key-id'],
+            'channelSpecificFailures' => [['channel' => 'pg']],
+        ])->billingKeyInfo);
+        self::assertSame([['channel' => 'pg']], IssueBillingKeyResponse::fromArray([
+            'billingKeyInfo' => ['id' => 'billing-key-id'],
+            'channelSpecificFailures' => [['channel' => 'pg']],
+        ])->channelSpecificFailures);
+        self::assertSame(['id' => 'cash-receipt-id'], IssueCashReceiptResponse::fromArray([
+            'cashReceipt' => ['id' => 'cash-receipt-id'],
+        ])->cashReceipt);
+        self::assertSame(['reason' => 'failed'], FailedPgBillingKeyIssueResponse::fromArray([
+            'channel' => ['id' => 'channel-id'],
+            'failure' => ['reason' => 'failed'],
+        ])->failure);
+        $issued = PgBillingKeyIssueResponse::decode([
+            'type' => 'ISSUED',
+            'channel' => ['id' => 'channel-id'],
+            'pgTxId' => 'pg-tx-id',
+        ]);
+        self::assertInstanceOf(IssuedPgBillingKeyIssueResponse::class, $issued);
+        self::assertSame('pg-tx-id', $issued->pgTxId);
+        self::assertSame(['id' => 'channel-id'], $issued->channel());
+        $unknown = PgBillingKeyIssueResponse::decode(['type' => 'FUTURE', 'value' => 'preserved']);
+        self::assertInstanceOf(PgBillingKeyIssueResponse::class, $unknown);
+        self::assertSame(['type' => 'FUTURE', 'value' => 'preserved'], $unknown->payload());
+        self::assertNull(IssueBillingKeyResponse::fromArray([
+            'billingKeyInfo' => ['id' => 'billing-key-id'],
+        ])->channelSpecificFailures);
+        self::assertSame(['schedule-id'], RevokePaymentSchedulesResponse::fromArray([
+            'revokedAt' => null,
+            'revokedScheduleIds' => ['schedule-id'],
+        ])->revokedScheduleIds);
+    }
+
+    public function test_empty_success_responses_accept_empty_payloads(): void
+    {
+        self::assertInstanceOf(FailedNotOkResponse::class, FailedNotOkResponse::fromArray([]));
+        self::assertInstanceOf(ResendIdentityVerificationResponse::class, ResendIdentityVerificationResponse::fromArray([]));
+        self::assertInstanceOf(SchedulePlatformPartnersResponse::class, SchedulePlatformPartnersResponse::fromArray([]));
+        self::assertInstanceOf(SendIdentityVerificationResponse::class, SendIdentityVerificationResponse::fromArray([]));
+    }
+
+    public function test_typed_fields_reject_invalid_values(): void
+    {
+        $cases = [
+            static fn (): mixed => ConfirmIdentityVerificationResponse::fromArray(['identityVerification' => 'invalid']),
+            static fn (): mixed => IssueBillingKeyResponse::fromArray(['billingKeyInfo' => [], 'channelSpecificFailures' => ['invalid']]),
+            static fn (): mixed => IssueCashReceiptResponse::fromArray(['cashReceipt' => 'invalid']),
+            static fn (): mixed => RevokePaymentSchedulesResponse::fromArray(['revokedAt' => 1, 'revokedScheduleIds' => []]),
+            static fn (): mixed => RevokePaymentSchedulesResponse::fromArray(['revokedAt' => null, 'revokedScheduleIds' => ['invalid' => 'id']]),
+            static fn (): mixed => PgBillingKeyIssueResponse::decode(['type' => 'FAILED', 'channel' => [], 'failure' => 'invalid']),
+            static fn (): mixed => PgBillingKeyIssueResponse::decode(['type' => 'ISSUED', 'channel' => [], 'pgTxId' => 1]),
+        ];
+
+        foreach ($cases as $case) {
+            try {
+                $case();
+                self::fail('Expected invalid response data to be rejected.');
+            } catch (\UnexpectedValueException) {
+                self::assertTrue(true);
+            }
+        }
+    }
+}

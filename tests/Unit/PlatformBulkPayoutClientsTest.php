@@ -25,7 +25,7 @@ final class PlatformBulkPayoutClientsTest extends TestCase
     {
         $history = [];
         $client = $this->client(BulkAccountTransferClient::class, new MockHandler([
-            new Response(200, [], '{"items":[]}'),
+            new Response(200, [], '{"counts":{},"items":[],"page":{}}'),
         ]), $history);
 
         $result = $client->getPlatformBulkAccountTransfers(true, false, ['number' => 0], ['status' => ['PENDING']]);
@@ -38,7 +38,7 @@ final class PlatformBulkPayoutClientsTest extends TestCase
     public function test_bulk_payout_async_returns_a_typed_future_result(): void
     {
         $client = $this->client(BulkPayoutClient::class, new MockHandler([
-            new Response(200, [], '{"items":[]}'),
+            new Response(200, [], '{"counts":{},"items":[],"page":{}}'),
         ]));
 
         $future = $client->getPlatformBulkPayoutsAsync();
@@ -51,7 +51,7 @@ final class PlatformBulkPayoutClientsTest extends TestCase
     {
         $history = [];
         $client = $this->client(PayoutClient::class, new MockHandler([
-            new Response(200, [], '{"id":"payout-id"}'),
+            new Response(200, [], '{"bulkPayoutId":"payout-id","payoutCount":0,"partnerSettlementCount":0}'),
         ]), $history);
 
         $result = $client->completePlatformPayoutByPartnerSettlementIds(

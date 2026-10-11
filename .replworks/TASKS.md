@@ -185,3 +185,140 @@
     - Live E2E checks pass for authenticated operations, timeout and no-retry behavior, defined and unknown failures, unrecognized success, webhook verification, known webhooks, unknown webhooks, and samples.
     - Representative asynchronous operations start without waiting and resolve to the same typed results or failures as their synchronous counterparts.
     - No acceptance criterion in PRODUCT_SPEC.md remains unverified.
+
+- [X] T-020 JVM response schema comparison
+  - Satisfies: PRODUCT_SPEC.md FR-011, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - An executable probe against the JVM SDK at tag jvm-v0.24.0 records every generated response model's fields and declared Kotlin types.
+    - The probe compares the recorded JVM response models with PHP response classes by class name and constructor property name.
+    - The probe reports missing PHP response classes, missing PHP fields, unexpected PHP fields, and response classes that currently expose only an untyped raw data array.
+    - The recorded JVM schema and comparison result are reproducible from the local JVM path configured in `.env`.
+    - Unit tests pass for the comparison parser and the probe exits non-zero when a known response model does not match.
+    - The comparison report is explicitly treated as an intermediate JVM compatibility check; PortOne V2 documentation remains the final authority for response schemas.
+
+- [X] T-021 Authentication response DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - `LoginViaApiSecretResponse` exposes typed `accessToken` and `refreshToken` fields matching the JVM response model.
+    - `RefreshTokenResponse` exposes typed `accessToken` and `refreshToken` fields matching the JVM response model.
+    - Both response classes reject missing or non-string required fields with a decode failure that becomes `UnrecognizedResponseException` at the operation boundary.
+    - Extra response fields are ignored consistently with the recorded JVM JSON behavior.
+    - Synchronous and asynchronous authentication operations return the typed DTOs.
+    - Unit tests, format checks, and the JVM response schema comparison pass for these two response models.
+
+- [X] T-022 Payment response envelope DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - `CancelPaymentResponse` exposes a validated `cancellation` object payload.
+    - `GetPaymentTransactionsResponse` exposes a validated list of transaction object payloads.
+    - `PayInstantlyResponse` exposes a validated `payment` object payload.
+    - `PayWithBillingKeyResponse` exposes a validated `payment` object payload.
+    - Extra response fields are ignored consistently with the recorded JVM JSON behavior.
+    - Synchronous and asynchronous payment operations return the typed DTOs.
+    - Unit tests and format checks pass; the payment live probe remains successful; and the JVM response schema comparison identifies these response models as matching.
+
+- [X] T-023 Payment scalar response DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Escrow, virtual-account, and cancellation-stop response classes expose their JVM-matching timestamp and string fields.
+    - `RegisterStoreReceiptResponse` exposes nullable `receiptUrl` with the JVM default/null behavior.
+    - `PaymentWebhookResponse` exposes its response code, header, body, and response timestamp fields.
+    - Required fields reject missing or non-string values, while extra fields are ignored.
+    - Unit tests, format checks, the payment live probe, and the JVM response schema comparison pass for these response models.
+
+- [X] T-024 Remaining simple payment response DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Cursor-based payment and payment-event responses expose validated `items` lists.
+    - `ResendWebhookResponse` exposes a validated webhook object payload.
+    - JVM empty success responses expose a successful empty DTO and ignore unknown response fields.
+    - Unit tests, format checks, the payment live probe, and the JVM response schema comparison pass for these response models.
+
+- [X] T-025 Cross-domain scalar and empty response DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Simple scalar responses across payment, PG-specific, platform, and B2B domains expose their JVM-matching fields and validate scalar types.
+    - Nullable scalar fields preserve the JVM default/null behavior.
+    - Empty success responses decode as empty DTOs rather than raw arrays.
+    - Unit tests, format checks, a live E2E probe, and the JVM response schema comparison pass for these response models.
+
+- [X] T-026 B2B response envelope DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - B2B tax invoice and counterparty response classes expose JVM-matching object, list, and page envelope fields.
+    - Required envelope fields reject missing or non-array values; list fields reject non-list or non-object members.
+    - Extra response fields are ignored consistently with the recorded JVM JSON behavior.
+    - Unit tests, format checks, the B2B live E2E probes, and the JVM response schema comparison pass for these response models.
+
+- [X] T-027 Platform policy and partner response envelopes
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Archive, create, and recover responses for Platform policies, contracts, and partners expose their JVM-matching object fields.
+    - Required object fields reject missing or non-array values; extra fields are ignored.
+    - Unit tests, format checks, the Platform live probes, and the JVM response schema comparison pass for these response models.
+
+- [X] T-028 Platform schedule and update response envelopes
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Schedule and reschedule responses expose their JVM-matching scheduled object fields.
+    - Platform update responses expose their JVM-matching policy, contract, and partner object fields.
+    - Required object fields reject missing or non-array values; extra fields are ignored.
+    - Unit tests, format checks, Platform live probes, and the JVM response schema comparison pass for these response models.
+
+- [X] T-029 Platform list response DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Platform list responses expose JVM-matching `items`, `counts`, `page`, `partners`, and `transferSummaries` fields.
+    - List and object envelope fields are validated consistently through the response model base helpers.
+    - Unit tests, format checks, Platform live probes, and the JVM response schema comparison pass for these response models.
+
+- [X] T-030 Payment, identity, and reconciliation list DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Billing key, cash receipt, identity verification, and payment schedule responses expose `items` and `page` lists matching the JVM models.
+    - Card promotion and reconciliation VAT report responses preserve nullable list fields and required summary/object fields.
+    - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass for these response models.
+
+- [X] T-031 Remaining non-polymorphic response DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Remaining identity, Platform transfer, payment schedule, cash receipt, billing key, and non-polymorphic response classes expose JVM-matching fields.
+    - Empty success responses and nullable list/string fields preserve the JVM behavior.
+    - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass for these response models.
+
+- [X] T-032 Billing key polymorphic response DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - `PgBillingKeyIssueResponse` selects failed, issued, and unknown variants from the JVM `type` discriminator.
+    - `FailedPgBillingKeyIssueResponse` and `IssuedPgBillingKeyIssueResponse` expose their JVM-matching fields and validate required and nullable values.
+    - Unknown variants are accepted as an explicit unrecognized response value without losing the original payload.
+    - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass.
+
+- [X] T-033 Simple Platform and B2B nested model DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Platform setting, account holder, filter option, B2B upload payload, and B2B certificate models expose JVM-matching fields.
+    - Required scalar fields reject missing or invalid values, while nullable fields preserve JVM defaults.
+    - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass.
+
+- [X] T-034 Confirmation and company payload DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Billing-key confirmation, payment confirmation, and Platform company-state payloads expose JVM-matching fields.
+    - Required scalar and object fields reject missing or invalid values.
+    - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass.

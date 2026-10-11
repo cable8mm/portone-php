@@ -24,7 +24,7 @@ final class PlatformPartnerTransferClientsTest extends TestCase
     {
         $history = [];
         $client = $this->client(PartnerSettlementClient::class, new MockHandler([
-            new Response(200, [], '{"items":[]}'),
+            new Response(200, [], '{"counts":{},"items":[],"page":{}}'),
         ]), $history);
 
         $result = $client->getPlatformPartnerSettlements(false, ['number' => 0], ['status' => ['PENDING']], false);
@@ -37,7 +37,7 @@ final class PlatformPartnerTransferClientsTest extends TestCase
     {
         $history = [];
         $client = $this->client(PartnerClient::class, new MockHandler([
-            new Response(200, [], '{"id":"partner-id"}'),
+            new Response(200, [], '{"partner":{"id":"partner-id"}}'),
         ]), $history);
 
         $result = $client->updatePlatformPartner('partner-id', true, 'Updated partner');
