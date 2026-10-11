@@ -175,7 +175,7 @@
     - Each sample reads the required secret from the process environment and uses only the public SDK interface.
     - A verification run executes every sample with test credentials or a documented non-secret fixture and observes the expected success or controlled failure behavior.
 
-- [ ] T-019 Complete public API and packaging verification
+- [X] T-019 Complete public API and packaging verification
   - Satisfies: PRODUCT_SPEC.md FR-001, FR-002, FR-007, FR-008, FR-009, FR-010, FR-011, FR-013, FR-022, FR-026, FR-027 and AC-001 to AC-022
   - External boundary: yes
   - Acceptance criteria:
