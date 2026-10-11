@@ -46,7 +46,7 @@
     - No public client accepts or retains configuration values other than apiSecret.
     - Unit tests pass for all accessors, standalone construction, shared executor identity, and construction failure.
 
-- [ ] T-006 Payment operations
+- [X] T-006 Payment operations
   - Satisfies: PRODUCT_SPEC.md EL-002, EL-003, EL-004, EL-005, EL-006, EL-007 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
