@@ -6,12 +6,12 @@ namespace Cable8mm\PortonePhp;
 
 final class BulkPayoutClient extends AbstractClient
 {
-    public function getPlatformBulkPayouts(mixed $test = null, mixed $isForTest = null, mixed $page = null, mixed $filter = null): Response\GetPlatformBulkPayoutsResponse
+    public function getPlatformBulkPayouts(?bool $test = null, ?bool $isForTest = null, ?array $page = null, ?array $filter = null): Response\GetPlatformBulkPayoutsResponse
     {
         return $this->callOperationWithQueryRequestBody('getPlatformBulkPayouts', 'GET', '/platform/bulk-payouts', ['test' => $test], ['isForTest' => $isForTest, 'page' => $page, 'filter' => $filter], Response\GetPlatformBulkPayoutsResponse::class);
     }
 
-    public function getPlatformBulkPayoutsAsync(mixed $test = null, mixed $isForTest = null, mixed $page = null, mixed $filter = null): Future
+    public function getPlatformBulkPayoutsAsync(?bool $test = null, ?bool $isForTest = null, ?array $page = null, ?array $filter = null): Future
     {
         return $this->callOperationWithQueryRequestBodyAsync('getPlatformBulkPayouts', 'GET', '/platform/bulk-payouts', ['test' => $test], ['isForTest' => $isForTest, 'page' => $page, 'filter' => $filter], Response\GetPlatformBulkPayoutsResponse::class);
     }

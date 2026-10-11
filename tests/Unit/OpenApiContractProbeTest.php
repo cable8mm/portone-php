@@ -33,5 +33,6 @@ final class OpenApiContractProbeTest extends TestCase
         self::assertArrayHasKey('getPayments', $report['signatures']);
         self::assertArrayHasKey('expected', $report['signatures']['getPayments']);
         self::assertArrayHasKey('requiredness', $report['signatures']['getPayments']['mismatches']);
+        self::assertSame([], $report['signatures']['getPayments']['mismatches']['types']);
     }
 }

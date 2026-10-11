@@ -181,13 +181,19 @@ abstract class AbstractClient
         return new Future($promise);
     }
 
-    /** @param array<string,mixed> $query @param array<string,mixed> $body */
+    /**
+     * @param  array<string, mixed>  $query
+     * @param  array<string, mixed>  $body
+     */
     protected function callStringOperationWithQueryRequestBody(string $operation, string $method, string $path, array $query, array $body): string
     {
         return $this->callStringOperation($operation, $method, $this->path($path, $query), $this->optionsWithQueryRequestBody($query, $body));
     }
 
-    /** @param array<string,mixed> $query @param array<string,mixed> $body */
+    /**
+     * @param  array<string, mixed>  $query
+     * @param  array<string, mixed>  $body
+     */
     protected function callStringOperationWithQueryRequestBodyAsync(string $operation, string $method, string $path, array $query, array $body): Future
     {
         return $this->callStringOperationAsync($operation, $method, $this->path($path, $query), $this->optionsWithQueryRequestBody($query, $body));
@@ -213,13 +219,19 @@ abstract class AbstractClient
         return new Future($promise);
     }
 
-    /** @param array<string,mixed> $query @param array<string,mixed> $body */
+    /**
+     * @param  array<string, mixed>  $query
+     * @param  array<string, mixed>  $body
+     */
     protected function callUnitOperationWithQueryAndBody(string $operation, string $method, string $path, array $query, array $body): void
     {
         $this->callUnitOperation($operation, $method, $this->path($path, $query), $this->optionsWithQueryAndBody($query, $body));
     }
 
-    /** @param array<string,mixed> $query @param array<string,mixed> $body */
+    /**
+     * @param  array<string, mixed>  $query
+     * @param  array<string, mixed>  $body
+     */
     protected function callUnitOperationWithQueryAndBodyAsync(string $operation, string $method, string $path, array $query, array $body): Future
     {
         return $this->callUnitOperationAsync($operation, $method, $this->path($path, $query), $this->optionsWithQueryAndBody($query, $body));

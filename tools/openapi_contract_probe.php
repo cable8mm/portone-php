@@ -56,10 +56,27 @@ function schemaFields(array $document, mixed $schema): array
     ];
 }
 
-/** @return array{parameters: array<string, array<int, string>>, body: array<string, array<int, string>>} */
+function openApiPhpType(array $document, mixed $schema): ?string
+{
+    $schema = resolveSchema($document, $schema);
+    if (isset($schema['oneOf']) || isset($schema['anyOf']) || isset($schema['allOf'])) {
+        return null;
+    }
+
+    return match ($schema['type'] ?? null) {
+        'string' => 'string',
+        'boolean' => 'bool',
+        'integer' => 'int',
+        'array', 'object' => 'array',
+        default => null,
+    };
+}
+
+/** @return array{parameters: array<string, array<int, string>>, body: array<string, array<int, string>>, types: array<string, array<string, string>>} */
 function openApiInputs(array $document, array $pathItem, array $operation): array
 {
     $parameters = [];
+    $types = ['path' => [], 'query' => [], 'body' => []];
     foreach (array_merge(
         is_array($pathItem['parameters'] ?? null) ? $pathItem['parameters'] : [],
         is_array($operation['parameters'] ?? null) ? $operation['parameters'] : [],
@@ -72,7 +89,8 @@ function openApiInputs(array $document, array $pathItem, array $operation): arra
         }
 
         if (isset($parameter['content']['application/json']['schema'])) {
-            $fields = schemaFields($document, $parameter['content']['application/json']['schema']);
+            $schema = resolveSchema($document, $parameter['content']['application/json']['schema']);
+            $fields = schemaFields($document, $schema);
             $parameters[$location] = array_values(array_unique(array_merge(
                 $parameters[$location] ?? [],
                 $fields['all'],
@@ -81,11 +99,23 @@ function openApiInputs(array $document, array $pathItem, array $operation): arra
                 $parameters[$location.'Required'] ?? [],
                 $fields['required'],
             )));
+            foreach (is_array($schema['properties'] ?? null) ? $schema['properties'] : [] as $field => $fieldSchema) {
+                if (is_string($field) && isset($types[$location])) {
+                    $type = openApiPhpType($document, $fieldSchema);
+                    if ($type !== null) {
+                        $types[$location][$field] = $type;
+                    }
+                }
+            }
 
             continue;
         }
 
         $parameters[$location][] = $name;
+        $type = openApiPhpType($document, $parameter['schema'] ?? null);
+        if ($type !== null && isset($types[$location])) {
+            $types[$location][$name] = $type;
+        }
         if (($parameter['required'] ?? false) === true) {
             $parameters[$location.'Required'][] = $name;
         }
@@ -93,7 +123,16 @@ function openApiInputs(array $document, array $pathItem, array $operation): arra
 
     $body = ['all' => [], 'required' => []];
     if (isset($operation['requestBody']['content']['application/json']['schema'])) {
-        $body = schemaFields($document, $operation['requestBody']['content']['application/json']['schema']);
+        $schema = resolveSchema($document, $operation['requestBody']['content']['application/json']['schema']);
+        $body = schemaFields($document, $schema);
+        foreach (is_array($schema['properties'] ?? null) ? $schema['properties'] : [] as $field => $fieldSchema) {
+            if (is_string($field)) {
+                $type = openApiPhpType($document, $fieldSchema);
+                if ($type !== null) {
+                    $types['body'][$field] = $type;
+                }
+            }
+        }
     }
 
     return [
@@ -104,25 +143,30 @@ function openApiInputs(array $document, array $pathItem, array $operation): arra
             'queryRequired' => array_values(array_unique($parameters['queryRequired'] ?? [])),
         ],
         'body' => $body,
+        'types' => $types,
     ];
 }
 
-/** @return array{all: array<int, string>, required: array<int, string>} */
+/** @return array{all: array<int, string>, required: array<int, string>, types: array<string, string>} */
 function parsePhpParameters(string $signature): array
 {
-    preg_match_all('/\$(?<name>[A-Za-z_]\w*)\s*(?<default>=\s*[^,]+)?/', $signature, $matches, PREG_SET_ORDER);
+    preg_match_all('/(?:(?<type>\??[A-Za-z_\\\\][A-Za-z0-9_\\\\]*(?:\|\??[A-Za-z_\\\\][A-Za-z0-9_\\\\]*)*)\s+)?\$(?<name>[A-Za-z_]\w*)\s*(?<default>=\s*[^,]+)?/', $signature, $matches, PREG_SET_ORDER);
 
     $all = [];
     $required = [];
+    $types = [];
     foreach ($matches as $match) {
         $name = $match['name'];
         $all[] = $name;
+        if (($match['type'] ?? '') !== '') {
+            $types[$name] = $match['type'];
+        }
         if (($match['default'] ?? '') === '') {
             $required[] = $name;
         }
     }
 
-    return ['all' => $all, 'required' => $required];
+    return ['all' => $all, 'required' => $required, 'types' => $types];
 }
 
 /** @return array<string, array<string, mixed>> */
@@ -302,6 +346,20 @@ foreach ($operations as $operationId => $operation) {
         $method = $phpMethods[$methodName] ?? null;
         $actualParameters = is_array($method) ? $method['parameters']['all'] : [];
         $actualRequired = is_array($method) ? $method['parameters']['required'] : [];
+        $actualTypes = is_array($method) ? $method['parameters']['types'] : [];
+        $expectedTypes = array_merge(
+            $operation['inputs']['types']['path'],
+            $operation['inputs']['types']['query'],
+            $operation['inputs']['types']['body'],
+        );
+        $typeMismatches = [];
+        foreach ($expectedTypes as $parameter => $expectedType) {
+            $actualType = $actualTypes[$parameter] ?? 'mixed';
+            $expectedNullableType = '?'.$expectedType;
+            if ($actualType !== $expectedNullableType) {
+                $typeMismatches[] = $parameter.' (expected '.$expectedNullableType.', got '.$actualType.')';
+            }
+        }
         $actualRouting = is_array($method) ? parsePhpRouting($method) : ['query' => [], 'body' => []];
         $actualRouting['query'] = array_values(array_diff(
             $actualRouting['query'],
@@ -330,12 +388,14 @@ foreach ($operations as $operationId => $operation) {
                 'queryParameters' => $operation['inputs']['parameters']['query'],
                 'requestBodyFields' => $operation['inputs']['body']['all'],
                 'requiredParameters' => $expectedRequired,
+                'types' => $expectedTypes,
             ],
             'actual' => [
                 'parameters' => $actualParameters,
                 'requiredParameters' => $actualRequired,
                 'queryParameters' => $actualRouting['query'],
                 'requestBodyFields' => $actualRouting['body'],
+                'types' => $actualTypes,
             ],
             'mismatches' => [
                 'route' => $routeMismatches,
@@ -347,6 +407,7 @@ foreach ($operations as $operationId => $operation) {
                 ],
                 'queryParameters' => array_values(array_diff($operation['inputs']['parameters']['query'], $actualRouting['query'])),
                 'requestBodyFields' => array_values(array_diff($operation['inputs']['body']['all'], $actualRouting['body'])),
+                'types' => $typeMismatches,
             ],
         ];
     }
@@ -358,7 +419,8 @@ $signatureFailures = array_filter(
         || $comparison['mismatches']['missingParameters'] !== []
         || $comparison['mismatches']['unexpectedParameters'] !== []
         || $comparison['mismatches']['queryParameters'] !== []
-        || $comparison['mismatches']['requestBodyFields'] !== [],
+        || $comparison['mismatches']['requestBodyFields'] !== []
+        || $comparison['mismatches']['types'] !== [],
 );
 
 $requirednessDifferences = array_filter(

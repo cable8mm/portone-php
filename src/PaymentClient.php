@@ -29,7 +29,10 @@ class PaymentClient extends AbstractClient
         $this->promotion = new PromotionClient('', $this->executor);
     }
 
-    /** @param array<string,mixed>|null $page @param array<string,mixed>|null $filter */
+    /**
+     * @param  array<string, mixed>|null  $page
+     * @param  array<string, mixed>|null  $filter
+     */
     public function getPayments(?array $page = null, ?array $filter = null): GetPaymentsResponse
     {
         return $this->callOperation(
@@ -42,7 +45,10 @@ class PaymentClient extends AbstractClient
         );
     }
 
-    /** @param array<string,mixed>|null $page @param array<string,mixed>|null $filter */
+    /**
+     * @param  array<string, mixed>|null  $page
+     * @param  array<string, mixed>|null  $filter
+     */
     public function getPaymentsAsync(?array $page = null, ?array $filter = null): Future
     {
         return $this->callOperationAsync(
@@ -55,172 +61,172 @@ class PaymentClient extends AbstractClient
         );
     }
 
-    public function applyEscrowLogistics(mixed $paymentId = null, mixed $sender = null, mixed $receiver = null, mixed $logistics = null, mixed $sendEmail = null, mixed $products = null, mixed $storeId = null): Response\ApplyEscrowLogisticsResponse
+    public function applyEscrowLogistics(?string $paymentId = null, ?array $sender = null, ?array $receiver = null, ?array $logistics = null, ?bool $sendEmail = null, ?array $products = null, ?string $storeId = null): Response\ApplyEscrowLogisticsResponse
     {
         return $this->callOperation('applyEscrowLogistics', 'POST', '/payments/{paymentId}/escrow/logistics', ['storeId' => $storeId, 'paymentId' => $paymentId, 'sender' => $sender, 'receiver' => $receiver, 'logistics' => $logistics, 'sendEmail' => $sendEmail, 'products' => $products], Response\ApplyEscrowLogisticsResponse::class, true);
     }
 
-    public function applyEscrowLogisticsAsync(mixed $paymentId = null, mixed $sender = null, mixed $receiver = null, mixed $logistics = null, mixed $sendEmail = null, mixed $products = null, mixed $storeId = null): Future
+    public function applyEscrowLogisticsAsync(?string $paymentId = null, ?array $sender = null, ?array $receiver = null, ?array $logistics = null, ?bool $sendEmail = null, ?array $products = null, ?string $storeId = null): Future
     {
         return $this->callOperationAsync('applyEscrowLogistics', 'POST', '/payments/{paymentId}/escrow/logistics', ['storeId' => $storeId, 'paymentId' => $paymentId, 'sender' => $sender, 'receiver' => $receiver, 'logistics' => $logistics, 'sendEmail' => $sendEmail, 'products' => $products], Response\ApplyEscrowLogisticsResponse::class, true);
     }
 
-    public function cancelPayment(mixed $paymentId = null, mixed $amount = null, mixed $taxFreeAmount = null, mixed $vatAmount = null, mixed $reason = null, mixed $requester = null, mixed $promotionDiscountRetainOption = null, mixed $currentCancellableAmount = null, mixed $refundAccount = null, mixed $refundEmail = null, mixed $skipWebhook = null, mixed $storeId = null): Response\CancelPaymentResponse
+    public function cancelPayment(?string $paymentId = null, ?int $amount = null, ?int $taxFreeAmount = null, ?int $vatAmount = null, ?string $reason = null, ?string $requester = null, ?string $promotionDiscountRetainOption = null, ?int $currentCancellableAmount = null, ?array $refundAccount = null, ?string $refundEmail = null, ?bool $skipWebhook = null, ?string $storeId = null): Response\CancelPaymentResponse
     {
         return $this->callOperation('cancelPayment', 'POST', '/payments/{paymentId}/cancel', ['storeId' => $storeId, 'paymentId' => $paymentId, 'amount' => $amount, 'taxFreeAmount' => $taxFreeAmount, 'vatAmount' => $vatAmount, 'reason' => $reason, 'requester' => $requester, 'promotionDiscountRetainOption' => $promotionDiscountRetainOption, 'currentCancellableAmount' => $currentCancellableAmount, 'refundAccount' => $refundAccount, 'refundEmail' => $refundEmail, 'skipWebhook' => $skipWebhook], Response\CancelPaymentResponse::class, true);
     }
 
-    public function cancelPaymentAsync(mixed $paymentId = null, mixed $amount = null, mixed $taxFreeAmount = null, mixed $vatAmount = null, mixed $reason = null, mixed $requester = null, mixed $promotionDiscountRetainOption = null, mixed $currentCancellableAmount = null, mixed $refundAccount = null, mixed $refundEmail = null, mixed $skipWebhook = null, mixed $storeId = null): Future
+    public function cancelPaymentAsync(?string $paymentId = null, ?int $amount = null, ?int $taxFreeAmount = null, ?int $vatAmount = null, ?string $reason = null, ?string $requester = null, ?string $promotionDiscountRetainOption = null, ?int $currentCancellableAmount = null, ?array $refundAccount = null, ?string $refundEmail = null, ?bool $skipWebhook = null, ?string $storeId = null): Future
     {
         return $this->callOperationAsync('cancelPayment', 'POST', '/payments/{paymentId}/cancel', ['storeId' => $storeId, 'paymentId' => $paymentId, 'amount' => $amount, 'taxFreeAmount' => $taxFreeAmount, 'vatAmount' => $vatAmount, 'reason' => $reason, 'requester' => $requester, 'promotionDiscountRetainOption' => $promotionDiscountRetainOption, 'currentCancellableAmount' => $currentCancellableAmount, 'refundAccount' => $refundAccount, 'refundEmail' => $refundEmail, 'skipWebhook' => $skipWebhook], Response\CancelPaymentResponse::class, true);
     }
 
-    public function capturePayment(mixed $paymentId = null, mixed $storeId = null): Response\CapturePaymentResponse
+    public function capturePayment(?string $paymentId = null, ?string $storeId = null): Response\CapturePaymentResponse
     {
         return $this->callOperation('capturePayment', 'POST', '/payments/{paymentId}/capture', ['storeId' => $storeId, 'paymentId' => $paymentId], Response\CapturePaymentResponse::class, true);
     }
 
-    public function capturePaymentAsync(mixed $paymentId = null, mixed $storeId = null): Future
+    public function capturePaymentAsync(?string $paymentId = null, ?string $storeId = null): Future
     {
         return $this->callOperationAsync('capturePayment', 'POST', '/payments/{paymentId}/capture', ['storeId' => $storeId, 'paymentId' => $paymentId], Response\CapturePaymentResponse::class, true);
     }
 
-    public function closeVirtualAccount(mixed $paymentId = null, mixed $storeId = null): Response\CloseVirtualAccountResponse
+    public function closeVirtualAccount(?string $paymentId = null, ?string $storeId = null): Response\CloseVirtualAccountResponse
     {
         return $this->callOperation('closeVirtualAccount', 'POST', '/payments/{paymentId}/virtual-account/close', ['storeId' => $storeId, 'paymentId' => $paymentId], Response\CloseVirtualAccountResponse::class, false);
     }
 
-    public function closeVirtualAccountAsync(mixed $paymentId = null, mixed $storeId = null): Future
+    public function closeVirtualAccountAsync(?string $paymentId = null, ?string $storeId = null): Future
     {
         return $this->callOperationAsync('closeVirtualAccount', 'POST', '/payments/{paymentId}/virtual-account/close', ['storeId' => $storeId, 'paymentId' => $paymentId], Response\CloseVirtualAccountResponse::class, false);
     }
 
-    public function confirmEscrow(mixed $paymentId = null, mixed $fromStore = null, mixed $storeId = null): Response\ConfirmEscrowResponse
+    public function confirmEscrow(?string $paymentId = null, ?bool $fromStore = null, ?string $storeId = null): Response\ConfirmEscrowResponse
     {
         return $this->callOperation('confirmEscrow', 'POST', '/payments/{paymentId}/escrow/complete', ['storeId' => $storeId, 'paymentId' => $paymentId, 'fromStore' => $fromStore], Response\ConfirmEscrowResponse::class, true);
     }
 
-    public function confirmEscrowAsync(mixed $paymentId = null, mixed $fromStore = null, mixed $storeId = null): Future
+    public function confirmEscrowAsync(?string $paymentId = null, ?bool $fromStore = null, ?string $storeId = null): Future
     {
         return $this->callOperationAsync('confirmEscrow', 'POST', '/payments/{paymentId}/escrow/complete', ['storeId' => $storeId, 'paymentId' => $paymentId, 'fromStore' => $fromStore], Response\ConfirmEscrowResponse::class, true);
     }
 
-    public function confirmPayment(mixed $paymentId = null, mixed $paymentToken = null, mixed $txId = null, mixed $currency = null, mixed $totalAmount = null, mixed $taxFreeAmount = null, mixed $isTest = null, mixed $skipWebhook = null, mixed $storeId = null): Response\ConfirmedPaymentSummary
+    public function confirmPayment(?string $paymentId = null, ?string $paymentToken = null, ?string $txId = null, ?string $currency = null, ?int $totalAmount = null, ?int $taxFreeAmount = null, ?bool $isTest = null, ?bool $skipWebhook = null, ?string $storeId = null): Response\ConfirmedPaymentSummary
     {
         return $this->callOperation('confirmPayment', 'POST', '/payments/{paymentId}/confirm', ['storeId' => $storeId, 'paymentId' => $paymentId, 'paymentToken' => $paymentToken, 'txId' => $txId, 'currency' => $currency, 'totalAmount' => $totalAmount, 'taxFreeAmount' => $taxFreeAmount, 'isTest' => $isTest, 'skipWebhook' => $skipWebhook], Response\ConfirmedPaymentSummary::class, true);
     }
 
-    public function confirmPaymentAsync(mixed $paymentId = null, mixed $paymentToken = null, mixed $txId = null, mixed $currency = null, mixed $totalAmount = null, mixed $taxFreeAmount = null, mixed $isTest = null, mixed $skipWebhook = null, mixed $storeId = null): Future
+    public function confirmPaymentAsync(?string $paymentId = null, ?string $paymentToken = null, ?string $txId = null, ?string $currency = null, ?int $totalAmount = null, ?int $taxFreeAmount = null, ?bool $isTest = null, ?bool $skipWebhook = null, ?string $storeId = null): Future
     {
         return $this->callOperationAsync('confirmPayment', 'POST', '/payments/{paymentId}/confirm', ['storeId' => $storeId, 'paymentId' => $paymentId, 'paymentToken' => $paymentToken, 'txId' => $txId, 'currency' => $currency, 'totalAmount' => $totalAmount, 'taxFreeAmount' => $taxFreeAmount, 'isTest' => $isTest, 'skipWebhook' => $skipWebhook], Response\ConfirmedPaymentSummary::class, true);
     }
 
-    public function getAllPaymentEventsByCursor(mixed $from = null, mixed $until = null, mixed $cursor = null, mixed $size = null, mixed $storeId = null): Response\GetAllPaymentEventsByCursorResponse
+    public function getAllPaymentEventsByCursor(?string $from = null, ?string $until = null, ?string $cursor = null, ?int $size = null, ?string $storeId = null): Response\GetAllPaymentEventsByCursorResponse
     {
         return $this->callOperation('getAllPaymentEventsByCursor', 'GET', '/payment-events-by-cursor', ['storeId' => $storeId, 'from' => $from, 'until' => $until, 'cursor' => $cursor, 'size' => $size], Response\GetAllPaymentEventsByCursorResponse::class, true);
     }
 
-    public function getAllPaymentEventsByCursorAsync(mixed $from = null, mixed $until = null, mixed $cursor = null, mixed $size = null, mixed $storeId = null): Future
+    public function getAllPaymentEventsByCursorAsync(?string $from = null, ?string $until = null, ?string $cursor = null, ?int $size = null, ?string $storeId = null): Future
     {
         return $this->callOperationAsync('getAllPaymentEventsByCursor', 'GET', '/payment-events-by-cursor', ['storeId' => $storeId, 'from' => $from, 'until' => $until, 'cursor' => $cursor, 'size' => $size], Response\GetAllPaymentEventsByCursorResponse::class, true);
     }
 
-    public function getAllPaymentsByCursor(mixed $from = null, mixed $until = null, mixed $cursor = null, mixed $size = null, mixed $storeId = null): Response\GetAllPaymentsByCursorResponse
+    public function getAllPaymentsByCursor(?string $from = null, ?string $until = null, ?string $cursor = null, ?int $size = null, ?string $storeId = null): Response\GetAllPaymentsByCursorResponse
     {
         return $this->callOperation('getAllPaymentsByCursor', 'GET', '/payments-by-cursor', ['storeId' => $storeId, 'from' => $from, 'until' => $until, 'cursor' => $cursor, 'size' => $size], Response\GetAllPaymentsByCursorResponse::class, true);
     }
 
-    public function getAllPaymentsByCursorAsync(mixed $from = null, mixed $until = null, mixed $cursor = null, mixed $size = null, mixed $storeId = null): Future
+    public function getAllPaymentsByCursorAsync(?string $from = null, ?string $until = null, ?string $cursor = null, ?int $size = null, ?string $storeId = null): Future
     {
         return $this->callOperationAsync('getAllPaymentsByCursor', 'GET', '/payments-by-cursor', ['storeId' => $storeId, 'from' => $from, 'until' => $until, 'cursor' => $cursor, 'size' => $size], Response\GetAllPaymentsByCursorResponse::class, true);
     }
 
-    public function getPayment(mixed $paymentId = null, mixed $storeId = null): Response\Payment
+    public function getPayment(?string $paymentId = null, ?string $storeId = null): Response\Payment
     {
         return $this->callOperation('getPayment', 'GET', '/payments/{paymentId}', ['storeId' => $storeId, 'paymentId' => $paymentId], Response\Payment::class, false);
     }
 
-    public function getPaymentAsync(mixed $paymentId = null, mixed $storeId = null): Future
+    public function getPaymentAsync(?string $paymentId = null, ?string $storeId = null): Future
     {
         return $this->callOperationAsync('getPayment', 'GET', '/payments/{paymentId}', ['storeId' => $storeId, 'paymentId' => $paymentId], Response\Payment::class, false);
     }
 
-    public function getPaymentTransactions(mixed $paymentId = null, mixed $storeId = null): Response\GetPaymentTransactionsResponse
+    public function getPaymentTransactions(?string $paymentId = null, ?string $storeId = null): Response\GetPaymentTransactionsResponse
     {
         return $this->callOperation('getPaymentTransactions', 'GET', '/payments/{paymentId}/transactions', ['storeId' => $storeId, 'paymentId' => $paymentId], Response\GetPaymentTransactionsResponse::class, false);
     }
 
-    public function getPaymentTransactionsAsync(mixed $paymentId = null, mixed $storeId = null): Future
+    public function getPaymentTransactionsAsync(?string $paymentId = null, ?string $storeId = null): Future
     {
         return $this->callOperationAsync('getPaymentTransactions', 'GET', '/payments/{paymentId}/transactions', ['storeId' => $storeId, 'paymentId' => $paymentId], Response\GetPaymentTransactionsResponse::class, false);
     }
 
-    public function modifyEscrowLogistics(mixed $paymentId = null, mixed $sender = null, mixed $receiver = null, mixed $logistics = null, mixed $sendEmail = null, mixed $products = null, mixed $storeId = null): Response\ModifyEscrowLogisticsResponse
+    public function modifyEscrowLogistics(?string $paymentId = null, ?array $sender = null, ?array $receiver = null, ?array $logistics = null, ?bool $sendEmail = null, ?array $products = null, ?string $storeId = null): Response\ModifyEscrowLogisticsResponse
     {
         return $this->callOperation('modifyEscrowLogistics', 'PATCH', '/payments/{paymentId}/escrow/logistics', ['storeId' => $storeId, 'paymentId' => $paymentId, 'sender' => $sender, 'receiver' => $receiver, 'logistics' => $logistics, 'sendEmail' => $sendEmail, 'products' => $products], Response\ModifyEscrowLogisticsResponse::class, true);
     }
 
-    public function modifyEscrowLogisticsAsync(mixed $paymentId = null, mixed $sender = null, mixed $receiver = null, mixed $logistics = null, mixed $sendEmail = null, mixed $products = null, mixed $storeId = null): Future
+    public function modifyEscrowLogisticsAsync(?string $paymentId = null, ?array $sender = null, ?array $receiver = null, ?array $logistics = null, ?bool $sendEmail = null, ?array $products = null, ?string $storeId = null): Future
     {
         return $this->callOperationAsync('modifyEscrowLogistics', 'PATCH', '/payments/{paymentId}/escrow/logistics', ['storeId' => $storeId, 'paymentId' => $paymentId, 'sender' => $sender, 'receiver' => $receiver, 'logistics' => $logistics, 'sendEmail' => $sendEmail, 'products' => $products], Response\ModifyEscrowLogisticsResponse::class, true);
     }
 
-    public function payInstantly(mixed $paymentId = null, mixed $channelKey = null, mixed $channelGroupId = null, mixed $method = null, mixed $orderName = null, mixed $isCulturalExpense = null, mixed $isEscrow = null, mixed $customer = null, mixed $customData = null, mixed $amount = null, mixed $currency = null, mixed $country = null, mixed $noticeUrls = null, mixed $products = null, mixed $productCount = null, mixed $productType = null, mixed $shippingAddress = null, mixed $promotionId = null, mixed $bypass = null, mixed $skipWebhook = null, mixed $storeId = null): Response\PayInstantlyResponse
+    public function payInstantly(?string $paymentId = null, ?string $channelKey = null, ?string $channelGroupId = null, ?array $method = null, ?string $orderName = null, ?bool $isCulturalExpense = null, ?bool $isEscrow = null, ?array $customer = null, ?string $customData = null, ?array $amount = null, ?string $currency = null, ?string $country = null, ?array $noticeUrls = null, ?array $products = null, ?int $productCount = null, ?string $productType = null, ?array $shippingAddress = null, ?string $promotionId = null, ?array $bypass = null, ?bool $skipWebhook = null, ?string $storeId = null): Response\PayInstantlyResponse
     {
         return $this->callOperation('payInstantly', 'POST', '/payments/{paymentId}/instant', ['storeId' => $storeId, 'paymentId' => $paymentId, 'channelKey' => $channelKey, 'channelGroupId' => $channelGroupId, 'method' => $method, 'orderName' => $orderName, 'isCulturalExpense' => $isCulturalExpense, 'isEscrow' => $isEscrow, 'customer' => $customer, 'customData' => $customData, 'amount' => $amount, 'currency' => $currency, 'country' => $country, 'noticeUrls' => $noticeUrls, 'products' => $products, 'productCount' => $productCount, 'productType' => $productType, 'shippingAddress' => $shippingAddress, 'promotionId' => $promotionId, 'bypass' => $bypass, 'skipWebhook' => $skipWebhook], Response\PayInstantlyResponse::class, true);
     }
 
-    public function payInstantlyAsync(mixed $paymentId = null, mixed $channelKey = null, mixed $channelGroupId = null, mixed $method = null, mixed $orderName = null, mixed $isCulturalExpense = null, mixed $isEscrow = null, mixed $customer = null, mixed $customData = null, mixed $amount = null, mixed $currency = null, mixed $country = null, mixed $noticeUrls = null, mixed $products = null, mixed $productCount = null, mixed $productType = null, mixed $shippingAddress = null, mixed $promotionId = null, mixed $bypass = null, mixed $skipWebhook = null, mixed $storeId = null): Future
+    public function payInstantlyAsync(?string $paymentId = null, ?string $channelKey = null, ?string $channelGroupId = null, ?array $method = null, ?string $orderName = null, ?bool $isCulturalExpense = null, ?bool $isEscrow = null, ?array $customer = null, ?string $customData = null, ?array $amount = null, ?string $currency = null, ?string $country = null, ?array $noticeUrls = null, ?array $products = null, ?int $productCount = null, ?string $productType = null, ?array $shippingAddress = null, ?string $promotionId = null, ?array $bypass = null, ?bool $skipWebhook = null, ?string $storeId = null): Future
     {
         return $this->callOperationAsync('payInstantly', 'POST', '/payments/{paymentId}/instant', ['storeId' => $storeId, 'paymentId' => $paymentId, 'channelKey' => $channelKey, 'channelGroupId' => $channelGroupId, 'method' => $method, 'orderName' => $orderName, 'isCulturalExpense' => $isCulturalExpense, 'isEscrow' => $isEscrow, 'customer' => $customer, 'customData' => $customData, 'amount' => $amount, 'currency' => $currency, 'country' => $country, 'noticeUrls' => $noticeUrls, 'products' => $products, 'productCount' => $productCount, 'productType' => $productType, 'shippingAddress' => $shippingAddress, 'promotionId' => $promotionId, 'bypass' => $bypass, 'skipWebhook' => $skipWebhook], Response\PayInstantlyResponse::class, true);
     }
 
-    public function payWithBillingKey(mixed $paymentId = null, mixed $billingKey = null, mixed $channelKey = null, mixed $orderName = null, mixed $customer = null, mixed $customData = null, mixed $amount = null, mixed $currency = null, mixed $installmentMonth = null, mixed $useFreeInterestFromMerchant = null, mixed $useCardPoint = null, mixed $cashReceipt = null, mixed $country = null, mixed $noticeUrls = null, mixed $products = null, mixed $productCount = null, mixed $productType = null, mixed $shippingAddress = null, mixed $promotionId = null, mixed $locale = null, mixed $bypass = null, mixed $skipWebhook = null, mixed $storeId = null): Response\PayWithBillingKeyResponse
+    public function payWithBillingKey(?string $paymentId = null, ?string $billingKey = null, ?string $channelKey = null, ?string $orderName = null, ?array $customer = null, ?string $customData = null, ?array $amount = null, ?string $currency = null, ?int $installmentMonth = null, ?bool $useFreeInterestFromMerchant = null, ?bool $useCardPoint = null, ?array $cashReceipt = null, ?string $country = null, ?array $noticeUrls = null, ?array $products = null, ?int $productCount = null, ?string $productType = null, ?array $shippingAddress = null, ?string $promotionId = null, ?string $locale = null, ?array $bypass = null, ?bool $skipWebhook = null, ?string $storeId = null): Response\PayWithBillingKeyResponse
     {
         return $this->callOperation('payWithBillingKey', 'POST', '/payments/{paymentId}/billing-key', ['storeId' => $storeId, 'paymentId' => $paymentId, 'billingKey' => $billingKey, 'channelKey' => $channelKey, 'orderName' => $orderName, 'customer' => $customer, 'customData' => $customData, 'amount' => $amount, 'currency' => $currency, 'installmentMonth' => $installmentMonth, 'useFreeInterestFromMerchant' => $useFreeInterestFromMerchant, 'useCardPoint' => $useCardPoint, 'cashReceipt' => $cashReceipt, 'country' => $country, 'noticeUrls' => $noticeUrls, 'products' => $products, 'productCount' => $productCount, 'productType' => $productType, 'shippingAddress' => $shippingAddress, 'promotionId' => $promotionId, 'locale' => $locale, 'bypass' => $bypass, 'skipWebhook' => $skipWebhook], Response\PayWithBillingKeyResponse::class, true);
     }
 
-    public function payWithBillingKeyAsync(mixed $paymentId = null, mixed $billingKey = null, mixed $channelKey = null, mixed $orderName = null, mixed $customer = null, mixed $customData = null, mixed $amount = null, mixed $currency = null, mixed $installmentMonth = null, mixed $useFreeInterestFromMerchant = null, mixed $useCardPoint = null, mixed $cashReceipt = null, mixed $country = null, mixed $noticeUrls = null, mixed $products = null, mixed $productCount = null, mixed $productType = null, mixed $shippingAddress = null, mixed $promotionId = null, mixed $locale = null, mixed $bypass = null, mixed $skipWebhook = null, mixed $storeId = null): Future
+    public function payWithBillingKeyAsync(?string $paymentId = null, ?string $billingKey = null, ?string $channelKey = null, ?string $orderName = null, ?array $customer = null, ?string $customData = null, ?array $amount = null, ?string $currency = null, ?int $installmentMonth = null, ?bool $useFreeInterestFromMerchant = null, ?bool $useCardPoint = null, ?array $cashReceipt = null, ?string $country = null, ?array $noticeUrls = null, ?array $products = null, ?int $productCount = null, ?string $productType = null, ?array $shippingAddress = null, ?string $promotionId = null, ?string $locale = null, ?array $bypass = null, ?bool $skipWebhook = null, ?string $storeId = null): Future
     {
         return $this->callOperationAsync('payWithBillingKey', 'POST', '/payments/{paymentId}/billing-key', ['storeId' => $storeId, 'paymentId' => $paymentId, 'billingKey' => $billingKey, 'channelKey' => $channelKey, 'orderName' => $orderName, 'customer' => $customer, 'customData' => $customData, 'amount' => $amount, 'currency' => $currency, 'installmentMonth' => $installmentMonth, 'useFreeInterestFromMerchant' => $useFreeInterestFromMerchant, 'useCardPoint' => $useCardPoint, 'cashReceipt' => $cashReceipt, 'country' => $country, 'noticeUrls' => $noticeUrls, 'products' => $products, 'productCount' => $productCount, 'productType' => $productType, 'shippingAddress' => $shippingAddress, 'promotionId' => $promotionId, 'locale' => $locale, 'bypass' => $bypass, 'skipWebhook' => $skipWebhook], Response\PayWithBillingKeyResponse::class, true);
     }
 
-    public function preRegisterPayment(mixed $paymentId = null, mixed $totalAmount = null, mixed $taxFreeAmount = null, mixed $currency = null, mixed $storeId = null): Response\PreRegisterPaymentResponse
+    public function preRegisterPayment(?string $paymentId = null, ?int $totalAmount = null, ?int $taxFreeAmount = null, ?string $currency = null, ?string $storeId = null): Response\PreRegisterPaymentResponse
     {
         return $this->callOperation('preRegisterPayment', 'POST', '/payments/{paymentId}/pre-register', ['storeId' => $storeId, 'paymentId' => $paymentId, 'totalAmount' => $totalAmount, 'taxFreeAmount' => $taxFreeAmount, 'currency' => $currency], Response\PreRegisterPaymentResponse::class, true);
     }
 
-    public function preRegisterPaymentAsync(mixed $paymentId = null, mixed $totalAmount = null, mixed $taxFreeAmount = null, mixed $currency = null, mixed $storeId = null): Future
+    public function preRegisterPaymentAsync(?string $paymentId = null, ?int $totalAmount = null, ?int $taxFreeAmount = null, ?string $currency = null, ?string $storeId = null): Future
     {
         return $this->callOperationAsync('preRegisterPayment', 'POST', '/payments/{paymentId}/pre-register', ['storeId' => $storeId, 'paymentId' => $paymentId, 'totalAmount' => $totalAmount, 'taxFreeAmount' => $taxFreeAmount, 'currency' => $currency], Response\PreRegisterPaymentResponse::class, true);
     }
 
-    public function registerStoreReceipt(mixed $paymentId = null, mixed $items = null, mixed $storeId = null): Response\RegisterStoreReceiptResponse
+    public function registerStoreReceipt(?string $paymentId = null, ?array $items = null, ?string $storeId = null): Response\RegisterStoreReceiptResponse
     {
         return $this->callOperation('registerStoreReceipt', 'POST', '/payments/{paymentId}/register-store-receipt', ['storeId' => $storeId, 'paymentId' => $paymentId, 'items' => $items], Response\RegisterStoreReceiptResponse::class, true);
     }
 
-    public function registerStoreReceiptAsync(mixed $paymentId = null, mixed $items = null, mixed $storeId = null): Future
+    public function registerStoreReceiptAsync(?string $paymentId = null, ?array $items = null, ?string $storeId = null): Future
     {
         return $this->callOperationAsync('registerStoreReceipt', 'POST', '/payments/{paymentId}/register-store-receipt', ['storeId' => $storeId, 'paymentId' => $paymentId, 'items' => $items], Response\RegisterStoreReceiptResponse::class, true);
     }
 
-    public function resendWebhook(mixed $paymentId = null, mixed $webhookId = null, mixed $storeId = null): Response\ResendWebhookResponse
+    public function resendWebhook(?string $paymentId = null, ?string $webhookId = null, ?string $storeId = null): Response\ResendWebhookResponse
     {
         return $this->callOperation('resendWebhook', 'POST', '/payments/{paymentId}/resend-webhook', ['storeId' => $storeId, 'paymentId' => $paymentId, 'webhookId' => $webhookId], Response\ResendWebhookResponse::class, true);
     }
 
-    public function resendWebhookAsync(mixed $paymentId = null, mixed $webhookId = null, mixed $storeId = null): Future
+    public function resendWebhookAsync(?string $paymentId = null, ?string $webhookId = null, ?string $storeId = null): Future
     {
         return $this->callOperationAsync('resendWebhook', 'POST', '/payments/{paymentId}/resend-webhook', ['storeId' => $storeId, 'paymentId' => $paymentId, 'webhookId' => $webhookId], Response\ResendWebhookResponse::class, true);
     }
 
-    public function stopPaymentCancellation(mixed $paymentId = null, mixed $cancellationId = null, mixed $storeId = null): Response\StopPaymentCancellationResponse
+    public function stopPaymentCancellation(?string $paymentId = null, ?string $cancellationId = null, ?string $storeId = null): Response\StopPaymentCancellationResponse
     {
         return $this->callOperation('stopPaymentCancellation', 'POST', '/payments/{paymentId}/cancellations/{cancellationId}/stop', ['storeId' => $storeId, 'paymentId' => $paymentId, 'cancellationId' => $cancellationId], Response\StopPaymentCancellationResponse::class, true);
     }
 
-    public function stopPaymentCancellationAsync(mixed $paymentId = null, mixed $cancellationId = null, mixed $storeId = null): Future
+    public function stopPaymentCancellationAsync(?string $paymentId = null, ?string $cancellationId = null, ?string $storeId = null): Future
     {
         return $this->callOperationAsync('stopPaymentCancellation', 'POST', '/payments/{paymentId}/cancellations/{cancellationId}/stop', ['storeId' => $storeId, 'paymentId' => $paymentId, 'cancellationId' => $cancellationId], Response\StopPaymentCancellationResponse::class, true);
     }
