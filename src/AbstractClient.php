@@ -193,6 +193,50 @@ abstract class AbstractClient
         return $this->callStringOperationAsync($operation, $method, $this->path($path, $query), $this->optionsWithQueryRequestBody($query, $body));
     }
 
+    /** @param array<string,mixed> $options */
+    protected function callUnitOperation(string $operation, string $method, string $path, array $options = []): void
+    {
+        $this->callStringOperation($operation, $method, $path, $options);
+    }
+
+    /** @param array<string,mixed> $options */
+    protected function callUnitOperationAsync(string $operation, string $method, string $path, array $options = []): Future
+    {
+        $promise = $this->executor->requestAsync($method, $path, $options)->then(function (ResponseInterface $response) use ($operation): mixed {
+            if ($response->getStatusCode() < 200 || $response->getStatusCode() >= 300) {
+                $this->throwForError($operation, $response);
+            }
+
+            return null;
+        });
+
+        return new Future($promise);
+    }
+
+    /** @param array<string,mixed> $query @param array<string,mixed> $body */
+    protected function callUnitOperationWithQueryAndBody(string $operation, string $method, string $path, array $query, array $body): void
+    {
+        $this->callUnitOperation($operation, $method, $this->path($path, $query), $this->optionsWithQueryAndBody($query, $body));
+    }
+
+    /** @param array<string,mixed> $query @param array<string,mixed> $body */
+    protected function callUnitOperationWithQueryAndBodyAsync(string $operation, string $method, string $path, array $query, array $body): Future
+    {
+        return $this->callUnitOperationAsync($operation, $method, $this->path($path, $query), $this->optionsWithQueryAndBody($query, $body));
+    }
+
+    /** @param array<string,mixed> $query */
+    protected function callUnitOperationWithQuery(string $operation, string $method, string $path, array $query): void
+    {
+        $this->callUnitOperation($operation, $method, $this->path($path, $query), ['query' => array_filter($query, static fn (mixed $value): bool => $value !== null)]);
+    }
+
+    /** @param array<string,mixed> $query */
+    protected function callUnitOperationWithQueryAsync(string $operation, string $method, string $path, array $query): Future
+    {
+        return $this->callUnitOperationAsync($operation, $method, $this->path($path, $query), ['query' => array_filter($query, static fn (mixed $value): bool => $value !== null)]);
+    }
+
     /** @param array<string,mixed> $parameters */
     private function path(string $path, array &$parameters): string
     {
