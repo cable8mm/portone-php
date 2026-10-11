@@ -35,4 +35,14 @@ class OperationResponse
 
         return $value;
     }
+
+    /** @return list<array<string,mixed>>|null */
+    protected static function optionalObjectList(array $data, string $field, string $response): ?array
+    {
+        if (! array_key_exists($field, $data) || $data[$field] === null) {
+            return null;
+        }
+
+        return self::requireObjectList($data, $field, $response);
+    }
 }

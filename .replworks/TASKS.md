@@ -281,3 +281,11 @@
     - Platform list responses expose JVM-matching `items`, `counts`, `page`, `partners`, and `transferSummaries` fields.
     - List and object envelope fields are validated consistently through the response model base helpers.
     - Unit tests, format checks, Platform live probes, and the JVM response schema comparison pass for these response models.
+
+- [X] T-030 Payment, identity, and reconciliation list DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Billing key, cash receipt, identity verification, and payment schedule responses expose `items` and `page` lists matching the JVM models.
+    - Card promotion and reconciliation VAT report responses preserve nullable list fields and required summary/object fields.
+    - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass for these response models.
