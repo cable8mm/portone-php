@@ -322,3 +322,12 @@
     - Billing-key confirmation, payment confirmation, and Platform company-state payloads expose JVM-matching fields.
     - Required scalar and object fields reject missing or invalid values.
     - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass.
+
+- [X] T-035 OpenAPI operation inventory and contract gap report
+  - Satisfies: PRODUCT_SPEC.md FR-008, FR-009, FR-010, AC-007, AC-008
+  - External boundary: yes
+  - Acceptance criteria:
+    - The repository contains a versioned OpenAPI V2 snapshot from the official PortOne source.
+    - An executable contract tool enumerates every OpenAPI operation and compares its operationId with the PHP public operation methods and async counterparts.
+    - The report identifies missing and unexpected operations without using the JVM catalog as the authority.
+    - Unit tests, format checks, and the OpenAPI inventory check pass for the implemented scope.

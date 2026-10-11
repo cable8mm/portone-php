@@ -21,7 +21,8 @@
         "e2e": "php tools/run_e2e.php",
         "schema:record": "php tools/response_schema_probe.php record",
         "schema:check": "php tools/response_schema_probe.php --compare-php",
-        "schema:verify": "php tools/response_schema_probe.php verify-record"
+        "schema:verify": "php tools/response_schema_probe.php verify-record",
+        "openapi:check": "php tools/openapi_contract_probe.php --check-php"
     },
     "autoload": {
         "psr-4": {

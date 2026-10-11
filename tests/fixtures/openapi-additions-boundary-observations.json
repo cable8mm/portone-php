@@ -1,0 +1,29 @@
+{
+    "status": "observed",
+    "operations": {
+        "getBankInfos": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Response\\GetBankInfosResponse"
+        },
+        "evaluateCheckoutProfile": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404
+        },
+        "createPaymentSession": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\ForbiddenException",
+            "statusCode": 403
+        },
+        "getPaymentSession": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404
+        },
+        "closePaymentSession": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 500
+        }
+    }
+}
