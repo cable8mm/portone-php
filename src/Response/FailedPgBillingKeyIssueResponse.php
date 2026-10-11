@@ -6,7 +6,10 @@ namespace Cable8mm\PortonePhp\Response;
 
 final class FailedPgBillingKeyIssueResponse extends OperationResponse
 {
-    /** @param array<string,mixed> $channel @param array<string,mixed> $failure */
+    /**
+     * @param  array<string, mixed>  $channel
+     * @param  array<string, mixed>  $failure
+     */
     public function __construct(
         private readonly array $channel,
         public readonly array $failure,

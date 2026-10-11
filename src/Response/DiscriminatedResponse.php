@@ -21,7 +21,10 @@ class DiscriminatedResponse extends OperationResponse
         parent::__construct($data);
     }
 
-    /** @param array<string,mixed> $data @param list<string> $knownVariants */
+    /**
+     * @param  array<string, mixed>  $data
+     * @param  list<string>  $knownVariants
+     */
     protected static function decodeVariant(array $data, string $field, array $knownVariants): array
     {
         $variant = self::requireString($data, $field, static::class);
@@ -29,7 +32,10 @@ class DiscriminatedResponse extends OperationResponse
         return [$variant, in_array($variant, $knownVariants, true)];
     }
 
-    /** @param array<string,mixed> $data @param list<string> $required */
+    /**
+     * @param  array<string, mixed>  $data
+     * @param  list<string>  $required
+     */
     protected static function requireFields(array $data, array $required): void
     {
         foreach ($required as $field) {

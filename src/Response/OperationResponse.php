@@ -76,7 +76,13 @@ class OperationResponse
         return self::requireObjectList($data, $field, $response);
     }
 
-    /** @template T of object @param list<array<string,mixed>> $items @param callable(array<string,mixed>):T $factory @return list<T> */
+    /**
+     * @template T of object
+     *
+     * @param  list<array<string, mixed>>  $items
+     * @param  callable(array<string, mixed>): T  $factory
+     * @return list<T>
+     */
     public static function mapObjectList(array $items, callable $factory): array
     {
         return array_map($factory, $items);

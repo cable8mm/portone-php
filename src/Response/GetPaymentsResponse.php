@@ -6,7 +6,10 @@ namespace Cable8mm\PortonePhp\Response;
 
 final class GetPaymentsResponse
 {
-    /** @param list<Payment> $items @param array<string,mixed> $page */
+    /**
+     * @param  list<Payment>  $items
+     * @param  array<string, mixed>  $page
+     */
     public function __construct(
         public readonly array $items,
         public readonly array $page,
