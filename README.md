@@ -54,8 +54,7 @@ $payment = $client->payment->getPayment($paymentId);
 var_dump($payment->data);
 ```
 
-모든 operation은 JVM SDK와 같은 camelCase 이름을 사용하며, 동기 메서드와
-`Async` 접미사가 붙은 비동기 메서드를 함께 제공합니다.
+모든 operation은 JVM SDK와 같은 camelCase 이름을 사용하며, 동기 메서드와 `Async` 접미사가 붙은 비동기 메서드를 함께 제공합니다.
 
 ### 비동기 operation
 
@@ -72,14 +71,11 @@ if (! $future->isComplete()) {
 $payments = $future->wait();
 ```
 
-`wait()`는 동기 operation과 같은 typed response를 반환하며, 같은
-`PortOneException` 계열 예외를 발생시킵니다. HTTP 요청은 connection timeout
-10초, total timeout 30초이며 자동 재시도를 하지 않습니다.
+`wait()`는 동기 operation과 같은 typed response를 반환하며, 같은 `PortOneException` 계열 예외를 발생시킵니다. HTTP 요청은 connection timeout 10초, total timeout 30초이며 자동 재시도를 하지 않습니다.
 
 ### Webhook 검증
 
-Webhook은 JSON으로 decode하기 전에 반드시 원본 request body를 검증해야
-합니다.
+Webhook은 JSON으로 decode하기 전에 반드시 원본 request body를 검증해야 합니다.
 
 ```php
 $body = file_get_contents('php://input');
@@ -98,17 +94,13 @@ if ($webhook instanceof \Cable8mm\PortonePhp\WebhookTransactionPaid) {
 }
 ```
 
-지원하지 않는 webhook type은 실패하지 않고
-`UnrecognizedWebhook`으로 반환됩니다. 서명이 올바르지 않거나 timestamp가
-허용 범위를 벗어나면 `WebhookVerificationException`이 발생합니다.
+지원하지 않는 webhook type은 실패하지 않고 `UnrecognizedWebhook`으로 반환됩니다. 서명이 올바르지 않거나 timestamp가 허용 범위를 벗어나면 `WebhookVerificationException`이 발생합니다.
 
 ## 로컬 개발 환경
 
 ### Secret 설정
 
-SDK 본체는 환경변수를 읽지 않습니다. 다만 개발용 E2E runner가
-`vlucas/phpdotenv`를 사용해 `.env`를 읽습니다. `.env`는 Git에 포함되지
-않습니다.
+SDK 본체는 환경변수를 읽지 않습니다. 다만 개발용 E2E runner가 `vlucas/phpdotenv`를 사용해 `.env`를 읽습니다. `.env`는 Git에 포함되지 않습니다.
 
 ```sh
 cp .env.example .env
