@@ -385,7 +385,7 @@
     - Nested contacts, business information, invoice items, and status unions are typed and forward-compatible.
     - Unit tests, format checks, representative live probes, and asynchronous operation tests pass.
 
-- [ ] T-042 Platform OpenAPI response models
+- [X] T-042 Platform OpenAPI response models
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-016, FR-017, AC-009
   - External boundary: yes
   - Acceptance criteria:

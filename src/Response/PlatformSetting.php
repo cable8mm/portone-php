@@ -14,6 +14,7 @@ final class PlatformSetting extends OperationResponse
         public readonly bool $deductWht,
         public readonly string $settlementAmountType,
         public readonly bool $isForTest,
+        public readonly bool $manualSettlementPerTransfer,
     ) {}
 
     /** @param array<string,mixed> $data */
@@ -27,6 +28,7 @@ final class PlatformSetting extends OperationResponse
             self::requireBool($data, 'deductWht', self::class),
             self::requireString($data, 'settlementAmountType', self::class),
             self::requireBool($data, 'isForTest', self::class),
+            self::requireBool($data, 'manualSettlementPerTransfer', self::class),
         );
     }
 }

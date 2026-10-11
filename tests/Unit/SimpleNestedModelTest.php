@@ -28,6 +28,7 @@ final class SimpleNestedModelTest extends TestCase
             'deductWht' => false,
             'settlementAmountType' => 'SUPPLY_AMOUNT',
             'isForTest' => true,
+            'manualSettlementPerTransfer' => false,
         ])->supportsMultipleOrderTransfersPerPartner);
         self::assertSame(['tag'], PlatformPartnerFilterOptions::fromArray([
             'tags' => ['tag'],

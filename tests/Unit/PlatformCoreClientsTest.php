@@ -67,7 +67,7 @@ final class PlatformCoreClientsTest extends TestCase
         self::assertStringContainsString('requestBody=', (string) $history[0]['request']->getUri());
 
         $platform = $this->client(PlatformClient::class, new MockHandler([
-            new Response(200, [], '{"defaultWithdrawalMemo":"memo","defaultDepositMemo":null,"supportsMultipleOrderTransfersPerPartner":false,"adjustSettlementDateAfterHolidayIfEarlier":false,"deductWht":false,"settlementAmountType":"SUPPLY_AMOUNT","isForTest":false}'),
+            new Response(200, [], '{"defaultWithdrawalMemo":"memo","defaultDepositMemo":null,"supportsMultipleOrderTransfersPerPartner":false,"adjustSettlementDateAfterHolidayIfEarlier":false,"deductWht":false,"settlementAmountType":"SUPPLY_AMOUNT","isForTest":false,"manualSettlementPerTransfer":false}'),
         ]));
         $future = $platform->getPlatformSettingAsync();
 
