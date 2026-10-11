@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp;
 
+use Cable8mm\PortonePhp\Exception\InvalidRequestException;
 use Cable8mm\PortonePhp\Exception\PortOneException;
+use Cable8mm\PortonePhp\Exception\UnauthorizedException;
 use Cable8mm\PortonePhp\Exception\UnknownException;
 use Cable8mm\PortonePhp\Exception\UnrecognizedResponseException;
 use Cable8mm\PortonePhp\Http\RequestExecutor;
@@ -42,7 +44,7 @@ abstract class AbstractClient
     ): Response\OperationResponse {
         return $this->interpretOperation(
             $operation,
-            $this->executor->request($method, $this->path($path, $parameters), $this->options($parameters, $path, $requestBody)),
+            $this->executor->request($method, $this->path($path, $parameters), $this->options($method, $parameters, $path, $requestBody)),
             $responseClass,
         );
     }
@@ -62,7 +64,7 @@ abstract class AbstractClient
         $promise = $this->executor->requestAsync(
             $method,
             $this->path($path, $parameters),
-            $this->options($parameters, $path, $requestBody),
+            $this->options($method, $parameters, $path, $requestBody),
         )->then(fn (ResponseInterface $response): Response\OperationResponse => $this->interpretOperation($operation, $response, $responseClass));
 
         return new Future($promise);
@@ -81,11 +83,15 @@ abstract class AbstractClient
     }
 
     /** @param array<string,mixed> $parameters */
-    private function options(array $parameters, string $path, bool $requestBody): array
+    private function options(string $method, array $parameters, string $path, bool $requestBody): array
     {
         $parameters = array_filter($parameters, static fn (mixed $value): bool => $value !== null);
 
         if ($requestBody) {
+            if ($method !== 'GET') {
+                return ['json' => $parameters];
+            }
+
             return [
                 'query' => [
                     'requestBody' => json_encode($parameters, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES),
@@ -107,6 +113,16 @@ abstract class AbstractClient
             $message = is_array($decoded) && is_string($decoded['message'] ?? null)
                 ? $decoded['message']
                 : 'PortOne returned an error response.';
+
+            $type = is_array($decoded) && is_string($decoded['type'] ?? null)
+                ? $decoded['type']
+                : null;
+            if ($type === 'INVALID_REQUEST') {
+                throw new InvalidRequestException($message, $status, $body);
+            }
+            if ($type === 'UNAUTHORIZED') {
+                throw new UnauthorizedException($message, $status, $body);
+            }
 
             throw new UnknownException($operation, $message, $status, $body);
         }
