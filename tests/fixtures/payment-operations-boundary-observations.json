@@ -5,6 +5,10 @@
             "status": "success",
             "resultType": "Cable8mm\\PortonePhp\\Response\\GetPaymentsResponse"
         },
+        "paymentEvents": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Response\\GetAllPaymentEventsByCursorResponse"
+        },
         "billingKey": {
             "status": "success",
             "resultType": "Cable8mm\\PortonePhp\\Response\\GetBillingKeyInfosResponse"

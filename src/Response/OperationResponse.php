@@ -16,7 +16,7 @@ class OperationResponse
     }
 
     /** @return array<string,mixed> */
-    protected static function requireObject(array $data, string $field, string $response): array
+    public static function requireObject(array $data, string $field, string $response): array
     {
         if (! is_array($data[$field] ?? null)) {
             throw new \UnexpectedValueException($response.' must contain an '.$field.' object.');
@@ -26,7 +26,7 @@ class OperationResponse
     }
 
     /** @return array<string,mixed>|null */
-    protected static function optionalObject(array $data, string $field, string $response): ?array
+    public static function optionalObject(array $data, string $field, string $response): ?array
     {
         if (! array_key_exists($field, $data) || $data[$field] === null) {
             return null;
@@ -36,7 +36,7 @@ class OperationResponse
     }
 
     /** @return list<array<string,mixed>> */
-    protected static function requireObjectList(array $data, string $field, string $response): array
+    public static function requireObjectList(array $data, string $field, string $response): array
     {
         $value = $data[$field] ?? null;
         if (! is_array($value) || ! array_is_list($value) || array_filter($value, 'is_array') !== $value) {
@@ -47,13 +47,39 @@ class OperationResponse
     }
 
     /** @return list<array<string,mixed>>|null */
-    protected static function optionalObjectList(array $data, string $field, string $response): ?array
+    public static function optionalObjectList(array $data, string $field, string $response): ?array
     {
         if (! array_key_exists($field, $data) || $data[$field] === null) {
             return null;
         }
 
         return self::requireObjectList($data, $field, $response);
+    }
+
+    /** @return array<string,mixed>|null */
+    public static function optionalNonNullableObject(array $data, string $field, string $response): ?array
+    {
+        if (! array_key_exists($field, $data)) {
+            return null;
+        }
+
+        return self::requireObject($data, $field, $response);
+    }
+
+    /** @return list<array<string,mixed>>|null */
+    public static function optionalNonNullableObjectList(array $data, string $field, string $response): ?array
+    {
+        if (! array_key_exists($field, $data)) {
+            return null;
+        }
+
+        return self::requireObjectList($data, $field, $response);
+    }
+
+    /** @template T of object @param list<array<string,mixed>> $items @param callable(array<string,mixed>):T $factory @return list<T> */
+    public static function mapObjectList(array $items, callable $factory): array
+    {
+        return array_map($factory, $items);
     }
 
     /** @return list<string> */
@@ -67,7 +93,7 @@ class OperationResponse
         return $value;
     }
 
-    protected static function optionalString(array $data, string $field, string $response): ?string
+    public static function optionalString(array $data, string $field, string $response): ?string
     {
         if (! array_key_exists($field, $data) || $data[$field] === null) {
             return null;
@@ -80,7 +106,20 @@ class OperationResponse
         return $data[$field];
     }
 
-    protected static function requireString(array $data, string $field, string $response): string
+    public static function optionalNonNullableString(array $data, string $field, string $response): ?string
+    {
+        if (! array_key_exists($field, $data)) {
+            return null;
+        }
+
+        if (! is_string($data[$field])) {
+            throw new \UnexpectedValueException($response.' must contain a '.$field.' string when present.');
+        }
+
+        return $data[$field];
+    }
+
+    public static function requireString(array $data, string $field, string $response): string
     {
         if (! is_string($data[$field] ?? null)) {
             throw new \UnexpectedValueException($response.' must contain a '.$field.' string.');
@@ -89,7 +128,7 @@ class OperationResponse
         return $data[$field];
     }
 
-    protected static function requireBool(array $data, string $field, string $response): bool
+    public static function requireBool(array $data, string $field, string $response): bool
     {
         if (! is_bool($data[$field] ?? null)) {
             throw new \UnexpectedValueException($response.' must contain a '.$field.' boolean.');
@@ -98,7 +137,7 @@ class OperationResponse
         return $data[$field];
     }
 
-    protected static function requireInt(array $data, string $field, string $response): int
+    public static function requireInt(array $data, string $field, string $response): int
     {
         if (! is_int($data[$field] ?? null)) {
             throw new \UnexpectedValueException($response.' must contain a '.$field.' integer.');
@@ -108,7 +147,7 @@ class OperationResponse
     }
 
     /** @return list<int> */
-    protected static function requireIntList(array $data, string $field, string $response): array
+    public static function requireIntList(array $data, string $field, string $response): array
     {
         $value = $data[$field] ?? null;
         if (! is_array($value) || ! array_is_list($value) || array_filter($value, 'is_int') !== $value) {

@@ -16,10 +16,15 @@ if ($apiSecret === false || $apiSecret === '') {
 $client = new PortOneClient($apiSecret);
 $operations = [
     'getBankInfos' => static fn () => $client->common->getBankInfos(),
+    'getBankInfosAsync' => static fn () => $client->common->getBankInfosAsync()->wait(),
     'evaluateCheckoutProfile' => static fn () => $client->checkout->evaluateCheckoutProfile('missing-profile', 'KR', 'KRW', 1000),
+    'evaluateCheckoutProfileAsync' => static fn () => $client->checkout->evaluateCheckoutProfileAsync('missing-profile', 'KR', 'KRW', 1000)->wait(),
     'createPaymentSession' => static fn () => $client->paymentSession->createPaymentSession('missing-store', 'missing-payment', 'missing-profile', null, 'KR', 'KRW', 1000, 'E2E probe'),
+    'createPaymentSessionAsync' => static fn () => $client->paymentSession->createPaymentSessionAsync('missing-store', 'missing-payment', 'missing-profile', null, 'KR', 'KRW', 1000, 'E2E probe')->wait(),
     'getPaymentSession' => static fn () => $client->paymentSession->getPaymentSession('missing-session'),
+    'getPaymentSessionAsync' => static fn () => $client->paymentSession->getPaymentSessionAsync('missing-session')->wait(),
     'closePaymentSession' => static fn () => $client->paymentSession->closePaymentSession('missing-session'),
+    'closePaymentSessionAsync' => static fn () => $client->paymentSession->closePaymentSessionAsync('missing-session')->wait(),
 ];
 $observations = [];
 

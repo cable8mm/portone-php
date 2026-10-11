@@ -17,25 +17,26 @@ final class PaymentSession extends OperationResponse
         public readonly string $orderName,
         public readonly string $createdAt,
         public readonly string $expiresAt,
-        public readonly ?array $paymentMethod,
+        public readonly ?string $paymentMethod,
         public readonly ?string $redirectUrl,
+        /** @var list<PaymentSessionProduct>|null */
         public readonly ?array $products,
         public readonly ?string $customerName,
         public readonly ?string $customerEmail,
         public readonly ?string $storeName,
+        /** @var list<PaymentSessionAgreement>|null */
         public readonly ?array $agreements,
         public readonly ?string $orderImageUrl,
         public readonly ?string $customData,
-        public readonly ?array $colors,
+        public readonly ?PaymentSessionColors $colors,
     ) {}
 
     /** @param array<string,mixed> $data */
     public static function fromArray(array $data): static
     {
-        $paymentMethod = self::optionalObject($data, 'paymentMethod', self::class);
-        $products = self::optionalObjectList($data, 'products', self::class);
-        $agreements = self::optionalObjectList($data, 'agreements', self::class);
-        $colors = self::optionalObject($data, 'colors', self::class);
+        $products = self::optionalNonNullableObjectList($data, 'products', self::class);
+        $agreements = self::optionalNonNullableObjectList($data, 'agreements', self::class);
+        $colors = self::optionalNonNullableObject($data, 'colors', self::class);
 
         return new self(
             self::requireString($data, 'id', self::class),
@@ -48,16 +49,22 @@ final class PaymentSession extends OperationResponse
             self::requireString($data, 'orderName', self::class),
             self::requireString($data, 'createdAt', self::class),
             self::requireString($data, 'expiresAt', self::class),
-            $paymentMethod,
-            self::optionalString($data, 'redirectUrl', self::class),
-            $products,
-            self::optionalString($data, 'customerName', self::class),
-            self::optionalString($data, 'customerEmail', self::class),
-            self::optionalString($data, 'storeName', self::class),
-            $agreements,
-            self::optionalString($data, 'orderImageUrl', self::class),
-            self::optionalString($data, 'customData', self::class),
-            $colors,
+            self::optionalNonNullableString($data, 'paymentMethod', self::class),
+            self::optionalNonNullableString($data, 'redirectUrl', self::class),
+            $products === null ? null : self::mapObjectList(
+                $products,
+                static fn (array $product): PaymentSessionProduct => PaymentSessionProduct::fromArray($product),
+            ),
+            self::optionalNonNullableString($data, 'customerName', self::class),
+            self::optionalNonNullableString($data, 'customerEmail', self::class),
+            self::optionalNonNullableString($data, 'storeName', self::class),
+            $agreements === null ? null : self::mapObjectList(
+                $agreements,
+                static fn (array $agreement): PaymentSessionAgreement => PaymentSessionAgreement::fromArray($agreement),
+            ),
+            self::optionalNonNullableString($data, 'orderImageUrl', self::class),
+            self::optionalNonNullableString($data, 'customData', self::class),
+            $colors === null ? null : PaymentSessionColors::fromArray($colors),
         );
     }
 }

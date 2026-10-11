@@ -20,6 +20,7 @@ if ($apiSecret === false || $apiSecret === '') {
 
 $checks = [
     'payment' => static fn (): mixed => (new PaymentClient($apiSecret))->getPayments(['number' => 0, 'size' => 1]),
+    'paymentEvents' => static fn (): mixed => (new PaymentClient($apiSecret))->getAllPaymentEventsByCursor(null, null, null, 1),
     'billingKey' => static fn (): mixed => (new BillingKeyClient($apiSecret))->getBillingKeyInfos(['number' => 0, 'size' => 1]),
     'cashReceipt' => static fn (): mixed => (new CashReceiptClient($apiSecret))->getCashReceipts(['number' => 0, 'size' => 1]),
     'additionalFeature' => static fn (): mixed => (new AdditionalFeatureClient($apiSecret))->getPgCardPromotions('__codex_t006_missing_channel__', 1),

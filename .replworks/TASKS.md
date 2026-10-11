@@ -350,7 +350,7 @@
     - The inventory is reproducible from the committed OpenAPI snapshot and does not use the JVM schema as its authority.
     - Unit tests, format checks, and the response schema inventory pass for the current implementation.
 
-- [ ] T-038 Common, checkout, and payment-session schema completion
+- [X] T-038 Common, checkout, and payment-session schema completion
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009, AC-022
   - External boundary: yes
   - Acceptance criteria:
@@ -359,7 +359,7 @@
     - Synchronous and asynchronous operations return the same typed results and failures.
     - Unit tests, format checks, representative live probes, and async tests pass.
 
-- [ ] T-039 Payment-domain OpenAPI response models
+- [X] T-039 Payment-domain OpenAPI response models
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-016, FR-017, AC-009
   - External boundary: yes
   - Acceptance criteria:

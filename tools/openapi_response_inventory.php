@@ -214,7 +214,13 @@ foreach ($document['paths'] ?? [] as $path => $pathItem) {
         $typeMismatches = [];
         $nullableMismatches = [];
         foreach (array_intersect(array_keys($expectedFields), array_keys($actualFields)) as $field) {
-            if ($expectedNullable[$field] !== $actualFields[$field]['nullable']) {
+            $expectedIsNullable = $expectedNullable[$field];
+            $actualIsNullable = $actualFields[$field]['nullable'];
+            $fieldIsRequired = $expectedFields[$field]['required'];
+            // PHP uses null to represent an absent optional OpenAPI property.
+            // That is compatible with a non-nullable, non-required schema field;
+            // an explicitly present null is rejected by the response decoder.
+            if (($expectedIsNullable && ! $actualIsNullable) || (! $expectedIsNullable && $actualIsNullable && $fieldIsRequired)) {
                 $nullableMismatches[] = $field;
             }
             $expectedType = $expectedFields[$field]['type'];
@@ -234,7 +240,10 @@ foreach ($document['paths'] ?? [] as $path => $pathItem) {
         }
         $status = 'match';
         $hasStructuredSchema = $schemaNames !== [] || $expectedFields !== [] || $unions !== [];
-        if ($actual === null || ($hasStructuredSchema && $actualClass === null) || $missingFields !== [] || $unexpectedFields !== [] || $nullableMismatches !== [] || $typeMismatches !== [] || ($hasStructuredSchema && ($actualClass['rawData'] ?? false))) {
+        $rawStructuredWrapper = $hasStructuredSchema
+            && ($actualClass['rawData'] ?? false)
+            && ($expectedFields !== [] || $unions !== []);
+        if ($actual === null || ($hasStructuredSchema && $actualClass === null) || $missingFields !== [] || $unexpectedFields !== [] || $nullableMismatches !== [] || $typeMismatches !== [] || $rawStructuredWrapper) {
             $status = 'mismatch';
         }
         $operations[$operationId] = [
