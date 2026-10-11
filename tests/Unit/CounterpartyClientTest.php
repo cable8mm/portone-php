@@ -22,7 +22,7 @@ final class CounterpartyClientTest extends TestCase
     {
         $history = [];
         $client = $this->client(new MockHandler([
-            new Response(200, [], '{"id":"counterparty-id"}'),
+            new Response(200, [], '{"counterparty":{"id":"counterparty-id"}}'),
         ]), $history);
 
         $result = $client->createB2bCounterparty(true, 'counterparty-id', ['name' => 'Test'], ['verify' => false]);
@@ -36,7 +36,7 @@ final class CounterpartyClientTest extends TestCase
     {
         $history = [];
         $client = $this->client(new MockHandler([
-            new Response(200, [], '{"items":[]}'),
+            new Response(200, [], '{"items":[],"page":{}}'),
         ]), $history);
 
         $future = $client->getB2bCounterpartiesAsync(true, ['number' => 0], ['status' => ['ACTIVE']]);

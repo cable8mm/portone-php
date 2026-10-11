@@ -247,3 +247,12 @@
     - Nullable scalar fields preserve the JVM default/null behavior.
     - Empty success responses decode as empty DTOs rather than raw arrays.
     - Unit tests, format checks, a live E2E probe, and the JVM response schema comparison pass for these response models.
+
+- [X] T-026 B2B response envelope DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - B2B tax invoice and counterparty response classes expose JVM-matching object, list, and page envelope fields.
+    - Required envelope fields reject missing or non-array values; list fields reject non-list or non-object members.
+    - Extra response fields are ignored consistently with the recorded JVM JSON behavior.
+    - Unit tests, format checks, the B2B live E2E probes, and the JVM response schema comparison pass for these response models.

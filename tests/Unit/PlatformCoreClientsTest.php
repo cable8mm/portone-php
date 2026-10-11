@@ -28,7 +28,7 @@ final class PlatformCoreClientsTest extends TestCase
     {
         $history = [];
         $client = $this->client(CompanyClient::class, new MockHandler([
-            new Response(200, [], '{"items":[]}'),
+            new Response(200, [], '{"result":[]}'),
         ]), $history);
 
         $result = $client->getB2bBusinessInfos(true, ['1234567890']);
