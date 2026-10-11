@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp;
 
+use Cable8mm\PortonePhp\Exception\ForbiddenException;
 use Cable8mm\PortonePhp\Exception\InvalidRequestException;
+use Cable8mm\PortonePhp\Exception\PlatformNotEnabledException;
 use Cable8mm\PortonePhp\Exception\PortOneException;
 use Cable8mm\PortonePhp\Exception\UnauthorizedException;
 use Cable8mm\PortonePhp\Exception\UnknownException;
@@ -86,13 +88,19 @@ class PaymentClient extends AbstractClient
                 : 'PortOne returned an error response.';
 
             if ($type === 'INVALID_REQUEST') {
-                throw new InvalidRequestException($message, $status, $body);
+                throw new InvalidRequestException($message, $status, $body, null, $type);
+            }
+            if ($type === 'FORBIDDEN') {
+                throw new ForbiddenException($message, $status, $body, null, $type);
+            }
+            if ($type === 'PLATFORM_NOT_ENABLED') {
+                throw new PlatformNotEnabledException($message, $status, $body, null, $type);
             }
             if ($type === 'UNAUTHORIZED') {
-                throw new UnauthorizedException($message, $status, $body);
+                throw new UnauthorizedException($message, $status, $body, null, $type);
             }
 
-            throw new UnknownException('getPayments', $message, $status, $body);
+            throw new UnknownException('getPayments', $message, $status, $body, null, $type);
         }
 
         try {

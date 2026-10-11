@@ -349,18 +349,18 @@ abstract class AbstractClient
             ? $decoded['type']
             : null;
         if ($type === 'INVALID_REQUEST') {
-            throw new InvalidRequestException($message, $status, $body);
+            throw new InvalidRequestException($message, $status, $body, null, $type);
         }
         if ($type === 'FORBIDDEN') {
-            throw new ForbiddenException($message, $status, $body);
+            throw new ForbiddenException($message, $status, $body, null, $type);
         }
         if ($type === 'PLATFORM_NOT_ENABLED') {
-            throw new PlatformNotEnabledException($message, $status, $body);
+            throw new PlatformNotEnabledException($message, $status, $body, null, $type);
         }
         if ($type === 'UNAUTHORIZED') {
-            throw new UnauthorizedException($message, $status, $body);
+            throw new UnauthorizedException($message, $status, $body, null, $type);
         }
 
-        throw new UnknownException($operation, $message, $status, $body);
+        throw new UnknownException($operation, $message, $status, $body, null, $type);
     }
 }
