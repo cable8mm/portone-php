@@ -282,5 +282,5 @@
   - Why: keeps library responsibilities independent from sample content.
 - RD-12
   - Ambiguous: how the PHP SDK should expose the JVM SDK's Future convenience methods.
-  - Decided: retain synchronous methods, add Async counterparts returning a typed Future, and use PHP ext-curl multi handles without a third-party promise or event-loop library.
-  - Why: PHP has no standard CompletableFuture equivalent; a library-owned Future preserves the JVM capability while respecting the pure-PHP and no third-party HTTP dependency constraints.
+  - Decided: retain synchronous methods, add Async counterparts returning a typed Future, and keep the transport's asynchronous handle behind that Future.
+  - Why: PHP has no standard CompletableFuture equivalent; a library-owned Future preserves the JVM capability without exposing transport-specific types.
