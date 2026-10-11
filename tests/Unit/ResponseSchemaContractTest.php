@@ -36,6 +36,7 @@ final class ResponseSchemaContractTest extends TestCase
         self::assertStringContainsString('public readonly array $items', $payments);
         self::assertStringContainsString('public readonly array $page', $payments);
         self::assertStringNotContainsString('extends OperationResponse', $payments);
-        self::assertStringContainsString('extends OperationResponse', $login);
+        self::assertStringContainsString('public readonly string $accessToken', $login);
+        self::assertStringContainsString('public readonly string $refreshToken', $login);
     }
 }

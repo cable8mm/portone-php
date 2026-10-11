@@ -219,7 +219,7 @@ function comparePhpResponses(array $models): array
         $php[$class[1]] = [
             'path' => $path,
             'fields' => $fields,
-            'rawData' => str_contains($source, 'extends OperationResponse'),
+            'rawData' => str_contains($source, 'extends OperationResponse') && $fields === [],
         ];
     }
 

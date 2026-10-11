@@ -196,3 +196,14 @@
     - The recorded JVM schema and comparison result are reproducible from the local JVM path configured in `.env`.
     - Unit tests pass for the comparison parser and the probe exits non-zero when a known response model does not match.
     - The comparison report is explicitly treated as an intermediate JVM compatibility check; PortOne V2 documentation remains the final authority for response schemas.
+
+- [X] T-021 Authentication response DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - `LoginViaApiSecretResponse` exposes typed `accessToken` and `refreshToken` fields matching the JVM response model.
+    - `RefreshTokenResponse` exposes typed `accessToken` and `refreshToken` fields matching the JVM response model.
+    - Both response classes reject missing or non-string required fields with a decode failure that becomes `UnrecognizedResponseException` at the operation boundary.
+    - Extra response fields are ignored consistently with the recorded JVM JSON behavior.
+    - Synchronous and asynchronous authentication operations return the typed DTOs.
+    - Unit tests, format checks, and the JVM response schema comparison pass for these two response models.
