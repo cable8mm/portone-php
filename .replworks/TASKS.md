@@ -359,7 +359,7 @@
     - Synchronous and asynchronous operations return the same typed results and failures.
     - Unit tests, format checks, representative live probes, and async tests pass.
 
-- [ ] T-039 Payment-domain OpenAPI response models
+- [X] T-039 Payment-domain OpenAPI response models
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-016, FR-017, AC-009
   - External boundary: yes
   - Acceptance criteria:

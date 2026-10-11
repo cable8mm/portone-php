@@ -6,7 +6,7 @@ namespace Cable8mm\PortonePhp\Response;
 
 final class GetAllPaymentsByCursorResponse extends OperationResponse
 {
-    /** @param list<array<string,mixed>> $items */
+    /** @param list<PaymentWithCursor> $items */
     public function __construct(public readonly array $items) {}
 
     /** @param array<string,mixed> $data */
@@ -17,6 +17,6 @@ final class GetAllPaymentsByCursorResponse extends OperationResponse
             throw new \UnexpectedValueException('GetAllPaymentsByCursorResponse must contain a list of payment objects.');
         }
 
-        return new self($items);
+        return new self(self::mapObjectList($items, static fn (array $item): PaymentWithCursor => PaymentWithCursor::fromArray($item)));
     }
 }

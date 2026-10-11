@@ -240,7 +240,10 @@ foreach ($document['paths'] ?? [] as $path => $pathItem) {
         }
         $status = 'match';
         $hasStructuredSchema = $schemaNames !== [] || $expectedFields !== [] || $unions !== [];
-        if ($actual === null || ($hasStructuredSchema && $actualClass === null) || $missingFields !== [] || $unexpectedFields !== [] || $nullableMismatches !== [] || $typeMismatches !== [] || ($hasStructuredSchema && ($actualClass['rawData'] ?? false))) {
+        $rawStructuredWrapper = $hasStructuredSchema
+            && ($actualClass['rawData'] ?? false)
+            && ($expectedFields !== [] || $unions !== []);
+        if ($actual === null || ($hasStructuredSchema && $actualClass === null) || $missingFields !== [] || $unexpectedFields !== [] || $nullableMismatches !== [] || $typeMismatches !== [] || $rawStructuredWrapper) {
             $status = 'mismatch';
         }
         $operations[$operationId] = [

@@ -14,7 +14,7 @@ final class DomainListResponseTest extends TestCase
     public function test_domain_list_responses_expose_items_pages_and_optional_lists(): void
     {
         self::assertSame(['number' => 0], GetBillingKeyInfosResponse::fromArray([
-            'items' => [['id' => 'billing-key-id']],
+            'items' => [['status' => 'FUTURE', 'id' => 'billing-key-id']],
             'page' => ['number' => 0],
         ])->page);
         self::assertNull(GetPgCardPromotionsResponse::fromArray([])->promotions);
