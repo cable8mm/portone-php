@@ -20,7 +20,7 @@ Spring Boot, Ruby on Rails 예제에서 사용하는 서버 결제 흐름을 구
 ```sh
 cp .env.example .env
 # .env에 test credential 입력
-php -S 127.0.0.1:8080 -t samples samples/index.php
+composer serve
 ```
 
 `http://127.0.0.1:8080/`을 열어 샘플 서버를 확인할 수 있습니다. webhook

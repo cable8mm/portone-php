@@ -126,13 +126,11 @@ composer lint
 composer test
 ```
 
-전체 PHPUnit 테스트에는 client hierarchy, operation 계약, sync/async
-요청, 오류 분류, webhook 검증, samples 내부 로직이 포함됩니다.
+전체 PHPUnit 테스트에는 client hierarchy, operation 계약, sync/async 요청, 오류 분류, webhook 검증, samples 내부 로직이 포함됩니다.
 
 ### JVM 계약 검증
 
-기준 JVM 소스 경로는 `PORTONE_JVM_PATH`로 지정합니다. 이 값이 `.env`에
-없거나 존재하지 않는 디렉터리이면 계약 검증이 명확한 오류와 함께 종료됩니다.
+기준 JVM 소스 경로는 `PORTONE_JVM_PATH`로 지정합니다. 이 값이 `.env`에 없거나 존재하지 않는 디렉터리이면 계약 검증이 명확한 오류와 함께 종료됩니다.
 
 ```sh
 php tools/reference_contract_probe.php --verify-record
@@ -140,8 +138,7 @@ php tools/reference_contract_probe.php \
   --verify-public-contract=tests/fixtures/jvm-v0.24.0-contract.json
 ```
 
-이 검증은 JVM `jvm-v0.24.0`의 client, operation, parameter, async method,
-webhook type과 PHP public contract가 일치하는지 확인합니다.
+이 검증은 JVM `jvm-v0.24.0`의 client, operation, parameter, async method, webhook type과 PHP public contract가 일치하는지 확인합니다.
 
 ## Live E2E 테스트
 
@@ -150,16 +147,13 @@ Live E2E는 실제 `https://api.portone.io`와 실제 webhook secret을 사용�
 
 ### API와 transport E2E
 
-`.env`의 값을 자동으로 로드하려면 다음 명령 하나로 모든 live probe를
-실행합니다.
+`.env`의 값을 자동으로 로드하려면 다음 명령 하나로 모든 live probe를 실행합니다.
 
 ```sh
 composer e2e
 ```
 
-`composer e2e`는 개발 전용 `vlucas/phpdotenv`로 `.env`를 읽은 뒤 각 probe를
-별도 PHP 프로세스로 실행합니다. SDK 본체나 production runtime에는 dotenv가
-들어가지 않습니다.
+`composer e2e`는 개발 전용 `vlucas/phpdotenv`로 `.env`를 읽은 뒤 각 probe를 별도 PHP 프로세스로 실행합니다. SDK 본체나 production runtime에는 dotenv가 들어가지 않습니다.
 
 Webhook까지 포함해 한 번에 실행하려면 다음을 사용합니다.
 
@@ -184,18 +178,14 @@ do
 done
 ```
 
-일부 operation은 test store의 기능 활성화 여부나 존재하지 않는 resource에
-따라 `InvalidRequestException`, `PlatformNotEnabledException`,
-`UnknownException`을 기록할 수 있습니다. 이것은 probe가 의도한 controlled
-failure이며, 스크립트가 성공적으로 종료되고 JSON 결과를 기록하는지 확인해야
-합니다.
+일부 operation은 test store의 기능 활성화 여부나 존재하지 않는 resource에 따라 `InvalidRequestException`, `PlatformNotEnabledException`, `UnknownException`을 기록할 수 있습니다. 이것은 probe가 의도한 controlled failure이며, 스크립트가 성공적으로 종료되고 JSON 결과를 기록하는지 확인해야 합니다.
 
 ### Webhook E2E와 ngrok
 
 1. PHP sample 서버를 실행합니다.
 
    ```sh
-   php -S 127.0.0.1:8080 -t samples samples/index.php
+   composer serve
    ```
 
 2. 다른 terminal에서 ngrok을 실행합니다.
