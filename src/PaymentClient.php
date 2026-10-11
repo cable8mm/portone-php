@@ -4,16 +4,8 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp;
 
-use Cable8mm\PortonePhp\Exception\ForbiddenException;
-use Cable8mm\PortonePhp\Exception\InvalidRequestException;
-use Cable8mm\PortonePhp\Exception\PlatformNotEnabledException;
-use Cable8mm\PortonePhp\Exception\PortOneException;
-use Cable8mm\PortonePhp\Exception\UnauthorizedException;
-use Cable8mm\PortonePhp\Exception\UnknownException;
-use Cable8mm\PortonePhp\Exception\UnrecognizedResponseException;
 use Cable8mm\PortonePhp\Http\RequestExecutor;
 use Cable8mm\PortonePhp\Response\GetPaymentsResponse;
-use Psr\Http\Message\ResponseInterface;
 
 class PaymentClient extends AbstractClient
 {
@@ -40,88 +32,27 @@ class PaymentClient extends AbstractClient
     /** @param array<string,mixed>|null $page @param array<string,mixed>|null $filter */
     public function getPayments(?array $page = null, ?array $filter = null): GetPaymentsResponse
     {
-        return $this->interpret(
-            $this->executor->request('GET', '/payments', $this->requestOptions($page, $filter)),
+        return $this->callOperation(
+            'getPayments',
+            'GET',
+            '/payments',
+            ['page' => $page, 'filter' => $filter],
+            GetPaymentsResponse::class,
+            true,
         );
     }
 
     /** @param array<string,mixed>|null $page @param array<string,mixed>|null $filter */
     public function getPaymentsAsync(?array $page = null, ?array $filter = null): Future
     {
-        $promise = $this->executor->requestAsync(
+        return $this->callOperationAsync(
+            'getPayments',
             'GET',
             '/payments',
-            $this->requestOptions($page, $filter),
-        )->then(fn (ResponseInterface $response): GetPaymentsResponse => $this->interpret($response));
-
-        return new Future($promise);
-    }
-
-    /** @param array<string,mixed>|null $page @param array<string,mixed>|null $filter */
-    private function requestOptions(?array $page, ?array $filter): array
-    {
-        $requestBody = [];
-        if ($page !== null) {
-            $requestBody['page'] = $page;
-        }
-        if ($filter !== null) {
-            $requestBody['filter'] = $filter;
-        }
-
-        return [
-            'query' => [
-                'requestBody' => json_encode($requestBody, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES),
-            ],
-        ];
-    }
-
-    private function interpret(ResponseInterface $response): GetPaymentsResponse
-    {
-        $status = $response->getStatusCode();
-        $body = (string) $response->getBody();
-
-        if ($status < 200 || $status >= 300) {
-            $decoded = json_decode($body, true);
-            $type = is_array($decoded) && is_string($decoded['type'] ?? null) ? $decoded['type'] : null;
-            $message = is_array($decoded) && is_string($decoded['message'] ?? null)
-                ? $decoded['message']
-                : 'PortOne returned an error response.';
-
-            if ($type === 'INVALID_REQUEST') {
-                throw new InvalidRequestException($message, $status, $body, null, $type);
-            }
-            if ($type === 'FORBIDDEN') {
-                throw new ForbiddenException($message, $status, $body, null, $type);
-            }
-            if ($type === 'PLATFORM_NOT_ENABLED') {
-                throw new PlatformNotEnabledException($message, $status, $body, null, $type);
-            }
-            if ($type === 'UNAUTHORIZED') {
-                throw new UnauthorizedException($message, $status, $body, null, $type);
-            }
-
-            throw new UnknownException('getPayments', $message, $status, $body, null, $type);
-        }
-
-        try {
-            $decoded = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
-            if (! is_array($decoded)) {
-                throw new \UnexpectedValueException('Expected a JSON object.');
-            }
-
-            return GetPaymentsResponse::fromArray($decoded);
-        } catch (\Throwable $exception) {
-            if ($exception instanceof PortOneException) {
-                throw $exception;
-            }
-
-            throw new UnrecognizedResponseException(
-                'PortOne returned an undecodable success response.',
-                $status,
-                $body,
-                $exception,
-            );
-        }
+            ['page' => $page, 'filter' => $filter],
+            GetPaymentsResponse::class,
+            true,
+        );
     }
 
     public function applyEscrowLogistics(mixed $paymentId = null, mixed $sender = null, mixed $receiver = null, mixed $logistics = null, mixed $sendEmail = null, mixed $products = null, mixed $storeId = null): Response\ApplyEscrowLogisticsResponse
