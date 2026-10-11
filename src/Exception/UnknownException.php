@@ -12,7 +12,8 @@ final class UnknownException extends PortOneException
         ?int $status = null,
         ?string $responseBody = null,
         ?\Throwable $previous = null,
+        ?string $errorType = null,
     ) {
-        parent::__construct($message, $status, $responseBody, $previous);
+        parent::__construct($message, $status, $responseBody, $previous, $errorType);
     }
 }

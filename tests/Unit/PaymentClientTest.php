@@ -72,6 +72,8 @@ final class PaymentClientTest extends TestCase
             self::fail('Expected InvalidRequestException.');
         } catch (InvalidRequestException $exception) {
             self::assertSame(400, $exception->status);
+            self::assertSame('INVALID_REQUEST', $exception->errorType);
+            self::assertSame('{"type":"INVALID_REQUEST","message":"bad request"}', $exception->responseBody);
         }
 
         $unknown = $this->paymentClient(new MockHandler([
@@ -82,6 +84,7 @@ final class PaymentClientTest extends TestCase
             self::fail('Expected UnknownException.');
         } catch (UnknownException $exception) {
             self::assertSame('getPayments', $exception->operation);
+            self::assertNull($exception->errorType);
         }
     }
 

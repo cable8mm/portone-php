@@ -11,6 +11,7 @@ class PortOneException extends \RuntimeException
         public readonly ?int $status = null,
         public readonly ?string $responseBody = null,
         ?\Throwable $previous = null,
+        public readonly ?string $errorType = null,
     ) {
         parent::__construct($message, 0, $previous);
     }

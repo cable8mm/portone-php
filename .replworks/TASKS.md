@@ -393,7 +393,7 @@
     - Platform enums, nested fee/contract/account models, nullable fields, and union statuses are typed and forward-compatible.
     - Unit tests, format checks, representative live probes, and asynchronous operation tests pass.
 
-- [ ] T-043 OpenAPI error catalog and operation error mapping
+- [X] T-043 OpenAPI error catalog and operation error mapping
   - Satisfies: PRODUCT_SPEC.md ERR-003, ERR-004, ERR-008, AC-018, AC-019
   - External boundary: yes
   - Acceptance criteria:
