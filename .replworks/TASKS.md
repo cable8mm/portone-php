@@ -341,7 +341,7 @@
     - The comparison fails with an actionable operation-level report when a signature diverges.
     - Unit tests, format checks, and the complete signature comparison pass.
 
-- [ ] T-037 OpenAPI response schema inventory
+- [X] T-037 OpenAPI response schema inventory
   - Satisfies: PRODUCT_SPEC.md FR-011, AC-009
   - External boundary: no
   - Acceptance criteria:
