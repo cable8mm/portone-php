@@ -1,0 +1,53 @@
+{
+    "boundary": "https://api.portone.io",
+    "observedAt": "2026-10-11T16:37:18+00:00",
+    "api": {
+        "representativeSuccess": {
+            "status": 200,
+            "json": true,
+            "topLevelKeys": [
+                "items",
+                "page"
+            ],
+            "errorType": null,
+            "hasMessage": false
+        },
+        "definedError": {
+            "status": 404,
+            "json": true,
+            "topLevelKeys": [
+                "message",
+                "type"
+            ],
+            "errorType": "PAYMENT_NOT_FOUND",
+            "hasMessage": true
+        },
+        "unknownError": {
+            "status": 404,
+            "json": false,
+            "topLevelKeys": [],
+            "errorType": null,
+            "hasMessage": false
+        }
+    },
+    "transport": {
+        "timeout": {
+            "status": "transport-failure",
+            "exception": "GuzzleHttp\\Exception\\ConnectTimeoutException",
+            "timeoutSeconds": 0.001
+        },
+        "connectionFailure": {
+            "status": "transport-failure",
+            "exception": "GuzzleHttp\\Exception\\ConnectException"
+        }
+    },
+    "webhook": {
+        "status": "observed",
+        "validSignature": true,
+        "timestampWithinTolerance": true,
+        "knownTypePayloadPresent": true,
+        "unknownTypeAcceptedWithLiveSignatureRule": true,
+        "bodyMutationRejected": true,
+        "signatureMutationRejected": true
+    }
+}
