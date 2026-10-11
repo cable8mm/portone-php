@@ -111,6 +111,7 @@ cp .env.example .env
 ```dotenv
 PORTONE_API_SECRET=여기에_API_Secret
 PORTONE_WEBHOOK_SECRET=whsec_여기에_Webhook_Secret
+PORTONE_JVM_PATH=/path/to/server-sdk/jvm
 ```
 
 Secret을 README, source, fixture, 로그에 넣거나 commit하지 마세요.
@@ -130,7 +131,8 @@ composer test
 
 ### JVM 계약 검증
 
-기준 JVM 소스는 기본적으로 `/Users/cable8mm/Herd/server-sdk/jvm`에서 읽습니다. 다른 경로라면 `--jvm`으로 지정합니다.
+기준 JVM 소스 경로는 `PORTONE_JVM_PATH`로 지정합니다. 이 값이 `.env`에
+없거나 존재하지 않는 디렉터리이면 계약 검증이 명확한 오류와 함께 종료됩니다.
 
 ```sh
 php tools/reference_contract_probe.php --verify-record

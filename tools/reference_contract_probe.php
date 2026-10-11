@@ -2,6 +2,10 @@
 
 declare(strict_types=1);
 
+use Dotenv\Dotenv;
+
+require __DIR__.'/../vendor/autoload.php';
+
 /**
  * Records the public contract observed in the JVM SDK reference tag.
  *
@@ -11,20 +15,26 @@ declare(strict_types=1);
  *   php tools/reference_contract_probe.php --verify-public-contract=path/to/contract.json
  */
 const REFERENCE_TAG = 'jvm-v0.24.0';
-const DEFAULT_JVM_PATH = '/Users/cable8mm/Herd/server-sdk/jvm';
 const RECORD_PATH = __DIR__.'/../tests/fixtures/jvm-v0.24.0-contract.json';
 
-$jvmPath = DEFAULT_JVM_PATH;
+$dotenv = Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->safeLoad();
+if (isset($_ENV['PORTONE_JVM_PATH']) && getenv('PORTONE_JVM_PATH') === false) {
+    putenv('PORTONE_JVM_PATH='.$_ENV['PORTONE_JVM_PATH']);
+}
+
+$jvmPath = getenv('PORTONE_JVM_PATH');
+if ($jvmPath === false || $jvmPath === '') {
+    fail('PORTONE_JVM_PATH is not set. Add the local JVM SDK path to .env.');
+}
+if (! is_dir($jvmPath)) {
+    fail('PORTONE_JVM_PATH is not a directory: '.$jvmPath);
+}
+
 $mode = 'record';
 $publicContractPath = null;
 
 foreach (array_slice($argv, 1) as $argument) {
-    if (str_starts_with($argument, '--jvm=')) {
-        $jvmPath = substr($argument, 6);
-
-        continue;
-    }
-
     if ($argument === '--verify-record') {
         $mode = 'verify-record';
 
