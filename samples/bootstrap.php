@@ -7,8 +7,17 @@ use Cable8mm\PortonePhp\PaymentClient;
 use Cable8mm\PortonePhp\UnrecognizedWebhook;
 use Cable8mm\PortonePhp\WebhookTransactionPaid;
 use Cable8mm\PortonePhp\WebhookVerifier;
+use Dotenv\Dotenv;
 
 require_once dirname(__DIR__).'/vendor/autoload.php';
+
+$dotenv = Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->safeLoad();
+foreach (['PORTONE_API_SECRET', 'PORTONE_WEBHOOK_SECRET'] as $name) {
+    if (isset($_ENV[$name]) && getenv($name) === false) {
+        putenv($name.'='.$_ENV[$name]);
+    }
+}
 
 /** @return array{id: string, name: string, price: int, currency: string} */
 function sampleItem(): array

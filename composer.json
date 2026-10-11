@@ -16,7 +16,7 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
-        "format:test": "vendor/bin/pint --test",
+        "lint": "vendor/bin/pint --test",
         "e2e": "php tools/run_e2e.php"
     },
     "autoload": {

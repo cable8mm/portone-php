@@ -100,7 +100,7 @@ if ($webhook instanceof \Cable8mm\PortonePhp\WebhookTransactionPaid) {
 
 ### Secret 설정
 
-SDK 본체는 환경변수를 읽지 않습니다. 다만 개발용 E2E runner가 `vlucas/phpdotenv`를 사용해 `.env`를 읽습니다. `.env`는 Git에 포함되지 않습니다.
+SDK 본체는 환경변수를 읽지 않습니다. 개발용 E2E runner와 `samples/`의 로컬 서버만 `vlucas/phpdotenv`를 사용해 `.env`를 읽습니다. `.env`는 Git에 포함되지 않습니다.
 
 ```sh
 cp .env.example .env
@@ -113,14 +113,6 @@ PORTONE_API_SECRET=여기에_API_Secret
 PORTONE_WEBHOOK_SECRET=whsec_여기에_Webhook_Secret
 ```
 
-샘플 서버를 직접 실행할 때만 shell에 export합니다.
-
-```sh
-set -a
-source .env
-set +a
-```
-
 Secret을 README, source, fixture, 로그에 넣거나 commit하지 마세요.
 
 ## 테스트
@@ -129,8 +121,8 @@ Secret을 README, source, fixture, 로그에 넣거나 commit하지 마세요.
 
 ```sh
 composer validate --no-check-publish
-vendor/bin/pint --test
-vendor/bin/phpunit
+composer lint
+composer test
 ```
 
 전체 PHPUnit 테스트에는 client hierarchy, operation 계약, sync/async
@@ -138,9 +130,7 @@ vendor/bin/phpunit
 
 ### JVM 계약 검증
 
-기준 JVM 소스는 기본적으로
-`/Users/cable8mm/Herd/server-sdk/jvm`에서 읽습니다. 다른 경로라면
-`--jvm`으로 지정합니다.
+기준 JVM 소스는 기본적으로 `/Users/cable8mm/Herd/server-sdk/jvm`에서 읽습니다. 다른 경로라면 `--jvm`으로 지정합니다.
 
 ```sh
 php tools/reference_contract_probe.php --verify-record
@@ -203,9 +193,6 @@ failure이며, 스크립트가 성공적으로 종료되고 JSON 결과를 기�
 1. PHP sample 서버를 실행합니다.
 
    ```sh
-   set -a
-   source .env
-   set +a
    php -S 127.0.0.1:8080 -t samples samples/index.php
    ```
 
@@ -280,8 +267,8 @@ GitHub Actions는 push와 pull request마다 PHP 8.2, 8.3, 8.4, 8.5 각각에
 
 ```sh
 composer install --no-interaction --prefer-dist
-vendor/bin/pint --test
-vendor/bin/phpunit
+composer lint
+composer test
 ```
 
 ## 예외 처리

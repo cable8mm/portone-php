@@ -61,8 +61,8 @@
 - Tests MUST run on every PHP version in the CI PHP versions list.
 - Coverage threshold: none.
 - Coverage tools and coverage reports MUST NOT be configured.
-- Format check command: vendor/bin/pint --test.
-- Test command: vendor/bin/phpunit.
+- Format check command: composer lint.
+- Test command: composer test.
 
 ## 5. Configuration rules
 
