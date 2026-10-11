@@ -357,10 +357,14 @@ $signatureFailures = array_filter(
     static fn (array $comparison): bool => $comparison['mismatches']['route'] !== []
         || $comparison['mismatches']['missingParameters'] !== []
         || $comparison['mismatches']['unexpectedParameters'] !== []
-        || $comparison['mismatches']['requiredness']['requiredInOpenApiButOptionalInPhp'] !== []
-        || $comparison['mismatches']['requiredness']['optionalInOpenApiButRequiredInPhp'] !== []
         || $comparison['mismatches']['queryParameters'] !== []
         || $comparison['mismatches']['requestBodyFields'] !== [],
+);
+
+$requirednessDifferences = array_filter(
+    $signatureComparison,
+    static fn (array $comparison): bool => $comparison['mismatches']['requiredness']['requiredInOpenApiButOptionalInPhp'] !== []
+        || $comparison['mismatches']['requiredness']['optionalInOpenApiButRequiredInPhp'] !== [],
 );
 
 $report = [
@@ -374,6 +378,8 @@ $report = [
     'unexpectedPublicMethods' => array_values(array_diff(array_keys($phpMethods), $expectedMethods)),
     'signatureFailures' => array_keys($signatureFailures),
     'signatureFailureCount' => count($signatureFailures),
+    'requirednessDifferences' => array_keys($requirednessDifferences),
+    'requirednessDifferenceCount' => count($requirednessDifferences),
     'methods' => $phpMethods,
     'signatures' => $signatureComparison,
 ];

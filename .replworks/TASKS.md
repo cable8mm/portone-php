@@ -332,7 +332,7 @@
     - The report identifies missing and unexpected operations without using the JVM catalog as the authority.
     - Unit tests, format checks, and the OpenAPI inventory check pass for the implemented scope.
 
-- [ ] T-036 OpenAPI operation signature comparison
+- [X] T-036 OpenAPI operation signature comparison
   - Satisfies: PRODUCT_SPEC.md FR-008, FR-009, FR-010, FR-026, AC-007, AC-008
   - External boundary: no
   - Acceptance criteria:
