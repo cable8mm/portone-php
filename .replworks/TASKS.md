@@ -25,7 +25,7 @@
     - A live webhook probe records the verification inputs, signature format, timestamp handling, known type result, unknown type result, invalid signature failure, and raw-body handling required by ARCHITECTURE.md.
     - Each recorded result has an executable pass/fail check, and the task remains incomplete if the live PortOne boundary is unreachable.
 
-- [ ] T-004 End-to-end authenticated operation outcome
+- [X] T-004 End-to-end authenticated operation outcome
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-013, FR-023, FR-024, FR-025, FR-026, FR-027, ERR-003, ERR-004, ERR-005, ERR-006, ERR-008, ERR-009
   - External boundary: yes
   - Acceptance criteria:
