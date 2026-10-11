@@ -1,0 +1,9 @@
+{
+    "status": "observed",
+    "operation": "getKakaopayPaymentOrder",
+    "result": {
+        "status": "portone-failure",
+        "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+        "statusCode": 500
+    }
+}
