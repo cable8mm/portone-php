@@ -1,0 +1,20 @@
+{
+    "status": "observed",
+    "operations": {
+        "getPlatformAdditionalFeePolicies": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400
+        },
+        "getPlatformContracts": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400
+        },
+        "getPlatformDiscountSharePolicies": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400
+        }
+    }
+}
