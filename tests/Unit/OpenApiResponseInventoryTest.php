@@ -32,5 +32,10 @@ final class OpenApiResponseInventoryTest extends TestCase
         self::assertArrayHasKey('getPayment', $report['operations']);
         self::assertArrayHasKey('missingFields', $report['operations']['getPayment']);
         self::assertArrayHasKey('unions', $report['operations']['getBillingKeyInfo']);
+        self::assertSame('match', $report['operations']['getBankInfos']['status']);
+        self::assertSame('match', $report['operations']['evaluateCheckoutProfile']['status']);
+        self::assertSame('match', $report['operations']['createPaymentSession']['status']);
+        self::assertSame('match', $report['operations']['getPaymentSession']['status']);
+        self::assertSame('match', $report['operations']['closePaymentSession']['status']);
     }
 }
