@@ -41,9 +41,9 @@ final class PlatformCoreClientsTest extends TestCase
     public function test_account_and_company_get_operations_decode_typed_results(): void
     {
         $account = $this->client(AccountClient::class, new MockHandler([
-            new Response(200, [], '{"holderName":"Test"}'),
+            new Response(200, [], '{"holderName":"Test","accountVerificationId":"verification-id"}'),
         ]));
-        self::assertSame('Test', $account->getPlatformAccountHolder('SHINHAN', '1234567890')->data['holderName']);
+        self::assertSame('Test', $account->getPlatformAccountHolder('SHINHAN', '1234567890')->holderName);
 
         $company = $this->client(CompanyClient::class, new MockHandler([
             new Response(200, [], '{"status":"ACTIVE"}'),
@@ -67,7 +67,7 @@ final class PlatformCoreClientsTest extends TestCase
         self::assertStringContainsString('requestBody=', (string) $history[0]['request']->getUri());
 
         $platform = $this->client(PlatformClient::class, new MockHandler([
-            new Response(200, [], '{"defaultWithdrawalMemo":"memo"}'),
+            new Response(200, [], '{"defaultWithdrawalMemo":"memo","defaultDepositMemo":null,"supportsMultipleOrderTransfersPerPartner":false,"adjustSettlementDateAfterHolidayIfEarlier":false,"deductWht":false,"settlementAmountType":"SUPPLY_AMOUNT","isForTest":false}'),
         ]));
         $future = $platform->getPlatformSettingAsync();
 

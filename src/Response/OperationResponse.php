@@ -69,4 +69,42 @@ class OperationResponse
 
         return $data[$field];
     }
+
+    protected static function requireString(array $data, string $field, string $response): string
+    {
+        if (! is_string($data[$field] ?? null)) {
+            throw new \UnexpectedValueException($response.' must contain a '.$field.' string.');
+        }
+
+        return $data[$field];
+    }
+
+    protected static function requireBool(array $data, string $field, string $response): bool
+    {
+        if (! is_bool($data[$field] ?? null)) {
+            throw new \UnexpectedValueException($response.' must contain a '.$field.' boolean.');
+        }
+
+        return $data[$field];
+    }
+
+    protected static function requireInt(array $data, string $field, string $response): int
+    {
+        if (! is_int($data[$field] ?? null)) {
+            throw new \UnexpectedValueException($response.' must contain a '.$field.' integer.');
+        }
+
+        return $data[$field];
+    }
+
+    /** @return list<int> */
+    protected static function requireIntList(array $data, string $field, string $response): array
+    {
+        $value = $data[$field] ?? null;
+        if (! is_array($value) || ! array_is_list($value) || array_filter($value, 'is_int') !== $value) {
+            throw new \UnexpectedValueException($response.' must contain a list of '.$field.' integers.');
+        }
+
+        return $value;
+    }
 }

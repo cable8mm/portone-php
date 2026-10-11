@@ -306,3 +306,11 @@
     - `FailedPgBillingKeyIssueResponse` and `IssuedPgBillingKeyIssueResponse` expose their JVM-matching fields and validate required and nullable values.
     - Unknown variants are accepted as an explicit unrecognized response value without losing the original payload.
     - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass.
+
+- [X] T-033 Simple Platform and B2B nested model DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Platform setting, account holder, filter option, B2B upload payload, and B2B certificate models expose JVM-matching fields.
+    - Required scalar fields reject missing or invalid values, while nullable fields preserve JVM defaults.
+    - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass.
