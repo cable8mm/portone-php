@@ -402,7 +402,7 @@
     - Defined errors and unknown errors are tested against recorded or live observations.
     - Unit tests, format checks, and representative live error probes pass.
 
-- [ ] T-044 Complete synchronous/asynchronous operation parity
+- [X] T-044 Complete synchronous/asynchronous operation parity
   - Satisfies: PRODUCT_SPEC.md FR-013, FR-026, FR-027, ERR-009, AC-015, AC-022
   - External boundary: yes
   - Acceptance criteria:
