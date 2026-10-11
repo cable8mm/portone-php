@@ -256,3 +256,11 @@
     - Required envelope fields reject missing or non-array values; list fields reject non-list or non-object members.
     - Extra response fields are ignored consistently with the recorded JVM JSON behavior.
     - Unit tests, format checks, the B2B live E2E probes, and the JVM response schema comparison pass for these response models.
+
+- [X] T-027 Platform policy and partner response envelopes
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Archive, create, and recover responses for Platform policies, contracts, and partners expose their JVM-matching object fields.
+    - Required object fields reject missing or non-array values; extra fields are ignored.
+    - Unit tests, format checks, the Platform live probes, and the JVM response schema comparison pass for these response models.
