@@ -55,6 +55,12 @@ $observations['api']['representativeSuccess'] = requestObservation(
     ],
 );
 
+$observations['api']['undecodableSuccess'] = undecodableSuccessObservation(
+    $client,
+    $headers,
+    $requestBody,
+);
+
 $observations['api']['definedError'] = requestObservation(
     $client,
     'GET',
@@ -99,6 +105,50 @@ function requestObservation(Client $client, string $method, string $uri, array $
             'topLevelKeys' => is_array($decoded) ? sortedKeys($decoded) : [],
             'errorType' => is_array($decoded) && is_string($decoded['type'] ?? null) ? $decoded['type'] : null,
             'hasMessage' => is_array($decoded) && array_key_exists('message', $decoded),
+        ];
+    } catch (GuzzleException $exception) {
+        return [
+            'status' => 'transport-failure',
+            'exception' => $exception::class,
+        ];
+    }
+}
+
+/** @param array<string,string> $headers */
+function undecodableSuccessObservation(Client $client, array $headers, string $requestBody): array
+{
+    try {
+        $response = $client->request('GET', '/payments', [
+            'headers' => $headers,
+            'query' => ['requestBody' => $requestBody],
+        ]);
+        $status = $response->getStatusCode();
+
+        if ($status < 200 || $status >= 300) {
+            return [
+                'status' => 'not-observed',
+                'liveStatus' => $status,
+                'reason' => 'The representative live request did not return success.',
+            ];
+        }
+
+        // PortOne controls the live response body. Derive the malformed-success
+        // case from the observed successful response so the decoder behavior is
+        // executable without pretending PortOne returned invalid JSON.
+        $derivedBody = substr((string) $response->getBody(), 0, 1).'not-json';
+        json_decode($derivedBody, true, 512, JSON_THROW_ON_ERROR);
+
+        return [
+            'status' => 'unexpected-decode-success',
+            'liveStatus' => $status,
+        ];
+    } catch (JsonException $exception) {
+        return [
+            'status' => 'observed-derived',
+            'liveStatus' => 200,
+            'derivedBodyIsUndecodable' => true,
+            'exception' => $exception::class,
+            'note' => 'Derived from the live successful response body; not a PortOne malformed response.',
         ];
     } catch (GuzzleException $exception) {
         return [
