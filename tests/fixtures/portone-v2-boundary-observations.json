@@ -1,6 +1,6 @@
 {
     "boundary": "https://api.portone.io",
-    "observedAt": "2026-10-11T16:37:18+00:00",
+    "observedAt": "2026-10-11T16:43:56+00:00",
     "api": {
         "representativeSuccess": {
             "status": 200,
@@ -11,6 +11,13 @@
             ],
             "errorType": null,
             "hasMessage": false
+        },
+        "undecodableSuccess": {
+            "status": "observed-derived",
+            "liveStatus": 200,
+            "derivedBodyIsUndecodable": true,
+            "exception": "JsonException",
+            "note": "Derived from the live successful response body; not a PortOne malformed response."
         },
         "definedError": {
             "status": 404,

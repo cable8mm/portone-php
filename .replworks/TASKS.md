@@ -17,7 +17,7 @@
     - The recorded operation and parameter sets are available to the dependent implementation tasks and the probe fails when the PHP public set differs from the recorded JVM set.
     - The probe records the JVM SDK's success decoding, error classification, and unknown-value behavior required by ARCHITECTURE.md RD-03 and RD-04.
 
-- [ ] T-003 PortOne API and webhook boundary behavior verification
+- [X] T-003 PortOne API and webhook boundary behavior verification
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-015, FR-016, FR-017, FR-018, ERR-003, ERR-004, ERR-005, ERR-006, ERR-007
   - External boundary: yes
   - Acceptance criteria:
