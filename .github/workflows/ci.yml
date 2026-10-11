@@ -31,8 +31,17 @@ jobs:
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
 
+      - name: Validate Composer package
+        run: composer validate --strict --no-check-publish
+
       - name: Check formatting
         run: composer lint
 
-      - name: Run tests
+      - name: Run unit and sample tests
         run: composer test
+
+      - name: Check OpenAPI contract
+        run: composer openapi:check
+
+      - name: Check OpenAPI signatures
+        run: composer openapi:signatures

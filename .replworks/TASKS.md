@@ -438,7 +438,7 @@
     - Documentation does not describe the JVM SDK as the implementation or API authority.
     - Documentation verification passes from a clean Composer install.
 
-- [ ] T-048 Clean-install, CI, and release verification
+- [X] T-048 Clean-install, CI, and release verification
   - Satisfies: PRODUCT_SPEC.md FR-001, FR-011, FR-022, FR-023, FR-024, FR-025, AC-001, AC-013, AC-014
   - External boundary: yes
   - Acceptance criteria:
