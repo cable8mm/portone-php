@@ -45,4 +45,28 @@ class OperationResponse
 
         return self::requireObjectList($data, $field, $response);
     }
+
+    /** @return list<string> */
+    protected static function requireStringList(array $data, string $field, string $response): array
+    {
+        $value = $data[$field] ?? null;
+        if (! is_array($value) || ! array_is_list($value) || array_filter($value, 'is_string') !== $value) {
+            throw new \UnexpectedValueException($response.' must contain a list of '.$field.' strings.');
+        }
+
+        return $value;
+    }
+
+    protected static function optionalString(array $data, string $field, string $response): ?string
+    {
+        if (! array_key_exists($field, $data) || $data[$field] === null) {
+            return null;
+        }
+
+        if (! is_string($data[$field])) {
+            throw new \UnexpectedValueException($response.' must contain a '.$field.' string or null.');
+        }
+
+        return $data[$field];
+    }
 }

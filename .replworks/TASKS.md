@@ -289,3 +289,11 @@
     - Billing key, cash receipt, identity verification, and payment schedule responses expose `items` and `page` lists matching the JVM models.
     - Card promotion and reconciliation VAT report responses preserve nullable list fields and required summary/object fields.
     - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass for these response models.
+
+- [X] T-031 Remaining non-polymorphic response DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Remaining identity, Platform transfer, payment schedule, cash receipt, billing key, and non-polymorphic response classes expose JVM-matching fields.
+    - Empty success responses and nullable list/string fields preserve the JVM behavior.
+    - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass for these response models.
