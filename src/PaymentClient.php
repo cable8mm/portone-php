@@ -13,13 +13,26 @@ use Cable8mm\PortonePhp\Http\RequestExecutor;
 use Cable8mm\PortonePhp\Response\GetPaymentsResponse;
 use Psr\Http\Message\ResponseInterface;
 
-class PaymentClient
+class PaymentClient extends AbstractClient
 {
-    private readonly RequestExecutor $executor;
+    public readonly BillingKeyClient $billingKey;
 
-    public function __construct(string $apiSecret)
+    public readonly CashReceiptClient $cashReceipt;
+
+    public readonly AdditionalFeatureClient $additionalFeature;
+
+    public readonly PaymentScheduleClient $paymentSchedule;
+
+    public readonly PromotionClient $promotion;
+
+    public function __construct(string $apiSecret, ?RequestExecutor $executor = null)
     {
-        $this->executor = $this->createExecutor($apiSecret);
+        parent::__construct($apiSecret, $executor);
+        $this->billingKey = new BillingKeyClient('', $this->executor);
+        $this->cashReceipt = new CashReceiptClient('', $this->executor);
+        $this->additionalFeature = new AdditionalFeatureClient('', $this->executor);
+        $this->paymentSchedule = new PaymentScheduleClient('', $this->executor);
+        $this->promotion = new PromotionClient('', $this->executor);
     }
 
     /** @param array<string,mixed>|null $page @param array<string,mixed>|null $filter */
@@ -101,10 +114,5 @@ class PaymentClient
                 $exception,
             );
         }
-    }
-
-    protected function createExecutor(string $apiSecret): RequestExecutor
-    {
-        return new RequestExecutor($apiSecret);
     }
 }

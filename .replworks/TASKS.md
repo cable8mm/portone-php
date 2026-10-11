@@ -35,7 +35,7 @@
     - The asynchronous counterpart starts one request without waiting, returns a Future, and waiting on it applies the same typed decoding and failure behavior as the synchronous operation.
     - Unit tests pass for request construction, outcome classification, typed decoding, failure propagation, and the invariant that one failed call does not affect a later call.
 
-- [ ] T-005 Client construction and accessor hierarchy
+- [X] T-005 Client construction and accessor hierarchy
   - Satisfies: PRODUCT_SPEC.md FR-002, FR-003, FR-004, FR-005, FR-006, FR-007, FR-022, ERR-001
   - External boundary: no
   - Acceptance criteria:
