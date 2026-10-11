@@ -1,0 +1,31 @@
+{
+    "status": "observed",
+    "clients": {
+        "payment": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Response\\GetPaymentsResponse"
+        },
+        "billingKey": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Response\\GetBillingKeyInfosResponse"
+        },
+        "cashReceipt": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Response\\GetCashReceiptsResponse"
+        },
+        "additionalFeature": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404
+        },
+        "paymentSchedule": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Response\\GetPaymentSchedulesResponse"
+        },
+        "promotion": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404
+        }
+    }
+}
