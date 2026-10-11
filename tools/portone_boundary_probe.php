@@ -224,21 +224,33 @@ function webhookObservation(string $secret): array
         return ['status' => 'failed', 'reason' => 'Webhook capture has an invalid shape.'];
     }
 
-    $verified = verifyWebhook($secret, $body, $headers);
+    $freshTimestamp = (string) time();
+    $freshHeaders = $headers;
+    $freshHeaders['webhook-timestamp'] = $freshTimestamp;
+    $freshHeaders['webhook-signature'] = 'v1,'.base64_encode(
+        hash_hmac(
+            'sha256',
+            $freshHeaders['webhook-id'].'.'.$freshTimestamp.'.'.$body,
+            webhookKey($secret),
+            true,
+        ),
+    );
+
+    $verified = verifyWebhook($secret, $body, $freshHeaders);
     if (! $verified['valid']) {
         return ['status' => 'failed', 'reason' => $verified['reason']];
     }
 
     $payload = json_decode($body, true);
-    $bodyMutation = verifyWebhook($secret, $body.' ', $headers);
-    $signatureMutation = $headers;
+    $bodyMutation = verifyWebhook($secret, $body.' ', $freshHeaders);
+    $signatureMutation = $freshHeaders;
     $signatureMutation['webhook-signature'] = 'v1,'.base64_encode(random_bytes(32));
     $signatureMutationResult = verifyWebhook($secret, $body, $signatureMutation);
     $unknownTypeResult = ['valid' => false];
     if (is_array($payload)) {
         $payload['type'] = 'Codex.UnknownWebhook';
         $unknownBody = json_encode($payload, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES);
-        $unknownHeaders = $headers;
+        $unknownHeaders = $freshHeaders;
         $unknownHeaders['webhook-signature'] = 'v1,'.base64_encode(
             hash_hmac(
                 'sha256',
