@@ -34,7 +34,7 @@ abstract class AbstractClient
 
     /**
      * @param  array<string,mixed>  $parameters
-     * @param  class-string<Response\OperationResponse>  $responseClass
+     * @param  class-string<object>  $responseClass
      */
     protected function callOperation(
         string $operation,
@@ -43,7 +43,7 @@ abstract class AbstractClient
         array $parameters,
         string $responseClass,
         bool $requestBody,
-    ): Response\OperationResponse {
+    ): object {
         return $this->interpretOperation(
             $operation,
             $this->executor->request($method, $this->path($path, $parameters), $this->options($method, $parameters, $path, $requestBody)),
@@ -53,7 +53,7 @@ abstract class AbstractClient
 
     /**
      * @param  array<string,mixed>  $parameters
-     * @param  class-string<Response\OperationResponse>  $responseClass
+     * @param  class-string<object>  $responseClass
      */
     protected function callOperationAsync(
         string $operation,
@@ -67,7 +67,7 @@ abstract class AbstractClient
             $method,
             $this->path($path, $parameters),
             $this->options($method, $parameters, $path, $requestBody),
-        )->then(fn (ResponseInterface $response): Response\OperationResponse => $this->interpretOperation($operation, $response, $responseClass));
+        )->then(fn (ResponseInterface $response): object => $this->interpretOperation($operation, $response, $responseClass));
 
         return new Future($promise);
     }
@@ -75,7 +75,7 @@ abstract class AbstractClient
     /**
      * @param  array<string,mixed>  $query
      * @param  array<string,mixed>  $body
-     * @param  class-string<Response\OperationResponse>  $responseClass
+     * @param  class-string<object>  $responseClass
      */
     protected function callOperationWithQueryAndBody(
         string $operation,
@@ -84,7 +84,7 @@ abstract class AbstractClient
         array $query,
         array $body,
         string $responseClass,
-    ): Response\OperationResponse {
+    ): object {
         return $this->interpretOperation(
             $operation,
             $this->executor->request($method, $this->path($path, $query), $this->optionsWithQueryAndBody($query, $body)),
@@ -95,7 +95,7 @@ abstract class AbstractClient
     /**
      * @param  array<string,mixed>  $query
      * @param  array<string,mixed>  $body
-     * @param  class-string<Response\OperationResponse>  $responseClass
+     * @param  class-string<object>  $responseClass
      */
     protected function callOperationWithQueryAndBodyAsync(
         string $operation,
@@ -109,7 +109,7 @@ abstract class AbstractClient
             $method,
             $this->path($path, $query),
             $this->optionsWithQueryAndBody($query, $body),
-        )->then(fn (ResponseInterface $response): Response\OperationResponse => $this->interpretOperation($operation, $response, $responseClass));
+        )->then(fn (ResponseInterface $response): object => $this->interpretOperation($operation, $response, $responseClass));
 
         return new Future($promise);
     }
@@ -117,7 +117,7 @@ abstract class AbstractClient
     /**
      * @param  array<string,mixed>  $query
      * @param  array<string,mixed>  $body
-     * @param  class-string<Response\OperationResponse>  $responseClass
+     * @param  class-string<object>  $responseClass
      */
     protected function callOperationWithQueryRequestBody(
         string $operation,
@@ -126,7 +126,7 @@ abstract class AbstractClient
         array $query,
         array $body,
         string $responseClass,
-    ): Response\OperationResponse {
+    ): object {
         return $this->interpretOperation(
             $operation,
             $this->executor->request($method, $this->path($path, $query), $this->optionsWithQueryRequestBody($query, $body)),
@@ -137,7 +137,7 @@ abstract class AbstractClient
     /**
      * @param  array<string,mixed>  $query
      * @param  array<string,mixed>  $body
-     * @param  class-string<Response\OperationResponse>  $responseClass
+     * @param  class-string<object>  $responseClass
      */
     protected function callOperationWithQueryRequestBodyAsync(
         string $operation,
@@ -151,7 +151,7 @@ abstract class AbstractClient
             $method,
             $this->path($path, $query),
             $this->optionsWithQueryRequestBody($query, $body),
-        )->then(fn (ResponseInterface $response): Response\OperationResponse => $this->interpretOperation($operation, $response, $responseClass));
+        )->then(fn (ResponseInterface $response): object => $this->interpretOperation($operation, $response, $responseClass));
 
         return new Future($promise);
     }
@@ -307,8 +307,8 @@ abstract class AbstractClient
         ];
     }
 
-    /** @param class-string<Response\OperationResponse> $responseClass */
-    private function interpretOperation(string $operation, ResponseInterface $response, string $responseClass): Response\OperationResponse
+    /** @param class-string<object> $responseClass */
+    private function interpretOperation(string $operation, ResponseInterface $response, string $responseClass): object
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();

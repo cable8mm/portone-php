@@ -420,7 +420,7 @@
     - The E2E runner executes the complete matrix without treating documented feature-disabled or invalid-resource failures as infrastructure failures.
     - The full live matrix completes successfully and its observations are reviewed.
 
-- [ ] T-046 PHP API and internal architecture refactor
+- [X] T-046 PHP API and internal architecture refactor
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-026, FR-027 and ARCHITECTURE.md COMP-001 to COMP-006
   - External boundary: no
   - Acceptance criteria:
