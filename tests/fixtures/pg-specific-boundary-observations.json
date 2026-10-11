@@ -5,5 +5,10 @@
         "status": "portone-failure",
         "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
         "statusCode": 500
+    },
+    "asyncResult": {
+        "status": "portone-failure",
+        "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+        "statusCode": 500
     }
 }

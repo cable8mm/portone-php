@@ -368,7 +368,7 @@
     - Required, nullable, enum, and list fields are validated according to the OpenAPI contract.
     - Unit tests, format checks, representative live probes, and unknown-variant tests pass.
 
-- [ ] T-040 Identity, PG-specific, authentication, and reconciliation response models
+- [X] T-040 Identity, PG-specific, authentication, and reconciliation response models
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-016, FR-017, AC-009
   - External boundary: yes
   - Acceptance criteria:

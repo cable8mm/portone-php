@@ -36,9 +36,23 @@ foreach ([
     }
 }
 
+$asyncOperations = [];
+foreach ([
+    'getPaymentReconciliationSettlementVatReport' => static fn () => $client->getPaymentReconciliationSettlementVatReportAsync($dateRange)->wait(),
+    'getPaymentReconciliationTransactionVatReport' => static fn () => $client->getPaymentReconciliationTransactionVatReportAsync($dateRange)->wait(),
+] as $name => $operation) {
+    try {
+        $result = $operation();
+        $asyncOperations[$name] = ['status' => 'success', 'resultType' => $result::class];
+    } catch (PortOneException $exception) {
+        $asyncOperations[$name] = ['status' => 'portone-failure', 'exception' => $exception::class, 'statusCode' => $exception->status];
+    }
+}
+
 $output = [
     'status' => 'observed',
     'operations' => $operations,
+    'asyncOperations' => $asyncOperations,
 ];
 $recordPath = __DIR__.'/../tests/fixtures/reconciliation-boundary-observations.json';
 if (file_put_contents($recordPath, json_encode($output, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR).PHP_EOL) === false) {
