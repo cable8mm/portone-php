@@ -1,5 +1,11 @@
 # PortOne PHP
 
+[![CI](https://github.com/cable8mm/portone-php/actions/workflows/ci.yml/badge.svg)](https://github.com/cable8mm/portone-php/actions/workflows/ci.yml)
+[![update-changelog](https://github.com/cable8mm/portone-php/actions/workflows/update-changelog.yml/badge.svg)](https://github.com/cable8mm/portone-php/actions/workflows/update-changelog.yml)
+[![PHP Version](https://img.shields.io/packagist/php-v/cable8mm/portone-php.svg)](https://packagist.org/packages/cable8mm/portone-php)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/cable8mm/portone-php.svg)](https://packagist.org/packages/cable8mm/portone-php)
+[![License](https://img.shields.io/github/license/cable8mm/portone-php.svg)](https://github.com/cable8mm/portone-php/blob/main/LICENSE)
+
 PortOne V2 REST API용 PHP 서버 SDK입니다. 공식 OpenAPI 명세의 전체 operation을 PHP에서 호출할 수 있으며, PortOne webhook 서명 검증과 비동기 operation도 지원합니다.
 
 - Composer 패키지: `cable8mm/portone-php`
