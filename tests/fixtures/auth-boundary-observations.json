@@ -1,0 +1,14 @@
+{
+    "status": "observed",
+    "operations": {
+        "loginViaApiSecret": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Response\\LoginViaApiSecretResponse"
+        },
+        "refreshToken": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnauthorizedException",
+            "statusCode": 401
+        }
+    }
+}
