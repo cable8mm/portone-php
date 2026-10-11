@@ -126,6 +126,10 @@ function parseDeclarations(string $source): array
         $open = strpos($source, $openCharacter, $afterName);
 
         if ($open === false) {
+            if ($kind === 'object') {
+                $declarations[] = compact('name', 'kind', 'fields', 'variants');
+            }
+
             continue;
         }
 
@@ -219,7 +223,9 @@ function comparePhpResponses(array $models): array
         $php[$class[1]] = [
             'path' => $path,
             'fields' => $fields,
-            'rawData' => str_contains($source, 'extends OperationResponse') && $fields === [],
+            'rawData' => str_contains($source, 'extends OperationResponse')
+                && $fields === []
+                && ! str_contains($source, 'public static function fromArray'),
         ];
     }
 

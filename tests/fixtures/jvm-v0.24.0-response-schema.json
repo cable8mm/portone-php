@@ -79,6 +79,36 @@
             },
             "variants": []
         },
+        "CancelPlatformAdditionalFeePolicyScheduleResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/CancelPlatformAdditionalFeePolicyScheduleResponse.kt",
+            "kind": "object",
+            "fields": [],
+            "variants": []
+        },
+        "CancelPlatformContractScheduleResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/CancelPlatformContractScheduleResponse.kt",
+            "kind": "object",
+            "fields": [],
+            "variants": []
+        },
+        "CancelPlatformDiscountSharePolicyScheduleResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/CancelPlatformDiscountSharePolicyScheduleResponse.kt",
+            "kind": "object",
+            "fields": [],
+            "variants": []
+        },
+        "CancelPlatformPartnerScheduleResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/CancelPlatformPartnerScheduleResponse.kt",
+            "kind": "object",
+            "fields": [],
+            "variants": []
+        },
+        "CapturePaymentResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/CapturePaymentResponse.kt",
+            "kind": "object",
+            "fields": [],
+            "variants": []
+        },
         "CloseVirtualAccountResponse": {
             "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/CloseVirtualAccountResponse.kt",
             "kind": "class",
@@ -112,6 +142,12 @@
             "fields": {
                 "identityVerification": "VerifiedIdentityVerification"
             },
+            "variants": []
+        },
+        "ConfirmPaymentwallDeliveryResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/pgspecific/ConfirmPaymentwallDeliveryResponse.kt",
+            "kind": "object",
+            "fields": [],
             "variants": []
         },
         "ConnectBulkPartnerCounterpartyResponse": {
@@ -210,12 +246,36 @@
             },
             "variants": []
         },
+        "DeleteB2bCounterpartyResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/counterparty/DeleteB2bCounterpartyResponse.kt",
+            "kind": "object",
+            "fields": [],
+            "variants": []
+        },
+        "DeleteB2bTaxInvoiceResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/taxinvoice/DeleteB2bTaxInvoiceResponse.kt",
+            "kind": "object",
+            "fields": [],
+            "variants": []
+        },
         "DeleteBillingKeyResponse": {
             "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/billingkey/DeleteBillingKeyResponse.kt",
             "kind": "class",
             "fields": {
                 "deletedAt": "Instant"
             },
+            "variants": []
+        },
+        "DeletePlatformPartnerSettlementsResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/partnersettlement/DeletePlatformPartnerSettlementsResponse.kt",
+            "kind": "object",
+            "fields": [],
+            "variants": []
+        },
+        "DeletePlatformTransferResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/transfer/DeletePlatformTransferResponse.kt",
+            "kind": "object",
+            "fields": [],
             "variants": []
         },
         "DisconnectBulkPartnerCounterpartyResponse": {
@@ -619,6 +679,12 @@
             },
             "variants": []
         },
+        "PreRegisterPaymentResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/PreRegisterPaymentResponse.kt",
+            "kind": "object",
+            "fields": [],
+            "variants": []
+        },
         "RecoverPlatformAdditionalFeePolicyResponse": {
             "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/policy/RecoverPlatformAdditionalFeePolicyResponse.kt",
             "kind": "class",
@@ -724,6 +790,12 @@
             },
             "variants": []
         },
+        "ResendIdentityVerificationResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/identityverification/ResendIdentityVerificationResponse.kt",
+            "kind": "object",
+            "fields": [],
+            "variants": []
+        },
         "ResendWebhookResponse": {
             "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/ResendWebhookResponse.kt",
             "kind": "class",
@@ -771,6 +843,18 @@
             "fields": {
                 "scheduledPartner": "PlatformPartner"
             },
+            "variants": []
+        },
+        "SchedulePlatformPartnersResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/SchedulePlatformPartnersResponse.kt",
+            "kind": "object",
+            "fields": [],
+            "variants": []
+        },
+        "SendIdentityVerificationResponse": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/identityverification/SendIdentityVerificationResponse.kt",
+            "kind": "object",
+            "fields": [],
             "variants": []
         },
         "SendToNtsB2bTaxInvoiceResponse": {

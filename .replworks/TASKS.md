@@ -229,3 +229,12 @@
     - `PaymentWebhookResponse` exposes its response code, header, body, and response timestamp fields.
     - Required fields reject missing or non-string values, while extra fields are ignored.
     - Unit tests, format checks, the payment live probe, and the JVM response schema comparison pass for these response models.
+
+- [X] T-024 Remaining simple payment response DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Cursor-based payment and payment-event responses expose validated `items` lists.
+    - `ResendWebhookResponse` exposes a validated webhook object payload.
+    - JVM empty success responses expose a successful empty DTO and ignore unknown response fields.
+    - Unit tests, format checks, the payment live probe, and the JVM response schema comparison pass for these response models.
