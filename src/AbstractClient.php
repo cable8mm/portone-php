@@ -156,6 +156,43 @@ abstract class AbstractClient
         return new Future($promise);
     }
 
+    /** @param array<string,mixed> $options */
+    protected function callStringOperation(string $operation, string $method, string $path, array $options = []): string
+    {
+        $response = $this->executor->request($method, $path, $options);
+        if ($response->getStatusCode() < 200 || $response->getStatusCode() >= 300) {
+            $this->throwForError($operation, $response);
+        }
+
+        return (string) $response->getBody();
+    }
+
+    /** @param array<string,mixed> $options */
+    protected function callStringOperationAsync(string $operation, string $method, string $path, array $options = []): Future
+    {
+        $promise = $this->executor->requestAsync($method, $path, $options)->then(function (ResponseInterface $response) use ($operation): string {
+            if ($response->getStatusCode() < 200 || $response->getStatusCode() >= 300) {
+                $this->throwForError($operation, $response);
+            }
+
+            return (string) $response->getBody();
+        });
+
+        return new Future($promise);
+    }
+
+    /** @param array<string,mixed> $query @param array<string,mixed> $body */
+    protected function callStringOperationWithQueryRequestBody(string $operation, string $method, string $path, array $query, array $body): string
+    {
+        return $this->callStringOperation($operation, $method, $this->path($path, $query), $this->optionsWithQueryRequestBody($query, $body));
+    }
+
+    /** @param array<string,mixed> $query @param array<string,mixed> $body */
+    protected function callStringOperationWithQueryRequestBodyAsync(string $operation, string $method, string $path, array $query, array $body): Future
+    {
+        return $this->callStringOperationAsync($operation, $method, $this->path($path, $query), $this->optionsWithQueryRequestBody($query, $body));
+    }
+
     /** @param array<string,mixed> $parameters */
     private function path(string $path, array &$parameters): string
     {
@@ -233,28 +270,7 @@ abstract class AbstractClient
         $body = (string) $response->getBody();
 
         if ($status < 200 || $status >= 300) {
-            $decoded = json_decode($body, true);
-            $message = is_array($decoded) && is_string($decoded['message'] ?? null)
-                ? $decoded['message']
-                : 'PortOne returned an error response.';
-
-            $type = is_array($decoded) && is_string($decoded['type'] ?? null)
-                ? $decoded['type']
-                : null;
-            if ($type === 'INVALID_REQUEST') {
-                throw new InvalidRequestException($message, $status, $body);
-            }
-            if ($type === 'FORBIDDEN') {
-                throw new ForbiddenException($message, $status, $body);
-            }
-            if ($type === 'PLATFORM_NOT_ENABLED') {
-                throw new PlatformNotEnabledException($message, $status, $body);
-            }
-            if ($type === 'UNAUTHORIZED') {
-                throw new UnauthorizedException($message, $status, $body);
-            }
-
-            throw new UnknownException($operation, $message, $status, $body);
+            $this->throwForError($operation, $response);
         }
 
         try {
@@ -274,5 +290,33 @@ abstract class AbstractClient
                 $exception,
             );
         }
+    }
+
+    private function throwForError(string $operation, ResponseInterface $response): never
+    {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        $decoded = json_decode($body, true);
+        $message = is_array($decoded) && is_string($decoded['message'] ?? null)
+            ? $decoded['message']
+            : 'PortOne returned an error response.';
+
+        $type = is_array($decoded) && is_string($decoded['type'] ?? null)
+            ? $decoded['type']
+            : null;
+        if ($type === 'INVALID_REQUEST') {
+            throw new InvalidRequestException($message, $status, $body);
+        }
+        if ($type === 'FORBIDDEN') {
+            throw new ForbiddenException($message, $status, $body);
+        }
+        if ($type === 'PLATFORM_NOT_ENABLED') {
+            throw new PlatformNotEnabledException($message, $status, $body);
+        }
+        if ($type === 'UNAUTHORIZED') {
+            throw new UnauthorizedException($message, $status, $body);
+        }
+
+        throw new UnknownException($operation, $message, $status, $body);
     }
 }
