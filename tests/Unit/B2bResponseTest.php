@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
+use Cable8mm\PortonePhp\Response\B2bBulkTaxInvoice;
+use Cable8mm\PortonePhp\Response\B2bTaxInvoice;
 use Cable8mm\PortonePhp\Response\CreateB2bCounterpartyResponse;
 use Cable8mm\PortonePhp\Response\GetB2bBusinessInfosResponse;
 use Cable8mm\PortonePhp\Response\GetB2bCounterpartiesResponse;
@@ -22,10 +24,15 @@ final class B2bResponseTest extends TestCase
         self::assertSame([['id' => 'business-id']], GetB2bBusinessInfosResponse::fromArray([
             'result' => [['id' => 'business-id']],
         ])->result);
-        self::assertSame([['id' => 'counterparty-id']], GetB2bCounterpartiesResponse::fromArray([
-            'items' => [['id' => 'counterparty-id']],
+        $counterparties = GetB2bCounterpartiesResponse::fromArray([
+            'items' => [[
+                'id' => 'counterparty-id', 'graphqlId' => 'graphql-id', 'isForTest' => true,
+                'brn' => '1234567890', 'companyName' => 'Company', 'representativeName' => 'Owner',
+                'contact' => [], 'additionalContacts' => [], 'ntsConnectionStatus' => 'NOT_CONNECTED',
+            ]],
             'page' => ['number' => 0],
-        ])->items);
+        ])->items;
+        self::assertSame('counterparty-id', $counterparties[0]->id);
         self::assertSame([['id' => 'attachment-id']], GetB2bTaxInvoiceAttachmentsResponse::fromArray([
             'attachments' => [['id' => 'attachment-id']],
         ])->attachments);
@@ -55,5 +62,26 @@ final class B2bResponseTest extends TestCase
                 self::assertTrue(true);
             }
         }
+    }
+
+    public function test_tax_invoice_and_bulk_models_validate_required_openapi_fields(): void
+    {
+        $invoice = B2bTaxInvoice::fromArray([
+            'id' => 'invoice-id', 'status' => 'DRAFTED', 'taxationType' => 'TAX',
+            'documentModificationType' => 'ORIGINAL', 'issuanceType' => 'NORMAL',
+            'writeDate' => '2026-10-12', 'issuanceDueDate' => '2026-10-12',
+            'purposeType' => 'SUPPLY', 'totalSupplyAmount' => 1000, 'totalTaxAmount' => 100,
+            'totalAmount' => 1100, 'remarks' => [], 'supplier' => [], 'recipient' => [],
+            'items' => [], 'additionalContacts' => [],
+        ]);
+        self::assertSame('invoice-id', $invoice->id);
+
+        $bulk = B2bBulkTaxInvoice::fromArray([
+            'id' => 'bulk-id', 'graphqlId' => 'graphql-id', 'status' => 'DRAFTED',
+            'totalInvoiceCount' => 1, 'totalAmount' => 1100, 'stats' => [],
+            'createdAt' => '2026-10-12T00:00:00Z', 'statusUpdatedAt' => '2026-10-12T00:00:00Z',
+            'sourceType' => 'FILE', 'issuanceType' => 'NORMAL',
+        ]);
+        self::assertSame('bulk-id', $bulk->id);
     }
 }

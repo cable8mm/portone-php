@@ -16,7 +16,9 @@ if ($apiSecret === false || $apiSecret === '') {
 $client = new CounterpartyClient($apiSecret);
 $operations = [
     'getB2bCounterparties' => static fn () => $client->getB2bCounterparties(true, ['number' => 0, 'size' => 1], []),
+    'getB2bCounterpartiesAsync' => static fn () => $client->getB2bCounterpartiesAsync(true, ['number' => 0, 'size' => 1], [])->wait(),
     'getB2bCounterparty' => static fn () => $client->getB2bCounterparty('__codex_t016_missing_counterparty__', true),
+    'getB2bCounterpartyAsync' => static fn () => $client->getB2bCounterpartyAsync('__codex_t016_missing_counterparty__', true)->wait(),
     'getB2bCounterpartyCertificateRegistrationUrl' => static fn () => $client->getB2bCounterpartyCertificateRegistrationUrl('0000000000', true),
 ];
 $observations = [];

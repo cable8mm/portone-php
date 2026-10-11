@@ -6,12 +6,27 @@
             "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
             "statusCode": 400
         },
+        "getB2bTaxInvoicesAsync": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400
+        },
         "createB2bFileUploadUrl": {
             "status": "portone-failure",
             "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
             "statusCode": 400
         },
+        "createB2bFileUploadUrlAsync": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400
+        },
         "getB2bTaxInvoice": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400
+        },
+        "getB2bTaxInvoiceAsync": {
             "status": "portone-failure",
             "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
             "statusCode": 400

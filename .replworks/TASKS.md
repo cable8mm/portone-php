@@ -377,7 +377,7 @@
     - Synchronous and asynchronous operations expose the same typed result model.
     - Unit tests, format checks, representative live probes, and unknown-variant tests pass.
 
-- [ ] T-041 B2B OpenAPI response models
+- [X] T-041 B2B OpenAPI response models
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-016, FR-017, AC-009
   - External boundary: yes
   - Acceptance criteria:

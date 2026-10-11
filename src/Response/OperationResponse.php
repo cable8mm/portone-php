@@ -83,7 +83,7 @@ class OperationResponse
     }
 
     /** @return list<string> */
-    protected static function requireStringList(array $data, string $field, string $response): array
+    public static function requireStringList(array $data, string $field, string $response): array
     {
         $value = $data[$field] ?? null;
         if (! is_array($value) || ! array_is_list($value) || array_filter($value, 'is_string') !== $value) {
@@ -114,6 +114,30 @@ class OperationResponse
 
         if (! is_string($data[$field])) {
             throw new \UnexpectedValueException($response.' must contain a '.$field.' string when present.');
+        }
+
+        return $data[$field];
+    }
+
+    public static function optionalNonNullableInt(array $data, string $field, string $response): ?int
+    {
+        if (! array_key_exists($field, $data)) {
+            return null;
+        }
+        if (! is_int($data[$field])) {
+            throw new \UnexpectedValueException($response.' must contain a '.$field.' integer when present.');
+        }
+
+        return $data[$field];
+    }
+
+    public static function optionalNonNullableBool(array $data, string $field, string $response): ?bool
+    {
+        if (! array_key_exists($field, $data)) {
+            return null;
+        }
+        if (! is_bool($data[$field])) {
+            throw new \UnexpectedValueException($response.' must contain a '.$field.' boolean when present.');
         }
 
         return $data[$field];
