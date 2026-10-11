@@ -207,3 +207,15 @@
     - Extra response fields are ignored consistently with the recorded JVM JSON behavior.
     - Synchronous and asynchronous authentication operations return the typed DTOs.
     - Unit tests, format checks, and the JVM response schema comparison pass for these two response models.
+
+- [X] T-022 Payment response envelope DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - `CancelPaymentResponse` exposes a validated `cancellation` object payload.
+    - `GetPaymentTransactionsResponse` exposes a validated list of transaction object payloads.
+    - `PayInstantlyResponse` exposes a validated `payment` object payload.
+    - `PayWithBillingKeyResponse` exposes a validated `payment` object payload.
+    - Extra response fields are ignored consistently with the recorded JVM JSON behavior.
+    - Synchronous and asynchronous payment operations return the typed DTOs.
+    - Unit tests and format checks pass; the payment live probe remains successful; and the JVM response schema comparison identifies these response models as matching.
