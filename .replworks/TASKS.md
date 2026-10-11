@@ -136,7 +136,7 @@
     - Unit tests pass for every operation definition and representative outcome classifications.
     - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
-- [ ] T-015 B2B tax invoice operations
+- [X] T-015 B2B tax invoice operations
   - Satisfies: PRODUCT_SPEC.md EL-014, EL-015 and FR-006, FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
