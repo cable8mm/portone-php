@@ -37,6 +37,7 @@ $probes = [
     'tools/portone_policy_probe.php',
     'tools/portone_tax_invoice_probe.php',
     'tools/portone_counterparty_probe.php',
+    'tools/portone_openapi_additions_probe.php',
     'tools/portone_webhook_probe.php',
 ];
 

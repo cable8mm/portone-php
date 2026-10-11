@@ -13,6 +13,8 @@ use Cable8mm\PortonePhp\BillingKeyClient;
 use Cable8mm\PortonePhp\BulkAccountTransferClient;
 use Cable8mm\PortonePhp\BulkPayoutClient;
 use Cable8mm\PortonePhp\CashReceiptClient;
+use Cable8mm\PortonePhp\CheckoutClient;
+use Cable8mm\PortonePhp\CommonClient;
 use Cable8mm\PortonePhp\CompanyClient;
 use Cable8mm\PortonePhp\CounterpartyClient;
 use Cable8mm\PortonePhp\IdentityVerificationClient;
@@ -20,6 +22,7 @@ use Cable8mm\PortonePhp\PartnerClient;
 use Cable8mm\PortonePhp\PartnerSettlementClient;
 use Cable8mm\PortonePhp\PaymentClient;
 use Cable8mm\PortonePhp\PaymentScheduleClient;
+use Cable8mm\PortonePhp\PaymentSessionClient;
 use Cable8mm\PortonePhp\PayoutClient;
 use Cable8mm\PortonePhp\PgSpecificClient;
 use Cable8mm\PortonePhp\PlatformClient;
@@ -44,9 +47,12 @@ final class ClientHierarchyTest extends TestCase
         self::assertInstanceOf(ReconciliationClient::class, $client->reconciliation);
         self::assertInstanceOf(PlatformClient::class, $client->platform);
         self::assertInstanceOf(B2bClient::class, $client->b2b);
+        self::assertInstanceOf(CommonClient::class, $client->common);
+        self::assertInstanceOf(CheckoutClient::class, $client->checkout);
+        self::assertInstanceOf(PaymentSessionClient::class, $client->paymentSession);
         $names = array_keys(get_object_vars($client));
         sort($names);
-        self::assertSame(['auth', 'b2b', 'identityVerification', 'payment', 'pgSpecific', 'platform', 'reconciliation'], $names);
+        self::assertSame(['auth', 'b2b', 'checkout', 'common', 'identityVerification', 'payment', 'paymentSession', 'pgSpecific', 'platform', 'reconciliation'], $names);
     }
 
     public function test_payment_platform_and_b2b_expose_exactly_the_required_children(): void
@@ -77,6 +83,9 @@ final class ClientHierarchyTest extends TestCase
         self::assertSame($executor, $this->executor($root->platform));
         self::assertSame($executor, $this->executor($root->platform->transfer));
         self::assertSame($executor, $this->executor($root->b2b));
+        self::assertSame($executor, $this->executor($root->common));
+        self::assertSame($executor, $this->executor($root->checkout));
+        self::assertSame($executor, $this->executor($root->paymentSession));
         self::assertSame($executor, $this->executor($root->b2b->counterparty));
     }
 

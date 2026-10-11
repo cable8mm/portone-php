@@ -90,6 +90,7 @@
 - EL-013: CompanyClient, AccountTransferClient, PolicyClient, AccountClient, BulkAccountTransferClient, BulkPayoutClient, PayoutClient, PartnerSettlementClient, PartnerClient, TransferClient. Purpose: platform sub-clients. User actions: construct with apiSecret; call their operations.
 - EL-014: B2bClient. Purpose: B2B operations. User actions: construct with apiSecret; call its operations; read the accessors taxInvoice, counterparty.
 - EL-015: TaxInvoiceClient, CounterpartyClient. Purpose: B2B sub-clients. User actions: construct with apiSecret; call their operations.
+- EL-022: CommonClient, CheckoutClient, PaymentSessionClient. Purpose: common bank, checkout profile, and payment session operations. User actions: construct with apiSecret; call their operations.
 - EL-016: WebhookVerifier. Purpose: webhook verification. User actions: construct with webhookSecret; call verify with body, msgId, msgSignature, msgTimestamp.
 - EL-017: Webhook types. Purpose: typed representation of a verified webhook. User actions: check the type of the returned object; read its fields.
 - EL-018: UnrecognizedWebhook. Purpose: representation of a webhook whose type this library version does not know. User actions: read the decoded body.
@@ -101,11 +102,11 @@
 
 - FR-001: The library MUST be installable with Composer under the package name cable8mm/portone-php.
 - FR-002: PortOneClient MUST be constructible with apiSecret as its only configuration value.
-- FR-003: PortOneClient MUST expose the accessors payment, identityVerification, pgSpecific, auth, reconciliation, platform, and b2b, returning the clients EL-002, EL-008, EL-009, EL-010, EL-011, EL-012, and EL-014.
+- FR-003: PortOneClient MUST expose the accessors payment, identityVerification, pgSpecific, auth, reconciliation, platform, b2b, common, checkout, and paymentSession, returning the clients EL-002, EL-008, EL-009, EL-010, EL-011, EL-012, EL-014, and EL-022.
 - FR-004: PaymentClient MUST expose the accessors billingKey, cashReceipt, additionalFeature, paymentSchedule, and promotion, returning the clients EL-003 to EL-007.
 - FR-005: PlatformClient MUST expose the accessors company, accountTransfer, policy, account, bulkAccountTransfer, bulkPayout, payout, partnerSettlement, partner, and transfer, returning the clients in EL-013.
 - FR-006: B2bClient MUST expose the accessors taxInvoice and counterparty, returning the clients in EL-015.
-- FR-007: Every client in EL-002 to EL-015 MUST be constructible on its own with apiSecret as its only configuration value.
+- FR-007: Every client in EL-002 to EL-015 and EL-022 MUST be constructible on its own with apiSecret as its only configuration value.
 - FR-008: The library MUST expose one method for each OpenAPI operation.
 - FR-009: Every operation method MUST use the OpenAPI `operationId` in camelCase.
 - FR-010: Every operation method MUST accept the named parameters and request body fields defined by the OpenAPI operation.
@@ -130,7 +131,7 @@
 ## User Flows
 
 - Flow 1, call an operation: construct PortOneClient (EL-001) with apiSecret -> read an accessor -> call an operation method with its named parameters -> receive a typed object or catch a PortOneException.
-- Flow 2, use one client only: construct a client from EL-002 to EL-015 with apiSecret -> call an operation method -> receive a typed object or catch a PortOneException.
+- Flow 2, use one client only: construct a client from EL-002 to EL-015 or EL-022 with apiSecret -> call an operation method -> receive a typed object or catch a PortOneException.
 - Flow 3, verify a webhook: construct WebhookVerifier with webhookSecret -> call verify with the raw body, msgId, msgSignature, and msgTimestamp -> receive a typed webhook object or an UnrecognizedWebhook, or catch a WebhookVerificationException.
 - Flow 4, install: run Composer to require cable8mm/portone-php -> use the library classes.
 - Flow 5, call an operation asynchronously: construct a client -> call an Async operation method -> receive a Future -> wait for a typed object or catch a PortOneException.
@@ -160,7 +161,7 @@
 - AC-003: PaymentClient exposes the five accessors of FR-004. Verifies FR-004.
 - AC-004: PlatformClient exposes the ten accessors of FR-005. Verifies FR-005.
 - AC-005: B2bClient exposes the two accessors of FR-006. Verifies FR-006.
-- AC-006: Each client in EL-002 to EL-015 constructs on its own with apiSecret. Verifies FR-007.
+- AC-006: Each client in EL-002 to EL-015 and EL-022 constructs on its own with apiSecret. Verifies FR-007.
 - AC-007: The set of public operation method names equals the set of OpenAPI operationIds, in camelCase. Verifies FR-008, FR-009.
 - AC-008: For each operation, the named parameters and request body fields equal the OpenAPI contract. Verifies FR-010.
 - AC-009: An operation call against a mocked PortOne V2 REST API returns a typed object whose fields equal the mocked response. Verifies FR-011, FR-012, FR-013.

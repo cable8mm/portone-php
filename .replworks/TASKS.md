@@ -323,7 +323,7 @@
     - Required scalar and object fields reject missing or invalid values.
     - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass.
 
-- [ ] T-035 OpenAPI operation inventory and contract gap report
+- [X] T-035 OpenAPI operation inventory and contract gap report
   - Satisfies: PRODUCT_SPEC.md FR-008, FR-009, FR-010, AC-007, AC-008
   - External boundary: yes
   - Acceptance criteria:

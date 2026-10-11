@@ -22,6 +22,12 @@ final class PortOneClient extends AbstractClient
 
     public readonly B2bClient $b2b;
 
+    public readonly CommonClient $common;
+
+    public readonly CheckoutClient $checkout;
+
+    public readonly PaymentSessionClient $paymentSession;
+
     public function __construct(string $apiSecret, ?RequestExecutor $executor = null)
     {
         parent::__construct($apiSecret, $executor);
@@ -32,5 +38,8 @@ final class PortOneClient extends AbstractClient
         $this->reconciliation = new ReconciliationClient('', $this->executor);
         $this->platform = new PlatformClient('', $this->executor);
         $this->b2b = new B2bClient('', $this->executor);
+        $this->common = new CommonClient('', $this->executor);
+        $this->checkout = new CheckoutClient('', $this->executor);
+        $this->paymentSession = new PaymentSessionClient('', $this->executor);
     }
 }

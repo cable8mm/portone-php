@@ -25,6 +25,16 @@ class OperationResponse
         return $data[$field];
     }
 
+    /** @return array<string,mixed>|null */
+    protected static function optionalObject(array $data, string $field, string $response): ?array
+    {
+        if (! array_key_exists($field, $data) || $data[$field] === null) {
+            return null;
+        }
+
+        return self::requireObject($data, $field, $response);
+    }
+
     /** @return list<array<string,mixed>> */
     protected static function requireObjectList(array $data, string $field, string $response): array
     {
