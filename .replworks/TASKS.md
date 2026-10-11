@@ -297,3 +297,12 @@
     - Remaining identity, Platform transfer, payment schedule, cash receipt, billing key, and non-polymorphic response classes expose JVM-matching fields.
     - Empty success responses and nullable list/string fields preserve the JVM behavior.
     - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass for these response models.
+
+- [X] T-032 Billing key polymorphic response DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - `PgBillingKeyIssueResponse` selects failed, issued, and unknown variants from the JVM `type` discriminator.
+    - `FailedPgBillingKeyIssueResponse` and `IssuedPgBillingKeyIssueResponse` expose their JVM-matching fields and validate required and nullable values.
+    - Unknown variants are accepted as an explicit unrecognized response value without losing the original payload.
+    - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass.

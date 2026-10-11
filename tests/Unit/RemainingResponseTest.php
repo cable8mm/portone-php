@@ -10,6 +10,7 @@ use Cable8mm\PortonePhp\Response\FailedNotOkResponse;
 use Cable8mm\PortonePhp\Response\FailedPgBillingKeyIssueResponse;
 use Cable8mm\PortonePhp\Response\IssueBillingKeyResponse;
 use Cable8mm\PortonePhp\Response\IssueCashReceiptResponse;
+use Cable8mm\PortonePhp\Response\IssuedPgBillingKeyIssueResponse;
 use Cable8mm\PortonePhp\Response\PgBillingKeyIssueResponse;
 use Cable8mm\PortonePhp\Response\ResendIdentityVerificationResponse;
 use Cable8mm\PortonePhp\Response\RevokePaymentSchedulesResponse;
@@ -39,11 +40,20 @@ final class RemainingResponseTest extends TestCase
             'cashReceipt' => ['id' => 'cash-receipt-id'],
         ])->cashReceipt);
         self::assertSame(['reason' => 'failed'], FailedPgBillingKeyIssueResponse::fromArray([
+            'channel' => ['id' => 'channel-id'],
             'failure' => ['reason' => 'failed'],
         ])->failure);
-        self::assertSame(['id' => 'channel-id'], PgBillingKeyIssueResponse::fromArray([
+        $issued = PgBillingKeyIssueResponse::decode([
+            'type' => 'ISSUED',
             'channel' => ['id' => 'channel-id'],
-        ])->channel);
+            'pgTxId' => 'pg-tx-id',
+        ]);
+        self::assertInstanceOf(IssuedPgBillingKeyIssueResponse::class, $issued);
+        self::assertSame('pg-tx-id', $issued->pgTxId);
+        self::assertSame(['id' => 'channel-id'], $issued->channel());
+        $unknown = PgBillingKeyIssueResponse::decode(['type' => 'FUTURE', 'value' => 'preserved']);
+        self::assertInstanceOf(PgBillingKeyIssueResponse::class, $unknown);
+        self::assertSame(['type' => 'FUTURE', 'value' => 'preserved'], $unknown->payload());
         self::assertNull(IssueBillingKeyResponse::fromArray([
             'billingKeyInfo' => ['id' => 'billing-key-id'],
         ])->channelSpecificFailures);
@@ -69,6 +79,8 @@ final class RemainingResponseTest extends TestCase
             static fn (): mixed => IssueCashReceiptResponse::fromArray(['cashReceipt' => 'invalid']),
             static fn (): mixed => RevokePaymentSchedulesResponse::fromArray(['revokedAt' => 1, 'revokedScheduleIds' => []]),
             static fn (): mixed => RevokePaymentSchedulesResponse::fromArray(['revokedAt' => null, 'revokedScheduleIds' => ['invalid' => 'id']]),
+            static fn (): mixed => PgBillingKeyIssueResponse::decode(['type' => 'FAILED', 'channel' => [], 'failure' => 'invalid']),
+            static fn (): mixed => PgBillingKeyIssueResponse::decode(['type' => 'ISSUED', 'channel' => [], 'pgTxId' => 1]),
         ];
 
         foreach ($cases as $case) {
