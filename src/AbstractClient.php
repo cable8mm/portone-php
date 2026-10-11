@@ -6,6 +6,7 @@ namespace Cable8mm\PortonePhp;
 
 use Cable8mm\PortonePhp\Exception\ForbiddenException;
 use Cable8mm\PortonePhp\Exception\InvalidRequestException;
+use Cable8mm\PortonePhp\Exception\PlatformNotEnabledException;
 use Cable8mm\PortonePhp\Exception\PortOneException;
 use Cable8mm\PortonePhp\Exception\UnauthorizedException;
 use Cable8mm\PortonePhp\Exception\UnknownException;
@@ -71,6 +72,90 @@ abstract class AbstractClient
         return new Future($promise);
     }
 
+    /**
+     * @param  array<string,mixed>  $query
+     * @param  array<string,mixed>  $body
+     * @param  class-string<Response\OperationResponse>  $responseClass
+     */
+    protected function callOperationWithQueryAndBody(
+        string $operation,
+        string $method,
+        string $path,
+        array $query,
+        array $body,
+        string $responseClass,
+    ): Response\OperationResponse {
+        return $this->interpretOperation(
+            $operation,
+            $this->executor->request($method, $this->path($path, $query), $this->optionsWithQueryAndBody($query, $body)),
+            $responseClass,
+        );
+    }
+
+    /**
+     * @param  array<string,mixed>  $query
+     * @param  array<string,mixed>  $body
+     * @param  class-string<Response\OperationResponse>  $responseClass
+     */
+    protected function callOperationWithQueryAndBodyAsync(
+        string $operation,
+        string $method,
+        string $path,
+        array $query,
+        array $body,
+        string $responseClass,
+    ): Future {
+        $promise = $this->executor->requestAsync(
+            $method,
+            $this->path($path, $query),
+            $this->optionsWithQueryAndBody($query, $body),
+        )->then(fn (ResponseInterface $response): Response\OperationResponse => $this->interpretOperation($operation, $response, $responseClass));
+
+        return new Future($promise);
+    }
+
+    /**
+     * @param  array<string,mixed>  $query
+     * @param  array<string,mixed>  $body
+     * @param  class-string<Response\OperationResponse>  $responseClass
+     */
+    protected function callOperationWithQueryRequestBody(
+        string $operation,
+        string $method,
+        string $path,
+        array $query,
+        array $body,
+        string $responseClass,
+    ): Response\OperationResponse {
+        return $this->interpretOperation(
+            $operation,
+            $this->executor->request($method, $this->path($path, $query), $this->optionsWithQueryRequestBody($query, $body)),
+            $responseClass,
+        );
+    }
+
+    /**
+     * @param  array<string,mixed>  $query
+     * @param  array<string,mixed>  $body
+     * @param  class-string<Response\OperationResponse>  $responseClass
+     */
+    protected function callOperationWithQueryRequestBodyAsync(
+        string $operation,
+        string $method,
+        string $path,
+        array $query,
+        array $body,
+        string $responseClass,
+    ): Future {
+        $promise = $this->executor->requestAsync(
+            $method,
+            $this->path($path, $query),
+            $this->optionsWithQueryRequestBody($query, $body),
+        )->then(fn (ResponseInterface $response): Response\OperationResponse => $this->interpretOperation($operation, $response, $responseClass));
+
+        return new Future($promise);
+    }
+
     /** @param array<string,mixed> $parameters */
     private function path(string $path, array &$parameters): string
     {
@@ -103,6 +188,44 @@ abstract class AbstractClient
         return ['query' => $parameters];
     }
 
+    /**
+     * @param  array<string,mixed>  $query
+     * @param  array<string,mixed>  $body
+     * @return array<string,mixed>
+     */
+    private function optionsWithQueryAndBody(array &$query, array $body): array
+    {
+        $query = array_filter($query, static fn (mixed $value): bool => $value !== null);
+        $body = array_filter($body, static fn (mixed $value): bool => $value !== null);
+
+        $options = [];
+        if ($query !== []) {
+            $options['query'] = $query;
+        }
+        if ($body !== []) {
+            $options['json'] = $body;
+        }
+
+        return $options;
+    }
+
+    /**
+     * @param  array<string,mixed>  $query
+     * @param  array<string,mixed>  $body
+     * @return array<string,mixed>
+     */
+    private function optionsWithQueryRequestBody(array &$query, array $body): array
+    {
+        $query = array_filter($query, static fn (mixed $value): bool => $value !== null);
+        $body = array_filter($body, static fn (mixed $value): bool => $value !== null);
+
+        return [
+            'query' => $query + [
+                'requestBody' => json_encode($body, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES),
+            ],
+        ];
+    }
+
     /** @param class-string<Response\OperationResponse> $responseClass */
     private function interpretOperation(string $operation, ResponseInterface $response, string $responseClass): Response\OperationResponse
     {
@@ -123,6 +246,9 @@ abstract class AbstractClient
             }
             if ($type === 'FORBIDDEN') {
                 throw new ForbiddenException($message, $status, $body);
+            }
+            if ($type === 'PLATFORM_NOT_ENABLED') {
+                throw new PlatformNotEnabledException($message, $status, $body);
             }
             if ($type === 'UNAUTHORIZED') {
                 throw new UnauthorizedException($message, $status, $body);
