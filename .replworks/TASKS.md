@@ -219,3 +219,13 @@
     - Extra response fields are ignored consistently with the recorded JVM JSON behavior.
     - Synchronous and asynchronous payment operations return the typed DTOs.
     - Unit tests and format checks pass; the payment live probe remains successful; and the JVM response schema comparison identifies these response models as matching.
+
+- [X] T-023 Payment scalar response DTOs
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Escrow, virtual-account, and cancellation-stop response classes expose their JVM-matching timestamp and string fields.
+    - `RegisterStoreReceiptResponse` exposes nullable `receiptUrl` with the JVM default/null behavior.
+    - `PaymentWebhookResponse` exposes its response code, header, body, and response timestamp fields.
+    - Required fields reject missing or non-string values, while extra fields are ignored.
+    - Unit tests, format checks, the payment live probe, and the JVM response schema comparison pass for these response models.
