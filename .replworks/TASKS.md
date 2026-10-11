@@ -264,3 +264,12 @@
     - Archive, create, and recover responses for Platform policies, contracts, and partners expose their JVM-matching object fields.
     - Required object fields reject missing or non-array values; extra fields are ignored.
     - Unit tests, format checks, the Platform live probes, and the JVM response schema comparison pass for these response models.
+
+- [X] T-028 Platform schedule and update response envelopes
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Schedule and reschedule responses expose their JVM-matching scheduled object fields.
+    - Platform update responses expose their JVM-matching policy, contract, and partner object fields.
+    - Required object fields reject missing or non-array values; extra fields are ignored.
+    - Unit tests, format checks, Platform live probes, and the JVM response schema comparison pass for these response models.

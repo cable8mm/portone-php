@@ -37,7 +37,7 @@ final class PlatformPartnerTransferClientsTest extends TestCase
     {
         $history = [];
         $client = $this->client(PartnerClient::class, new MockHandler([
-            new Response(200, [], '{"id":"partner-id"}'),
+            new Response(200, [], '{"partner":{"id":"partner-id"}}'),
         ]), $history);
 
         $result = $client->updatePlatformPartner('partner-id', true, 'Updated partner');

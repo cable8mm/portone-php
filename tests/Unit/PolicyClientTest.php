@@ -37,7 +37,7 @@ final class PolicyClientTest extends TestCase
     {
         $history = [];
         $client = $this->client(new MockHandler([
-            new Response(200, [], '{"id":"contract-id"}'),
+            new Response(200, [], '{"contract":{"id":"contract-id"}}'),
         ]), $history);
 
         $result = $client->updatePlatformContract('contract-id', true, 'Updated contract');
