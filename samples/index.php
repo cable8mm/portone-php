@@ -9,6 +9,10 @@ require_once __DIR__.'/bootstrap.php';
 $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
+if ($path === '/webhook-capture.php') {
+    return false;
+}
+
 if ($path === '/' && $method === 'GET') {
     sampleText("PortOne PHP server sample is ready.\n\n".
         "GET  /api/item\n".
