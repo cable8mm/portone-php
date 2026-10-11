@@ -5,6 +5,11 @@
             "status": "success",
             "resultType": "Cable8mm\\PortonePhp\\Response\\LoginViaApiSecretResponse"
         },
+        "refreshTokenAsync": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnauthorizedException",
+            "statusCode": 401
+        },
         "refreshToken": {
             "status": "portone-failure",
             "exception": "Cable8mm\\PortonePhp\\Exception\\UnauthorizedException",

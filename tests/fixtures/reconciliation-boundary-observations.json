@@ -9,5 +9,15 @@
             "status": "success",
             "resultType": "Cable8mm\\PortonePhp\\Response\\GetPaymentReconciliationTransactionVatReportResponse"
         }
+    },
+    "asyncOperations": {
+        "getPaymentReconciliationSettlementVatReport": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Response\\GetPaymentReconciliationSettlementVatReportResponse"
+        },
+        "getPaymentReconciliationTransactionVatReport": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Response\\GetPaymentReconciliationTransactionVatReportResponse"
+        }
     }
 }

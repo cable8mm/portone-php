@@ -31,6 +31,13 @@ try {
 }
 
 try {
+    $result = $client->refreshTokenAsync('__codex_t009_invalid_refresh_token__')->wait();
+    $operations['refreshTokenAsync'] = ['status' => 'success', 'resultType' => $result::class];
+} catch (PortOneException $exception) {
+    $operations['refreshTokenAsync'] = ['status' => 'portone-failure', 'exception' => $exception::class, 'statusCode' => $exception->status];
+}
+
+try {
     $result = $client->refreshToken('__codex_t009_invalid_refresh_token__');
     $operations['refreshToken'] = [
         'status' => 'success',

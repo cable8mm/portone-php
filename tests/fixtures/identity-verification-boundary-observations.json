@@ -4,5 +4,9 @@
     "result": {
         "status": "success",
         "resultType": "Cable8mm\\PortonePhp\\Response\\GetIdentityVerificationsResponse"
+    },
+    "asyncResult": {
+        "status": "success",
+        "resultType": "Cable8mm\\PortonePhp\\Response\\GetIdentityVerificationsResponse"
     }
 }

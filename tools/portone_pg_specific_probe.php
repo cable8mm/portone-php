@@ -28,10 +28,18 @@ try {
     ];
 }
 
+try {
+    $result = $client->getKakaopayPaymentOrderAsync('__codex_t008_missing_transaction__', '__codex_t008_missing_channel__')->wait();
+    $asyncRecord = ['status' => 'success', 'resultType' => $result::class];
+} catch (PortOneException $exception) {
+    $asyncRecord = ['status' => 'portone-failure', 'exception' => $exception::class, 'statusCode' => $exception->status];
+}
+
 $output = [
     'status' => 'observed',
     'operation' => 'getKakaopayPaymentOrder',
     'result' => $record,
+    'asyncResult' => $asyncRecord,
 ];
 $recordPath = __DIR__.'/../tests/fixtures/pg-specific-boundary-observations.json';
 if (file_put_contents($recordPath, json_encode($output, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR).PHP_EOL) === false) {
