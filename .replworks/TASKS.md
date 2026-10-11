@@ -106,7 +106,7 @@
     - Unit tests pass for every operation definition and representative outcome classifications.
     - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
-- [ ] T-012 Platform bulk and payout operations
+- [X] T-012 Platform bulk and payout operations
   - Satisfies: PRODUCT_SPEC.md EL-013 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
