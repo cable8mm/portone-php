@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 final class SimpleNestedModelTest extends TestCase
 {
-    public function test_simple_nested_models_expose_jvm_fields(): void
+    public function test_simple_nested_models_expose_typed_fields(): void
     {
         self::assertSame('SHINHAN', PlatformAccountHolder::fromArray([
             'holderName' => 'SHINHAN',

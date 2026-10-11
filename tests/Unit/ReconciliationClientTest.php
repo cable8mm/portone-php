@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ReconciliationClientTest extends TestCase
 {
-    public function test_settlement_report_sends_the_jvm_query_shape_and_decodes_the_typed_response(): void
+    public function test_settlement_report_sends_the_query_shape_and_decodes_the_typed_response(): void
     {
         $history = [];
         $client = $this->client(new MockHandler([

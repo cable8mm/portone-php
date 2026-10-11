@@ -9,7 +9,7 @@
 
 ## Problem
 
-- The official repository https://github.com/portone-io/server-sdk provides SDKs for JavaScript, JVM, and Python. It provides no PHP SDK.
+- The official PortOne server SDK repositories provide no PHP SDK.
 - The previously existing unofficial PHP packages are deprecated or unmaintained.
 
 ## Product Goals
@@ -64,7 +64,6 @@
 - PortOne V2 REST API (default origin https://api.portone.io): relied on for every operation of the clients in FR-002 to FR-006.
 - Official OpenAPI document (https://developers.portone.io/api/schema/v2/openapi.json): the final reference for the complete set of operations, paths, methods, parameters, request bodies, response schemas, and declared errors.
 - PortOne REST API documentation: the reference for operation behavior and rules not expressible in OpenAPI.
-- Official JVM SDK (https://github.com/portone-io/server-sdk, directory jvm): an initial implementation scaffold and an optional historical comparison source only.
 - Sample repository https://github.com/portone-io/portone-sample: the reference for the scenarios covered by the samples in FR-016.
 
 ## User Interface

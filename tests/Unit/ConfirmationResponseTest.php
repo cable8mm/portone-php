@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ConfirmationResponseTest extends TestCase
 {
-    public function test_confirmation_and_company_payloads_expose_jvm_fields(): void
+    public function test_confirmation_and_company_payloads_expose_typed_fields(): void
     {
         self::assertSame('billing-key', ConfirmedBillingKeySummary::fromArray([
             'billingKey' => 'billing-key',

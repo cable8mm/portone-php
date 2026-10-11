@@ -124,7 +124,6 @@ cp .env.example .env
 ```dotenv
 PORTONE_API_SECRET=여기에_API_Secret
 PORTONE_WEBHOOK_SECRET=whsec_여기에_Webhook_Secret
-PORTONE_JVM_PATH=/path/to/server-sdk/jvm
 ```
 
 Secret을 README, source, fixture, 로그에 넣거나 commit하지 마세요.
@@ -141,17 +140,9 @@ composer test
 
 전체 PHPUnit 테스트에는 client hierarchy, operation 계약, sync/async 요청, 오류 분류, webhook 검증, samples 내부 로직이 포함됩니다.
 
-### JVM 계약 검증
+### OpenAPI 계약 검증
 
-선택적인 과거 계약 비교 도구는 `PORTONE_JVM_PATH`를 사용합니다. 이 경로는 보조 비교 자료일 뿐이며, PHP SDK의 API·응답·동작을 정의하지 않습니다. 값이 `.env`에 없거나 존재하지 않는 디렉터리이면 비교 도구가 명확한 오류와 함께 종료됩니다.
-
-```sh
-php tools/reference_contract_probe.php --verify-record
-php tools/reference_contract_probe.php \
-  --verify-public-contract=tests/fixtures/jvm-v0.24.0-contract.json
-```
-
-이 검증은 저장된 보조 계약 자료와 PHP public contract의 차이를 확인합니다. 최종 operation·path·parameter 계약 검증은 OpenAPI 명세를 대상으로 다음 명령을 사용합니다.
+operation·path·parameter·응답 스키마의 계약 검증은 OpenAPI fixture를 대상으로 실행합니다.
 
 ```sh
 composer openapi:check
