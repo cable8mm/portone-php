@@ -36,6 +36,7 @@
 ## Outputs
 
 - Operation result: a typed PHP object representing the PortOne V2 REST API response.
+- Async operation result: a typed Future object that can be waited on for the operation result.
 - Webhook result: a typed PHP object representing the verified webhook, or an UnrecognizedWebhook object.
 - Failure: a thrown exception (see Error Conditions).
 
@@ -48,7 +49,10 @@
 - License: MIT.
 - Versioning: own version number, independent of the official SDK versions.
 - PortOne API version: V2 only.
-- All operations are synchronous.
+- Every operation has a synchronous method and an asynchronous counterpart.
+- A synchronous method blocks until the response is received or a timeout occurs.
+- An asynchronous counterpart starts the request and returns a Future without waiting for the response.
+- Waiting on a Future returns the typed operation result or raises the same PortOneException as the synchronous method.
 - Each HTTP request has a connection timeout of 10 seconds and a total timeout of 30 seconds.
 - The library MUST NOT retry a failed HTTP request automatically.
 - Root PHP namespace: None stated.
@@ -90,6 +94,7 @@
 - EL-018: UnrecognizedWebhook. Purpose: representation of a webhook whose type this library version does not know. User actions: read the decoded body.
 - EL-019: PortOneException and its subtypes. Purpose: failure reporting. User actions: catch by type; read the error data.
 - EL-020: sample directory. Purpose: runnable PHP samples. User actions: read and run the samples.
+- EL-021: Future. Purpose: represent an in-flight asynchronous operation. User actions: check completion and wait for a typed result or failure.
 
 ## Functional Requirements [UNVERIFIED]
 
@@ -105,7 +110,7 @@
 - FR-010: Every operation method MUST accept the same named parameters as the same-named JVM SDK operation, in camelCase.
 - FR-011: Every operation method MUST return a typed object representing the PortOne V2 REST API response.
 - FR-012: Every operation method MUST send an authenticated request to the PortOne V2 REST API without the caller handling access tokens.
-- FR-013: Every operation method MUST block until the response is received or a timeout occurs.
+- FR-013: Every synchronous operation method MUST block until the response is received or a timeout occurs.
 - FR-014: WebhookVerifier MUST be constructible with webhookSecret.
 - FR-015: WebhookVerifier.verify MUST accept body (raw string), msgId, msgSignature, and msgTimestamp.
 - FR-016: WebhookVerifier.verify MUST return a typed object for a verified webhook whose type this library version knows.
@@ -118,7 +123,8 @@
 - FR-023: The library MUST apply a connection timeout of 10 seconds to every HTTP request.
 - FR-024: The library MUST apply a total timeout of 30 seconds to every HTTP request.
 - FR-025: The library MUST NOT retry a failed HTTP request.
-- FR-026: The library MUST NOT provide asynchronous operation methods.
+- FR-026: Every operation method MUST have an asynchronous counterpart that starts one request and returns a Future without waiting for the response.
+- FR-027: Future waiting MUST return the same typed result or raise the same PortOneException as the corresponding synchronous operation.
 
 ## User Flows
 
@@ -126,6 +132,7 @@
 - Flow 2, use one client only: construct a client from EL-002 to EL-015 with apiSecret -> call an operation method -> receive a typed object or catch a PortOneException.
 - Flow 3, verify a webhook: construct WebhookVerifier with webhookSecret -> call verify with the raw body, msgId, msgSignature, and msgTimestamp -> receive a typed webhook object or an UnrecognizedWebhook, or catch a WebhookVerificationException.
 - Flow 4, install: run Composer to require cable8mm/portone-php -> use the library classes.
+- Flow 5, call an operation asynchronously: construct a client -> call an Async operation method -> receive a Future -> wait for a typed object or catch a PortOneException.
 
 ## Error Conditions [UNVERIFIED]
 
@@ -137,6 +144,7 @@
 - ERR-006: A network failure, connection timeout, or total timeout occurs -> the operation MUST throw TransportException, a subtype of PortOneException.
 - ERR-007: Webhook signature verification fails -> WebhookVerifier.verify MUST throw WebhookVerificationException, a subtype of PortOneException.
 - ERR-008: PortOneException MUST extend RuntimeException.
+- ERR-009: Waiting on a Future after a transport, API, decode, or operation failure -> the Future MUST raise the corresponding PortOneException.
 
 ## Non-Goals
 
@@ -160,10 +168,11 @@
 - AC-012: The sample directory exists in the repository and contains one PHP sample for each server-side scenario in portone-sample. Verifies FR-019, FR-020, FR-021.
 - AC-013: A client constructed with any configuration value other than apiSecret is rejected, and WebhookVerifier constructed with any value other than webhookSecret is rejected. Verifies FR-022.
 - AC-014: A request to an unresponsive host fails with TransportException after the timeouts of FR-023 and FR-024, with exactly one attempt. Verifies FR-023, FR-024, FR-025, ERR-006.
-- AC-015: No operation method returns a promise, future, or deferred value. Verifies FR-026.
+- AC-015: Every operation has a synchronous method and an asynchronous counterpart; the asynchronous counterpart returns EL-021 without waiting for the response. Verifies FR-026.
 - AC-016: Constructing a client with an empty apiSecret throws InvalidArgumentException. Verifies ERR-001.
 - AC-017: Constructing WebhookVerifier with an empty webhookSecret throws InvalidArgumentException. Verifies ERR-002.
 - AC-018: A mocked error response defined for an operation throws that operation's exception type. Verifies ERR-003, ERR-008.
 - AC-019: A mocked error response not defined for an operation throws that operation's UnknownException. Verifies ERR-004.
 - AC-020: A mocked success response that cannot be decoded throws UnrecognizedResponseException with the HTTP status and raw body. Verifies ERR-005.
 - AC-021: WebhookVerifier.verify with an invalid signature throws WebhookVerificationException. Verifies ERR-007.
+- AC-022: Waiting on every representative asynchronous operation returns the same typed result or raises the same exception as its synchronous counterpart. Verifies FR-027, ERR-009.

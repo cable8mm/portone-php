@@ -16,7 +16,9 @@
 - Web framework: none. Pure PHP.
 - Runtime dependency: PHP extension ext-curl, any version.
 - Runtime dependency: PHP extension ext-json, any version.
-- HTTP transport: PHP ext-curl directly.
+- Runtime dependency: guzzlehttp/guzzle, ^8.0.
+- HTTP transport: Guzzle HTTP client.
+- Async HTTP transport: Guzzle asynchronous requests and promises.
 - Webhook signature computation: PHP built-in hash functions. No library.
 - Config parser library: none.
 - CLI argument parser library: none.
@@ -43,6 +45,7 @@
 - Code MUST be formatted by laravel/pint with its default preset.
 - composer.json MUST declare "php": "^8.2" under require.
 - composer.json MUST declare ext-curl and ext-json under require.
+- composer.json MUST declare guzzlehttp/guzzle under require.
 - composer.json MUST declare phpunit/phpunit and laravel/pint under require-dev.
 - composer.json MUST declare the PSR-4 autoload mapping.
 - composer.json MUST NOT contain a "version" field.
@@ -90,7 +93,7 @@
 ## 8. Non-goals
 
 - Web frameworks of any kind.
-- Third-party HTTP client libraries.
+- Laravel HTTP client or any framework-specific HTTP client.
 - Static analysis tools.
 - Code coverage tools and thresholds.
 - Committing composer.lock.

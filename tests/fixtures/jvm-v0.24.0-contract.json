@@ -1,0 +1,3038 @@
+{
+    "reference": {
+        "tag": "jvm-v0.24.0",
+        "commit": "69c97740c171f6266705413770e23e8ac6d53478"
+    },
+    "clients": {
+        "AccountClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/account/AccountClient.kt",
+            "operations": {
+                "getPlatformAccountHolder": {
+                    "parameters": [
+                        "bank",
+                        "accountNumber",
+                        "test",
+                        "birthdate",
+                        "businessRegistrationNumber"
+                    ],
+                    "returnType": "PlatformAccountHolder",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformExternalApiFailedException",
+                        "PlatformExternalApiTemporarilyFailedException",
+                        "PlatformNotEnabledException",
+                        "PlatformNotSupportedBankException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "getPlatformAccountHolder": "getPlatformAccountHolderFuture"
+            }
+        },
+        "AccountTransferClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/accounttransfer/AccountTransferClient.kt",
+            "operations": {
+                "getPlatformAccountTransfers": {
+                    "parameters": [
+                        "test",
+                        "isForTest",
+                        "page",
+                        "filter"
+                    ],
+                    "returnType": "GetPlatformAccountTransfersResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "getPlatformAccountTransfers": "getPlatformAccountTransfersFuture"
+            }
+        },
+        "AdditionalFeatureClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/additionalfeature/AdditionalFeatureClient.kt",
+            "operations": {
+                "getPgCardPromotions": {
+                    "parameters": [
+                        "channelKey",
+                        "amount",
+                        "cardCompany"
+                    ],
+                    "returnType": "GetPgCardPromotionsResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ChannelNotFoundException",
+                        "InvalidRequestException",
+                        "PgProviderException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "getPgCardPromotions": "getPgCardPromotionsFuture"
+            }
+        },
+        "AuthClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/auth/AuthClient.kt",
+            "operations": {
+                "loginViaApiSecret": {
+                    "parameters": [
+                        "apiSecret"
+                    ],
+                    "returnType": "LoginViaApiSecretResponse",
+                    "errors": [
+                        "UnknownException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "refreshToken": {
+                    "parameters": [
+                        "refreshToken"
+                    ],
+                    "returnType": "RefreshTokenResponse",
+                    "errors": [
+                        "UnknownException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "loginViaApiSecret": "loginViaApiSecretFuture",
+                "refreshToken": "refreshTokenFuture"
+            }
+        },
+        "B2bClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/B2bClient.kt",
+            "operations": [],
+            "asyncOperations": []
+        },
+        "BillingKeyClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/billingkey/BillingKeyClient.kt",
+            "operations": {
+                "confirmBillingKey": {
+                    "parameters": [
+                        "billingIssueToken",
+                        "isTest",
+                        "skipWebhook"
+                    ],
+                    "returnType": "ConfirmedBillingKeySummary",
+                    "errors": [
+                        "UnknownException",
+                        "BillingKeyAlreadyIssuedException",
+                        "BillingKeyNotFoundException",
+                        "ForbiddenException",
+                        "InformationMismatchException",
+                        "InvalidRequestException",
+                        "PgProviderException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "confirmBillingKeyIssueAndPay": {
+                    "parameters": [
+                        "billingIssueToken",
+                        "paymentId",
+                        "currency",
+                        "totalAmount",
+                        "taxFreeAmount",
+                        "isTest",
+                        "skipWebhook"
+                    ],
+                    "returnType": "ConfirmedBillingKeyIssueAndPaySummary",
+                    "errors": [
+                        "UnknownException",
+                        "BillingKeyAlreadyIssuedException",
+                        "BillingKeyNotFoundException",
+                        "ForbiddenException",
+                        "InformationMismatchException",
+                        "InvalidRequestException",
+                        "PgProviderException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "deleteBillingKey": {
+                    "parameters": [
+                        "billingKey",
+                        "reason",
+                        "requester",
+                        "skipWebhook"
+                    ],
+                    "returnType": "DeleteBillingKeyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "BillingKeyAlreadyDeletedException",
+                        "BillingKeyNotFoundException",
+                        "BillingKeyNotIssuedException",
+                        "ChannelSpecificException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PaymentScheduleAlreadyExistsException",
+                        "PgProviderException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getBillingKeyInfo": {
+                    "parameters": [
+                        "billingKey"
+                    ],
+                    "returnType": "BillingKeyInfo",
+                    "errors": [
+                        "UnknownException",
+                        "BillingKeyNotFoundException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getBillingKeyInfos": {
+                    "parameters": [
+                        "page",
+                        "sort",
+                        "filter"
+                    ],
+                    "returnType": "GetBillingKeyInfosResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "issueBillingKey": {
+                    "parameters": [
+                        "method",
+                        "channelKey",
+                        "channelGroupId",
+                        "customer",
+                        "customData",
+                        "bypass",
+                        "noticeUrls",
+                        "skipWebhook"
+                    ],
+                    "returnType": "IssueBillingKeyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ChannelNotFoundException",
+                        "ChannelSpecificException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PgProviderException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "confirmBillingKey": "confirmBillingKeyFuture",
+                "confirmBillingKeyIssueAndPay": "confirmBillingKeyIssueAndPayFuture",
+                "deleteBillingKey": "deleteBillingKeyFuture",
+                "getBillingKeyInfo": "getBillingKeyInfoFuture",
+                "getBillingKeyInfos": "getBillingKeyInfosFuture",
+                "issueBillingKey": "issueBillingKeyFuture"
+            }
+        },
+        "BulkAccountTransferClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/bulkaccounttransfer/BulkAccountTransferClient.kt",
+            "operations": {
+                "getPlatformBulkAccountTransfers": {
+                    "parameters": [
+                        "test",
+                        "isForTest",
+                        "page",
+                        "filter"
+                    ],
+                    "returnType": "GetPlatformBulkAccountTransfersResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "getPlatformBulkAccountTransfers": "getPlatformBulkAccountTransfersFuture"
+            }
+        },
+        "BulkPayoutClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/bulkpayout/BulkPayoutClient.kt",
+            "operations": {
+                "getPlatformBulkPayouts": {
+                    "parameters": [
+                        "test",
+                        "isForTest",
+                        "page",
+                        "filter"
+                    ],
+                    "returnType": "GetPlatformBulkPayoutsResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "getPlatformBulkPayouts": "getPlatformBulkPayoutsFuture"
+            }
+        },
+        "CashReceiptClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/cashreceipt/CashReceiptClient.kt",
+            "operations": {
+                "cancelCashReceiptByPaymentId": {
+                    "parameters": [
+                        "paymentId"
+                    ],
+                    "returnType": "CancelCashReceiptResponse",
+                    "errors": [
+                        "UnknownException",
+                        "CashReceiptNotFoundException",
+                        "CashReceiptNotIssuedException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PgProviderException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getCashReceiptByPaymentId": {
+                    "parameters": [
+                        "paymentId"
+                    ],
+                    "returnType": "CashReceipt",
+                    "errors": [
+                        "UnknownException",
+                        "CashReceiptNotFoundException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getCashReceipts": {
+                    "parameters": [
+                        "page",
+                        "sort",
+                        "filter"
+                    ],
+                    "returnType": "GetCashReceiptsResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "issueCashReceipt": {
+                    "parameters": [
+                        "paymentId",
+                        "channelKey",
+                        "type",
+                        "orderName",
+                        "currency",
+                        "amount",
+                        "productType",
+                        "customer",
+                        "paidAt",
+                        "businessRegistrationNumber",
+                        "paymentMethod"
+                    ],
+                    "returnType": "IssueCashReceiptResponse",
+                    "errors": [
+                        "UnknownException",
+                        "CashReceiptAlreadyIssuedException",
+                        "ChannelNotFoundException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PgProviderException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "cancelCashReceiptByPaymentId": "cancelCashReceiptByPaymentIdFuture",
+                "getCashReceiptByPaymentId": "getCashReceiptByPaymentIdFuture",
+                "getCashReceipts": "getCashReceiptsFuture",
+                "issueCashReceipt": "issueCashReceiptFuture"
+            }
+        },
+        "CompanyClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/company/CompanyClient.kt",
+            "operations": {
+                "getB2bBusinessInfos": {
+                    "parameters": [
+                        "test",
+                        "brnList"
+                    ],
+                    "returnType": "GetB2bBusinessInfosResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformCompanyState": {
+                    "parameters": [
+                        "businessRegistrationNumber",
+                        "test"
+                    ],
+                    "returnType": "GetPlatformCompanyStatePayload",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformCompanyNotFoundException",
+                        "PlatformExternalApiFailedException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "getB2bBusinessInfos": "getB2bBusinessInfosFuture",
+                "getPlatformCompanyState": "getPlatformCompanyStateFuture"
+            }
+        },
+        "CounterpartyClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/counterparty/CounterpartyClient.kt",
+            "operations": {
+                "createB2bCounterparty": {
+                    "parameters": [
+                        "test",
+                        "counterpartyId",
+                        "counterparty",
+                        "options"
+                    ],
+                    "returnType": "CreateB2bCounterpartyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2bCounterpartyBrnInvalidException",
+                        "B2bCounterpartyIdAlreadyExistsException",
+                        "B2bCounterpartyIdAlreadyExistsByPartnerException",
+                        "B2bCounterpartyMissingRequiredFieldsException",
+                        "B2bCounterpartyNtsConnectionFailedException",
+                        "B2bCounterpartyPartnerNotConnectableException",
+                        "B2bCounterpartySelfOriginBrnMismatchException",
+                        "B2bCounterpartyTooManyAdditionalContactsException",
+                        "B2bCounterpartyVerificationBrnMismatchException",
+                        "B2bCounterpartyVerificationInvalidException",
+                        "B2bCounterpartyVerificationNotFoundException",
+                        "B2bCounterpartyVerificationTypeMismatchException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "deleteB2bCounterparty": {
+                    "parameters": [
+                        "counterpartyId",
+                        "test"
+                    ],
+                    "returnType": "DeleteB2bCounterpartyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2bCounterpartyNotFoundException",
+                        "B2bCounterpartyOngoingTaxInvoiceExistsException",
+                        "B2bCounterpartyPartnerNotDeletableException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getB2bCounterparties": {
+                    "parameters": [
+                        "test",
+                        "page",
+                        "filter"
+                    ],
+                    "returnType": "GetB2bCounterpartiesResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getB2bCounterparty": {
+                    "parameters": [
+                        "counterpartyId",
+                        "test"
+                    ],
+                    "returnType": "B2bCounterparty",
+                    "errors": [
+                        "UnknownException",
+                        "B2bCounterpartyNotFoundException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getB2bCounterpartyCertificate": {
+                    "parameters": [
+                        "brn",
+                        "test"
+                    ],
+                    "returnType": "B2bCertificate",
+                    "errors": [
+                        "UnknownException",
+                        "B2bCertificateUnregisteredException",
+                        "B2bCounterpartyNotFoundException",
+                        "B2bCounterpartyNtsNotConnectedException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getB2bCounterpartyCertificateRegistrationUrl": {
+                    "parameters": [
+                        "brn",
+                        "test"
+                    ],
+                    "returnType": "GetB2bCounterpartyCertificateRegistrationUrlResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2bCounterpartyNotFoundException",
+                        "B2bCounterpartyNtsNotConnectedException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "updateB2bCounterparty": {
+                    "parameters": [
+                        "counterpartyId",
+                        "test",
+                        "counterparty",
+                        "options"
+                    ],
+                    "returnType": "UpdateB2bCounterpartyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2bCounterpartyBrnModificationNotAllowedException",
+                        "B2bCounterpartyMissingRequiredFieldsException",
+                        "B2bCounterpartyNotFoundException",
+                        "B2bCounterpartyPartnerNotUpdatableException",
+                        "B2bCounterpartyTooManyAdditionalContactsException",
+                        "B2bCounterpartyVerificationBrnMismatchException",
+                        "B2bCounterpartyVerificationInvalidException",
+                        "B2bCounterpartyVerificationNotFoundException",
+                        "B2bCounterpartyVerificationTypeMismatchException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "validateB2bCounterpartyCertificate": {
+                    "parameters": [
+                        "brn",
+                        "test"
+                    ],
+                    "returnType": "ValidateB2bCounterpartyCertificateResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2bCertificateUnregisteredException",
+                        "B2bCounterpartyNotFoundException",
+                        "B2bCounterpartyNtsNotConnectedException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "createB2bCounterparty": "createB2bCounterpartyFuture",
+                "deleteB2bCounterparty": "deleteB2bCounterpartyFuture",
+                "getB2bCounterparties": "getB2bCounterpartiesFuture",
+                "getB2bCounterparty": "getB2bCounterpartyFuture",
+                "getB2bCounterpartyCertificate": "getB2bCounterpartyCertificateFuture",
+                "getB2bCounterpartyCertificateRegistrationUrl": "getB2bCounterpartyCertificateRegistrationUrlFuture",
+                "updateB2bCounterparty": "updateB2bCounterpartyFuture",
+                "validateB2bCounterpartyCertificate": "validateB2bCounterpartyCertificateFuture"
+            }
+        },
+        "IdentityVerificationClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/identityverification/IdentityVerificationClient.kt",
+            "operations": {
+                "confirmIdentityVerification": {
+                    "parameters": [
+                        "identityVerificationId",
+                        "otp"
+                    ],
+                    "returnType": "ConfirmIdentityVerificationResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "IdentityVerificationAlreadyVerifiedException",
+                        "IdentityVerificationNotFoundException",
+                        "IdentityVerificationNotSentException",
+                        "InvalidRequestException",
+                        "PgProviderException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getIdentityVerification": {
+                    "parameters": [
+                        "identityVerificationId"
+                    ],
+                    "returnType": "IdentityVerification",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "IdentityVerificationNotFoundException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getIdentityVerifications": {
+                    "parameters": [
+                        "page",
+                        "sort",
+                        "filter"
+                    ],
+                    "returnType": "GetIdentityVerificationsResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "resendIdentityVerification": {
+                    "parameters": [
+                        "identityVerificationId"
+                    ],
+                    "returnType": "ResendIdentityVerificationResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "IdentityVerificationAlreadyVerifiedException",
+                        "IdentityVerificationNotFoundException",
+                        "IdentityVerificationNotSentException",
+                        "InvalidRequestException",
+                        "PgProviderException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "sendIdentityVerification": {
+                    "parameters": [
+                        "identityVerificationId",
+                        "channelKey",
+                        "customer",
+                        "customData",
+                        "bypass",
+                        "method"
+                    ],
+                    "returnType": "SendIdentityVerificationResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ChannelNotFoundException",
+                        "ForbiddenException",
+                        "IdentityVerificationAlreadySentException",
+                        "IdentityVerificationAlreadyVerifiedException",
+                        "IdentityVerificationNotFoundException",
+                        "InvalidRequestException",
+                        "MaxTransactionCountReachedException",
+                        "PgProviderException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "confirmIdentityVerification": "confirmIdentityVerificationFuture",
+                "getIdentityVerification": "getIdentityVerificationFuture",
+                "getIdentityVerifications": "getIdentityVerificationsFuture",
+                "resendIdentityVerification": "resendIdentityVerificationFuture",
+                "sendIdentityVerification": "sendIdentityVerificationFuture"
+            }
+        },
+        "PartnerClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/partner/PartnerClient.kt",
+            "operations": {
+                "archivePlatformPartner": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "ArchivePlatformPartnerResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformCannotArchiveScheduledPartnerException",
+                        "PlatformCounterpartyOngoingTaxInvoiceExistsException",
+                        "PlatformNotEnabledException",
+                        "PlatformPartnerNotFoundException",
+                        "PlatformPartnerPendingNtsOperationException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "connectBulkPartnerCounterparty": {
+                    "parameters": [
+                        "test",
+                        "filter"
+                    ],
+                    "returnType": "ConnectBulkPartnerCounterpartyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformBtxNotEnabledException",
+                        "PlatformExternalApiFailedException",
+                        "PlatformNotEnabledException",
+                        "PlatformPartnerNotFoundException",
+                        "PlatformTargetPartnerNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "connectPartnerCounterparty": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "ConnectPartnerCounterpartyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformArchivedPartnerException",
+                        "PlatformArchivedPartnerNtsNotAllowedException",
+                        "PlatformBtxNotEnabledException",
+                        "PlatformCounterpartyNotConnectableStatusException",
+                        "PlatformExternalApiFailedException",
+                        "PlatformNotEnabledException",
+                        "PlatformPartnerNotFoundException",
+                        "PlatformPartnerScheduleExistsException",
+                        "PlatformPartnerTaxationTypeIsSimpleException",
+                        "PlatformPartnerTypeIsNotBusinessException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "createPlatformPartner": {
+                    "parameters": [
+                        "test",
+                        "id",
+                        "name",
+                        "contact",
+                        "account",
+                        "defaultContractId",
+                        "memo",
+                        "tags",
+                        "type",
+                        "userDefinedProperties"
+                    ],
+                    "returnType": "CreatePlatformPartnerResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformAccountVerificationAlreadyUsedException",
+                        "PlatformAccountVerificationFailedException",
+                        "PlatformAccountVerificationNotFoundException",
+                        "PlatformCompanyVerificationAlreadyUsedException",
+                        "PlatformContractNotFoundException",
+                        "PlatformCurrencyNotSupportedException",
+                        "PlatformNotEnabledException",
+                        "PlatformPartnerIdAlreadyExistsException",
+                        "PlatformUserDefinedPropertyNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "createPlatformPartners": {
+                    "parameters": [
+                        "test",
+                        "partners"
+                    ],
+                    "returnType": "CreatePlatformPartnersResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformContractsNotFoundException",
+                        "PlatformCurrencyNotSupportedException",
+                        "PlatformNotEnabledException",
+                        "PlatformPartnerIdsAlreadyExistException",
+                        "PlatformPartnerIdsDuplicatedException",
+                        "PlatformUserDefinedPropertyNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "disconnectBulkPartnerCounterparty": {
+                    "parameters": [
+                        "test",
+                        "filter"
+                    ],
+                    "returnType": "DisconnectBulkPartnerCounterpartyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformBtxNotEnabledException",
+                        "PlatformExternalApiFailedException",
+                        "PlatformNotEnabledException",
+                        "PlatformPartnerNotFoundException",
+                        "PlatformTargetPartnerNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "disconnectPartnerCounterparty": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "DisconnectPartnerCounterpartyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformArchivedPartnerNtsNotAllowedException",
+                        "PlatformBtxNotEnabledException",
+                        "PlatformCounterpartyNotConnectedException",
+                        "PlatformExternalApiFailedException",
+                        "PlatformNotEnabledException",
+                        "PlatformOngoingTaxInvoiceExistsException",
+                        "PlatformPartnerNotFoundException",
+                        "PlatformPartnerTaxationTypeIsSimpleException",
+                        "PlatformPartnerTypeIsNotBusinessException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformPartner": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "PlatformPartner",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "PlatformPartnerNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformPartners": {
+                    "parameters": [
+                        "test",
+                        "page",
+                        "filter"
+                    ],
+                    "returnType": "GetPlatformPartnersResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "recoverPlatformPartner": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "RecoverPlatformPartnerResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "PlatformPartnerNotFoundException",
+                        "PlatformPartnerPendingNtsOperationException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "updatePlatformPartner": {
+                    "parameters": [
+                        "id",
+                        "test",
+                        "name",
+                        "contact",
+                        "account",
+                        "defaultContractId",
+                        "memo",
+                        "tags",
+                        "type",
+                        "userDefinedProperties"
+                    ],
+                    "returnType": "UpdatePlatformPartnerResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformAccountVerificationAlreadyUsedException",
+                        "PlatformAccountVerificationFailedException",
+                        "PlatformAccountVerificationNotFoundException",
+                        "PlatformArchivedPartnerException",
+                        "PlatformCompanyVerificationAlreadyUsedException",
+                        "PlatformContractNotFoundException",
+                        "PlatformInsufficientDataToChangePartnerTypeException",
+                        "PlatformMemberCompanyConnectedPartnerBrnUnchangeableException",
+                        "PlatformMemberCompanyConnectedPartnerTypeUnchangeableException",
+                        "PlatformNotEnabledException",
+                        "PlatformPartnerNotFoundException",
+                        "PlatformUserDefinedPropertyNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "archivePlatformPartner": "archivePlatformPartnerFuture",
+                "connectBulkPartnerCounterparty": "connectBulkPartnerCounterpartyFuture",
+                "connectPartnerCounterparty": "connectPartnerCounterpartyFuture",
+                "createPlatformPartner": "createPlatformPartnerFuture",
+                "createPlatformPartners": "createPlatformPartnersFuture",
+                "disconnectBulkPartnerCounterparty": "disconnectBulkPartnerCounterpartyFuture",
+                "disconnectPartnerCounterparty": "disconnectPartnerCounterpartyFuture",
+                "getPlatformPartner": "getPlatformPartnerFuture",
+                "getPlatformPartners": "getPlatformPartnersFuture",
+                "recoverPlatformPartner": "recoverPlatformPartnerFuture",
+                "updatePlatformPartner": "updatePlatformPartnerFuture"
+            }
+        },
+        "PartnerSettlementClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/partnersettlement/PartnerSettlementClient.kt",
+            "operations": {
+                "deletePlatformPartnerSettlements": {
+                    "parameters": [
+                        "test",
+                        "partnerSettlementIds",
+                        "isForTest"
+                    ],
+                    "returnType": "DeletePlatformPartnerSettlementsResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNonDeletablePartnerSettlementsException",
+                        "PlatformNotEnabledException",
+                        "PlatformPartnerSettlementsNotFoundException",
+                        "PlatformReferencedCancelOrderTransfersExistException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformPartnerSettlements": {
+                    "parameters": [
+                        "test",
+                        "page",
+                        "filter",
+                        "isForTest"
+                    ],
+                    "returnType": "GetPlatformPartnerSettlementsResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "deletePlatformPartnerSettlements": "deletePlatformPartnerSettlementsFuture",
+                "getPlatformPartnerSettlements": "getPlatformPartnerSettlementsFuture"
+            }
+        },
+        "PaymentClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/PaymentClient.kt",
+            "operations": {
+                "applyEscrowLogistics": {
+                    "parameters": [
+                        "paymentId",
+                        "sender",
+                        "receiver",
+                        "logistics",
+                        "sendEmail",
+                        "products"
+                    ],
+                    "returnType": "ApplyEscrowLogisticsResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PaymentNotFoundException",
+                        "PaymentNotPaidException",
+                        "PgProviderException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "cancelPayment": {
+                    "parameters": [
+                        "paymentId",
+                        "amount",
+                        "taxFreeAmount",
+                        "vatAmount",
+                        "reason",
+                        "requester",
+                        "promotionDiscountRetainOption",
+                        "currentCancellableAmount",
+                        "refundAccount",
+                        "refundEmail",
+                        "skipWebhook"
+                    ],
+                    "returnType": "CancelPaymentResponse",
+                    "errors": [
+                        "UnknownException",
+                        "CancellableAmountConsistencyBrokenException",
+                        "CancelAmountExceedsCancellableAmountException",
+                        "CancelTaxAmountExceedsCancellableTaxAmountException",
+                        "CancelTaxFreeAmountExceedsCancellableTaxFreeAmountException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "NegativePromotionAdjustedCancelAmountException",
+                        "PaymentAlreadyCancelledException",
+                        "PaymentNotFoundException",
+                        "PaymentNotPaidException",
+                        "PgProviderException",
+                        "PromotionDiscountRetainOptionShouldNotBeChangedException",
+                        "SumOfPartsExceedsCancelAmountException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "capturePayment": {
+                    "parameters": [
+                        "paymentId"
+                    ],
+                    "returnType": "CapturePaymentResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PaymentNotFoundException",
+                        "PaymentNotPaidException",
+                        "PgProviderException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "closeVirtualAccount": {
+                    "parameters": [
+                        "paymentId"
+                    ],
+                    "returnType": "CloseVirtualAccountResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PaymentNotFoundException",
+                        "PaymentNotWaitingForDepositException",
+                        "PgProviderException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "confirmEscrow": {
+                    "parameters": [
+                        "paymentId",
+                        "fromStore"
+                    ],
+                    "returnType": "ConfirmEscrowResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PaymentNotFoundException",
+                        "PaymentNotPaidException",
+                        "PgProviderException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "confirmPayment": {
+                    "parameters": [
+                        "paymentId",
+                        "paymentToken",
+                        "txId",
+                        "currency",
+                        "totalAmount",
+                        "taxFreeAmount",
+                        "isTest",
+                        "skipWebhook"
+                    ],
+                    "returnType": "ConfirmedPaymentSummary",
+                    "errors": [
+                        "UnknownException",
+                        "AlreadyPaidException",
+                        "ForbiddenException",
+                        "InformationMismatchException",
+                        "InvalidPaymentTokenException",
+                        "InvalidRequestException",
+                        "PaymentNotFoundException",
+                        "PgProviderException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getAllPaymentEventsByCursor": {
+                    "parameters": [
+                        "from",
+                        "until",
+                        "cursor",
+                        "size"
+                    ],
+                    "returnType": "GetAllPaymentEventsByCursorResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getAllPaymentsByCursor": {
+                    "parameters": [
+                        "from",
+                        "until",
+                        "cursor",
+                        "size"
+                    ],
+                    "returnType": "GetAllPaymentsByCursorResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPayment": {
+                    "parameters": [
+                        "paymentId"
+                    ],
+                    "returnType": "Payment",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PaymentNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPaymentTransactions": {
+                    "parameters": [
+                        "paymentId"
+                    ],
+                    "returnType": "GetPaymentTransactionsResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PaymentNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPayments": {
+                    "parameters": [
+                        "page",
+                        "filter"
+                    ],
+                    "returnType": "GetPaymentsResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "modifyEscrowLogistics": {
+                    "parameters": [
+                        "paymentId",
+                        "sender",
+                        "receiver",
+                        "logistics",
+                        "sendEmail",
+                        "products"
+                    ],
+                    "returnType": "ModifyEscrowLogisticsResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PaymentNotFoundException",
+                        "PaymentNotPaidException",
+                        "PgProviderException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "payInstantly": {
+                    "parameters": [
+                        "paymentId",
+                        "channelKey",
+                        "channelGroupId",
+                        "method",
+                        "orderName",
+                        "isCulturalExpense",
+                        "isEscrow",
+                        "customer",
+                        "customData",
+                        "amount",
+                        "currency",
+                        "country",
+                        "noticeUrls",
+                        "products",
+                        "productCount",
+                        "productType",
+                        "shippingAddress",
+                        "promotionId",
+                        "bypass",
+                        "skipWebhook"
+                    ],
+                    "returnType": "PayInstantlyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "AlreadyPaidException",
+                        "ChannelNotFoundException",
+                        "DiscountAmountExceedsTotalAmountException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "MaxTransactionCountReachedException",
+                        "PaymentScheduleAlreadyExistsException",
+                        "PgProviderException",
+                        "PromotionPayMethodDoesNotMatchException",
+                        "SumOfPartsExceedsTotalAmountException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "payWithBillingKey": {
+                    "parameters": [
+                        "paymentId",
+                        "billingKey",
+                        "channelKey",
+                        "orderName",
+                        "customer",
+                        "customData",
+                        "amount",
+                        "currency",
+                        "installmentMonth",
+                        "useFreeInterestFromMerchant",
+                        "useCardPoint",
+                        "cashReceipt",
+                        "country",
+                        "noticeUrls",
+                        "products",
+                        "productCount",
+                        "productType",
+                        "shippingAddress",
+                        "promotionId",
+                        "locale",
+                        "bypass",
+                        "skipWebhook"
+                    ],
+                    "returnType": "PayWithBillingKeyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "AlreadyPaidException",
+                        "BillingKeyAlreadyDeletedException",
+                        "BillingKeyNotFoundException",
+                        "ChannelNotFoundException",
+                        "DiscountAmountExceedsTotalAmountException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "MaxTransactionCountReachedException",
+                        "PaymentScheduleAlreadyExistsException",
+                        "PgProviderException",
+                        "PromotionPayMethodDoesNotMatchException",
+                        "SumOfPartsExceedsTotalAmountException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "preRegisterPayment": {
+                    "parameters": [
+                        "paymentId",
+                        "totalAmount",
+                        "taxFreeAmount",
+                        "currency"
+                    ],
+                    "returnType": "PreRegisterPaymentResponse",
+                    "errors": [
+                        "UnknownException",
+                        "AlreadyPaidException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "registerStoreReceipt": {
+                    "parameters": [
+                        "paymentId",
+                        "items"
+                    ],
+                    "returnType": "RegisterStoreReceiptResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PaymentNotFoundException",
+                        "PaymentNotPaidException",
+                        "PgProviderException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "resendWebhook": {
+                    "parameters": [
+                        "paymentId",
+                        "webhookId"
+                    ],
+                    "returnType": "ResendWebhookResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "MaxWebhookRetryCountReachedException",
+                        "PaymentNotFoundException",
+                        "UnauthorizedException",
+                        "WebhookNotFoundException"
+                    ]
+                },
+                "stopPaymentCancellation": {
+                    "parameters": [
+                        "paymentId",
+                        "cancellationId"
+                    ],
+                    "returnType": "StopPaymentCancellationResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PaymentCancellationNotFoundException",
+                        "PaymentCancellationNotPendingException",
+                        "PaymentNotFoundException",
+                        "PgProviderException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "applyEscrowLogistics": "applyEscrowLogisticsFuture",
+                "cancelPayment": "cancelPaymentFuture",
+                "capturePayment": "capturePaymentFuture",
+                "closeVirtualAccount": "closeVirtualAccountFuture",
+                "confirmEscrow": "confirmEscrowFuture",
+                "confirmPayment": "confirmPaymentFuture",
+                "getAllPaymentEventsByCursor": "getAllPaymentEventsByCursorFuture",
+                "getAllPaymentsByCursor": "getAllPaymentsByCursorFuture",
+                "getPayment": "getPaymentFuture",
+                "getPaymentTransactions": "getPaymentTransactionsFuture",
+                "getPayments": "getPaymentsFuture",
+                "modifyEscrowLogistics": "modifyEscrowLogisticsFuture",
+                "payInstantly": "payInstantlyFuture",
+                "payWithBillingKey": "payWithBillingKeyFuture",
+                "preRegisterPayment": "preRegisterPaymentFuture",
+                "registerStoreReceipt": "registerStoreReceiptFuture",
+                "resendWebhook": "resendWebhookFuture",
+                "stopPaymentCancellation": "stopPaymentCancellationFuture"
+            }
+        },
+        "PaymentScheduleClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/paymentschedule/PaymentScheduleClient.kt",
+            "operations": {
+                "createPaymentSchedule": {
+                    "parameters": [
+                        "paymentId",
+                        "payment",
+                        "timeToPay"
+                    ],
+                    "returnType": "CreatePaymentScheduleResponse",
+                    "errors": [
+                        "UnknownException",
+                        "AlreadyPaidOrWaitingException",
+                        "BillingKeyAlreadyDeletedException",
+                        "BillingKeyNotFoundException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PaymentScheduleAlreadyExistsException",
+                        "SumOfPartsExceedsTotalAmountException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPaymentSchedule": {
+                    "parameters": [
+                        "paymentScheduleId"
+                    ],
+                    "returnType": "PaymentSchedule",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PaymentScheduleNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPaymentSchedules": {
+                    "parameters": [
+                        "page",
+                        "sort",
+                        "filter"
+                    ],
+                    "returnType": "GetPaymentSchedulesResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "revokePaymentSchedules": {
+                    "parameters": [
+                        "billingKey",
+                        "scheduleIds"
+                    ],
+                    "returnType": "RevokePaymentSchedulesResponse",
+                    "errors": [
+                        "UnknownException",
+                        "BillingKeyAlreadyDeletedException",
+                        "BillingKeyNotFoundException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PaymentScheduleAlreadyProcessedException",
+                        "PaymentScheduleAlreadyRevokedException",
+                        "PaymentScheduleNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "createPaymentSchedule": "createPaymentScheduleFuture",
+                "getPaymentSchedule": "getPaymentScheduleFuture",
+                "getPaymentSchedules": "getPaymentSchedulesFuture",
+                "revokePaymentSchedules": "revokePaymentSchedulesFuture"
+            }
+        },
+        "PayoutClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/payout/PayoutClient.kt",
+            "operations": {
+                "completePlatformPayoutByPartnerSettlementIds": {
+                    "parameters": [
+                        "test",
+                        "bulkPayoutId",
+                        "name",
+                        "partnerSettlementIds",
+                        "completedAt",
+                        "isForTest"
+                    ],
+                    "returnType": "CompletePlatformPayoutByPartnerSettlementIdsResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformBulkPayoutIdAlreadyExistsException",
+                        "PlatformNegativePayoutAmountPartnersException",
+                        "PlatformDuplicatedPartnerSettlementIdsException",
+                        "PlatformNonPayablePartnerSettlementsException",
+                        "PlatformNotEnabledException",
+                        "PlatformNoSelectedPartnerSettlementsException",
+                        "PlatformPartnerSettlementsNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformPayouts": {
+                    "parameters": [
+                        "test",
+                        "isForTest",
+                        "page",
+                        "filter"
+                    ],
+                    "returnType": "GetPlatformPayoutsResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "completePlatformPayoutByPartnerSettlementIds": "completePlatformPayoutByPartnerSettlementIdsFuture",
+                "getPlatformPayouts": "getPlatformPayoutsFuture"
+            }
+        },
+        "PgSpecificClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/pgspecific/PgSpecificClient.kt",
+            "operations": {
+                "confirmPaymentwallDelivery": {
+                    "parameters": [
+                        "transactionId",
+                        "deliveryType",
+                        "deliveryStatus",
+                        "estimatedDeliveryDatetime",
+                        "estimatedUpdateDatetime",
+                        "reason",
+                        "refundable",
+                        "details",
+                        "shippingAddressEmail",
+                        "carrierTrackingId",
+                        "carrierType",
+                        "shippingAddressCountry",
+                        "shippingAddressCity",
+                        "shippingAddressZip",
+                        "shippingAddressState",
+                        "shippingAddressStreet",
+                        "shippingAddressPhone",
+                        "shippingAddressFirstname",
+                        "shippingAddressLastname",
+                        "attachments"
+                    ],
+                    "returnType": "ConfirmPaymentwallDeliveryResponse",
+                    "errors": [
+                        "UnknownException",
+                        "InvalidRequestException",
+                        "PaymentNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getKakaopayPaymentOrder": {
+                    "parameters": [
+                        "pgTxId",
+                        "channelKey"
+                    ],
+                    "returnType": "GetKakaopayPaymentOrderResponse",
+                    "errors": [
+                        "UnknownException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "confirmPaymentwallDelivery": "confirmPaymentwallDeliveryFuture",
+                "getKakaopayPaymentOrder": "getKakaopayPaymentOrderFuture"
+            }
+        },
+        "PlatformClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/PlatformClient.kt",
+            "operations": {
+                "cancelPlatformAdditionalFeePolicySchedule": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "CancelPlatformAdditionalFeePolicyScheduleResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformAdditionalFeePolicyNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "cancelPlatformContractSchedule": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "CancelPlatformContractScheduleResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformContractNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "cancelPlatformDiscountSharePolicySchedule": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "CancelPlatformDiscountSharePolicyScheduleResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformDiscountSharePolicyNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "cancelPlatformPartnerSchedule": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "CancelPlatformPartnerScheduleResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "PlatformPartnerNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformAdditionalFeePolicySchedule": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "PlatformAdditionalFeePolicy",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformAdditionalFeePolicyNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformContractSchedule": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "PlatformContract",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformContractNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformDiscountSharePolicyFilterOptions": {
+                    "parameters": [
+                        "test",
+                        "isArchived"
+                    ],
+                    "returnType": "PlatformDiscountSharePolicyFilterOptions",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformDiscountSharePolicySchedule": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "PlatformDiscountSharePolicy",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformDiscountSharePolicyNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformPartnerFilterOptions": {
+                    "parameters": [
+                        "test",
+                        "isArchived"
+                    ],
+                    "returnType": "PlatformPartnerFilterOptions",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformPartnerSchedule": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "PlatformPartner",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "PlatformPartnerNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformSetting": {
+                    "parameters": [
+                        "test"
+                    ],
+                    "returnType": "PlatformSetting",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "rescheduleAdditionalFeePolicy": {
+                    "parameters": [
+                        "id",
+                        "test",
+                        "update",
+                        "appliedAt"
+                    ],
+                    "returnType": "ReschedulePlatformAdditionalFeePolicyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformAdditionalFeePolicyNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "rescheduleContract": {
+                    "parameters": [
+                        "id",
+                        "test",
+                        "update",
+                        "appliedAt"
+                    ],
+                    "returnType": "ReschedulePlatformContractResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformContractNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "rescheduleDiscountSharePolicy": {
+                    "parameters": [
+                        "id",
+                        "test",
+                        "update",
+                        "appliedAt"
+                    ],
+                    "returnType": "ReschedulePlatformDiscountSharePolicyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformDiscountSharePolicyNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "reschedulePartner": {
+                    "parameters": [
+                        "id",
+                        "test",
+                        "update",
+                        "appliedAt"
+                    ],
+                    "returnType": "ReschedulePlatformPartnerResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformContractNotFoundException",
+                        "PlatformMemberCompanyConnectedPartnerCannotBeScheduledException",
+                        "PlatformNotEnabledException",
+                        "PlatformPartnerNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "scheduleAdditionalFeePolicy": {
+                    "parameters": [
+                        "id",
+                        "test",
+                        "update",
+                        "appliedAt"
+                    ],
+                    "returnType": "SchedulePlatformAdditionalFeePolicyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformAdditionalFeePolicyNotFoundException",
+                        "PlatformAdditionalFeePolicyScheduleAlreadyExistsException",
+                        "PlatformArchivedAdditionalFeePolicyException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "scheduleContract": {
+                    "parameters": [
+                        "id",
+                        "test",
+                        "update",
+                        "appliedAt"
+                    ],
+                    "returnType": "SchedulePlatformContractResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformArchivedContractException",
+                        "PlatformContractNotFoundException",
+                        "PlatformContractScheduleAlreadyExistsException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "scheduleDiscountSharePolicy": {
+                    "parameters": [
+                        "id",
+                        "test",
+                        "update",
+                        "appliedAt"
+                    ],
+                    "returnType": "SchedulePlatformDiscountSharePolicyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformArchivedDiscountSharePolicyException",
+                        "PlatformDiscountSharePolicyNotFoundException",
+                        "PlatformDiscountSharePolicyScheduleAlreadyExistsException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "schedulePartner": {
+                    "parameters": [
+                        "id",
+                        "test",
+                        "update",
+                        "appliedAt"
+                    ],
+                    "returnType": "SchedulePlatformPartnerResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformAccountVerificationAlreadyUsedException",
+                        "PlatformAccountVerificationFailedException",
+                        "PlatformAccountVerificationNotFoundException",
+                        "PlatformArchivedPartnerException",
+                        "PlatformCompanyVerificationAlreadyUsedException",
+                        "PlatformContractNotFoundException",
+                        "PlatformInsufficientDataToChangePartnerTypeException",
+                        "PlatformMemberCompanyConnectedPartnerBrnUnchangeableException",
+                        "PlatformMemberCompanyConnectedPartnerCannotBeScheduledException",
+                        "PlatformMemberCompanyConnectedPartnerTypeUnchangeableException",
+                        "PlatformNotEnabledException",
+                        "PlatformPartnerNotFoundException",
+                        "PlatformPartnerScheduleAlreadyExistsException",
+                        "PlatformUserDefinedPropertyNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "schedulePlatformPartners": {
+                    "parameters": [
+                        "test",
+                        "filter",
+                        "update",
+                        "appliedAt"
+                    ],
+                    "returnType": "SchedulePlatformPartnersResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformArchivedPartnersCannotBeScheduledException",
+                        "PlatformContractNotFoundException",
+                        "PlatformMemberCompanyConnectedPartnersCannotBeScheduledException",
+                        "PlatformNotEnabledException",
+                        "PlatformPartnerSchedulesAlreadyExistException",
+                        "PlatformUserDefinedPropertyNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "updatePlatformSetting": {
+                    "parameters": [
+                        "test",
+                        "defaultWithdrawalMemo",
+                        "defaultDepositMemo",
+                        "supportsMultipleOrderTransfersPerPartner",
+                        "adjustSettlementDateAfterHolidayIfEarlier",
+                        "deductWht",
+                        "settlementAmountType"
+                    ],
+                    "returnType": "UpdatePlatformSettingResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "cancelPlatformAdditionalFeePolicySchedule": "cancelPlatformAdditionalFeePolicyScheduleFuture",
+                "cancelPlatformContractSchedule": "cancelPlatformContractScheduleFuture",
+                "cancelPlatformDiscountSharePolicySchedule": "cancelPlatformDiscountSharePolicyScheduleFuture",
+                "cancelPlatformPartnerSchedule": "cancelPlatformPartnerScheduleFuture",
+                "getPlatformAdditionalFeePolicySchedule": "getPlatformAdditionalFeePolicyScheduleFuture",
+                "getPlatformContractSchedule": "getPlatformContractScheduleFuture",
+                "getPlatformDiscountSharePolicyFilterOptions": "getPlatformDiscountSharePolicyFilterOptionsFuture",
+                "getPlatformDiscountSharePolicySchedule": "getPlatformDiscountSharePolicyScheduleFuture",
+                "getPlatformPartnerFilterOptions": "getPlatformPartnerFilterOptionsFuture",
+                "getPlatformPartnerSchedule": "getPlatformPartnerScheduleFuture",
+                "getPlatformSetting": "getPlatformSettingFuture",
+                "rescheduleAdditionalFeePolicy": "rescheduleAdditionalFeePolicyFuture",
+                "rescheduleContract": "rescheduleContractFuture",
+                "rescheduleDiscountSharePolicy": "rescheduleDiscountSharePolicyFuture",
+                "reschedulePartner": "reschedulePartnerFuture",
+                "scheduleAdditionalFeePolicy": "scheduleAdditionalFeePolicyFuture",
+                "scheduleContract": "scheduleContractFuture",
+                "scheduleDiscountSharePolicy": "scheduleDiscountSharePolicyFuture",
+                "schedulePartner": "schedulePartnerFuture",
+                "schedulePlatformPartners": "schedulePlatformPartnersFuture",
+                "updatePlatformSetting": "updatePlatformSettingFuture"
+            }
+        },
+        "PolicyClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/policy/PolicyClient.kt",
+            "operations": {
+                "archivePlatformAdditionalFeePolicy": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "ArchivePlatformAdditionalFeePolicyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformAdditionalFeePolicyNotFoundException",
+                        "PlatformCannotArchiveScheduledAdditionalFeePolicyException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "archivePlatformContract": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "ArchivePlatformContractResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformCannotArchiveScheduledContractException",
+                        "PlatformContractNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "archivePlatformDiscountSharePolicy": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "ArchivePlatformDiscountSharePolicyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformCannotArchiveScheduledDiscountSharePolicyException",
+                        "PlatformDiscountSharePolicyNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "createPlatformAdditionalFeePolicy": {
+                    "parameters": [
+                        "test",
+                        "id",
+                        "name",
+                        "fee",
+                        "memo",
+                        "vatPayer"
+                    ],
+                    "returnType": "CreatePlatformAdditionalFeePolicyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformAdditionalFeePolicyAlreadyExistsException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "createPlatformContract": {
+                    "parameters": [
+                        "test",
+                        "id",
+                        "name",
+                        "memo",
+                        "platformFee",
+                        "settlementCycle",
+                        "platformFeeVatPayer",
+                        "subtractPaymentVatAmount"
+                    ],
+                    "returnType": "CreatePlatformContractResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformContractAlreadyExistsException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "createPlatformDiscountSharePolicy": {
+                    "parameters": [
+                        "test",
+                        "id",
+                        "name",
+                        "partnerShareRate",
+                        "memo"
+                    ],
+                    "returnType": "CreatePlatformDiscountSharePolicyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformDiscountSharePolicyAlreadyExistsException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformAdditionalFeePolicies": {
+                    "parameters": [
+                        "test",
+                        "page",
+                        "filter"
+                    ],
+                    "returnType": "GetPlatformAdditionalFeePoliciesResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformAdditionalFeePolicy": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "PlatformAdditionalFeePolicy",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformAdditionalFeePolicyNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformContract": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "PlatformContract",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformContractNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformContracts": {
+                    "parameters": [
+                        "test",
+                        "page",
+                        "filter"
+                    ],
+                    "returnType": "GetPlatformContractsResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformDiscountSharePolicies": {
+                    "parameters": [
+                        "test",
+                        "page",
+                        "filter"
+                    ],
+                    "returnType": "GetPlatformDiscountSharePoliciesResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformDiscountSharePolicy": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "PlatformDiscountSharePolicy",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformDiscountSharePolicyNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "recoverPlatformAdditionalFeePolicy": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "RecoverPlatformAdditionalFeePolicyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformAdditionalFeePolicyNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "recoverPlatformContract": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "RecoverPlatformContractResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformContractNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "recoverPlatformDiscountSharePolicy": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "RecoverPlatformDiscountSharePolicyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformDiscountSharePolicyNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "updatePlatformAdditionalFeePolicy": {
+                    "parameters": [
+                        "id",
+                        "test",
+                        "fee",
+                        "name",
+                        "memo",
+                        "vatPayer"
+                    ],
+                    "returnType": "UpdatePlatformAdditionalFeePolicyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformAdditionalFeePolicyNotFoundException",
+                        "PlatformArchivedAdditionalFeePolicyException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "updatePlatformContract": {
+                    "parameters": [
+                        "id",
+                        "test",
+                        "name",
+                        "memo",
+                        "platformFee",
+                        "settlementCycle",
+                        "platformFeeVatPayer",
+                        "subtractPaymentVatAmount"
+                    ],
+                    "returnType": "UpdatePlatformContractResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformArchivedContractException",
+                        "PlatformContractNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "updatePlatformDiscountSharePolicy": {
+                    "parameters": [
+                        "id",
+                        "test",
+                        "name",
+                        "partnerShareRate",
+                        "memo"
+                    ],
+                    "returnType": "UpdatePlatformDiscountSharePolicyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformArchivedDiscountSharePolicyException",
+                        "PlatformDiscountSharePolicyNotFoundException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "archivePlatformAdditionalFeePolicy": "archivePlatformAdditionalFeePolicyFuture",
+                "archivePlatformContract": "archivePlatformContractFuture",
+                "archivePlatformDiscountSharePolicy": "archivePlatformDiscountSharePolicyFuture",
+                "createPlatformAdditionalFeePolicy": "createPlatformAdditionalFeePolicyFuture",
+                "createPlatformContract": "createPlatformContractFuture",
+                "createPlatformDiscountSharePolicy": "createPlatformDiscountSharePolicyFuture",
+                "getPlatformAdditionalFeePolicies": "getPlatformAdditionalFeePoliciesFuture",
+                "getPlatformAdditionalFeePolicy": "getPlatformAdditionalFeePolicyFuture",
+                "getPlatformContract": "getPlatformContractFuture",
+                "getPlatformContracts": "getPlatformContractsFuture",
+                "getPlatformDiscountSharePolicies": "getPlatformDiscountSharePoliciesFuture",
+                "getPlatformDiscountSharePolicy": "getPlatformDiscountSharePolicyFuture",
+                "recoverPlatformAdditionalFeePolicy": "recoverPlatformAdditionalFeePolicyFuture",
+                "recoverPlatformContract": "recoverPlatformContractFuture",
+                "recoverPlatformDiscountSharePolicy": "recoverPlatformDiscountSharePolicyFuture",
+                "updatePlatformAdditionalFeePolicy": "updatePlatformAdditionalFeePolicyFuture",
+                "updatePlatformContract": "updatePlatformContractFuture",
+                "updatePlatformDiscountSharePolicy": "updatePlatformDiscountSharePolicyFuture"
+            }
+        },
+        "PromotionClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/payment/promotion/PromotionClient.kt",
+            "operations": {
+                "getPromotion": {
+                    "parameters": [
+                        "promotionId"
+                    ],
+                    "returnType": "Promotion",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PromotionNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "getPromotion": "getPromotionFuture"
+            }
+        },
+        "ReconciliationClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/reconciliation/ReconciliationClient.kt",
+            "operations": {
+                "getPaymentReconciliationSettlementVatReport": {
+                    "parameters": [
+                        "dateRange",
+                        "filter"
+                    ],
+                    "returnType": "GetPaymentReconciliationSettlementVatReportResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPaymentReconciliationTransactionVatReport": {
+                    "parameters": [
+                        "dateRange",
+                        "filter"
+                    ],
+                    "returnType": "GetPaymentReconciliationTransactionVatReportResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "getPaymentReconciliationSettlementVatReport": "getPaymentReconciliationSettlementVatReportFuture",
+                "getPaymentReconciliationTransactionVatReport": "getPaymentReconciliationTransactionVatReportFuture"
+            }
+        },
+        "TaxInvoiceClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/b2b/taxinvoice/TaxInvoiceClient.kt",
+            "operations": {
+                "attachB2bTaxInvoiceFile": {
+                    "parameters": [
+                        "taxInvoiceKey",
+                        "brn",
+                        "taxInvoiceKeyType",
+                        "test",
+                        "fileId"
+                    ],
+                    "returnType": "Unit",
+                    "errors": [
+                        "UnknownException",
+                        "B2bExternalServiceException",
+                        "B2bFileNotFoundException",
+                        "B2bNotEnabledException",
+                        "B2bTaxInvoiceNotDraftedStatusException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "cancelB2bTaxInvoiceIssuance": {
+                    "parameters": [
+                        "taxInvoiceKey",
+                        "brn",
+                        "taxInvoiceKeyType",
+                        "test",
+                        "memo"
+                    ],
+                    "returnType": "CancelB2bTaxInvoiceIssuanceResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "B2bTaxInvoiceNotIssuedStatusException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "cancelB2bTaxInvoiceRequest": {
+                    "parameters": [
+                        "taxInvoiceKey",
+                        "brn",
+                        "taxInvoiceKeyType",
+                        "test",
+                        "memo"
+                    ],
+                    "returnType": "CancelB2bTaxInvoiceRequestResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "B2bTaxInvoiceNotRequestedStatusException",
+                        "B2bTaxInvoiceNoRecipientDocumentKeyException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "createB2bFileUploadUrl": {
+                    "parameters": [
+                        "test",
+                        "fileName"
+                    ],
+                    "returnType": "CreateB2bFileUploadUrlPayload",
+                    "errors": [
+                        "UnknownException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "deleteB2bTaxInvoice": {
+                    "parameters": [
+                        "taxInvoiceKey",
+                        "brn",
+                        "taxInvoiceKeyType",
+                        "test"
+                    ],
+                    "returnType": "DeleteB2bTaxInvoiceResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2bBulkTaxInvoiceNotFoundException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "B2bTaxInvoiceNonDeletableStatusException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "deleteB2bTaxInvoiceAttachment": {
+                    "parameters": [
+                        "taxInvoiceKey",
+                        "attachmentId",
+                        "brn",
+                        "taxInvoiceKeyType",
+                        "test"
+                    ],
+                    "returnType": "Unit",
+                    "errors": [
+                        "UnknownException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "B2bTaxInvoiceAttachmentNotFoundException",
+                        "B2bTaxInvoiceNotDraftedStatusException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "downloadB2bTaxInvoicesSheet": {
+                    "parameters": [
+                        "filter",
+                        "fields",
+                        "test",
+                        "sort"
+                    ],
+                    "returnType": "String",
+                    "errors": [
+                        "UnknownException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "draftB2bTaxInvoice": {
+                    "parameters": [
+                        "test",
+                        "taxInvoice",
+                        "modification",
+                        "memo",
+                        "createRecipientCounterparty"
+                    ],
+                    "returnType": "DraftB2bTaxInvoiceResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2BCannotChangeTaxTypeException",
+                        "B2bCounterpartyNotFoundException",
+                        "B2bCounterpartyNtsNotConnectedException",
+                        "B2bExternalServiceException",
+                        "B2bIdAlreadyExistsException",
+                        "B2bIssuanceTypeMismatchException",
+                        "B2bModificationNotProvidedException",
+                        "B2bNotEnabledException",
+                        "B2bOriginalTaxInvoiceNotFoundException",
+                        "B2bRecipientNotFoundException",
+                        "B2bSupplierNotFoundException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "B2bTaxInvoiceRecipientDocumentKeyAlreadyUsedException",
+                        "B2BTaxInvoiceStatusNotSendingCompletedException",
+                        "B2bTaxInvoiceSupplierDocumentKeyAlreadyUsedException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getB2bBulkTaxInvoice": {
+                    "parameters": [
+                        "bulkTaxInvoiceId",
+                        "test"
+                    ],
+                    "returnType": "B2bBulkTaxInvoice",
+                    "errors": [
+                        "UnknownException",
+                        "B2bBulkTaxInvoiceNotFoundException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getB2bTaxInvoice": {
+                    "parameters": [
+                        "taxInvoiceKey",
+                        "brn",
+                        "taxInvoiceKeyType",
+                        "test"
+                    ],
+                    "returnType": "B2bTaxInvoice",
+                    "errors": [
+                        "UnknownException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getB2bTaxInvoiceAttachments": {
+                    "parameters": [
+                        "taxInvoiceKey",
+                        "brn",
+                        "taxInvoiceKeyType",
+                        "test"
+                    ],
+                    "returnType": "GetB2bTaxInvoiceAttachmentsResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getB2bTaxInvoicePdfDownloadUrl": {
+                    "parameters": [
+                        "taxInvoiceKey",
+                        "brn",
+                        "taxInvoiceKeyType",
+                        "test"
+                    ],
+                    "returnType": "GetB2bTaxInvoicePdfDownloadUrlResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getB2bTaxInvoicePopupUrl": {
+                    "parameters": [
+                        "taxInvoiceKey",
+                        "brn",
+                        "taxInvoiceKeyType",
+                        "includeMenu",
+                        "test"
+                    ],
+                    "returnType": "GetB2bTaxInvoicePopupUrlResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getB2bTaxInvoicePrintUrl": {
+                    "parameters": [
+                        "taxInvoiceKey",
+                        "brn",
+                        "taxInvoiceKeyType",
+                        "test"
+                    ],
+                    "returnType": "GetB2bTaxInvoicePrintUrlResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getB2bTaxInvoices": {
+                    "parameters": [
+                        "test",
+                        "pageNumber",
+                        "pageSize",
+                        "filter",
+                        "sort"
+                    ],
+                    "returnType": "GetB2bTaxInvoicesResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "issueB2bTaxInvoice": {
+                    "parameters": [
+                        "taxInvoiceKey",
+                        "brn",
+                        "taxInvoiceKeyType",
+                        "test",
+                        "memo",
+                        "emailSubject"
+                    ],
+                    "returnType": "IssueB2bTaxInvoiceResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "B2bTaxInvoiceNotDraftedStatusException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "B2bTaxInvoiceNotRequestedStatusException",
+                        "B2bTaxInvoiceNoSupplierDocumentKeyException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "issueB2bTaxInvoiceImmediately": {
+                    "parameters": [
+                        "test",
+                        "taxInvoice",
+                        "memo",
+                        "modification",
+                        "createRecipientCounterparty"
+                    ],
+                    "returnType": "IssueB2bTaxInvoiceImmediatelyResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2BCannotChangeTaxTypeException",
+                        "B2bCounterpartyNotFoundException",
+                        "B2bCounterpartyNtsNotConnectedException",
+                        "B2bExternalServiceException",
+                        "B2bIdAlreadyExistsException",
+                        "B2bIssuanceTypeMismatchException",
+                        "B2bModificationNotProvidedException",
+                        "B2bNotEnabledException",
+                        "B2bOriginalTaxInvoiceNotFoundException",
+                        "B2bRecipientNotFoundException",
+                        "B2bSupplierNotFoundException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "B2bTaxInvoiceRecipientDocumentKeyAlreadyUsedException",
+                        "B2BTaxInvoiceStatusNotSendingCompletedException",
+                        "B2bTaxInvoiceSupplierDocumentKeyAlreadyUsedException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "refuseB2bTaxInvoiceRequest": {
+                    "parameters": [
+                        "taxInvoiceKey",
+                        "brn",
+                        "taxInvoiceKeyType",
+                        "test",
+                        "memo"
+                    ],
+                    "returnType": "RefuseB2bTaxInvoiceRequestResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "B2bTaxInvoiceNotRequestedStatusException",
+                        "B2bTaxInvoiceNoSupplierDocumentKeyException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "requestB2bTaxInvoice": {
+                    "parameters": [
+                        "taxInvoiceKey",
+                        "brn",
+                        "taxInvoiceKeyType",
+                        "test"
+                    ],
+                    "returnType": "RequestB2bTaxInvoiceResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2BCannotChangeTaxTypeException",
+                        "B2bExternalServiceException",
+                        "B2bIssuanceTypeMismatchException",
+                        "B2bModificationNotProvidedException",
+                        "B2bNotEnabledException",
+                        "B2bOriginalTaxInvoiceNotFoundException",
+                        "B2bTaxInvoiceNotDraftedStatusException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "B2bTaxInvoiceNoRecipientDocumentKeyException",
+                        "B2BTaxInvoiceStatusNotSendingCompletedException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "requestB2bTaxInvoiceReverseIssuance": {
+                    "parameters": [
+                        "test",
+                        "taxInvoice",
+                        "memo",
+                        "modification"
+                    ],
+                    "returnType": "RequestB2bTaxInvoiceReverseIssuanceResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2BCannotChangeTaxTypeException",
+                        "B2bCounterpartyNotFoundException",
+                        "B2bCounterpartyNtsNotConnectedException",
+                        "B2bExternalServiceException",
+                        "B2bIdAlreadyExistsException",
+                        "B2bIssuanceTypeMismatchException",
+                        "B2bModificationNotProvidedException",
+                        "B2bNotEnabledException",
+                        "B2bOriginalTaxInvoiceNotFoundException",
+                        "B2bRecipientNotFoundException",
+                        "B2bSupplierNotFoundException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "B2bTaxInvoiceRecipientDocumentKeyAlreadyUsedException",
+                        "B2BTaxInvoiceStatusNotSendingCompletedException",
+                        "B2bTaxInvoiceSupplierDocumentKeyAlreadyUsedException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "sendToNtsB2bTaxInvoice": {
+                    "parameters": [
+                        "taxInvoiceKey",
+                        "brn",
+                        "taxInvoiceKeyType",
+                        "test"
+                    ],
+                    "returnType": "SendToNtsB2bTaxInvoiceResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2bExternalServiceException",
+                        "B2bNotEnabledException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "B2bTaxInvoiceNotIssuedStatusException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "updateB2bTaxInvoiceDraft": {
+                    "parameters": [
+                        "test",
+                        "brn",
+                        "taxInvoiceKey",
+                        "taxInvoiceKeyType",
+                        "taxInvoice",
+                        "memo"
+                    ],
+                    "returnType": "UpdateB2bTaxInvoiceDraftResponse",
+                    "errors": [
+                        "UnknownException",
+                        "B2BCannotChangeTaxTypeException",
+                        "B2bCounterpartyNotFoundException",
+                        "B2bCounterpartyNtsNotConnectedException",
+                        "B2bDocumentKeyCannotBeChangedException",
+                        "B2bExternalServiceException",
+                        "B2bIdAlreadyExistsException",
+                        "B2bIssuanceTypeMismatchException",
+                        "B2bModificationNotProvidedException",
+                        "B2bNotEnabledException",
+                        "B2bOriginalTaxInvoiceNotFoundException",
+                        "B2bRecipientNotFoundException",
+                        "B2bSupplierNotFoundException",
+                        "B2bTaxInvoiceNotDraftedStatusException",
+                        "B2bTaxInvoiceNotFoundException",
+                        "B2bTaxInvoiceRecipientDocumentKeyAlreadyUsedException",
+                        "B2BTaxInvoiceStatusNotSendingCompletedException",
+                        "B2bTaxInvoiceSupplierDocumentKeyAlreadyUsedException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "attachB2bTaxInvoiceFile": "attachB2bTaxInvoiceFileFuture",
+                "cancelB2bTaxInvoiceIssuance": "cancelB2bTaxInvoiceIssuanceFuture",
+                "cancelB2bTaxInvoiceRequest": "cancelB2bTaxInvoiceRequestFuture",
+                "createB2bFileUploadUrl": "createB2bFileUploadUrlFuture",
+                "deleteB2bTaxInvoice": "deleteB2bTaxInvoiceFuture",
+                "deleteB2bTaxInvoiceAttachment": "deleteB2bTaxInvoiceAttachmentFuture",
+                "downloadB2bTaxInvoicesSheet": "downloadB2bTaxInvoicesSheetFuture",
+                "draftB2bTaxInvoice": "draftB2bTaxInvoiceFuture",
+                "getB2bBulkTaxInvoice": "getB2bBulkTaxInvoiceFuture",
+                "getB2bTaxInvoice": "getB2bTaxInvoiceFuture",
+                "getB2bTaxInvoiceAttachments": "getB2bTaxInvoiceAttachmentsFuture",
+                "getB2bTaxInvoicePdfDownloadUrl": "getB2bTaxInvoicePdfDownloadUrlFuture",
+                "getB2bTaxInvoicePopupUrl": "getB2bTaxInvoicePopupUrlFuture",
+                "getB2bTaxInvoicePrintUrl": "getB2bTaxInvoicePrintUrlFuture",
+                "getB2bTaxInvoices": "getB2bTaxInvoicesFuture",
+                "issueB2bTaxInvoice": "issueB2bTaxInvoiceFuture",
+                "issueB2bTaxInvoiceImmediately": "issueB2bTaxInvoiceImmediatelyFuture",
+                "refuseB2bTaxInvoiceRequest": "refuseB2bTaxInvoiceRequestFuture",
+                "requestB2bTaxInvoice": "requestB2bTaxInvoiceFuture",
+                "requestB2bTaxInvoiceReverseIssuance": "requestB2bTaxInvoiceReverseIssuanceFuture",
+                "sendToNtsB2bTaxInvoice": "sendToNtsB2bTaxInvoiceFuture",
+                "updateB2bTaxInvoiceDraft": "updateB2bTaxInvoiceDraftFuture"
+            }
+        },
+        "TransferClient": {
+            "path": "lib/src/generated/kotlin/io/portone/sdk/server/platform/transfer/TransferClient.kt",
+            "operations": {
+                "createPlatformManualTransfer": {
+                    "parameters": [
+                        "test",
+                        "partnerId",
+                        "memo",
+                        "settlementAmount",
+                        "settlementTaxFreeAmount",
+                        "settlementDate",
+                        "isForTest",
+                        "userDefinedProperties",
+                        "id",
+                        "settlementCurrency"
+                    ],
+                    "returnType": "CreateManualTransferResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformCurrencyNotSupportedException",
+                        "PlatformNotEnabledException",
+                        "PlatformPartnerNotFoundException",
+                        "PlatformTransferIdAlreadyUsedException",
+                        "PlatformUserDefinedPropertyNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "createPlatformOrderCancelTransfer": {
+                    "parameters": [
+                        "test",
+                        "partnerId",
+                        "paymentId",
+                        "transferId",
+                        "cancellationId",
+                        "memo",
+                        "orderDetail",
+                        "taxFreeAmount",
+                        "discounts",
+                        "settlementStartDate",
+                        "settlementDate",
+                        "externalCancellationDetail",
+                        "isForTest",
+                        "userDefinedProperties",
+                        "id"
+                    ],
+                    "returnType": "CreateOrderCancelTransferResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformCancellableAmountExceededException",
+                        "PlatformCancellableDiscountAmountExceededException",
+                        "PlatformCancellableDiscountTaxFreeAmountExceededException",
+                        "PlatformCancellableProductQuantityExceededException",
+                        "PlatformCancellationAndPaymentTypeMismatchedException",
+                        "PlatformCancellationNotFoundException",
+                        "PlatformCannotSpecifyTransferException",
+                        "PlatformDiscountSharePolicyIdDuplicatedException",
+                        "PlatformNotEnabledException",
+                        "PlatformOrderDetailMismatchedException",
+                        "PlatformOrderTransferAlreadyCancelledException",
+                        "PlatformPaymentNotFoundException",
+                        "PlatformProductIdDuplicatedException",
+                        "PlatformProductIdNotFoundException",
+                        "PlatformSettlementAmountExceededException",
+                        "PlatformSettlementCancelAmountExceededPortOneCancelException",
+                        "PlatformSettlementDateEarlierThanSettlementStartDateException",
+                        "PlatformTransferAlreadyExistsException",
+                        "PlatformTransferDiscountSharePolicyNotFoundException",
+                        "PlatformTransferIdAlreadyUsedException",
+                        "PlatformTransferNotFoundException",
+                        "PlatformUserDefinedPropertyNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "createPlatformOrderTransfer": {
+                    "parameters": [
+                        "test",
+                        "partnerId",
+                        "contractId",
+                        "memo",
+                        "paymentId",
+                        "orderDetail",
+                        "taxFreeAmount",
+                        "settlementStartDate",
+                        "settlementDate",
+                        "discounts",
+                        "additionalFees",
+                        "externalPaymentDetail",
+                        "isForTest",
+                        "parameters",
+                        "userDefinedProperties",
+                        "id"
+                    ],
+                    "returnType": "CreateOrderTransferResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformAdditionalFeePoliciesNotFoundException",
+                        "PlatformAdditionalFixedAmountFeeCurrencyAndSettlementCurrencyMismatchedException",
+                        "PlatformContractNotFoundException",
+                        "PlatformContractPlatformFixedAmountFeeCurrencyAndSettlementCurrencyMismatchedException",
+                        "PlatformCurrencyNotSupportedException",
+                        "PlatformDiscountSharePoliciesNotFoundException",
+                        "PlatformNotEnabledException",
+                        "PlatformPartnerNotFoundException",
+                        "PlatformPaymentNotFoundException",
+                        "PlatformProductIdDuplicatedException",
+                        "PlatformSettlementAmountExceededException",
+                        "PlatformSettlementDateEarlierThanSettlementStartDateException",
+                        "PlatformSettlementParameterNotFoundException",
+                        "PlatformSettlementPaymentAmountExceededPortOnePaymentException",
+                        "PlatformSettlementSupplyWithVatAmountExceededPortOnePaymentException",
+                        "PlatformSettlementTaxFreeAmountExceededPortOnePaymentException",
+                        "PlatformTransferAlreadyExistsException",
+                        "PlatformTransferIdAlreadyUsedException",
+                        "PlatformUserDefinedPropertyNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "deletePlatformTransfer": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "DeletePlatformTransferResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformCancelOrderTransfersExistsException",
+                        "PlatformNotEnabledException",
+                        "PlatformTransferNonDeletableStatusException",
+                        "PlatformTransferNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "downloadPlatformTransferSheet": {
+                    "parameters": [
+                        "test",
+                        "filter",
+                        "fields"
+                    ],
+                    "returnType": "String",
+                    "errors": [
+                        "UnknownException",
+                        "InvalidRequestException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformTransfer": {
+                    "parameters": [
+                        "id",
+                        "test"
+                    ],
+                    "returnType": "PlatformTransfer",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "PlatformTransferNotFoundException",
+                        "UnauthorizedException"
+                    ]
+                },
+                "getPlatformTransferSummaries": {
+                    "parameters": [
+                        "test",
+                        "page",
+                        "filter"
+                    ],
+                    "returnType": "GetPlatformTransferSummariesResponse",
+                    "errors": [
+                        "UnknownException",
+                        "ForbiddenException",
+                        "InvalidRequestException",
+                        "PlatformNotEnabledException",
+                        "UnauthorizedException"
+                    ]
+                }
+            },
+            "asyncOperations": {
+                "createPlatformManualTransfer": "createPlatformManualTransferFuture",
+                "createPlatformOrderCancelTransfer": "createPlatformOrderCancelTransferFuture",
+                "createPlatformOrderTransfer": "createPlatformOrderTransferFuture",
+                "deletePlatformTransfer": "deletePlatformTransferFuture",
+                "downloadPlatformTransferSheet": "downloadPlatformTransferSheetFuture",
+                "getPlatformTransfer": "getPlatformTransferFuture",
+                "getPlatformTransferSummaries": "getPlatformTransferSummariesFuture"
+            }
+        }
+    },
+    "webhookTypes": [
+        "Unrecognized",
+        "Webhook",
+        "WebhookBillingKey",
+        "WebhookBillingKeyData",
+        "WebhookBillingKeyDataDeleted",
+        "WebhookBillingKeyDataFailed",
+        "WebhookBillingKeyDataIssued",
+        "WebhookBillingKeyDataReady",
+        "WebhookBillingKeyDataUpdated",
+        "WebhookBillingKeyDeleted",
+        "WebhookBillingKeyFailed",
+        "WebhookBillingKeyIssued",
+        "WebhookBillingKeyReady",
+        "WebhookBillingKeyUpdated",
+        "WebhookTransaction",
+        "WebhookTransactionCancelled",
+        "WebhookTransactionCancelledCancelPending",
+        "WebhookTransactionCancelledCancelled",
+        "WebhookTransactionCancelledData",
+        "WebhookTransactionCancelledDataCancelPending",
+        "WebhookTransactionCancelledDataCancelled",
+        "WebhookTransactionCancelledDataPartialCancelled",
+        "WebhookTransactionCancelledPartialCancelled",
+        "WebhookTransactionConfirm",
+        "WebhookTransactionData",
+        "WebhookTransactionDataConfirm",
+        "WebhookTransactionDataDisputeCreated",
+        "WebhookTransactionDataDisputeResolved",
+        "WebhookTransactionDataFailed",
+        "WebhookTransactionDataPaid",
+        "WebhookTransactionDataPayPending",
+        "WebhookTransactionDataReady",
+        "WebhookTransactionDataVirtualAccountIssued",
+        "WebhookTransactionDisputeCreated",
+        "WebhookTransactionDisputeResolved",
+        "WebhookTransactionFailed",
+        "WebhookTransactionPaid",
+        "WebhookTransactionPayPending",
+        "WebhookTransactionReady",
+        "WebhookTransactionVirtualAccountIssued"
+    ],
+    "behavior": {
+        "operationMethods": "public suspend fun is the synchronous operation; public *Future methods are the asynchronous counterpart",
+        "unknownApiError": true,
+        "unknownSuccess": true,
+        "webhookJsonIgnoresUnknownKeys": true,
+        "webhookSignature": "HMAC-SHA256 over msgId.timestamp.rawBody with v1 Base64 signatures",
+        "webhookTimestampToleranceSeconds": 300,
+        "webhookBody": "raw String is included in the signature before JSON decoding"
+    }
+}

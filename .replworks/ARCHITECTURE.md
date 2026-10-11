@@ -15,6 +15,7 @@
 - Credentials: the apiSecret value.
 - Request Description: the complete description of one outgoing request: method, path, parameters, body, and authentication requirement. It carries no transport detail.
 - Raw Response: status, headers, and body as received, or a transport failure.
+- Future: a typed handle for one in-flight asynchronous Operation call; waiting resolves it to a result or raises one failure.
 - Outcome: the classification of a Raw Response. The Outcome kinds are Success, Defined Error, Unknown Error, Unrecognized Success, and Transport Failure.
 - Model: a typed request value, response value, or webhook value.
 - Error Catalog: the set of failure types: PortOneException, the per-operation error types, UnknownException per operation, UnrecognizedResponseException, TransportException, WebhookVerificationException, and InvalidArgumentException.
@@ -48,6 +49,17 @@
 - Unrecognized Success: the Response Interpreter raises UnrecognizedResponseException.
 - Transport Failure: the Request Executor raises TransportException before the Raw Response stage.
 
+### Asynchronous operation flow
+
+- Caller calls an Async Operation on a Client with named parameters.
+- The Client selects the same Operation Definition used by the synchronous Operation.
+- The Client builds the same Request Description and gives it to the Request Executor.
+- The Request Executor starts exactly one request using its asynchronous transport and returns a Future.
+- The caller waits on the Future.
+- The Request Executor completes the Raw Response, or the Future raises TransportException.
+- The Response Interpreter classifies and decodes the Raw Response using the same rules as the synchronous flow.
+- The Future resolves to the typed result or raises the same failure that the synchronous call would raise.
+
 ### Webhook flow
 
 - Caller gives body, msgId, msgSignature, and msgTimestamp to the Webhook Verifier.
@@ -78,6 +90,7 @@
 ### COMP-003 Request Executor
 
 - Responsibilities: attach the authentication header; resolve the request origin; apply the connection timeout and the total timeout; send exactly one request per call; return the Raw Response; raise TransportException on network failure or timeout.
+- Additional responsibility: start and progress asynchronous requests and complete their Futures without changing the synchronous path.
 - Inputs: Request Description; Credentials.
 - Outputs: Raw Response or TransportException.
 - Ownership: the authentication header scheme, the origin, the timeouts, the no-retry rule, and all knowledge of the transport.
@@ -140,6 +153,9 @@
 - COMP-003 MUST NOT read an Operation Definition beyond the authentication requirement carried by the Request Description.
 - COMP-003 MUST NOT inspect response bodies.
 - COMP-004 MUST NOT send requests.
+- A synchronous Operation and its Async counterpart MUST use the same Operation Definition.
+- An Async Operation MUST send exactly one request and MUST NOT retry.
+- Waiting on a Future MUST apply the same response classification, decoding, and failure rules as the synchronous Operation.
 - COMP-005 MUST NOT raise failures other than a decode failure report.
 - COMP-006 MUST NOT contain logic.
 - COMP-007 MUST NOT call COMP-003.
@@ -201,7 +217,7 @@
 - This architecture provides no request or response logging component.
 - This architecture provides no client-side semantic validation of Operation parameters.
 - This architecture provides no runtime generation or discovery of Operations.
-- This architecture provides no asynchronous execution path.
+- This architecture provides no user-configurable asynchronous scheduler or external event-loop integration.
 - This architecture provides no shared mutable state between calls.
 - This architecture provides no abstraction layer that makes the transport replaceable by the caller.
 
@@ -216,6 +232,7 @@
 - No component holds state that changes after construction.
 - Every Operation has exactly one Operation Definition.
 - The Operation set equals the Operation set of the JVM SDK at tag jvm-v0.24.0.
+- Every Operation has a synchronous method and an Async counterpart backed by one Future.
 
 ## Resolved Decisions
 
@@ -263,3 +280,7 @@
   - Ambiguous: whether the Samples component is part of the runtime path.
   - Decided: it is not. It depends on the public interface only and nothing depends on it.
   - Why: keeps library responsibilities independent from sample content.
+- RD-12
+  - Ambiguous: how the PHP SDK should expose the JVM SDK's Future convenience methods.
+  - Decided: retain synchronous methods, add Async counterparts returning a typed Future, and keep the transport's asynchronous handle behind that Future.
+  - Why: PHP has no standard CompletableFuture equivalent; a library-owned Future preserves the JVM capability without exposing transport-specific types.
