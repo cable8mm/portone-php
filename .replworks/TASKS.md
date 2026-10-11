@@ -156,7 +156,7 @@
     - Unit tests pass for every operation definition and representative outcome classifications.
     - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
-- [ ] T-017 Webhook verification and typed results
+- [X] T-017 Webhook verification and typed results
   - Satisfies: PRODUCT_SPEC.md EL-016, EL-017, EL-018 and FR-014, FR-015, FR-016, FR-017, FR-018, ERR-002, ERR-007
   - External boundary: yes
   - Acceptance criteria:

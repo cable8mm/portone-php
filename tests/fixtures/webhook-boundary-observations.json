@@ -1,0 +1,23 @@
+{
+    "status": "observed",
+    "observations": {
+        "known": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\WebhookTransactionPaid",
+            "isExpectedType": true
+        },
+        "unknown": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\UnrecognizedWebhook",
+            "isExpectedType": true
+        },
+        "bodyMutation": {
+            "status": "rejected",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\WebhookVerificationException"
+        },
+        "signatureMutation": {
+            "status": "rejected",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\WebhookVerificationException"
+        }
+    }
+}
