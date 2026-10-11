@@ -200,13 +200,10 @@ done
    https://<ngrok-domain>/webhook-capture.php
    ```
 
-   `webhook-capture.php`는 raw body와 세 webhook header를
-   `WebhookVerifier`로 검증한 뒤, 성공한 요청을
-   `tests/fixtures/live-webhook.json`에 기록합니다. 잘못된 서명은 400으로
-   거부됩니다.
+   `webhook-capture.php`는 raw body와 세 webhook header를 `WebhookVerifier`로 검증한 뒤, 성공한 요청을
+   `tests/fixtures/live-webhook.json`에 기록합니다. 잘못된 서명은 400으로 거부됩니다.
 
-4. PortOne에서 test webhook을 전송하거나 test 결제를 진행합니다. 응답에
-   다음과 같은 결과가 나오면 capture가 성공한 것입니다.
+4. PortOne에서 test webhook을 전송하거나 test 결제를 진행합니다. 응답에 다음과 같은 결과가 나오면 capture가 성공한 것입니다.
 
    ```json
    {
@@ -223,18 +220,16 @@ done
    php tools/portone_boundary_probe.php
    ```
 
-   `portone_webhook_probe.php`는 known webhook, unknown webhook, raw body
-   변조, signature 변조를 확인합니다. `portone_boundary_probe.php`는
-   timestamp tolerance와 live signature 규칙을 추가로 확인합니다.
+   `portone_webhook_probe.php`는 known webhook, unknown webhook, raw body 변조, signature 변조를 확인합니다. `portone_boundary_probe.php`는 timestamp tolerance와 live signature 규칙을 추가로 확인합니다.
 
-   capture fixture의 원래 timestamp가 오래된 경우에도 probe는 캡처된 live
-   body를 보존하면서 현재 timestamp로 검증용 signature를 재생성합니다.
-   실제 webhook endpoint 검증에서는 PortOne이 보낸 원본 timestamp가 그대로
-   사용됩니다.
+   capture fixture의 원래 timestamp가 오래된 경우에도 probe는 캡처된 live body를 보존하면서 현재 timestamp로 검증용 signature를 재생성합니다.
+   실제 webhook endpoint 검증에서는 PortOne이 보낸 원본 timestamp가 그대로 사용됩니다.
 
 ### PHP sample E2E
 
-Sample endpoint를 실행한 뒤 다음을 확인할 수 있습니다.
+먼저 `composer serve`로 샘플 HTTP 서버를 실행합니다.
+
+서버가 실행된 상태에서 다른 터미널로 다음 요청을 보내 응답을 확인할 수 있습니다.
 
 ```sh
 curl http://127.0.0.1:8080/api/item
@@ -254,8 +249,7 @@ POST /api/payment/webhook
 
 ## CI
 
-GitHub Actions는 push와 pull request마다 PHP 8.2, 8.3, 8.4, 8.5 각각에
-대해 다음을 실행합니다.
+GitHub Actions는 push와 pull request마다 PHP 8.2, 8.3, 8.4, 8.5 각각에 대해 다음을 실행합니다.
 
 ```sh
 composer install --no-interaction --prefer-dist
