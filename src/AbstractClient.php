@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp;
 
+use Cable8mm\PortonePhp\Exception\ForbiddenException;
 use Cable8mm\PortonePhp\Exception\InvalidRequestException;
 use Cable8mm\PortonePhp\Exception\PortOneException;
 use Cable8mm\PortonePhp\Exception\UnauthorizedException;
@@ -119,6 +120,9 @@ abstract class AbstractClient
                 : null;
             if ($type === 'INVALID_REQUEST') {
                 throw new InvalidRequestException($message, $status, $body);
+            }
+            if ($type === 'FORBIDDEN') {
+                throw new ForbiddenException($message, $status, $body);
             }
             if ($type === 'UNAUTHORIZED') {
                 throw new UnauthorizedException($message, $status, $body);
