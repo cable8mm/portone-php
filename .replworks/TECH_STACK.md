@@ -26,6 +26,8 @@
 - Dev dependency: phpunit/phpunit ^11.0.
 - Dev dependency: laravel/pint ^1.29.
 - Reference implementation for stack conventions: Stripe PHP SDK.
+- API contract source: the PortOne V2 OpenAPI document at https://developers.portone.io/api/schema/v2/openapi.json.
+- OpenAPI contract snapshots MUST be stored under tests/fixtures with their source URL and retrieval date recorded by the contract tool.
 
 ## 2. Framework- or tool-mandated paths and file names only
 

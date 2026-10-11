@@ -20,7 +20,7 @@
 - Model: a typed request value, response value, or webhook value.
 - Error Catalog: the set of failure types: PortOneException, the per-operation error types, UnknownException per operation, UnrecognizedResponseException, TransportException, WebhookVerificationException, and InvalidArgumentException.
 - Webhook Verification: the check that a webhook body, msgId, msgSignature, and msgTimestamp are authentic under webhookSecret.
-- Reference Set: the JVM SDK at tag jvm-v0.24.0 and the PortOne API documentation.
+- Reference Set: the PortOne V2 OpenAPI document and the PortOne API documentation. The JVM SDK at tag jvm-v0.24.0 is an historical implementation scaffold only.
 
 ## System Flow
 
@@ -178,9 +178,9 @@
 
 - Each Operation MUST have exactly one Operation Definition, owned by exactly one Client.
 - Operation Definitions MUST be static declarations. No component MUST discover Operations at runtime.
-- The Operation set, Operation names, and parameter names MUST equal those of the Reference Set JVM SDK at tag jvm-v0.24.0.
+- The Operation set, operationIds, paths, methods, and parameter names MUST equal those of the OpenAPI Reference Set.
 - Request paths, request bodies, response schemas, and error semantics MUST follow the PortOne API documentation.
-- Where the PortOne API documentation and the JVM SDK differ in behavior or schema, the PortOne API documentation MUST win.
+- Where the OpenAPI document and the PortOne API documentation differ, the documentation MUST win for behavior and the conflict MUST be recorded for resolution.
 - Authentication MUST be attached by COMP-003 on every request whose Operation Definition requires it, using the scheme "Authorization: PortOne {apiSecret}".
 - Every Operation Definition MUST declare an authentication requirement. The default MUST be required.
 - The SDK MUST NOT obtain, store, or refresh access tokens.
@@ -197,7 +197,7 @@
 - Webhook decoding MUST happen only after Webhook Verification succeeds.
 - The webhook body MUST be handled as the original unparsed text during Webhook Verification.
 - An unknown webhook type MUST produce UnrecognizedWebhook and MUST NOT raise a failure.
-- Model decoding MUST be tolerant or strict exactly as the Reference Set JVM SDK at tag jvm-v0.24.0 is.
+- Model decoding MUST follow the OpenAPI schema and the documented forward-compatibility rules. Unknown response fields and future enum or union values MUST NOT crash decoding unless the operation cannot produce a valid typed result.
 
 ## Failure Boundaries
 
@@ -231,27 +231,27 @@
 - A webhook is decoded only if Webhook Verification succeeded.
 - No component holds state that changes after construction.
 - Every Operation has exactly one Operation Definition.
-- The Operation set equals the Operation set of the JVM SDK at tag jvm-v0.24.0.
+- The Operation set equals the operation set in the OpenAPI Reference Set.
 - Every Operation has a synchronous method and an Async counterpart backed by one Future.
 
 ## Resolved Decisions
 
 - RD-01
-  - Ambiguous: whether the PortOne API documentation or the JVM SDK is the source of the Operation catalog.
-  - Decided: the Operation set, names, and parameter names follow the JVM SDK at jvm-v0.24.0; behavior and schemas follow the PortOne API documentation; the documentation wins on conflict.
-  - Why: stated by the author for both the version and the authority; the JVM SDK is not a data source.
+  - Ambiguous: whether the JVM SDK or the OpenAPI document is the source of the Operation catalog.
+  - Decided: the OpenAPI document is the source of the complete Operation catalog, names, paths, methods, parameters, and schemas. The JVM SDK is only an initial scaffold and historical comparison source.
+  - Why: the product target is the complete PortOne V2 REST API rather than the subset exposed by one SDK version.
 - RD-02
   - Ambiguous: how apiSecret authenticates requests (FR-012).
   - Decided: the apiSecret is sent in the Authorization header with the scheme "PortOne {apiSecret}" on every authenticated request. No token lifecycle exists.
   - Why: the author gave the request form; token handling would add state the author did not ask for.
 - RD-03
   - Ambiguous: Webhook Verification details beyond signature failure: timestamp tolerance, handling of several signatures, handling of a valid signature with a non-structured body.
-  - Decided: identical to the JVM SDK WebhookVerifier at jvm-v0.24.0.
-  - Why: stated by the author. These details were not available when this document was written. The implementer MUST read them from the reference and MUST NOT invent them.
+  - Decided: identical to the PortOne V2 API documentation and OpenAPI contract where represented.
+  - Why: the OpenAPI/API documentation is the final product boundary.
 - RD-04
   - Ambiguous: the criteria for Unrecognized Success, Defined Error, and Unknown Error (ERR-003, ERR-004, ERR-005): treatment of extra fields, unknown union variants, missing required fields, non-structured bodies.
-  - Decided: identical to the JVM SDK at jvm-v0.24.0.
-  - Why: stated by the author. The same rule as RD-03 applies: the implementer MUST read the reference and MUST NOT invent the criteria.
+  - Decided: identical to the OpenAPI/API documentation and observed live behavior.
+  - Why: the OpenAPI/API documentation is the final product boundary; the JVM is not authoritative.
 - RD-05
   - Ambiguous: whether child Clients create their own Request Executor or share the parent's.
   - Decided: a parent and its children share one Request Executor; a Client built alone creates its own.

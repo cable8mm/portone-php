@@ -3,7 +3,7 @@
 ## Purpose
 
 - The product is a PHP library named portone-php.
-- The product is a PHP port of the PortOne V2 server SDK published at https://github.com/portone-io/server-sdk under the directory jvm.
+- The product is a PHP client for the complete PortOne V2 REST API described by the official OpenAPI document.
 - The product lets a PHP program call the PortOne V2 REST API.
 - The product lets a PHP program verify PortOne V2 webhooks.
 
@@ -14,7 +14,7 @@
 
 ## Product Goals
 
-- The user can call every operation of the PortOne V2 REST API that the JVM SDK exposes, from PHP.
+- The user can call every operation of the PortOne V2 REST API described by the OpenAPI document, from PHP.
 - The user can verify a PortOne V2 webhook and receive it as a typed object.
 - The user can install the library with Composer.
 - The user can build a separate package (for example, a Laravel integration package) on top of this library.
@@ -27,7 +27,7 @@
 
 - apiSecret: PortOne V2 API Secret string, given when a client is constructed.
 - webhookSecret: PortOne V2 webhook secret string, given when WebhookVerifier is constructed.
-- Operation parameters: named parameters of each operation, in camelCase, matching the same-named operation in the JVM SDK.
+- Operation parameters: named parameters of each operation, in camelCase, matching the OpenAPI operation contract.
 - Webhook body: the raw request body as an unparsed string.
 - msgId: value of the webhook-id header.
 - msgSignature: value of the webhook-signature header.
@@ -62,8 +62,9 @@
 ## External Systems [UNVERIFIED]
 
 - PortOne V2 REST API (default origin https://api.portone.io): relied on for every operation of the clients in FR-002 to FR-006.
-- Official JVM SDK (https://github.com/portone-io/server-sdk, directory jvm): the reference for the set of clients, operations, operation parameters, per-operation exception names, and webhook types.
-- PortOne documentation: the reference for operation behavior.
+- Official OpenAPI document (https://developers.portone.io/api/schema/v2/openapi.json): the final reference for the complete set of operations, paths, methods, parameters, request bodies, response schemas, and declared errors.
+- PortOne REST API documentation: the reference for operation behavior and rules not expressible in OpenAPI.
+- Official JVM SDK (https://github.com/portone-io/server-sdk, directory jvm): an initial implementation scaffold and an optional historical comparison source only.
 - Sample repository https://github.com/portone-io/portone-sample: the reference for the scenarios covered by the samples in FR-016.
 
 ## User Interface
@@ -105,9 +106,9 @@
 - FR-005: PlatformClient MUST expose the accessors company, accountTransfer, policy, account, bulkAccountTransfer, bulkPayout, payout, partnerSettlement, partner, and transfer, returning the clients in EL-013.
 - FR-006: B2bClient MUST expose the accessors taxInvoice and counterparty, returning the clients in EL-015.
 - FR-007: Every client in EL-002 to EL-015 MUST be constructible on its own with apiSecret as its only configuration value.
-- FR-008: Every client MUST expose one method for each operation of the same-named client in the JVM SDK.
-- FR-009: Every operation method MUST use the operation name of the JVM SDK in camelCase.
-- FR-010: Every operation method MUST accept the same named parameters as the same-named JVM SDK operation, in camelCase.
+- FR-008: The library MUST expose one method for each OpenAPI operation.
+- FR-009: Every operation method MUST use the OpenAPI `operationId` in camelCase.
+- FR-010: Every operation method MUST accept the named parameters and request body fields defined by the OpenAPI operation.
 - FR-011: Every operation method MUST return a typed object representing the PortOne V2 REST API response.
 - FR-012: Every operation method MUST send an authenticated request to the PortOne V2 REST API without the caller handling access tokens.
 - FR-013: Every synchronous operation method MUST block until the response is received or a timeout occurs.
@@ -138,7 +139,7 @@
 
 - ERR-001: apiSecret is an empty string at client construction -> the constructor MUST throw InvalidArgumentException.
 - ERR-002: webhookSecret is an empty string at WebhookVerifier construction -> the constructor MUST throw InvalidArgumentException.
-- ERR-003: The PortOne V2 REST API returns an error response that the JVM SDK defines for the operation -> the operation MUST throw the exception type named as in the JVM SDK for that operation, a subtype of PortOneException.
+- ERR-003: The PortOne V2 REST API returns an error response declared for the OpenAPI operation -> the operation MUST throw the corresponding PortOneException subtype.
 - ERR-004: The PortOne V2 REST API returns an error response that is not defined for the operation -> the operation MUST throw the UnknownException type of that operation, a subtype of PortOneException.
 - ERR-005: The PortOne V2 REST API returns a success response that this library version cannot decode -> the operation MUST throw UnrecognizedResponseException, a subtype of PortOneException, carrying the HTTP status and the raw response body.
 - ERR-006: A network failure, connection timeout, or total timeout occurs -> the operation MUST throw TransportException, a subtype of PortOneException.
@@ -160,8 +161,8 @@
 - AC-004: PlatformClient exposes the ten accessors of FR-005. Verifies FR-005.
 - AC-005: B2bClient exposes the two accessors of FR-006. Verifies FR-006.
 - AC-006: Each client in EL-002 to EL-015 constructs on its own with apiSecret. Verifies FR-007.
-- AC-007: For each client, the set of operation method names equals the set of operation names of the same-named JVM SDK client, in camelCase. Verifies FR-008, FR-009.
-- AC-008: For each operation, the named parameters equal those of the same-named JVM SDK operation. Verifies FR-010.
+- AC-007: The set of public operation method names equals the set of OpenAPI operationIds, in camelCase. Verifies FR-008, FR-009.
+- AC-008: For each operation, the named parameters and request body fields equal the OpenAPI contract. Verifies FR-010.
 - AC-009: An operation call against a mocked PortOne V2 REST API returns a typed object whose fields equal the mocked response. Verifies FR-011, FR-012, FR-013.
 - AC-010: WebhookVerifier.verify with a valid signature and a known type returns the typed object for that type. Verifies FR-014, FR-015, FR-016.
 - AC-011: WebhookVerifier.verify with a valid signature and an unknown type returns an UnrecognizedWebhook exposing the decoded body. Verifies FR-017, FR-018.
