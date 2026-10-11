@@ -1,8 +1,6 @@
 # PortOne PHP
 
-PortOne V2 REST API용 PHP 서버 SDK입니다. 공식 JVM 서버 SDK의 클라이언트와
-operation을 PHP에서 사용할 수 있으며, PortOne webhook 서명 검증과 비동기
-operation도 지원합니다.
+PortOne V2 REST API용 PHP 서버 SDK입니다. 공식 JVM 서버 SDK의 클라이언트와 operation을 PHP에서 사용할 수 있으며, PortOne webhook 서명 검증과 비동기 operation도 지원합니다.
 
 - Composer 패키지: `cable8mm/portone-php`
 - PHP: `^8.2`
@@ -35,13 +33,11 @@ cd portone-php
 composer install --no-interaction --prefer-dist
 ```
 
-이 저장소는 `composer.lock`을 커밋하지 않습니다. 개발 환경에서 Composer가
-생성한 lockfile은 `.gitignore` 대상입니다.
+이 저장소는 `composer.lock`을 커밋하지 않습니다. 개발 환경에서 Composer가 생성한 lockfile은 `.gitignore` 대상입니다.
 
 ## 기본 사용법
 
-라이브러리 자체는 환경변수를 읽지 않습니다. 애플리케이션이 secret을 읽어
-생성자에 전달해야 합니다.
+라이브러리 자체는 환경변수를 읽지 않습니다. 애플리케이션이 secret을 읽어 생성자에 전달해야 합니다.
 
 ### 동기 operation
 
@@ -110,15 +106,22 @@ if ($webhook instanceof \Cable8mm\PortonePhp\WebhookTransactionPaid) {
 
 ### Secret 설정
 
-`dotenv` 라이브러리는 사용하지 않습니다. 로컬 shell에서만 사용할
-`.env` 파일을 만들고 직접 export합니다. `.env`는 Git에 포함되지 않습니다.
+SDK 본체는 환경변수를 읽지 않습니다. 다만 개발용 E2E runner가
+`vlucas/phpdotenv`를 사용해 `.env`를 읽습니다. `.env`는 Git에 포함되지
+않습니다.
+
+```sh
+cp .env.example .env
+```
+
+`.env`를 열고 test store의 값을 입력합니다.
 
 ```dotenv
 PORTONE_API_SECRET=여기에_API_Secret
 PORTONE_WEBHOOK_SECRET=whsec_여기에_Webhook_Secret
 ```
 
-현재 shell에 적용합니다.
+샘플 서버를 직접 실행할 때만 shell에 export합니다.
 
 ```sh
 set -a
@@ -163,27 +166,16 @@ Live E2E는 실제 `https://api.portone.io`와 실제 webhook secret을 사용�
 
 ### API와 transport E2E
 
-먼저 `.env`를 export한 뒤 다음 probe를 실행합니다.
+`.env`의 값을 자동으로 로드하려면 다음 명령 하나로 모든 live probe를
+실행합니다.
 
 ```sh
-set -a
-source .env
-set +a
-
-php tools/portone_boundary_probe.php
-php tools/portone_operation_probe.php
-php tools/portone_auth_probe.php
-php tools/portone_payment_operations_probe.php
-php tools/portone_identity_verification_probe.php
-php tools/portone_pg_specific_probe.php
-php tools/portone_reconciliation_probe.php
-php tools/portone_platform_core_probe.php
-php tools/portone_platform_bulk_payout_probe.php
-php tools/portone_platform_partner_transfer_probe.php
-php tools/portone_policy_probe.php
-php tools/portone_tax_invoice_probe.php
-php tools/portone_counterparty_probe.php
+composer e2e
 ```
+
+`composer e2e`는 개발 전용 `vlucas/phpdotenv`로 `.env`를 읽은 뒤 각 probe를
+별도 PHP 프로세스로 실행합니다. SDK 본체나 production runtime에는 dotenv가
+들어가지 않습니다.
 
 Webhook까지 포함해 한 번에 실행하려면 다음을 사용합니다.
 
