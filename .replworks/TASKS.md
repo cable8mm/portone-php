@@ -166,7 +166,7 @@
     - A live E2E check with invalid verification data raises WebhookVerificationException and never decodes an unverified body.
     - Unit tests pass for all recorded JVM verification cases, known and unknown webhook types, raw-body changes, and failure cases.
 
-- [ ] T-018 Runnable server-side samples
+- [X] T-018 Runnable server-side samples
   - Satisfies: PRODUCT_SPEC.md EL-020 and FR-019, FR-020, FR-021
   - External boundary: yes
   - Acceptance criteria:
