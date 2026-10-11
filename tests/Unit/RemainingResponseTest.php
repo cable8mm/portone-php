@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
 
 final class RemainingResponseTest extends TestCase
 {
-    public function test_remaining_object_responses_expose_jvm_fields(): void
+    public function test_remaining_object_responses_expose_typed_fields(): void
     {
         self::assertSame(['id' => 'verification-id'], ConfirmIdentityVerificationResponse::fromArray([
             'identityVerification' => ['id' => 'verification-id'],

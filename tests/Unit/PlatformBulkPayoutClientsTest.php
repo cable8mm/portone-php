@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
 
 final class PlatformBulkPayoutClientsTest extends TestCase
 {
-    public function test_bulk_account_transfers_use_the_jvm_query_request_body_shape(): void
+    public function test_bulk_account_transfers_use_the_query_request_body_shape(): void
     {
         $history = [];
         $client = $this->client(BulkAccountTransferClient::class, new MockHandler([

@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 final class PaymentScalarResponseTest extends TestCase
 {
-    public function test_scalar_payment_responses_expose_jvm_fields(): void
+    public function test_scalar_payment_responses_expose_typed_fields(): void
     {
         $escrow = ApplyEscrowLogisticsResponse::fromArray([
             'invoiceNumber' => 'invoice',

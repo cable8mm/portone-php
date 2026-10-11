@@ -20,7 +20,7 @@
 - Model: a typed request value, response value, or webhook value.
 - Error Catalog: the set of failure types: PortOneException, the per-operation error types, UnknownException per operation, UnrecognizedResponseException, TransportException, WebhookVerificationException, and InvalidArgumentException.
 - Webhook Verification: the check that a webhook body, msgId, msgSignature, and msgTimestamp are authentic under webhookSecret.
-- Reference Set: the PortOne V2 OpenAPI document and the PortOne API documentation. The JVM SDK at tag jvm-v0.24.0 is an historical implementation scaffold only.
+- Reference Set: the PortOne V2 OpenAPI document and the PortOne API documentation.
 
 ## System Flow
 
@@ -237,9 +237,8 @@
 ## Resolved Decisions
 
 - RD-01
-  - Ambiguous: whether the JVM SDK or the OpenAPI document is the source of the Operation catalog.
-  - Decided: the OpenAPI document is the source of the complete Operation catalog, names, paths, methods, parameters, and schemas. The JVM SDK is only an initial scaffold and historical comparison source.
-  - Why: the product target is the complete PortOne V2 REST API rather than the subset exposed by one SDK version.
+  - Decided: the OpenAPI document is the source of the complete Operation catalog, names, paths, methods, parameters, and schemas.
+  - Why: the product target is the complete PortOne V2 REST API.
 - RD-02
   - Ambiguous: how apiSecret authenticates requests (FR-012).
   - Decided: the apiSecret is sent in the Authorization header with the scheme "PortOne {apiSecret}" on every authenticated request. No token lifecycle exists.
@@ -251,7 +250,7 @@
 - RD-04
   - Ambiguous: the criteria for Unrecognized Success, Defined Error, and Unknown Error (ERR-003, ERR-004, ERR-005): treatment of extra fields, unknown union variants, missing required fields, non-structured bodies.
   - Decided: identical to the OpenAPI/API documentation and observed live behavior.
-  - Why: the OpenAPI/API documentation is the final product boundary; the JVM is not authoritative.
+  - Why: the OpenAPI/API documentation is the final product boundary.
 - RD-05
   - Ambiguous: whether child Clients create their own Request Executor or share the parent's.
   - Decided: a parent and its children share one Request Executor; a Client built alone creates its own.
@@ -281,6 +280,5 @@
   - Decided: it is not. It depends on the public interface only and nothing depends on it.
   - Why: keeps library responsibilities independent from sample content.
 - RD-12
-  - Ambiguous: how the PHP SDK should expose the JVM SDK's Future convenience methods.
   - Decided: retain synchronous methods, add Async counterparts returning a typed Future, and keep the transport's asynchronous handle behind that Future.
-  - Why: PHP has no standard CompletableFuture equivalent; a library-owned Future preserves the JVM capability without exposing transport-specific types.
+  - Why: PHP has no standard asynchronous operation result type; a library-owned Future keeps the public API independent of the transport.
