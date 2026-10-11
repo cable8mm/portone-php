@@ -1,0 +1,30 @@
+{
+    "status": "observed",
+    "operations": {
+        "getPlatformSetting": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\PlatformNotEnabledException",
+            "statusCode": 403
+        },
+        "getB2bBusinessInfos": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400
+        },
+        "getPlatformCompanyState": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400
+        },
+        "getPlatformAccountHolder": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400
+        },
+        "getPlatformAccountTransfers": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400
+        }
+    }
+}
