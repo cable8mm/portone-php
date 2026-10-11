@@ -56,7 +56,7 @@
     - Unit tests pass for every operation definition and for representative request, response, defined-error, unknown-error, and undecodable-success cases.
     - Unit tests pass for every asynchronous counterpart and verify that waiting resolves the same typed result or failure as the synchronous operation.
 
-- [ ] T-007 Identity verification operations
+- [X] T-007 Identity verification operations
   - Satisfies: PRODUCT_SPEC.md EL-008 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
