@@ -1,0 +1,1479 @@
+{
+    "status": "observed",
+    "boundary": "https://api.portone.io",
+    "operationCount": 147,
+    "observedCount": 147,
+    "controlledFailureCount": 146,
+    "successCount": 1,
+    "missingOperations": [],
+    "operations": {
+        "getB2bBulkTaxInvoice": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "GET",
+            "path": "/b2b/bulk-tax-invoices/{bulkTaxInvoiceId}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404,
+            "errorType": null,
+            "elapsedMilliseconds": 60
+        },
+        "getB2bBusinessInfos": {
+            "client": "Cable8mm\\PortonePhp\\CompanyClient",
+            "method": "POST",
+            "path": "/b2b/companies/business-info",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 69.2
+        },
+        "getB2bCounterpartyCertificateRegistrationUrl": {
+            "client": "Cable8mm\\PortonePhp\\CounterpartyClient",
+            "method": "GET",
+            "path": "/b2b/counterparties/{brn}/certificate/registration-url",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404,
+            "errorType": null,
+            "elapsedMilliseconds": 60.3
+        },
+        "validateB2bCounterpartyCertificate": {
+            "client": "Cable8mm\\PortonePhp\\CounterpartyClient",
+            "method": "POST",
+            "path": "/b2b/counterparties/{brn}/certificate/validate",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404,
+            "errorType": null,
+            "elapsedMilliseconds": 20
+        },
+        "getB2bCounterpartyCertificate": {
+            "client": "Cable8mm\\PortonePhp\\CounterpartyClient",
+            "method": "GET",
+            "path": "/b2b/counterparties/{brn}/certificate",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 403,
+            "errorType": "B2B_NOT_ENABLED",
+            "elapsedMilliseconds": 60.1
+        },
+        "getB2bCounterparty": {
+            "client": "Cable8mm\\PortonePhp\\CounterpartyClient",
+            "method": "GET",
+            "path": "/b2b/counterparties/{counterpartyId}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 403,
+            "errorType": "B2B_NOT_ENABLED",
+            "elapsedMilliseconds": 50.5
+        },
+        "deleteB2bCounterparty": {
+            "client": "Cable8mm\\PortonePhp\\CounterpartyClient",
+            "method": "DELETE",
+            "path": "/b2b/counterparties/{counterpartyId}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 39.7
+        },
+        "updateB2bCounterparty": {
+            "client": "Cable8mm\\PortonePhp\\CounterpartyClient",
+            "method": "PATCH",
+            "path": "/b2b/counterparties/{counterpartyId}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 39.3
+        },
+        "getB2bCounterparties": {
+            "client": "Cable8mm\\PortonePhp\\CounterpartyClient",
+            "method": "GET",
+            "path": "/b2b/counterparties",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 30.4
+        },
+        "createB2bCounterparty": {
+            "client": "Cable8mm\\PortonePhp\\CounterpartyClient",
+            "method": "POST",
+            "path": "/b2b/counterparties",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 41.7
+        },
+        "createB2bFileUploadUrl": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "POST",
+            "path": "/b2b/file-upload-url",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 49.5
+        },
+        "downloadB2bTaxInvoicesSheet": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "GET",
+            "path": "/b2b/tax-invoices-sheet",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 39.6
+        },
+        "updateB2bTaxInvoiceDraft": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "PUT",
+            "path": "/b2b/tax-invoices/draft",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 39.7
+        },
+        "draftB2bTaxInvoice": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "POST",
+            "path": "/b2b/tax-invoices/draft",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 39.4
+        },
+        "issueB2bTaxInvoiceImmediately": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "POST",
+            "path": "/b2b/tax-invoices/issue-immediately",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 40.8
+        },
+        "requestB2bTaxInvoiceReverseIssuance": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "POST",
+            "path": "/b2b/tax-invoices/request-reverse-issuance",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 41.8
+        },
+        "attachB2bTaxInvoiceFile": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "POST",
+            "path": "/b2b/tax-invoices/{taxInvoiceKey}/attach-file",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 37.6
+        },
+        "deleteB2bTaxInvoiceAttachment": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "DELETE",
+            "path": "/b2b/tax-invoices/{taxInvoiceKey}/attachments/{attachmentId}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 403,
+            "errorType": "B2B_NOT_ENABLED",
+            "elapsedMilliseconds": 60.2
+        },
+        "getB2bTaxInvoiceAttachments": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "GET",
+            "path": "/b2b/tax-invoices/{taxInvoiceKey}/attachments",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 403,
+            "errorType": "B2B_NOT_ENABLED",
+            "elapsedMilliseconds": 49.8
+        },
+        "cancelB2bTaxInvoiceIssuance": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "POST",
+            "path": "/b2b/tax-invoices/{taxInvoiceKey}/cancel-issuance",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 39.8
+        },
+        "cancelB2bTaxInvoiceRequest": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "POST",
+            "path": "/b2b/tax-invoices/{taxInvoiceKey}/cancel-request",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 40.2
+        },
+        "issueB2bTaxInvoice": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "POST",
+            "path": "/b2b/tax-invoices/{taxInvoiceKey}/issue",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 39.8
+        },
+        "getB2bTaxInvoicePdfDownloadUrl": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "GET",
+            "path": "/b2b/tax-invoices/{taxInvoiceKey}/pdf-download-url",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 403,
+            "errorType": "B2B_NOT_ENABLED",
+            "elapsedMilliseconds": 40.7
+        },
+        "getB2bTaxInvoicePopupUrl": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "GET",
+            "path": "/b2b/tax-invoices/{taxInvoiceKey}/popup-url",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 403,
+            "errorType": "B2B_NOT_ENABLED",
+            "elapsedMilliseconds": 49
+        },
+        "getB2bTaxInvoicePrintUrl": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "GET",
+            "path": "/b2b/tax-invoices/{taxInvoiceKey}/print-url",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 403,
+            "errorType": "B2B_NOT_ENABLED",
+            "elapsedMilliseconds": 41.5
+        },
+        "refuseB2bTaxInvoiceRequest": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "POST",
+            "path": "/b2b/tax-invoices/{taxInvoiceKey}/refuse-request",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 41.7
+        },
+        "requestB2bTaxInvoice": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "POST",
+            "path": "/b2b/tax-invoices/{taxInvoiceKey}/request",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 46.6
+        },
+        "sendToNtsB2bTaxInvoice": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "POST",
+            "path": "/b2b/tax-invoices/{taxInvoiceKey}/send-to-nts",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 40.4
+        },
+        "getB2bTaxInvoice": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "GET",
+            "path": "/b2b/tax-invoices/{taxInvoiceKey}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 403,
+            "errorType": "B2B_NOT_ENABLED",
+            "elapsedMilliseconds": 41.5
+        },
+        "deleteB2bTaxInvoice": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "DELETE",
+            "path": "/b2b/tax-invoices/{taxInvoiceKey}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 38.4
+        },
+        "getB2bTaxInvoices": {
+            "client": "Cable8mm\\PortonePhp\\TaxInvoiceClient",
+            "method": "GET",
+            "path": "/b2b/tax-invoices",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 40.4
+        },
+        "getBankInfos": {
+            "client": "Cable8mm\\PortonePhp\\CommonClient",
+            "method": "GET",
+            "path": "/banks",
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Response\\GetBankInfosResponse",
+            "elapsedMilliseconds": 94.2
+        },
+        "getBillingKeyInfos": {
+            "client": "Cable8mm\\PortonePhp\\BillingKeyClient",
+            "method": "GET",
+            "path": "/billing-keys",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 75.9
+        },
+        "issueBillingKey": {
+            "client": "Cable8mm\\PortonePhp\\BillingKeyClient",
+            "method": "POST",
+            "path": "/billing-keys",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 49.8
+        },
+        "confirmBillingKey": {
+            "client": "Cable8mm\\PortonePhp\\BillingKeyClient",
+            "method": "POST",
+            "path": "/billing-keys/confirm",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 40.1
+        },
+        "confirmBillingKeyIssueAndPay": {
+            "client": "Cable8mm\\PortonePhp\\BillingKeyClient",
+            "method": "POST",
+            "path": "/billing-keys/confirm-issue-and-pay",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 41.8
+        },
+        "getBillingKeyInfo": {
+            "client": "Cable8mm\\PortonePhp\\BillingKeyClient",
+            "method": "GET",
+            "path": "/billing-keys/{billingKey}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnrecognizedResponseException",
+            "statusCode": 200,
+            "errorType": null,
+            "elapsedMilliseconds": 75.3
+        },
+        "deleteBillingKey": {
+            "client": "Cable8mm\\PortonePhp\\BillingKeyClient",
+            "method": "DELETE",
+            "path": "/billing-keys/{billingKey}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 42.1
+        },
+        "getCashReceipts": {
+            "client": "Cable8mm\\PortonePhp\\CashReceiptClient",
+            "method": "GET",
+            "path": "/cash-receipts",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 80
+        },
+        "issueCashReceipt": {
+            "client": "Cable8mm\\PortonePhp\\CashReceiptClient",
+            "method": "POST",
+            "path": "/cash-receipts",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 40.7
+        },
+        "evaluateCheckoutProfile": {
+            "client": "Cable8mm\\PortonePhp\\CheckoutClient",
+            "method": "GET",
+            "path": "/checkout-profiles/evaluate",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 69
+        },
+        "confirmIdentityVerification": {
+            "client": "Cable8mm\\PortonePhp\\IdentityVerificationClient",
+            "method": "POST",
+            "path": "/identity-verifications/{identityVerificationId}/confirm",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 80.7
+        },
+        "resendIdentityVerification": {
+            "client": "Cable8mm\\PortonePhp\\IdentityVerificationClient",
+            "method": "POST",
+            "path": "/identity-verifications/{identityVerificationId}/resend",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 39.4
+        },
+        "sendIdentityVerification": {
+            "client": "Cable8mm\\PortonePhp\\IdentityVerificationClient",
+            "method": "POST",
+            "path": "/identity-verifications/{identityVerificationId}/send",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 39.9
+        },
+        "getIdentityVerification": {
+            "client": "Cable8mm\\PortonePhp\\IdentityVerificationClient",
+            "method": "GET",
+            "path": "/identity-verifications/{identityVerificationId}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnrecognizedResponseException",
+            "statusCode": 200,
+            "errorType": null,
+            "elapsedMilliseconds": 87.8
+        },
+        "getIdentityVerifications": {
+            "client": "Cable8mm\\PortonePhp\\IdentityVerificationClient",
+            "method": "GET",
+            "path": "/identity-verifications",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 44.1
+        },
+        "getKakaopayPaymentOrder": {
+            "client": "Cable8mm\\PortonePhp\\PgSpecificClient",
+            "method": "GET",
+            "path": "/kakaopay/payment/order",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 79
+        },
+        "loginViaApiSecret": {
+            "client": "Cable8mm\\PortonePhp\\AuthClient",
+            "method": "POST",
+            "path": "/login/api-secret",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 70.4
+        },
+        "getAllPaymentEventsByCursor": {
+            "client": "Cable8mm\\PortonePhp\\PaymentClient",
+            "method": "GET",
+            "path": "/payment-events-by-cursor",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 69.6
+        },
+        "getPgCardPromotions": {
+            "client": "Cable8mm\\PortonePhp\\AdditionalFeatureClient",
+            "method": "GET",
+            "path": "/payment-gateways/card-promotion",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 80.1
+        },
+        "getPaymentReconciliationSettlementVatReport": {
+            "client": "Cable8mm\\PortonePhp\\ReconciliationClient",
+            "method": "GET",
+            "path": "/payment-reconciliations/settlements/vat-report",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 79.4
+        },
+        "getPaymentReconciliationTransactionVatReport": {
+            "client": "Cable8mm\\PortonePhp\\ReconciliationClient",
+            "method": "GET",
+            "path": "/payment-reconciliations/transactions/vat-report",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 39.9
+        },
+        "getPaymentSchedule": {
+            "client": "Cable8mm\\PortonePhp\\PaymentScheduleClient",
+            "method": "GET",
+            "path": "/payment-schedules/{paymentScheduleId}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnrecognizedResponseException",
+            "statusCode": 200,
+            "errorType": null,
+            "elapsedMilliseconds": 123.5
+        },
+        "getPaymentSchedules": {
+            "client": "Cable8mm\\PortonePhp\\PaymentScheduleClient",
+            "method": "GET",
+            "path": "/payment-schedules",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 46.8
+        },
+        "revokePaymentSchedules": {
+            "client": "Cable8mm\\PortonePhp\\PaymentScheduleClient",
+            "method": "DELETE",
+            "path": "/payment-schedules",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 39.9
+        },
+        "createPaymentSession": {
+            "client": "Cable8mm\\PortonePhp\\PaymentSessionClient",
+            "method": "POST",
+            "path": "/payment-sessions",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 89.8
+        },
+        "getPaymentSession": {
+            "client": "Cable8mm\\PortonePhp\\PaymentSessionClient",
+            "method": "GET",
+            "path": "/payment-sessions/{sessionId}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 39.8
+        },
+        "closePaymentSession": {
+            "client": "Cable8mm\\PortonePhp\\PaymentSessionClient",
+            "method": "POST",
+            "path": "/payment-sessions/{sessionId}/close",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 40.6
+        },
+        "getAllPaymentsByCursor": {
+            "client": "Cable8mm\\PortonePhp\\PaymentClient",
+            "method": "GET",
+            "path": "/payments-by-cursor",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 42.1
+        },
+        "payWithBillingKey": {
+            "client": "Cable8mm\\PortonePhp\\PaymentClient",
+            "method": "POST",
+            "path": "/payments/{paymentId}/billing-key",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 49.3
+        },
+        "cancelPayment": {
+            "client": "Cable8mm\\PortonePhp\\PaymentClient",
+            "method": "POST",
+            "path": "/payments/{paymentId}/cancel",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 38.3
+        },
+        "stopPaymentCancellation": {
+            "client": "Cable8mm\\PortonePhp\\PaymentClient",
+            "method": "POST",
+            "path": "/payments/{paymentId}/cancellations/{cancellationId}/stop",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404,
+            "errorType": null,
+            "elapsedMilliseconds": 20.3
+        },
+        "capturePayment": {
+            "client": "Cable8mm\\PortonePhp\\PaymentClient",
+            "method": "POST",
+            "path": "/payments/{paymentId}/capture",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 39.3
+        },
+        "cancelCashReceiptByPaymentId": {
+            "client": "Cable8mm\\PortonePhp\\CashReceiptClient",
+            "method": "POST",
+            "path": "/payments/{paymentId}/cash-receipt/cancel",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 41.5
+        },
+        "getCashReceiptByPaymentId": {
+            "client": "Cable8mm\\PortonePhp\\CashReceiptClient",
+            "method": "GET",
+            "path": "/payments/{paymentId}/cash-receipt",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404,
+            "errorType": "PAYMENT_NOT_FOUND",
+            "elapsedMilliseconds": 78.9
+        },
+        "confirmPayment": {
+            "client": "Cable8mm\\PortonePhp\\PaymentClient",
+            "method": "POST",
+            "path": "/payments/{paymentId}/confirm",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 40.4
+        },
+        "confirmEscrow": {
+            "client": "Cable8mm\\PortonePhp\\PaymentClient",
+            "method": "POST",
+            "path": "/payments/{paymentId}/escrow/complete",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404,
+            "errorType": null,
+            "elapsedMilliseconds": 19.2
+        },
+        "applyEscrowLogistics": {
+            "client": "Cable8mm\\PortonePhp\\PaymentClient",
+            "method": "POST",
+            "path": "/payments/{paymentId}/escrow/logistics",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404,
+            "errorType": null,
+            "elapsedMilliseconds": 21.8
+        },
+        "modifyEscrowLogistics": {
+            "client": "Cable8mm\\PortonePhp\\PaymentClient",
+            "method": "PATCH",
+            "path": "/payments/{paymentId}/escrow/logistics",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404,
+            "errorType": null,
+            "elapsedMilliseconds": 19.2
+        },
+        "payInstantly": {
+            "client": "Cable8mm\\PortonePhp\\PaymentClient",
+            "method": "POST",
+            "path": "/payments/{paymentId}/instant",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 49.2
+        },
+        "preRegisterPayment": {
+            "client": "Cable8mm\\PortonePhp\\PaymentClient",
+            "method": "POST",
+            "path": "/payments/{paymentId}/pre-register",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 40.5
+        },
+        "registerStoreReceipt": {
+            "client": "Cable8mm\\PortonePhp\\PaymentClient",
+            "method": "POST",
+            "path": "/payments/{paymentId}/register-store-receipt",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 39.4
+        },
+        "resendWebhook": {
+            "client": "Cable8mm\\PortonePhp\\PaymentClient",
+            "method": "POST",
+            "path": "/payments/{paymentId}/resend-webhook",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 43.3
+        },
+        "createPaymentSchedule": {
+            "client": "Cable8mm\\PortonePhp\\PaymentScheduleClient",
+            "method": "POST",
+            "path": "/payments/{paymentId}/schedule",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 50.9
+        },
+        "getPaymentTransactions": {
+            "client": "Cable8mm\\PortonePhp\\PaymentClient",
+            "method": "GET",
+            "path": "/payments/{paymentId}/transactions",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404,
+            "errorType": "PAYMENT_NOT_FOUND",
+            "elapsedMilliseconds": 65.9
+        },
+        "closeVirtualAccount": {
+            "client": "Cable8mm\\PortonePhp\\PaymentClient",
+            "method": "POST",
+            "path": "/payments/{paymentId}/virtual-account/close",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404,
+            "errorType": null,
+            "elapsedMilliseconds": 24.5
+        },
+        "getPayment": {
+            "client": "Cable8mm\\PortonePhp\\PaymentClient",
+            "method": "GET",
+            "path": "/payments/{paymentId}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnrecognizedResponseException",
+            "statusCode": 200,
+            "errorType": null,
+            "elapsedMilliseconds": 128.5
+        },
+        "getPayments": {
+            "client": "Cable8mm\\PortonePhp\\PaymentClient",
+            "method": "GET",
+            "path": "/payments",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 47.8
+        },
+        "confirmPaymentwallDelivery": {
+            "client": "Cable8mm\\PortonePhp\\PgSpecificClient",
+            "method": "POST",
+            "path": "/paymentwall/delivery/confirm",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 403,
+            "errorType": null,
+            "elapsedMilliseconds": 18.2
+        },
+        "getPlatformAccountTransfers": {
+            "client": "Cable8mm\\PortonePhp\\AccountTransferClient",
+            "method": "GET",
+            "path": "/platform/account-transfers",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 71.1
+        },
+        "archivePlatformAdditionalFeePolicy": {
+            "client": "Cable8mm\\PortonePhp\\PolicyClient",
+            "method": "POST",
+            "path": "/platform/additional-fee-policies/{id}/archive",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 78.8
+        },
+        "recoverPlatformAdditionalFeePolicy": {
+            "client": "Cable8mm\\PortonePhp\\PolicyClient",
+            "method": "POST",
+            "path": "/platform/additional-fee-policies/{id}/recover",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 39.6
+        },
+        "getPlatformAdditionalFeePolicySchedule": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "GET",
+            "path": "/platform/additional-fee-policies/{id}/schedule",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\PlatformNotEnabledException",
+            "statusCode": 403,
+            "errorType": "PLATFORM_NOT_ENABLED",
+            "elapsedMilliseconds": 132.8
+        },
+        "rescheduleAdditionalFeePolicy": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "PUT",
+            "path": "/platform/additional-fee-policies/{id}/schedule",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 37.6
+        },
+        "scheduleAdditionalFeePolicy": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "POST",
+            "path": "/platform/additional-fee-policies/{id}/schedule",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 39.8
+        },
+        "cancelPlatformAdditionalFeePolicySchedule": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "DELETE",
+            "path": "/platform/additional-fee-policies/{id}/schedule",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 40.4
+        },
+        "getPlatformAdditionalFeePolicy": {
+            "client": "Cable8mm\\PortonePhp\\PolicyClient",
+            "method": "GET",
+            "path": "/platform/additional-fee-policies/{id}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\PlatformNotEnabledException",
+            "statusCode": 403,
+            "errorType": "PLATFORM_NOT_ENABLED",
+            "elapsedMilliseconds": 69.7
+        },
+        "updatePlatformAdditionalFeePolicy": {
+            "client": "Cable8mm\\PortonePhp\\PolicyClient",
+            "method": "PATCH",
+            "path": "/platform/additional-fee-policies/{id}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 39.7
+        },
+        "getPlatformAdditionalFeePolicies": {
+            "client": "Cable8mm\\PortonePhp\\PolicyClient",
+            "method": "GET",
+            "path": "/platform/additional-fee-policies",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 40.9
+        },
+        "createPlatformAdditionalFeePolicy": {
+            "client": "Cable8mm\\PortonePhp\\PolicyClient",
+            "method": "POST",
+            "path": "/platform/additional-fee-policies",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 41.1
+        },
+        "getPlatformAccountHolder": {
+            "client": "Cable8mm\\PortonePhp\\AccountClient",
+            "method": "GET",
+            "path": "/platform/bank-accounts/{bank}/{accountNumber}/holder",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404,
+            "errorType": null,
+            "elapsedMilliseconds": 58.1
+        },
+        "getPlatformBulkAccountTransfers": {
+            "client": "Cable8mm\\PortonePhp\\BulkAccountTransferClient",
+            "method": "GET",
+            "path": "/platform/bulk-account-transfers",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 69.1
+        },
+        "getPlatformBulkPayouts": {
+            "client": "Cable8mm\\PortonePhp\\BulkPayoutClient",
+            "method": "GET",
+            "path": "/platform/bulk-payouts",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 80.7
+        },
+        "getPlatformCompanyState": {
+            "client": "Cable8mm\\PortonePhp\\CompanyClient",
+            "method": "GET",
+            "path": "/platform/companies/{businessRegistrationNumber}/state",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404,
+            "errorType": null,
+            "elapsedMilliseconds": 20.1
+        },
+        "archivePlatformContract": {
+            "client": "Cable8mm\\PortonePhp\\PolicyClient",
+            "method": "POST",
+            "path": "/platform/contracts/{id}/archive",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 39.9
+        },
+        "recoverPlatformContract": {
+            "client": "Cable8mm\\PortonePhp\\PolicyClient",
+            "method": "POST",
+            "path": "/platform/contracts/{id}/recover",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 39.8
+        },
+        "getPlatformContractSchedule": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "GET",
+            "path": "/platform/contracts/{id}/schedule",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\PlatformNotEnabledException",
+            "statusCode": 403,
+            "errorType": "PLATFORM_NOT_ENABLED",
+            "elapsedMilliseconds": 50.5
+        },
+        "rescheduleContract": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "PUT",
+            "path": "/platform/contracts/{id}/schedule",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 41.3
+        },
+        "scheduleContract": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "POST",
+            "path": "/platform/contracts/{id}/schedule",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 40.1
+        },
+        "cancelPlatformContractSchedule": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "DELETE",
+            "path": "/platform/contracts/{id}/schedule",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 38.3
+        },
+        "getPlatformContract": {
+            "client": "Cable8mm\\PortonePhp\\PolicyClient",
+            "method": "GET",
+            "path": "/platform/contracts/{id}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\PlatformNotEnabledException",
+            "statusCode": 403,
+            "errorType": "PLATFORM_NOT_ENABLED",
+            "elapsedMilliseconds": 49.8
+        },
+        "updatePlatformContract": {
+            "client": "Cable8mm\\PortonePhp\\PolicyClient",
+            "method": "PATCH",
+            "path": "/platform/contracts/{id}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 40.1
+        },
+        "getPlatformContracts": {
+            "client": "Cable8mm\\PortonePhp\\PolicyClient",
+            "method": "GET",
+            "path": "/platform/contracts",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 39.5
+        },
+        "createPlatformContract": {
+            "client": "Cable8mm\\PortonePhp\\PolicyClient",
+            "method": "POST",
+            "path": "/platform/contracts",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 41.6
+        },
+        "archivePlatformDiscountSharePolicy": {
+            "client": "Cable8mm\\PortonePhp\\PolicyClient",
+            "method": "POST",
+            "path": "/platform/discount-share-policies/{id}/archive",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 38.5
+        },
+        "recoverPlatformDiscountSharePolicy": {
+            "client": "Cable8mm\\PortonePhp\\PolicyClient",
+            "method": "POST",
+            "path": "/platform/discount-share-policies/{id}/recover",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 29.8
+        },
+        "getPlatformDiscountSharePolicySchedule": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "GET",
+            "path": "/platform/discount-share-policies/{id}/schedule",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\PlatformNotEnabledException",
+            "statusCode": 403,
+            "errorType": "PLATFORM_NOT_ENABLED",
+            "elapsedMilliseconds": 59.8
+        },
+        "rescheduleDiscountSharePolicy": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "PUT",
+            "path": "/platform/discount-share-policies/{id}/schedule",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 40.5
+        },
+        "scheduleDiscountSharePolicy": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "POST",
+            "path": "/platform/discount-share-policies/{id}/schedule",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 40.3
+        },
+        "cancelPlatformDiscountSharePolicySchedule": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "DELETE",
+            "path": "/platform/discount-share-policies/{id}/schedule",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 31.9
+        },
+        "getPlatformDiscountSharePolicy": {
+            "client": "Cable8mm\\PortonePhp\\PolicyClient",
+            "method": "GET",
+            "path": "/platform/discount-share-policies/{id}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\PlatformNotEnabledException",
+            "statusCode": 403,
+            "errorType": "PLATFORM_NOT_ENABLED",
+            "elapsedMilliseconds": 52.7
+        },
+        "updatePlatformDiscountSharePolicy": {
+            "client": "Cable8mm\\PortonePhp\\PolicyClient",
+            "method": "PATCH",
+            "path": "/platform/discount-share-policies/{id}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 45.2
+        },
+        "getPlatformDiscountSharePolicies": {
+            "client": "Cable8mm\\PortonePhp\\PolicyClient",
+            "method": "GET",
+            "path": "/platform/discount-share-policies",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 39.4
+        },
+        "createPlatformDiscountSharePolicy": {
+            "client": "Cable8mm\\PortonePhp\\PolicyClient",
+            "method": "POST",
+            "path": "/platform/discount-share-policies",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 40
+        },
+        "getPlatformDiscountSharePolicyFilterOptions": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "GET",
+            "path": "/platform/discount-share-policy-filter-options",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\PlatformNotEnabledException",
+            "statusCode": 403,
+            "errorType": "PLATFORM_NOT_ENABLED",
+            "elapsedMilliseconds": 49.8
+        },
+        "getPlatformPartnerFilterOptions": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "GET",
+            "path": "/platform/partner-filter-options",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\PlatformNotEnabledException",
+            "statusCode": 403,
+            "errorType": "PLATFORM_NOT_ENABLED",
+            "elapsedMilliseconds": 60.6
+        },
+        "completePlatformPayoutByPartnerSettlementIds": {
+            "client": "Cable8mm\\PortonePhp\\PayoutClient",
+            "method": "POST",
+            "path": "/platform/partner-settlements/complete-payout",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 79.9
+        },
+        "deletePlatformPartnerSettlements": {
+            "client": "Cable8mm\\PortonePhp\\PartnerSettlementClient",
+            "method": "POST",
+            "path": "/platform/partner-settlements/delete",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 79.9
+        },
+        "getPlatformPartnerSettlements": {
+            "client": "Cable8mm\\PortonePhp\\PartnerSettlementClient",
+            "method": "GET",
+            "path": "/platform/partner-settlements",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 40.5
+        },
+        "createPlatformPartners": {
+            "client": "Cable8mm\\PortonePhp\\PartnerClient",
+            "method": "POST",
+            "path": "/platform/partners/batch",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 78.8
+        },
+        "connectPartnerCounterparty": {
+            "client": "Cable8mm\\PortonePhp\\PartnerClient",
+            "method": "POST",
+            "path": "/platform/partners/counterparty-connect/{id}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 41.6
+        },
+        "connectBulkPartnerCounterparty": {
+            "client": "Cable8mm\\PortonePhp\\PartnerClient",
+            "method": "POST",
+            "path": "/platform/partners/counterparty-connect",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 41.2
+        },
+        "disconnectPartnerCounterparty": {
+            "client": "Cable8mm\\PortonePhp\\PartnerClient",
+            "method": "POST",
+            "path": "/platform/partners/counterparty-disconnect/{id}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 37.9
+        },
+        "disconnectBulkPartnerCounterparty": {
+            "client": "Cable8mm\\PortonePhp\\PartnerClient",
+            "method": "POST",
+            "path": "/platform/partners/counterparty-disconnect",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 39.9
+        },
+        "schedulePlatformPartners": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "POST",
+            "path": "/platform/partners/schedule",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 40.3
+        },
+        "archivePlatformPartner": {
+            "client": "Cable8mm\\PortonePhp\\PartnerClient",
+            "method": "POST",
+            "path": "/platform/partners/{id}/archive",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 41.4
+        },
+        "recoverPlatformPartner": {
+            "client": "Cable8mm\\PortonePhp\\PartnerClient",
+            "method": "POST",
+            "path": "/platform/partners/{id}/recover",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 40.2
+        },
+        "getPlatformPartnerSchedule": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "GET",
+            "path": "/platform/partners/{id}/schedule",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\PlatformNotEnabledException",
+            "statusCode": 403,
+            "errorType": "PLATFORM_NOT_ENABLED",
+            "elapsedMilliseconds": 49.6
+        },
+        "reschedulePartner": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "PUT",
+            "path": "/platform/partners/{id}/schedule",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 37.8
+        },
+        "schedulePartner": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "POST",
+            "path": "/platform/partners/{id}/schedule",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 39.7
+        },
+        "cancelPlatformPartnerSchedule": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "DELETE",
+            "path": "/platform/partners/{id}/schedule",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 40.5
+        },
+        "getPlatformPartner": {
+            "client": "Cable8mm\\PortonePhp\\PartnerClient",
+            "method": "GET",
+            "path": "/platform/partners/{id}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\PlatformNotEnabledException",
+            "statusCode": 403,
+            "errorType": "PLATFORM_NOT_ENABLED",
+            "elapsedMilliseconds": 50.4
+        },
+        "updatePlatformPartner": {
+            "client": "Cable8mm\\PortonePhp\\PartnerClient",
+            "method": "PATCH",
+            "path": "/platform/partners/{id}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 405,
+            "errorType": null,
+            "elapsedMilliseconds": 41.1
+        },
+        "getPlatformPartners": {
+            "client": "Cable8mm\\PortonePhp\\PartnerClient",
+            "method": "GET",
+            "path": "/platform/partners",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 49.6
+        },
+        "createPlatformPartner": {
+            "client": "Cable8mm\\PortonePhp\\PartnerClient",
+            "method": "POST",
+            "path": "/platform/partners",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 40.5
+        },
+        "getPlatformPayouts": {
+            "client": "Cable8mm\\PortonePhp\\PayoutClient",
+            "method": "GET",
+            "path": "/platform/payouts",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 38.7
+        },
+        "getPlatformSetting": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "GET",
+            "path": "/platform/setting",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\PlatformNotEnabledException",
+            "statusCode": 403,
+            "errorType": "PLATFORM_NOT_ENABLED",
+            "elapsedMilliseconds": 53.4
+        },
+        "updatePlatformSetting": {
+            "client": "Cable8mm\\PortonePhp\\PlatformClient",
+            "method": "PATCH",
+            "path": "/platform/setting",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 36.2
+        },
+        "downloadPlatformTransferSheet": {
+            "client": "Cable8mm\\PortonePhp\\TransferClient",
+            "method": "GET",
+            "path": "/platform/transfer-summaries/sheet-file",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 82.1
+        },
+        "getPlatformTransferSummaries": {
+            "client": "Cable8mm\\PortonePhp\\TransferClient",
+            "method": "GET",
+            "path": "/platform/transfer-summaries",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 40.7
+        },
+        "createPlatformManualTransfer": {
+            "client": "Cable8mm\\PortonePhp\\TransferClient",
+            "method": "POST",
+            "path": "/platform/transfers/manual",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 51.2
+        },
+        "createPlatformOrderCancelTransfer": {
+            "client": "Cable8mm\\PortonePhp\\TransferClient",
+            "method": "POST",
+            "path": "/platform/transfers/order-cancel",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 36.2
+        },
+        "createPlatformOrderTransfer": {
+            "client": "Cable8mm\\PortonePhp\\TransferClient",
+            "method": "POST",
+            "path": "/platform/transfers/order",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 41.2
+        },
+        "getPlatformTransfer": {
+            "client": "Cable8mm\\PortonePhp\\TransferClient",
+            "method": "GET",
+            "path": "/platform/transfers/{id}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404,
+            "errorType": null,
+            "elapsedMilliseconds": 20.2
+        },
+        "deletePlatformTransfer": {
+            "client": "Cable8mm\\PortonePhp\\TransferClient",
+            "method": "DELETE",
+            "path": "/platform/transfers/{id}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404,
+            "errorType": null,
+            "elapsedMilliseconds": 18.9
+        },
+        "getPromotion": {
+            "client": "Cable8mm\\PortonePhp\\PromotionClient",
+            "method": "GET",
+            "path": "/promotions/{promotionId}",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "statusCode": 404,
+            "errorType": null,
+            "elapsedMilliseconds": 59.2
+        },
+        "refreshToken": {
+            "client": "Cable8mm\\PortonePhp\\AuthClient",
+            "method": "POST",
+            "path": "/token/refresh",
+            "status": "controlled-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400,
+            "errorType": "INVALID_REQUEST",
+            "elapsedMilliseconds": 39.8
+        }
+    }
+}

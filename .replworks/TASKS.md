@@ -411,7 +411,7 @@
     - Representative success, decode failure, API failure, and transport failure cases produce equivalent outcomes.
     - Unit tests, format checks, and live async probes pass.
 
-- [ ] T-045 Complete OpenAPI live E2E matrix
+- [X] T-045 Complete OpenAPI live E2E matrix
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-013, AC-009, AC-014, AC-018, AC-019
   - External boundary: yes
   - Acceptance criteria:
