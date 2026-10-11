@@ -7,6 +7,7 @@
 - CI PHP versions: 8.2, 8.3, 8.4, 8.5.
 - Run method: interpreted. No compile step.
 - Module system: Composer autoload, PSR-4.
+- Root PHP namespace: Cable8mm\\PortonePhp.
 - Package manager: Composer.
 - Lockfile: composer.lock. MUST NOT be committed.
 - Package name: cable8mm/portone-php.
