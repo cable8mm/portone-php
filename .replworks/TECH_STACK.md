@@ -17,6 +17,7 @@
 - Runtime dependency: PHP extension ext-curl, any version.
 - Runtime dependency: PHP extension ext-json, any version.
 - HTTP transport: PHP ext-curl directly.
+- Async HTTP transport: PHP ext-curl multi handles directly; no promise or event-loop library.
 - Webhook signature computation: PHP built-in hash functions. No library.
 - Config parser library: none.
 - CLI argument parser library: none.

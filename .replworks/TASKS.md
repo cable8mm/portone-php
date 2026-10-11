@@ -8,11 +8,12 @@
     - Installing the package with Composer under the package name required by PRODUCT_SPEC.md succeeds on PHP 8.2.
     - The package exposes the PSR-4 public namespace and contains no committed lockfile or secret values.
 
-- [ ] T-002 JVM operation catalog and model contract verification
-  - Satisfies: PRODUCT_SPEC.md FR-008, FR-009, FR-010, ERR-003, ERR-004
+- [X] T-002 JVM operation catalog and model contract verification
+  - Satisfies: PRODUCT_SPEC.md EL-021, FR-008, FR-009, FR-010, FR-026, ERR-003, ERR-004
   - External boundary: yes
   - Acceptance criteria:
     - An executable probe against the JVM SDK at tag jvm-v0.24.0 records every client, operation name, camelCase operation name, named parameter, defined error name, and webhook type required by PRODUCT_SPEC.md EL-002 to EL-017.
+    - The probe records the JVM asynchronous counterpart for every operation and excludes no Future capability from the reference contract.
     - The recorded operation and parameter sets are available to the dependent implementation tasks and the probe fails when the PHP public set differs from the recorded JVM set.
     - The probe records the JVM SDK's success decoding, error classification, and unknown-value behavior required by ARCHITECTURE.md RD-03 and RD-04.
 
@@ -25,12 +26,13 @@
     - Each recorded result has an executable pass/fail check, and the task remains incomplete if the live PortOne boundary is unreachable.
 
 - [ ] T-004 End-to-end authenticated operation outcome
-  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-013, FR-023, FR-024, FR-025, ERR-003, ERR-004, ERR-005, ERR-006, ERR-008
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-013, FR-023, FR-024, FR-025, FR-026, FR-027, ERR-003, ERR-004, ERR-005, ERR-006, ERR-008, ERR-009
   - External boundary: yes
   - Acceptance criteria:
     - A synchronous public operation sends exactly one authenticated request through the Request Executor and returns the typed result for the observed live success behavior.
     - The live E2E check observes the required authentication header, connection timeout, total timeout, and no-retry behavior.
     - The operation raises the observed defined error, UnknownException, UnrecognizedResponseException, or TransportException behavior as applicable, and every raised failure descends from PortOneException.
+    - The asynchronous counterpart starts one request without waiting, returns a Future, and waiting on it applies the same typed decoding and failure behavior as the synchronous operation.
     - Unit tests pass for request construction, outcome classification, typed decoding, failure propagation, and the invariant that one failed call does not affect a later call.
 
 - [ ] T-005 Client construction and accessor hierarchy
@@ -45,103 +47,114 @@
     - Unit tests pass for all accessors, standalone construction, shared executor identity, and construction failure.
 
 - [ ] T-006 Payment operations
-  - Satisfies: PRODUCT_SPEC.md EL-002, EL-003, EL-004, EL-005, EL-006, EL-007 and FR-008, FR-009, FR-010, FR-011
+  - Satisfies: PRODUCT_SPEC.md EL-002, EL-003, EL-004, EL-005, EL-006, EL-007 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
     - PaymentClient, BillingKeyClient, CashReceiptClient, AdditionalFeatureClient, PaymentScheduleClient, and PromotionClient expose exactly the operations and named parameters recorded from the JVM SDK.
     - Each operation uses the documented PortOne V2 path and request shape and returns the documented typed result for the observed live success behavior.
     - E2E checks exercise at least one operation in each client through the live PortOne boundary and pass the applicable failure behavior defined in ARCHITECTURE.md.
     - Unit tests pass for every operation definition and for representative request, response, defined-error, unknown-error, and undecodable-success cases.
+    - Unit tests pass for every asynchronous counterpart and verify that waiting resolves the same typed result or failure as the synchronous operation.
 
 - [ ] T-007 Identity verification operations
-  - Satisfies: PRODUCT_SPEC.md EL-008 and FR-008, FR-009, FR-010, FR-011
+  - Satisfies: PRODUCT_SPEC.md EL-008 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
     - IdentityVerificationClient exposes exactly the JVM operation and parameter set.
     - Each operation returns the documented typed result for the observed live success behavior and uses the documented request shape.
     - A live E2E check exercises the client and passes the applicable failure behavior defined in ARCHITECTURE.md.
     - Unit tests pass for every operation definition and representative outcome classifications.
+    - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
 - [ ] T-008 PG-specific operations
-  - Satisfies: PRODUCT_SPEC.md EL-009 and FR-008, FR-009, FR-010, FR-011
+  - Satisfies: PRODUCT_SPEC.md EL-009 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
     - PgSpecificClient exposes exactly the JVM operation and parameter set.
     - Each operation returns the documented typed result for the observed live success behavior and uses the documented request shape.
     - A live E2E check exercises the client and passes the applicable failure behavior defined in ARCHITECTURE.md.
     - Unit tests pass for every operation definition and representative outcome classifications.
+    - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
 - [ ] T-009 Authentication operations
-  - Satisfies: PRODUCT_SPEC.md EL-010 and FR-008, FR-009, FR-010, FR-011
+  - Satisfies: PRODUCT_SPEC.md EL-010 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
     - AuthClient exposes exactly the JVM operation and parameter set and treats those operations as ordinary authenticated operations.
     - Each operation returns the documented typed result for the observed live success behavior and uses the documented request shape.
     - A live E2E check exercises the client and passes the applicable failure behavior defined in ARCHITECTURE.md.
     - Unit tests pass for every operation definition and representative outcome classifications.
+    - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
 - [ ] T-010 Reconciliation operations
-  - Satisfies: PRODUCT_SPEC.md EL-011 and FR-008, FR-009, FR-010, FR-011
+  - Satisfies: PRODUCT_SPEC.md EL-011 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
     - ReconciliationClient exposes exactly the JVM operation and parameter set.
     - Each operation returns the documented typed result for the observed live success behavior and uses the documented request shape.
     - A live E2E check exercises the client and passes the applicable failure behavior defined in ARCHITECTURE.md.
     - Unit tests pass for every operation definition and representative outcome classifications.
+    - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
 - [ ] T-011 Platform core operations
-  - Satisfies: PRODUCT_SPEC.md EL-012, EL-013 and FR-005, FR-008, FR-009, FR-010, FR-011
+  - Satisfies: PRODUCT_SPEC.md EL-012, EL-013 and FR-005, FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
     - PlatformClient, CompanyClient, AccountClient, and AccountTransferClient expose exactly the JVM operation and parameter sets.
     - Each operation returns the documented typed result for the observed live success behavior and uses the documented request shape.
     - A live E2E check exercises each client and passes the applicable failure behavior defined in ARCHITECTURE.md.
     - Unit tests pass for every operation definition and representative outcome classifications.
+    - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
 - [ ] T-012 Platform bulk and payout operations
-  - Satisfies: PRODUCT_SPEC.md EL-013 and FR-008, FR-009, FR-010, FR-011
+  - Satisfies: PRODUCT_SPEC.md EL-013 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
     - BulkAccountTransferClient, BulkPayoutClient, and PayoutClient expose exactly the JVM operation and parameter sets.
     - Each operation returns the documented typed result for the observed live success behavior and uses the documented request shape.
     - A live E2E check exercises each client and passes the applicable failure behavior defined in ARCHITECTURE.md.
     - Unit tests pass for every operation definition and representative outcome classifications.
+    - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
 - [ ] T-013 Platform partner and transfer operations
-  - Satisfies: PRODUCT_SPEC.md EL-013 and FR-008, FR-009, FR-010, FR-011
+  - Satisfies: PRODUCT_SPEC.md EL-013 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
     - PartnerSettlementClient, PartnerClient, and TransferClient expose exactly the JVM operation and parameter sets.
     - Each operation returns the documented typed result for the observed live success behavior and uses the documented request shape.
     - A live E2E check exercises each client and passes the applicable failure behavior defined in ARCHITECTURE.md.
     - Unit tests pass for every operation definition and representative outcome classifications.
+    - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
 - [ ] T-014 Platform policy operations
-  - Satisfies: PRODUCT_SPEC.md EL-013 and FR-008, FR-009, FR-010, FR-011
+  - Satisfies: PRODUCT_SPEC.md EL-013 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
     - PolicyClient exposes exactly the JVM operation and parameter set.
     - Each operation returns the documented typed result for the observed live success behavior and uses the documented request shape.
     - A live E2E check exercises the client and passes the applicable failure behavior defined in ARCHITECTURE.md.
     - Unit tests pass for every operation definition and representative outcome classifications.
+    - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
 - [ ] T-015 B2B tax invoice operations
-  - Satisfies: PRODUCT_SPEC.md EL-014, EL-015 and FR-006, FR-008, FR-009, FR-010, FR-011
+  - Satisfies: PRODUCT_SPEC.md EL-014, EL-015 and FR-006, FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
     - B2bClient and TaxInvoiceClient expose exactly the JVM operation and parameter sets.
     - Each operation returns the documented typed result for the observed live success behavior and uses the documented request shape.
     - A live E2E check exercises each client and passes the applicable failure behavior defined in ARCHITECTURE.md.
     - Unit tests pass for every operation definition and representative outcome classifications.
+    - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
 - [ ] T-016 B2B counterparty operations
-  - Satisfies: PRODUCT_SPEC.md EL-014, EL-015 and FR-006, FR-008, FR-009, FR-010, FR-011
+  - Satisfies: PRODUCT_SPEC.md EL-014, EL-015 and FR-006, FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
     - CounterpartyClient exposes exactly the JVM operation and parameter set.
     - Each operation returns the documented typed result for the observed live success behavior and uses the documented request shape.
     - A live E2E check exercises the client and passes the applicable failure behavior defined in ARCHITECTURE.md.
     - Unit tests pass for every operation definition and representative outcome classifications.
+    - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
 - [ ] T-017 Webhook verification and typed results
   - Satisfies: PRODUCT_SPEC.md EL-016, EL-017, EL-018 and FR-014, FR-015, FR-016, FR-017, FR-018, ERR-002, ERR-007
@@ -162,12 +175,13 @@
     - Each sample reads the required secret from the process environment and uses only the public SDK interface.
     - A verification run executes every sample with test credentials or a documented non-secret fixture and observes the expected success or controlled failure behavior.
 
-- [ ] T-019 Complete synchronous public API and packaging verification
-  - Satisfies: PRODUCT_SPEC.md FR-001, FR-002, FR-007, FR-008, FR-009, FR-010, FR-011, FR-013, FR-022, FR-026 and AC-001 to AC-021
+- [ ] T-019 Complete public API and packaging verification
+  - Satisfies: PRODUCT_SPEC.md FR-001, FR-002, FR-007, FR-008, FR-009, FR-010, FR-011, FR-013, FR-022, FR-026, FR-027 and AC-001 to AC-022
   - External boundary: yes
   - Acceptance criteria:
     - The full automated test suite and all format checks defined in TECH_STACK.md pass on every supported CI PHP version.
-    - A clean Composer installation exposes every public element in EL-001 to EL-020 and no operation returns an asynchronous value.
+    - A clean Composer installation exposes every public element in EL-001 to EL-021, including synchronous and asynchronous operation methods.
     - JVM catalog comparison passes for every client, operation, named parameter, defined error, and webhook type.
     - Live E2E checks pass for authenticated operations, timeout and no-retry behavior, defined and unknown failures, unrecognized success, webhook verification, known webhooks, unknown webhooks, and samples.
+    - Representative asynchronous operations start without waiting and resolve to the same typed results or failures as their synchronous counterparts.
     - No acceptance criterion in PRODUCT_SPEC.md remains unverified.
