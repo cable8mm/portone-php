@@ -1,0 +1,25 @@
+{
+    "status": "observed",
+    "operations": {
+        "getPlatformBulkAccountTransfers": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400
+        },
+        "getPlatformBulkPayouts": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400
+        },
+        "getPlatformPayouts": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400
+        },
+        "completePlatformPayoutByPartnerSettlementIds": {
+            "status": "portone-failure",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\InvalidRequestException",
+            "statusCode": 400
+        }
+    }
+}
