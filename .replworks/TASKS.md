@@ -522,7 +522,7 @@
     - Unknown method and unknown discriminator values are accepted as explicit unrecognized values.
     - Unit tests, format checks, and the full live E2E matrix pass.
 
-- [ ] T-056 Decoder robustness and fuzzing
+- [X] T-056 Decoder robustness and fuzzing
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, ERR-004, AC-009, AC-019
   - External boundary: no
   - Acceptance criteria:
