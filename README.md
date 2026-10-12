@@ -144,17 +144,38 @@ cp .env.example .env
 PORTONE_API_SECRET=여기에_API_Secret
 PORTONE_WEBHOOK_SECRET=whsec_여기에_Webhook_Secret
 
-# 결제 lifecycle E2E에 필요한 test store 설정
+# 결제·빌링키 lifecycle E2E에 필요한 test store 설정
 PORTONE_E2E_CHANNEL_KEY=여기에_테스트_채널키
+PORTONE_E2E_CHANNEL_GROUP_ID=여기에_스마트_라우팅_채널그룹_ID
+PORTONE_E2E_STORE_ID=여기에_테스트_상점아이디
 PORTONE_E2E_CARD_NUMBER=여기에_테스트_카드번호
 PORTONE_E2E_CARD_EXPIRY_YEAR=유효기간_연도_2자리
 PORTONE_E2E_CARD_EXPIRY_MONTH=유효기간_월_2자리
 PORTONE_E2E_BIRTH_OR_BUSINESS_NUMBER=생년월일_6자리_또는_사업자번호_10자리
 PORTONE_E2E_PASSWORD_TWO_DIGITS=카드비밀번호_앞_2자리
-PORTONE_E2E_STORE_ID=테스트_상점아이디
 ```
 
 Secret을 README, source, fixture, 로그에 넣거나 commit하지 마세요.
+
+### E2E 키를 얻는 방법
+
+위 설정은 SDK 본체가 읽지 않고, 개발용 live E2E probe만 읽습니다. 모든 값은 테스트 환경의 값만 사용하세요.
+
+| 변수 | 얻는 위치와 용도 |
+| --- | --- |
+| `PORTONE_API_SECRET` | PortOne 관리자 콘솔의 `결제 연동 → 연동 관리 → 식별코드·API Keys`에서 V2 API Secret을 발급합니다. 서버와 `.env`에서만 사용합니다. |
+| `PORTONE_WEBHOOK_SECRET` | 관리자 콘솔의 테스트 webhook 설정에서 확인합니다. Webhook E2E와 `WebhookVerifier` 검증에 사용합니다. |
+| `PORTONE_E2E_STORE_ID` | 관리자 콘솔의 `결제 연동 → 연동 관리`에서 테스트 상점 ID를 복사합니다. |
+| `PORTONE_E2E_CHANNEL_KEY` | `결제 연동 → 연동 정보`를 테스트 모드로 전환한 뒤 등록된 테스트 결제 채널의 채널 키를 복사합니다. `payInstantly`와 billing-key 결제에 사용합니다. |
+| `PORTONE_E2E_CHANNEL_GROUP_ID` | `연동 관리 → 스마트 라우팅`에서 테스트 그룹을 생성하고, 저장 후 자동으로 생성된 그룹 ID를 복사합니다. billing-key 발급 시 `channelGroupId`로 사용합니다. |
+| `PORTONE_E2E_CARD_NUMBER` | 선택한 테스트 PG가 제공하는 테스트 카드 번호입니다. 실제 카드 번호를 사용하지 않습니다. |
+| `PORTONE_E2E_CARD_EXPIRY_YEAR` / `PORTONE_E2E_CARD_EXPIRY_MONTH` | 위 테스트 카드의 유효기간입니다. 연도와 월을 각각 2자리로 입력합니다. |
+| `PORTONE_E2E_BIRTH_OR_BUSINESS_NUMBER` | PG 테스트 카드가 요구하는 생년월일 `YYMMDD` 6자리 또는 사업자등록번호 10자리입니다. |
+| `PORTONE_E2E_PASSWORD_TWO_DIGITS` | PG 테스트 카드가 요구하는 카드 비밀번호 앞 2자리입니다. PG가 요구하지 않으면 비워둘 수 있습니다. |
+
+`PORTONE_E2E_CHANNEL_GROUP_ID`는 PG에서 발급하는 정기자동결제 그룹 ID나 PG 상점 ID가 아닙니다. PortOne의 스마트 라우팅 그룹을 테스트 환경에서 생성한 뒤 PortOne이 자동으로 만든 ID입니다. 채널 그룹을 사용하지 않는 일반 결제는 `PORTONE_E2E_CHANNEL_KEY`를 사용합니다.
+
+Billing key 자체는 `.env`에 직접 넣지 않습니다. billing-key lifecycle 테스트는 테스트 카드와 `PORTONE_E2E_CHANNEL_GROUP_ID`로 매번 발급한 값을 메모리에만 보관하고, 결제·취소 검증이 끝나면 삭제해야 합니다.
 
 ## 테스트
 

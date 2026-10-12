@@ -43,7 +43,7 @@ final class PlatformPartnerTransferClientsTest extends TestCase
         $result = $client->updatePlatformPartner('partner-id', true, 'Updated partner');
 
         self::assertInstanceOf(UpdatePlatformPartnerResponse::class, $result);
-        self::assertSame('test=1', (string) $history[0]['request']->getUri()->getQuery());
+        self::assertSame('test=true', (string) $history[0]['request']->getUri()->getQuery());
         self::assertSame('{"name":"Updated partner"}', (string) $history[0]['request']->getBody());
     }
 

@@ -51,6 +51,10 @@ class RequestExecutor
     /** @param array<string,mixed> $options */
     private function options(array $options): array
     {
+        if (isset($options['query']) && is_array($options['query'])) {
+            $options['query'] = $this->normalizeQueryParameters($options['query']);
+        }
+
         $headers = $options['headers'] ?? [];
         $headers['Authorization'] = 'PortOne '.$this->apiSecret;
         $headers['Accept'] ??= 'application/json';
@@ -61,6 +65,20 @@ class RequestExecutor
             'http_errors' => false,
             'headers' => $headers,
         ];
+    }
+
+    /** @param array<string,mixed> $parameters @return array<string,mixed> */
+    private function normalizeQueryParameters(array $parameters): array
+    {
+        foreach ($parameters as $key => $value) {
+            if (is_bool($value)) {
+                $parameters[$key] = $value ? 'true' : 'false';
+            } elseif (is_array($value)) {
+                $parameters[$key] = $this->normalizeQueryParameters($value);
+            }
+        }
+
+        return $parameters;
     }
 
     protected function createClient(): Client

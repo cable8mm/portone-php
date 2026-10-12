@@ -26,7 +26,7 @@ final class TaxInvoiceClientTest extends TestCase
         $result = $client->createB2bFileUploadUrl(true, 'invoice.csv');
 
         self::assertInstanceOf(CreateB2bFileUploadUrlPayload::class, $result);
-        self::assertSame('test=1', (string) $history[0]['request']->getUri()->getQuery());
+        self::assertSame('test=true', (string) $history[0]['request']->getUri()->getQuery());
         self::assertSame('{"fileName":"invoice.csv"}', (string) $history[0]['request']->getBody());
     }
 

@@ -31,7 +31,7 @@ final class PlatformBulkPayoutClientsTest extends TestCase
         $result = $client->getPlatformBulkAccountTransfers(true, false, ['number' => 0], ['status' => ['PENDING']]);
 
         self::assertInstanceOf(GetPlatformBulkAccountTransfersResponse::class, $result);
-        self::assertStringContainsString('test=1', (string) $history[0]['request']->getUri());
+        self::assertStringContainsString('test=true', (string) $history[0]['request']->getUri());
         self::assertStringContainsString('requestBody=', (string) $history[0]['request']->getUri());
     }
 
@@ -66,7 +66,7 @@ final class PlatformBulkPayoutClientsTest extends TestCase
         self::assertInstanceOf(CompletePlatformPayoutByPartnerSettlementIdsResponse::class, $result);
         self::assertSame('{"bulkPayoutId":"bulk-payout-id","name":"January payout","partnerSettlementIds":["settlement-id"],"completedAt":"2026-01-31T00:00:00Z","isForTest":false}', (string) $history[0]['request']->getBody());
         self::assertSame('/platform/partner-settlements/complete-payout', $history[0]['request']->getUri()->getPath());
-        self::assertSame('test=1', (string) $history[0]['request']->getUri()->getQuery());
+        self::assertSame('test=true', (string) $history[0]['request']->getUri()->getQuery());
     }
 
     /** @param array<int,array<string,mixed>> $history */
