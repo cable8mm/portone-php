@@ -12,7 +12,7 @@ final class B2bClient extends AbstractClient
 
     public readonly CounterpartyClient $counterparty;
 
-    public function __construct(string $apiSecret, ?RequestExecutor $executor = null)
+    public function __construct(#[\SensitiveParameter] string $apiSecret, ?RequestExecutor $executor = null)
     {
         parent::__construct($apiSecret, $executor);
         $this->taxInvoice = new TaxInvoiceClient('', $this->executor);

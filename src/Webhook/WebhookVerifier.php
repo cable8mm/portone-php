@@ -16,9 +16,9 @@ final class WebhookVerifier
 
     private const TOLERANCE_IN_SECONDS = 300;
 
-    private readonly string $secret;
+    private readonly \Closure $secretProvider;
 
-    public function __construct(string $webhookSecret)
+    public function __construct(#[\SensitiveParameter] string $webhookSecret)
     {
         if ($webhookSecret === '') {
             throw new \InvalidArgumentException('webhookSecret must not be empty.');
@@ -32,7 +32,22 @@ final class WebhookVerifier
             throw new \InvalidArgumentException('webhookSecret must be a valid non-empty Base64 value.');
         }
 
-        $this->secret = $secret;
+        $this->secretProvider = static fn (): string => $secret;
+    }
+
+    public function __debugInfo(): array
+    {
+        return [];
+    }
+
+    public function __serialize(): array
+    {
+        throw new \LogicException('WebhookVerifier instances cannot be serialized.');
+    }
+
+    public function __unserialize(#[\SensitiveParameter] array $data): void
+    {
+        throw new \LogicException('WebhookVerifier instances cannot be unserialized.');
     }
 
     public function verify(string $body, ?string $msgId, ?string $msgSignature, ?string $msgTimestamp): Webhook
@@ -54,7 +69,7 @@ final class WebhookVerifier
             throw new WebhookVerificationException('Message timestamp too new.');
         }
 
-        $expected = hash_hmac('sha256', $msgId.'.'.$timestamp.'.'.$body, $this->secret, true);
+        $expected = hash_hmac('sha256', $msgId.'.'.$timestamp.'.'.$body, ($this->secretProvider)(), true);
         $matched = false;
         foreach (explode(' ', $msgSignature) as $versionedSignature) {
             $parts = explode(',', $versionedSignature, 3);

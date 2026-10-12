@@ -184,7 +184,7 @@ function parsePhpMethods(string $directory): array
 
         foreach ($matches as $index => $match) {
             $name = $match['name'][0];
-            if ($name === '__construct') {
+            if (str_starts_with($name, '__')) {
                 continue;
             }
 

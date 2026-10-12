@@ -28,7 +28,7 @@ final class PortOneClient extends AbstractClient
 
     public readonly PaymentSessionClient $paymentSession;
 
-    public function __construct(string $apiSecret, ?RequestExecutor $executor = null)
+    public function __construct(#[\SensitiveParameter] string $apiSecret, ?RequestExecutor $executor = null)
     {
         parent::__construct($apiSecret, $executor);
         $this->payment = new PaymentClient('', $this->executor);

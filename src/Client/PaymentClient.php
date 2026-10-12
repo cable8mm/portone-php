@@ -21,7 +21,7 @@ class PaymentClient extends AbstractClient
 
     public readonly PromotionClient $promotion;
 
-    public function __construct(string $apiSecret, ?RequestExecutor $executor = null)
+    public function __construct(#[\SensitiveParameter] string $apiSecret, ?RequestExecutor $executor = null)
     {
         parent::__construct($apiSecret, $executor);
         $this->billingKey = new BillingKeyClient('', $this->executor);

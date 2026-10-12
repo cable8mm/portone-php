@@ -23,12 +23,30 @@ abstract class AbstractClient
      * The executor argument is internal and is used only when a parent shares
      * its already-created executor with a child client.
      */
-    public function __construct(string $apiSecret, ?RequestExecutor $executor = null)
+    public function __construct(#[\SensitiveParameter] string $apiSecret, ?RequestExecutor $executor = null)
     {
         $this->executor = $executor ?? $this->createExecutor($apiSecret);
     }
 
-    protected function createExecutor(string $apiSecret): RequestExecutor
+    public function __debugInfo(): array
+    {
+        $properties = get_object_vars($this);
+        unset($properties['executor']);
+
+        return $properties;
+    }
+
+    public function __serialize(): array
+    {
+        throw new \LogicException('Client instances cannot be serialized.');
+    }
+
+    public function __unserialize(#[\SensitiveParameter] array $data): void
+    {
+        throw new \LogicException('Client instances cannot be unserialized.');
+    }
+
+    protected function createExecutor(#[\SensitiveParameter] string $apiSecret): RequestExecutor
     {
         return new RequestExecutor($apiSecret);
     }
@@ -41,7 +59,7 @@ abstract class AbstractClient
         string $operation,
         string $method,
         string $path,
-        array $parameters,
+        #[\SensitiveParameter] array $parameters,
         string $responseClass,
         bool $requestBody,
     ): object {
@@ -60,7 +78,7 @@ abstract class AbstractClient
         string $operation,
         string $method,
         string $path,
-        array $parameters,
+        #[\SensitiveParameter] array $parameters,
         string $responseClass,
         bool $requestBody,
     ): Future {
@@ -68,9 +86,12 @@ abstract class AbstractClient
             $method,
             $this->path($path, $parameters),
             $this->options($method, $parameters, $path, $requestBody),
-        )->then(fn (ResponseInterface $response): object => $this->interpretOperation($operation, $response, $responseClass));
+        );
 
-        return new Future($promise);
+        return new Future(
+            $promise,
+            fn (ResponseInterface $response): object => $this->interpretOperation($operation, $response, $responseClass),
+        );
     }
 
     /**
@@ -110,9 +131,12 @@ abstract class AbstractClient
             $method,
             $this->path($path, $query),
             $this->optionsWithQueryAndBody($query, $body),
-        )->then(fn (ResponseInterface $response): object => $this->interpretOperation($operation, $response, $responseClass));
+        );
 
-        return new Future($promise);
+        return new Future(
+            $promise,
+            fn (ResponseInterface $response): object => $this->interpretOperation($operation, $response, $responseClass),
+        );
     }
 
     /**
@@ -152,9 +176,12 @@ abstract class AbstractClient
             $method,
             $this->path($path, $query),
             $this->optionsWithQueryRequestBody($query, $body),
-        )->then(fn (ResponseInterface $response): object => $this->interpretOperation($operation, $response, $responseClass));
+        );
 
-        return new Future($promise);
+        return new Future(
+            $promise,
+            fn (ResponseInterface $response): object => $this->interpretOperation($operation, $response, $responseClass),
+        );
     }
 
     /** @param array<string,mixed> $options */
@@ -171,15 +198,15 @@ abstract class AbstractClient
     /** @param array<string,mixed> $options */
     protected function callStringOperationAsync(string $operation, string $method, string $path, array $options = []): Future
     {
-        $promise = $this->executor->requestAsync($method, $path, $options)->then(function (ResponseInterface $response) use ($operation): string {
+        $promise = $this->executor->requestAsync($method, $path, $options);
+
+        return new Future($promise, function (ResponseInterface $response) use ($operation): string {
             if ($response->getStatusCode() < 200 || $response->getStatusCode() >= 300) {
                 $this->throwForError($operation, $response);
             }
 
             return (string) $response->getBody();
         });
-
-        return new Future($promise);
     }
 
     /**
@@ -209,15 +236,15 @@ abstract class AbstractClient
     /** @param array<string,mixed> $options */
     protected function callUnitOperationAsync(string $operation, string $method, string $path, array $options = []): Future
     {
-        $promise = $this->executor->requestAsync($method, $path, $options)->then(function (ResponseInterface $response) use ($operation): mixed {
+        $promise = $this->executor->requestAsync($method, $path, $options);
+
+        return new Future($promise, function (ResponseInterface $response) use ($operation): mixed {
             if ($response->getStatusCode() < 200 || $response->getStatusCode() >= 300) {
                 $this->throwForError($operation, $response);
             }
 
             return null;
         });
-
-        return new Future($promise);
     }
 
     /**
@@ -263,8 +290,12 @@ abstract class AbstractClient
     }
 
     /** @param array<string,mixed> $parameters */
-    private function options(string $method, array $parameters, string $path, bool $requestBody): array
-    {
+    private function options(
+        string $method,
+        #[\SensitiveParameter] array $parameters,
+        string $path,
+        bool $requestBody,
+    ): array {
         $parameters = array_filter($parameters, static fn (mixed $value): bool => $value !== null);
 
         if ($requestBody) {

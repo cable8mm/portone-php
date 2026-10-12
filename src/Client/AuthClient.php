@@ -9,12 +9,12 @@ use Cable8mm\PortonePhp\Model;
 
 final class AuthClient extends AbstractClient
 {
-    public function loginViaApiSecret(?string $apiSecret = null): Model\LoginViaApiSecretResponse
+    public function loginViaApiSecret(#[\SensitiveParameter] ?string $apiSecret = null): Model\LoginViaApiSecretResponse
     {
         return $this->callOperation('loginViaApiSecret', 'POST', '/login/api-secret', ['apiSecret' => $apiSecret], Model\LoginViaApiSecretResponse::class, true);
     }
 
-    public function loginViaApiSecretAsync(?string $apiSecret = null): Future
+    public function loginViaApiSecretAsync(#[\SensitiveParameter] ?string $apiSecret = null): Future
     {
         return $this->callOperationAsync('loginViaApiSecret', 'POST', '/login/api-secret', ['apiSecret' => $apiSecret], Model\LoginViaApiSecretResponse::class, true);
     }
