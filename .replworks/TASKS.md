@@ -561,7 +561,7 @@
     - `__debugInfo` hides secrets for all public clients.
     - Unit tests and format checks pass.
 
-- [ ] T-060 Dependency, PHP version, and release smoke compatibility
+- [X] T-060 Dependency, PHP version, and release smoke compatibility
   - Satisfies: PRODUCT_SPEC.md FR-001, FR-022, AC-001, AC-013
   - External boundary: yes
   - Acceptance criteria:
@@ -570,7 +570,7 @@
     - A smoke test installs the published v0.2.0 from Packagist in a clean directory and runs one controlled-failure call.
     - Unit tests and format checks pass.
 
-- [ ] T-061 OpenAPI spec drift detection
+- [X] T-061 OpenAPI spec drift detection
   - Satisfies: PRODUCT_SPEC.md FR-008, FR-009, FR-011, AC-007, AC-008, AC-009
   - External boundary: yes
   - Acceptance criteria:

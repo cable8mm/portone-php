@@ -1,0 +1,45 @@
+name: OpenAPI drift
+
+on:
+  schedule:
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  detect:
+    name: Compare official OpenAPI spec
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.5"
+          extensions: curl, json
+
+      - name: Compare OpenAPI snapshot with official spec
+        id: drift
+        run: php tools/openapi_drift.php --report "$RUNNER_TEMP/openapi-drift.md"
+
+      - name: Create an issue for this drift detection
+        if: steps.drift.outputs.has-drift == 'true'
+        uses: actions/github-script@v9
+        env:
+          DRIFT_REPORT: ${{ runner.temp }}/openapi-drift.md
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync(process.env.DRIFT_REPORT, 'utf8');
+            const { owner, repo } = context.repo;
+            await github.rest.issues.create({
+              owner,
+              repo,
+              title: `PortOne OpenAPI drift detected (run #${context.runNumber})`,
+              body: `${report}\nDetected by scheduled workflow run ${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}.`,
+            });

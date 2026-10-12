@@ -198,6 +198,20 @@ composer openapi:check
 composer openapi:signatures
 ```
 
+`OpenAPI drift` 워크플로는 매주 월요일(UTC)에 공식 명세를 가져와 커밋된 스냅샷과 operation 정의 및 스키마 필드를 비교합니다. 차이가 발견되면 실행할 때마다 새 GitHub 이슈를 생성하고, 변경이 없으면 이슈를 생성하지 않습니다.
+
+수동으로 확인하려면 Actions 탭에서 이 워크플로를 실행하세요.
+
+차이 보고서를 검토한 뒤 스냅샷을 갱신하려면 공식 명세를 가져오고 메타데이터 파일의 조회 날짜를 변경한 다음 두 계약 검사를 다시 실행하세요.
+
+```sh
+curl -fsSL https://developers.portone.io/api/schema/v2/openapi.json \
+  -o tests/fixtures/portone-v2-openapi.json
+# tests/fixtures/portone-v2-openapi.meta.json의 retrievedAt을 오늘 날짜(UTC)로 변경합니다.
+composer openapi:check
+composer openapi:signatures
+```
+
 ## Live E2E 테스트
 
 Live E2E는 실제 `https://api.portone.io`와 실제 webhook secret을 사용합니다.
