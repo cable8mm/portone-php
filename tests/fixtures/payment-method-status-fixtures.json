@@ -1,0 +1,80 @@
+{
+    "_note": "Sanitized fixtures for PortOne V2 Payment model regression tests (T-055). All IDs and PG values are replaced with stable test identifiers. Real card numbers, customer data, and merchant IDs are not included.",
+
+    "_payment_status_values": ["CANCELLED", "FAILED", "PAID", "PARTIAL_CANCELLED", "PAY_PENDING", "READY", "VIRTUAL_ACCOUNT_ISSUED", "UNKNOWN_FUTURE_STATUS"],
+
+    "_payment_method_types": ["PaymentMethodCard", "PaymentMethodEasyPay", "PaymentMethodTransfer", "PaymentMethodVirtualAccount", "PaymentMethodMobile", "PaymentMethodGiftCertificate", "PaymentMethodConvenienceStore", "PaymentMethodCrypto", "UnknownFutureMethodType"],
+
+    "common_fields": {
+        "id": "fixture-payment-01",
+        "transactionId": "fixture-tx-01",
+        "merchantId": "fixture-merchant-01",
+        "storeId": "fixture-store-01",
+        "version": "V2",
+        "requestedAt": "2026-10-12T15:00:00Z",
+        "updatedAt": "2026-10-12T15:00:01Z",
+        "statusChangedAt": "2026-10-12T15:00:01Z",
+        "orderName": "fixture order",
+        "amount": {"total": 1000, "taxFree": 0, "vat": 0, "supply": 0, "discount": 0, "paid": 1000, "cancelled": 0, "cancelledTaxFree": 0},
+        "currency": "KRW",
+        "customer": {"id": "fixture-customer-01", "name": {"full": "Fixture User"}, "email": "fixture@example.com", "phoneNumber": "010-0000-0000", "address": null, "zipcode": null},
+        "origin": {"platformType": "WEB", "userAgent": "Mozilla/5.0", "url": "https://example.com", "ip": "127.0.0.1"},
+        "channel": {"type": "LIVE", "id": "fixture-channel-01", "name": "fixture channel", "pgProvider": "KG_INICIS", "pgMerchantId": "fixture-pg-merchant"},
+        "disputes": []
+    },
+
+    "method_fixtures": {
+        "PaymentMethodCard": {
+            "type": "PaymentMethodCard",
+            "number": "fixture-card-number",
+            "installmentMonths": 0,
+            "isInterestFree": false,
+            "interestPayer": null,
+            "approvalNumber": "fixture-approval",
+            "useCredit": false,
+            "issuer": {"code": "FIXTURE_ISSUER", "name": "Fixture Card Issuer"},
+            "acquirer": {"code": "FIXTURE_ACQUIRER", "name": "Fixture Acquirer"}
+        },
+        "PaymentMethodEasyPay": {
+            "type": "PaymentMethodEasyPay",
+            "provider": "KAKAOPAY",
+            "amount": 1000,
+            "discountAmount": 0,
+            "pointAmount": 0,
+            "additionalAmount": 0
+        },
+        "PaymentMethodTransfer": {
+            "type": "PaymentMethodTransfer",
+            "bank": {"code": "FIXTURE_BANK", "name": "Fixture Bank"}
+        },
+        "PaymentMethodVirtualAccount": {
+            "type": "PaymentMethodVirtualAccount",
+            "bank": {"code": "FIXTURE_BANK", "name": "Fixture Bank"},
+            "accountNumber": "fixture-account-number",
+            "accountHolder": "Fixture Holder",
+            "dueDate": "2026-10-13T23:59:59Z",
+            "remittedAt": null
+        },
+        "PaymentMethodMobile": {
+            "type": "PaymentMethodMobile",
+            "carrier": "SKT",
+            "phoneNumber": "010-0000-0000"
+        },
+        "PaymentMethodGiftCertificate": {
+            "type": "PaymentMethodGiftCertificate",
+            "giftCertificateType": "BOOKNLIFE",
+            "approvalNumber": "fixture-gc-approval"
+        },
+        "PaymentMethodConvenienceStore": {
+            "type": "PaymentMethodConvenienceStore",
+            "company": "CU"
+        },
+        "PaymentMethodCrypto": {
+            "type": "PaymentMethodCrypto"
+        },
+        "UnknownFutureMethodType": {
+            "type": "UnknownFutureMethodType",
+            "data": {"futureField": "value"}
+        }
+    }
+}

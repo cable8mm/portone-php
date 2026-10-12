@@ -512,7 +512,7 @@
     - Raw body changes of any kind (whitespace, re-serialization, encoding) cause `WebhookVerificationException`, and an unverified body is never decoded.
     - Unit tests, format checks, and the full live E2E matrix pass.
 
-- [ ] T-055 Payment method and status union fixtures
+- [X] T-055 Payment method and status union fixtures
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-016, FR-017, AC-009
   - External boundary: yes
   - Acceptance criteria:
