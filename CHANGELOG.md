@@ -1,5 +1,14 @@
 # Release Notes
 
+## v0.2.0 - 2026-10-12
+
+### What's Changed
+
+* docs: add MIT License and update README with license badge by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/portone-php/pull/39
+* refactor: update namespaces from Response to Model in tests and fixtures by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/portone-php/pull/40
+
+**Full Changelog**: https://github.com/cable8mm/portone-php/compare/v0.1.0...v0.2.0
+
 ## v0.1.0 - 2026-10-11
 
 ### What's Changed
