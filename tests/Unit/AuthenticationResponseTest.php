@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\Response\LoginViaApiSecretResponse;
-use Cable8mm\PortonePhp\Response\RefreshTokenResponse;
+use Cable8mm\PortonePhp\Model\LoginViaApiSecretResponse;
+use Cable8mm\PortonePhp\Model\RefreshTokenResponse;
 use PHPUnit\Framework\TestCase;
 
 final class AuthenticationResponseTest extends TestCase

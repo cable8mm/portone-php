@@ -1,0 +1,31 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Cable8mm\PortonePhp\Client;
+
+use Cable8mm\PortonePhp\Async\Future;
+use Cable8mm\PortonePhp\Model;
+
+final class ReconciliationClient extends AbstractClient
+{
+    public function getPaymentReconciliationSettlementVatReport(?array $dateRange = null, ?array $filter = null): Model\GetPaymentReconciliationSettlementVatReportResponse
+    {
+        return $this->callOperation('getPaymentReconciliationSettlementVatReport', 'GET', '/payment-reconciliations/settlements/vat-report', ['dateRange' => $dateRange, 'filter' => $filter], Model\GetPaymentReconciliationSettlementVatReportResponse::class, true);
+    }
+
+    public function getPaymentReconciliationSettlementVatReportAsync(?array $dateRange = null, ?array $filter = null): Future
+    {
+        return $this->callOperationAsync('getPaymentReconciliationSettlementVatReport', 'GET', '/payment-reconciliations/settlements/vat-report', ['dateRange' => $dateRange, 'filter' => $filter], Model\GetPaymentReconciliationSettlementVatReportResponse::class, true);
+    }
+
+    public function getPaymentReconciliationTransactionVatReport(?array $dateRange = null, ?array $filter = null): Model\GetPaymentReconciliationTransactionVatReportResponse
+    {
+        return $this->callOperation('getPaymentReconciliationTransactionVatReport', 'GET', '/payment-reconciliations/transactions/vat-report', ['dateRange' => $dateRange, 'filter' => $filter], Model\GetPaymentReconciliationTransactionVatReportResponse::class, true);
+    }
+
+    public function getPaymentReconciliationTransactionVatReportAsync(?array $dateRange = null, ?array $filter = null): Future
+    {
+        return $this->callOperationAsync('getPaymentReconciliationTransactionVatReport', 'GET', '/payment-reconciliations/transactions/vat-report', ['dateRange' => $dateRange, 'filter' => $filter], Model\GetPaymentReconciliationTransactionVatReportResponse::class, true);
+    }
+}

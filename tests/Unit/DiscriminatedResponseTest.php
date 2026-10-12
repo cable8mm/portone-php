@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\Response\BillingKeyInfo;
-use Cable8mm\PortonePhp\Response\CashReceipt;
-use Cable8mm\PortonePhp\Response\Payment;
-use Cable8mm\PortonePhp\Response\PaymentSchedule;
-use Cable8mm\PortonePhp\Response\Promotion;
+use Cable8mm\PortonePhp\Model\BillingKeyInfo;
+use Cable8mm\PortonePhp\Model\CashReceipt;
+use Cable8mm\PortonePhp\Model\Payment;
+use Cable8mm\PortonePhp\Model\PaymentSchedule;
+use Cable8mm\PortonePhp\Model\Promotion;
 use PHPUnit\Framework\TestCase;
 
 final class DiscriminatedResponseTest extends TestCase

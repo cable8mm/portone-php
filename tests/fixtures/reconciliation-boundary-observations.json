@@ -3,21 +3,21 @@
     "operations": {
         "getPaymentReconciliationSettlementVatReport": {
             "status": "success",
-            "resultType": "Cable8mm\\PortonePhp\\Response\\GetPaymentReconciliationSettlementVatReportResponse"
+            "resultType": "Cable8mm\\PortonePhp\\Model\\GetPaymentReconciliationSettlementVatReportResponse"
         },
         "getPaymentReconciliationTransactionVatReport": {
             "status": "success",
-            "resultType": "Cable8mm\\PortonePhp\\Response\\GetPaymentReconciliationTransactionVatReportResponse"
+            "resultType": "Cable8mm\\PortonePhp\\Model\\GetPaymentReconciliationTransactionVatReportResponse"
         }
     },
     "asyncOperations": {
         "getPaymentReconciliationSettlementVatReport": {
             "status": "success",
-            "resultType": "Cable8mm\\PortonePhp\\Response\\GetPaymentReconciliationSettlementVatReportResponse"
+            "resultType": "Cable8mm\\PortonePhp\\Model\\GetPaymentReconciliationSettlementVatReportResponse"
         },
         "getPaymentReconciliationTransactionVatReport": {
             "status": "success",
-            "resultType": "Cable8mm\\PortonePhp\\Response\\GetPaymentReconciliationTransactionVatReportResponse"
+            "resultType": "Cable8mm\\PortonePhp\\Model\\GetPaymentReconciliationTransactionVatReportResponse"
         }
     }
 }

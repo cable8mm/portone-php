@@ -26,6 +26,19 @@ PortOne V2 REST API용 PHP 서버 SDK입니다. 공식 OpenAPI 명세의 전체 
 
 명세에 없는 operation이나 V1 API는 지원 범위가 아닙니다.
 
+## 패키지 구조
+
+이 패키지는 MVC 프레임워크의 HTTP 응답 구조가 아니라 PortOne API 스키마를 기준으로 구성됩니다.
+
+- `Client`: PortOne API 호출 클라이언트
+- `Model`: API 응답과 중첩 데이터 객체
+- `Async`: 비동기 호출 결과
+- `Webhook`: 웹훅 검증과 데이터 객체
+- `Exception`: 예외
+- `Http`: HTTP 전송 처리
+
+`Model`에는 최상위 응답 객체와 여러 응답에서 재사용되는 중첩 객체가 함께 포함될 수 있습니다.
+
 ## 요구 사항
 
 - PHP 8.2 이상
@@ -64,7 +77,7 @@ composer install --no-interaction --prefer-dist
 
 require __DIR__.'/vendor/autoload.php';
 
-use Cable8mm\PortonePhp\PortOneClient;
+use Cable8mm\PortonePhp\Client\PortOneClient;
 
 $apiSecret = $config['apiSecret'];
 $client = new PortOneClient($apiSecret);
@@ -100,7 +113,7 @@ Webhook은 JSON으로 decode하기 전에 반드시 원본 request body를 검�
 $body = file_get_contents('php://input');
 $headers = getallheaders();
 
-$verifier = new \Cable8mm\PortonePhp\WebhookVerifier($webhookSecret);
+$verifier = new \Cable8mm\PortonePhp\Webhook\WebhookVerifier($webhookSecret);
 $webhook = $verifier->verify(
     $body,
     $headers['webhook-id'] ?? null,
@@ -108,7 +121,7 @@ $webhook = $verifier->verify(
     $headers['webhook-timestamp'] ?? null,
 );
 
-if ($webhook instanceof \Cable8mm\PortonePhp\WebhookTransactionPaid) {
+if ($webhook instanceof \Cable8mm\PortonePhp\Webhook\WebhookTransactionPaid) {
     $paymentId = $webhook->data->paymentId;
 }
 ```

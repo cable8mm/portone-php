@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Cable8mm\PortonePhp\WebhookTransactionPaid;
+use Cable8mm\PortonePhp\Webhook\WebhookTransactionPaid;
 
 require_once __DIR__.'/bootstrap.php';
 

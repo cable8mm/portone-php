@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
+use Cable8mm\PortonePhp\Async\Future;
+use Cable8mm\PortonePhp\Client\PaymentClient;
 use Cable8mm\PortonePhp\Exception\PortOneException;
-use Cable8mm\PortonePhp\Future;
-use Cable8mm\PortonePhp\PaymentClient;
 
 require __DIR__.'/../vendor/autoload.php';
 

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\BulkAccountTransferClient;
-use Cable8mm\PortonePhp\BulkPayoutClient;
-use Cable8mm\PortonePhp\Future;
+use Cable8mm\PortonePhp\Async\Future;
+use Cable8mm\PortonePhp\Client\BulkAccountTransferClient;
+use Cable8mm\PortonePhp\Client\BulkPayoutClient;
+use Cable8mm\PortonePhp\Client\PayoutClient;
 use Cable8mm\PortonePhp\Http\RequestExecutor;
-use Cable8mm\PortonePhp\PayoutClient;
-use Cable8mm\PortonePhp\Response\CompletePlatformPayoutByPartnerSettlementIdsResponse;
-use Cable8mm\PortonePhp\Response\GetPlatformBulkAccountTransfersResponse;
-use Cable8mm\PortonePhp\Response\GetPlatformBulkPayoutsResponse;
+use Cable8mm\PortonePhp\Model\CompletePlatformPayoutByPartnerSettlementIdsResponse;
+use Cable8mm\PortonePhp\Model\GetPlatformBulkAccountTransfersResponse;
+use Cable8mm\PortonePhp\Model\GetPlatformBulkPayoutsResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;

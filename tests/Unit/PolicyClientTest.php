@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\Future;
+use Cable8mm\PortonePhp\Async\Future;
+use Cable8mm\PortonePhp\Client\PolicyClient;
 use Cable8mm\PortonePhp\Http\RequestExecutor;
-use Cable8mm\PortonePhp\PolicyClient;
-use Cable8mm\PortonePhp\Response\GetPlatformContractsResponse;
-use Cable8mm\PortonePhp\Response\GetPlatformDiscountSharePoliciesResponse;
-use Cable8mm\PortonePhp\Response\UpdatePlatformContractResponse;
+use Cable8mm\PortonePhp\Model\GetPlatformContractsResponse;
+use Cable8mm\PortonePhp\Model\GetPlatformDiscountSharePoliciesResponse;
+use Cable8mm\PortonePhp\Model\UpdatePlatformContractResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;

@@ -322,7 +322,7 @@
             "method": "GET",
             "path": "/banks",
             "status": "success",
-            "resultType": "Cable8mm\\PortonePhp\\Response\\GetBankInfosResponse",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\GetBankInfosResponse",
             "elapsedMilliseconds": 94.2
         },
         "getBillingKeyInfos": {

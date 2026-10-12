@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\Response\B2bCertificate;
-use Cable8mm\PortonePhp\Response\CreateB2bFileUploadUrlPayload;
-use Cable8mm\PortonePhp\Response\PlatformAccountHolder;
-use Cable8mm\PortonePhp\Response\PlatformDiscountSharePolicyFilterOptions;
-use Cable8mm\PortonePhp\Response\PlatformPartnerFilterOptions;
-use Cable8mm\PortonePhp\Response\PlatformSetting;
+use Cable8mm\PortonePhp\Model\B2bCertificate;
+use Cable8mm\PortonePhp\Model\CreateB2bFileUploadUrlPayload;
+use Cable8mm\PortonePhp\Model\PlatformAccountHolder;
+use Cable8mm\PortonePhp\Model\PlatformDiscountSharePolicyFilterOptions;
+use Cable8mm\PortonePhp\Model\PlatformPartnerFilterOptions;
+use Cable8mm\PortonePhp\Model\PlatformSetting;
 use PHPUnit\Framework\TestCase;
 
 final class SimpleNestedModelTest extends TestCase

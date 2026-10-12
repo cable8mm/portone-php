@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+use Cable8mm\PortonePhp\Client\ReconciliationClient;
 use Cable8mm\PortonePhp\Exception\PortOneException;
-use Cable8mm\PortonePhp\ReconciliationClient;
 
 require __DIR__.'/../vendor/autoload.php';
 

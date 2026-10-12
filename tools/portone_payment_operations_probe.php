@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-use Cable8mm\PortonePhp\AdditionalFeatureClient;
-use Cable8mm\PortonePhp\BillingKeyClient;
-use Cable8mm\PortonePhp\CashReceiptClient;
+use Cable8mm\PortonePhp\Client\AdditionalFeatureClient;
+use Cable8mm\PortonePhp\Client\BillingKeyClient;
+use Cable8mm\PortonePhp\Client\CashReceiptClient;
+use Cable8mm\PortonePhp\Client\PaymentClient;
+use Cable8mm\PortonePhp\Client\PaymentScheduleClient;
+use Cable8mm\PortonePhp\Client\PromotionClient;
 use Cable8mm\PortonePhp\Exception\PortOneException;
-use Cable8mm\PortonePhp\PaymentClient;
-use Cable8mm\PortonePhp\PaymentScheduleClient;
-use Cable8mm\PortonePhp\PromotionClient;
 
 require __DIR__.'/../vendor/autoload.php';
 

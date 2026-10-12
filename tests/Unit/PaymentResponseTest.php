@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\Response\CancelPaymentResponse;
-use Cable8mm\PortonePhp\Response\GetPaymentTransactionsResponse;
-use Cable8mm\PortonePhp\Response\PayInstantlyResponse;
-use Cable8mm\PortonePhp\Response\PayWithBillingKeyResponse;
+use Cable8mm\PortonePhp\Model\CancelPaymentResponse;
+use Cable8mm\PortonePhp\Model\GetPaymentTransactionsResponse;
+use Cable8mm\PortonePhp\Model\PayInstantlyResponse;
+use Cable8mm\PortonePhp\Model\PayWithBillingKeyResponse;
 use PHPUnit\Framework\TestCase;
 
 final class PaymentResponseTest extends TestCase

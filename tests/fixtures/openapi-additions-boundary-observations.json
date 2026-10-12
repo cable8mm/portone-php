@@ -3,11 +3,11 @@
     "operations": {
         "getBankInfos": {
             "status": "success",
-            "resultType": "Cable8mm\\PortonePhp\\Response\\GetBankInfosResponse"
+            "resultType": "Cable8mm\\PortonePhp\\Model\\GetBankInfosResponse"
         },
         "getBankInfosAsync": {
             "status": "success",
-            "resultType": "Cable8mm\\PortonePhp\\Response\\GetBankInfosResponse"
+            "resultType": "Cable8mm\\PortonePhp\\Model\\GetBankInfosResponse"
         },
         "evaluateCheckoutProfile": {
             "status": "portone-failure",

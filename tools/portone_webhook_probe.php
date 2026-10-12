@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use Cable8mm\PortonePhp\Exception\WebhookVerificationException;
-use Cable8mm\PortonePhp\UnrecognizedWebhook;
-use Cable8mm\PortonePhp\WebhookTransactionPaid;
-use Cable8mm\PortonePhp\WebhookVerifier;
+use Cable8mm\PortonePhp\Webhook\UnrecognizedWebhook;
+use Cable8mm\PortonePhp\Webhook\WebhookTransactionPaid;
+use Cable8mm\PortonePhp\Webhook\WebhookVerifier;
 
 require __DIR__.'/../vendor/autoload.php';
 

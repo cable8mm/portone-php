@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
+use Cable8mm\PortonePhp\Client\TaxInvoiceClient;
 use Cable8mm\PortonePhp\Http\RequestExecutor;
-use Cable8mm\PortonePhp\Response\CreateB2bFileUploadUrlPayload;
-use Cable8mm\PortonePhp\TaxInvoiceClient;
+use Cable8mm\PortonePhp\Model\CreateB2bFileUploadUrlPayload;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;

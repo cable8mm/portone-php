@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
+use Cable8mm\PortonePhp\Async\Future;
+use Cable8mm\PortonePhp\Client\PaymentClient;
 use Cable8mm\PortonePhp\Exception\InvalidRequestException;
 use Cable8mm\PortonePhp\Exception\TransportException;
 use Cable8mm\PortonePhp\Exception\UnknownException;
 use Cable8mm\PortonePhp\Exception\UnrecognizedResponseException;
-use Cable8mm\PortonePhp\Future;
 use Cable8mm\PortonePhp\Http\RequestExecutor;
-use Cable8mm\PortonePhp\PaymentClient;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Handler\MockHandler;

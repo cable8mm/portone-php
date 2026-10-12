@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\AccountClient;
-use Cable8mm\PortonePhp\AccountTransferClient;
-use Cable8mm\PortonePhp\CompanyClient;
+use Cable8mm\PortonePhp\Async\Future;
+use Cable8mm\PortonePhp\Client\AccountClient;
+use Cable8mm\PortonePhp\Client\AccountTransferClient;
+use Cable8mm\PortonePhp\Client\CompanyClient;
+use Cable8mm\PortonePhp\Client\PlatformClient;
 use Cable8mm\PortonePhp\Exception\PlatformNotEnabledException;
-use Cable8mm\PortonePhp\Future;
 use Cable8mm\PortonePhp\Http\RequestExecutor;
-use Cable8mm\PortonePhp\PlatformClient;
-use Cable8mm\PortonePhp\Response\GetB2bBusinessInfosResponse;
-use Cable8mm\PortonePhp\Response\GetPlatformAccountTransfersResponse;
-use Cable8mm\PortonePhp\Response\GetPlatformCompanyStatePayload;
-use Cable8mm\PortonePhp\Response\PlatformSetting;
+use Cable8mm\PortonePhp\Model\GetB2bBusinessInfosResponse;
+use Cable8mm\PortonePhp\Model\GetPlatformAccountTransfersResponse;
+use Cable8mm\PortonePhp\Model\GetPlatformCompanyStatePayload;
+use Cable8mm\PortonePhp\Model\PlatformSetting;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;

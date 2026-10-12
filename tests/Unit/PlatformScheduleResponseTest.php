@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\Response\ReschedulePlatformContractResponse;
-use Cable8mm\PortonePhp\Response\SchedulePlatformPartnerResponse;
-use Cable8mm\PortonePhp\Response\UpdatePlatformSettingResponse;
+use Cable8mm\PortonePhp\Model\ReschedulePlatformContractResponse;
+use Cable8mm\PortonePhp\Model\SchedulePlatformPartnerResponse;
+use Cable8mm\PortonePhp\Model\UpdatePlatformSettingResponse;
 use PHPUnit\Framework\TestCase;
 
 final class PlatformScheduleResponseTest extends TestCase

@@ -3,10 +3,10 @@
     "operation": "getIdentityVerifications",
     "result": {
         "status": "success",
-        "resultType": "Cable8mm\\PortonePhp\\Response\\GetIdentityVerificationsResponse"
+        "resultType": "Cable8mm\\PortonePhp\\Model\\GetIdentityVerificationsResponse"
     },
     "asyncResult": {
         "status": "success",
-        "resultType": "Cable8mm\\PortonePhp\\Response\\GetIdentityVerificationsResponse"
+        "resultType": "Cable8mm\\PortonePhp\\Model\\GetIdentityVerificationsResponse"
     }
 }
