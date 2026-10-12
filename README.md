@@ -143,6 +143,15 @@ cp .env.example .env
 ```dotenv
 PORTONE_API_SECRET=여기에_API_Secret
 PORTONE_WEBHOOK_SECRET=whsec_여기에_Webhook_Secret
+
+# 결제 lifecycle E2E에 필요한 test store 설정
+PORTONE_E2E_CHANNEL_KEY=여기에_테스트_채널키
+PORTONE_E2E_CARD_NUMBER=여기에_테스트_카드번호
+PORTONE_E2E_CARD_EXPIRY_YEAR=유효기간_연도_2자리
+PORTONE_E2E_CARD_EXPIRY_MONTH=유효기간_월_2자리
+PORTONE_E2E_BIRTH_OR_BUSINESS_NUMBER=생년월일_6자리_또는_사업자번호_10자리
+PORTONE_E2E_PASSWORD_TWO_DIGITS=카드비밀번호_앞_2자리
+PORTONE_E2E_STORE_ID=테스트_상점아이디
 ```
 
 Secret을 README, source, fixture, 로그에 넣거나 commit하지 마세요.
@@ -194,6 +203,29 @@ localFailures=0
 ```
 
 일부 operation은 test store의 기능 활성화 여부나 존재하지 않는 resource에 따라 `InvalidRequestException`, `PlatformNotEnabledException`, `UnknownException`을 기록할 수 있습니다. 이것은 probe가 의도한 controlled failure이며, 스크립트가 성공적으로 종료되고 JSON 결과를 기록하는지 확인해야 합니다.
+
+### 결제 성공 응답 lifecycle E2E
+
+147개 matrix는 빈 입력으로 operation을 호출하므로, 실제 결제 성공 응답의 typed model을 확인하지 않습니다. 결제 성공 응답까지 확인하려면 `.env`에 `.env.example`의 `PORTONE_E2E_*` 설정을 입력한 뒤 다음 명령을 실행합니다.
+
+```sh
+composer e2e:payment-lifecycle
+```
+
+이 probe는 test store에 1,004원 카드 결제를 생성하고 다음 순서로 확인합니다.
+
+1. `payInstantly`가 `PayInstantlyResponse`와 `InstantPaymentSummary`를 반환하는지 확인합니다.
+2. `getPayment`가 생성된 결제를 `Payment` 모델로 반환하고 상태가 `PAID`인지 확인합니다.
+3. `cancelPayment`가 `CancelPaymentResponse`와 `PaymentCancellation`을 반환하는지 확인합니다.
+4. `getPaymentAsync`로 최종 상태가 `CANCELLED`인지 확인합니다.
+
+결제 생성과 취소가 실제 test store에서 실행되므로 운영 secret이나 운영 카드 정보를 사용하지 마세요. 웹훅은 생성하지 않도록 `skipWebhook=true`로 실행합니다. 카드번호와 secret은 출력하거나 저장하지 않으며, 관찰 결과는 다음 fixture에 typed model 이름과 상태만 기록합니다.
+
+```text
+tests/fixtures/payment-lifecycle-boundary-observations.json
+```
+
+`PORTONE_E2E_BIRTH_OR_BUSINESS_NUMBER`는 생년월일 `YYMMDD` 6자리 또는 사업자등록번호 10자리여야 합니다. 테스트 PG가 요구하는 경우에만 `PORTONE_E2E_PASSWORD_TWO_DIGITS`를 입력합니다. 실행에 실패한 결제 시도가 test store에 남을 수 있으므로, 결과를 확인한 뒤 PortOne 관리자에서 미완료 테스트 결제를 정리하세요.
 
 ### Webhook E2E와 ngrok
 

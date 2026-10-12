@@ -446,3 +446,15 @@
     - CI runs lint and tests on every required PHP version and does not require the local JVM checkout.
     - No secrets, local paths, generated credentials, or `composer.lock` are committed.
     - The package is ready for a semver release and Packagist installation.
+
+- [X] T-049 Live payment lifecycle typed-success verification
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-013, FR-026, FR-027, AC-009, AC-022
+  - External boundary: yes
+  - Acceptance criteria:
+    - A live test-store payment is created through the public PHP client using test credentials.
+    - The payment-creation response is decoded as `PayInstantlyResponse` and its nested payment payload is a typed model.
+    - `getPayment` retrieves the created payment and returns a typed `Payment` model whose identity matches the created payment.
+    - `cancelPayment` cancels the created payment and returns a typed `CancelPaymentResponse` with a typed cancellation payload.
+    - The final payment state is retrieved or otherwise observed as cancelled, without exposing API secrets or committing generated payment data.
+    - The live probe records the operation names, result types, payment identifier metadata, and final status as a reproducible local observation; it does not treat a controlled PortOne API failure as a typed-success pass.
+    - Synchronous payment creation, lookup, and cancellation plus an asynchronous final-state lookup, unit tests, format checks, and the complete live E2E verification pass.

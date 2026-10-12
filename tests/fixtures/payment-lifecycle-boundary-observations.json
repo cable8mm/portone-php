@@ -1,0 +1,26 @@
+{
+    "status": "observed",
+    "operations": {
+        "payInstantly": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\PayInstantlyResponse",
+            "paymentPayloadType": "Cable8mm\\PortonePhp\\Model\\InstantPaymentSummary"
+        },
+        "getPayment": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\Payment",
+            "paymentStatus": "PAID"
+        },
+        "cancelPayment": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\CancelPaymentResponse",
+            "cancellationPayloadType": "Cable8mm\\PortonePhp\\Model\\PaymentCancellation",
+            "cancellationStatus": "SUCCEEDED"
+        },
+        "getPaymentAsync": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\Payment",
+            "paymentStatus": "CANCELLED"
+        }
+    }
+}
