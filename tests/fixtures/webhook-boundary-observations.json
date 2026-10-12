@@ -3,12 +3,12 @@
     "observations": {
         "known": {
             "status": "success",
-            "resultType": "Cable8mm\\PortonePhp\\WebhookTransactionPaid",
+            "resultType": "Cable8mm\\PortonePhp\\Webhook\\WebhookTransaction",
             "isExpectedType": true
         },
         "unknown": {
             "status": "success",
-            "resultType": "Cable8mm\\PortonePhp\\UnrecognizedWebhook",
+            "resultType": "Cable8mm\\PortonePhp\\Webhook\\UnrecognizedWebhook",
             "isExpectedType": true
         },
         "bodyMutation": {

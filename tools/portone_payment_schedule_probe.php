@@ -14,7 +14,7 @@ use Cable8mm\PortonePhp\Model\Payment;
 use Cable8mm\PortonePhp\Model\PaymentCancellation;
 use Cable8mm\PortonePhp\Model\PaymentSchedule;
 use Cable8mm\PortonePhp\Model\RevokePaymentSchedulesResponse;
-use Cable8mm\PortonePhp\Webhook\WebhookTransactionPaid;
+use Cable8mm\PortonePhp\Webhook\WebhookTransaction;
 use Cable8mm\PortonePhp\Webhook\WebhookVerifier;
 use Dotenv\Dotenv;
 
@@ -300,8 +300,8 @@ try {
     $record['operations']['webhookVerifier'] = [
         'status' => 'success',
         'resultType' => $webhookResult::class,
-        'isTypedKnownWebhook' => $webhookResult instanceof WebhookTransactionPaid,
-        'webhookPaymentId' => $webhookResult instanceof WebhookTransactionPaid
+        'isTypedKnownWebhook' => $webhookResult instanceof WebhookTransaction,
+        'webhookPaymentId' => $webhookResult instanceof WebhookTransaction
             ? $webhookResult->data->paymentId
             : ($webhookResult->body['data']['paymentId'] ?? null),
     ];

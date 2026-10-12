@@ -81,9 +81,19 @@ final class WebhookVerifier
             throw new WebhookVerificationException('Webhook body could not be decoded.', previous: $exception);
         }
 
-        if (($decoded['type'] ?? null) === 'Transaction.Paid') {
+        $type = $decoded['type'] ?? null;
+
+        if (is_string($type) && str_starts_with($type, 'Transaction.')) {
             try {
-                return WebhookTransactionPaid::fromArray($decoded);
+                return WebhookTransaction::fromArray($decoded);
+            } catch (\Throwable $exception) {
+                throw new WebhookVerificationException('Known webhook body is invalid.', previous: $exception);
+            }
+        }
+
+        if (is_string($type) && str_starts_with($type, 'BillingKey.')) {
+            try {
+                return WebhookBillingKey::fromArray($decoded);
             } catch (\Throwable $exception) {
                 throw new WebhookVerificationException('Known webhook body is invalid.', previous: $exception);
             }

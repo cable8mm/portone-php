@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Cable8mm\PortonePhp\Client\PaymentClient;
 use Cable8mm\PortonePhp\Exception\WebhookVerificationException;
 use Cable8mm\PortonePhp\Webhook\UnrecognizedWebhook;
-use Cable8mm\PortonePhp\Webhook\WebhookTransactionPaid;
+use Cable8mm\PortonePhp\Webhook\WebhookTransaction;
 use Cable8mm\PortonePhp\Webhook\WebhookVerifier;
 use Dotenv\Dotenv;
 
@@ -107,7 +107,7 @@ function samplePaymentMatchesItem(array $payment): bool
 }
 
 /** @param array<string,mixed> $headers */
-function sampleVerifyWebhook(string $body, array $headers): WebhookTransactionPaid|UnrecognizedWebhook
+function sampleVerifyWebhook(string $body, array $headers): WebhookTransaction|UnrecognizedWebhook
 {
     $id = sampleHeader($headers, 'webhook-id');
     $signature = sampleHeader($headers, 'webhook-signature');
@@ -128,9 +128,9 @@ function sampleHeader(array $headers, string $name): string
     throw new WebhookVerificationException("Missing {$name} header.");
 }
 
-function sampleWebhookPaymentId(WebhookTransactionPaid|UnrecognizedWebhook $webhook): ?string
+function sampleWebhookPaymentId(WebhookTransaction|UnrecognizedWebhook $webhook): ?string
 {
-    if ($webhook instanceof WebhookTransactionPaid) {
+    if ($webhook instanceof WebhookTransaction) {
         return $webhook->data->paymentId;
     }
 
