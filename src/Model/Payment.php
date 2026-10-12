@@ -6,6 +6,18 @@ namespace Cable8mm\PortonePhp\Model;
 
 final class Payment extends DiscriminatedResponse
 {
+    /** Decoded payment method, or null when not present in the payload. */
+    public readonly ?PaymentMethod $method;
+
+    /** @param array<string,mixed> $data */
+    public function __construct(array $data, string $variant, bool $knownVariant)
+    {
+        parent::__construct($data, $variant, $knownVariant);
+
+        $methodData = self::optionalObject($data, 'method', self::class);
+        $this->method = $methodData !== null ? PaymentMethod::fromArray($methodData) : null;
+    }
+
     /** @param array<string,mixed> $data */
     public static function fromArray(array $data): static
     {
