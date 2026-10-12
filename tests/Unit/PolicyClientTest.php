@@ -29,7 +29,7 @@ final class PolicyClientTest extends TestCase
         $result = $client->getPlatformContracts(true, ['number' => 0], ['status' => ['ACTIVE']]);
 
         self::assertInstanceOf(GetPlatformContractsResponse::class, $result);
-        self::assertStringStartsWith('test=1&requestBody=', (string) $history[0]['request']->getUri()->getQuery());
+        self::assertStringStartsWith('test=true&requestBody=', (string) $history[0]['request']->getUri()->getQuery());
         self::assertStringContainsString('requestBody=', (string) $history[0]['request']->getUri());
     }
 
@@ -43,7 +43,7 @@ final class PolicyClientTest extends TestCase
         $result = $client->updatePlatformContract('contract-id', true, 'Updated contract');
 
         self::assertInstanceOf(UpdatePlatformContractResponse::class, $result);
-        self::assertSame('test=1', (string) $history[0]['request']->getUri()->getQuery());
+        self::assertSame('test=true', (string) $history[0]['request']->getUri()->getQuery());
         self::assertSame('{"name":"Updated contract"}', (string) $history[0]['request']->getBody());
     }
 

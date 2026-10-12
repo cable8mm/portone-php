@@ -28,7 +28,7 @@ final class CounterpartyClientTest extends TestCase
         $result = $client->createB2bCounterparty(true, 'counterparty-id', ['name' => 'Test'], ['verify' => false]);
 
         self::assertInstanceOf(CreateB2bCounterpartyResponse::class, $result);
-        self::assertSame('test=1', (string) $history[0]['request']->getUri()->getQuery());
+        self::assertSame('test=true', (string) $history[0]['request']->getUri()->getQuery());
         self::assertSame('{"counterpartyId":"counterparty-id","counterparty":{"name":"Test"},"options":{"verify":false}}', (string) $history[0]['request']->getBody());
     }
 

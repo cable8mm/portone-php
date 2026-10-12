@@ -458,3 +458,140 @@
     - The final payment state is retrieved or otherwise observed as cancelled, without exposing API secrets or committing generated payment data.
     - The live probe records the operation names, result types, payment identifier metadata, and final status as a reproducible local observation; it does not treat a controlled PortOne API failure as a typed-success pass.
     - Synchronous payment creation, lookup, and cancellation plus an asynchronous final-state lookup, unit tests, format checks, and the complete live E2E verification pass.
+
+- [ ] T-050 Billing key lifecycle live verification
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-013, FR-026, FR-027, AC-009, AC-022
+  - External boundary: yes
+  - Acceptance criteria:
+    - A billing key is issued automatically through the public PHP client using test credentials and the PortOne smart-routing channel group ID; no browser SDK or committed billing-key fixture is required.
+    - `getBillingKeyInfo` returns a typed billing-key model whose identity matches the issued billing key.
+    - `payWithBillingKey` creates a live test-store payment and returns a typed `PayWithBillingKeyResponse` with a typed payment payload.
+    - The created payment is retrieved with `getPayment` and cancelled with `cancelPayment`, and the final state is observed as cancelled.
+    - `deleteBillingKey` succeeds on the disposable billing key, and a later lookup returns the observed defined error.
+    - Synchronous operations and an asynchronous final-state lookup are covered, and no secret or billing key value is committed or printed.
+    - Unit tests, format checks, and the full live E2E matrix pass.
+
+- [ ] T-051 Payment schedule lifecycle and scheduled-execution webhook
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-013, FR-015, FR-016, AC-009, AC-018
+  - External boundary: yes
+  - Acceptance criteria:
+    - `createPaymentSchedule` with a billing key returns a typed schedule response, and `getPaymentSchedule` returns the same schedule as a typed model.
+    - `revokePaymentSchedules` revokes the schedule, and the revoked state is observed.
+    - A schedule set to execute shortly is observed to run, and the resulting webhook is received and verified by `WebhookVerifier`.
+    - The observed payment created by the schedule is retrieved as a typed `Payment` and cancelled.
+    - Unit tests, format checks, and the full live E2E matrix pass.
+
+- [ ] T-052 Partial cancellation and refund paths
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-013, ERR-003, ERR-004, AC-009, AC-018
+  - External boundary: yes
+  - Acceptance criteria:
+    - A live payment is cancelled in multiple partial steps using `amount`, `taxFreeAmount`, `vatAmount`, and `currentCancellableAmount`, and each step returns a typed `CancelPaymentResponse`.
+    - The payment status is observed as partially cancelled after the first step and cancelled after the last.
+    - Cancelling more than the cancellable amount, a mismatched `currentCancellableAmount`, and cancelling an already cancelled payment each raise the observed defined error with status and type preserved.
+    - Unit tests cover request construction for every cancellation field.
+    - Unit tests, format checks, and the full live E2E matrix pass.
+
+- [ ] T-053 Duplicate request and timeout recovery behavior
+  - Satisfies: PRODUCT_SPEC.md FR-013, FR-023, FR-024, FR-025, ERR-005, ERR-006, ERR-009, AC-014, AC-018
+  - External boundary: yes
+  - Acceptance criteria:
+    - Paying twice with the same `paymentId` raises the observed already-paid defined error, and the first payment is unaffected.
+    - A request that times out client-side is followed by `getPayment` for the same `paymentId`, and the probe records whether the payment exists, so a recovery procedure is documented from observation.
+    - No retry happens inside the SDK on timeout, transport failure, or 5xx, verified by request counting at a local mock.
+    - The README documents the recovery procedure for an uncertain payment outcome.
+    - Unit tests, format checks, and the full live E2E matrix pass.
+
+- [ ] T-054 Real webhook verification and fixture capture
+  - Satisfies: PRODUCT_SPEC.md FR-014, FR-015, FR-016, FR-017, FR-018, ERR-002, ERR-007, AC-010, AC-018
+  - External boundary: yes
+  - Acceptance criteria:
+    - Webhooks delivered by PortOne itself (console test send and a real payment) are received by a local receiver and verified by `WebhookVerifier` with the real webhook secret.
+    - Real payloads for each observed type (payment, billing key, cancellation, and others observable) are stored as sanitized fixtures and used in regression tests.
+    - A signature header with multiple signatures is accepted when any one is valid and rejected when none is valid.
+    - Timestamp tolerance is tested at the boundary: just inside, just outside, future-dated, and malformed timestamps.
+    - Raw body changes of any kind (whitespace, re-serialization, encoding) cause `WebhookVerificationException`, and an unverified body is never decoded.
+    - Unit tests, format checks, and the full live E2E matrix pass.
+
+- [ ] T-055 Payment method and status union fixtures
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-016, FR-017, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - Real or recorded responses exist for every payment method type observable (card, easy pay, transfer, virtual account, mobile, gift certificate), each decoded into its typed model.
+    - Recorded PG responses that cannot be produced live are stored as sanitized fixtures and replayed in tests.
+    - Every payment status value and an unknown status value decode without error, and unknown values preserve the original payload.
+    - Unknown method and unknown discriminator values are accepted as explicit unrecognized values.
+    - Unit tests, format checks, and the full live E2E matrix pass.
+
+- [ ] T-056 Decoder robustness and fuzzing
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, ERR-004, AC-009, AC-019
+  - External boundary: no
+  - Acceptance criteria:
+    - Amounts above 32-bit range decode without loss, and non-integer or overflowing amounts are rejected as decode failures.
+    - Date-time values with `Z` and `+09:00` offsets decode to the same instant, and malformed dates are decode failures.
+    - Missing, null, and wrong-typed fields are distinguished for required and nullable fields, and Korean and emoji strings survive decoding unchanged.
+    - A property-based or fuzz test feeds malformed JSON to every response decoder and asserts that only `UnrecognizedResponseException` is raised, never `TypeError`, `ValueError`, or warnings.
+    - Unit tests and format checks pass.
+
+- [ ] T-057 Transport failure matrix with a local mock server
+  - Satisfies: PRODUCT_SPEC.md FR-023, FR-024, FR-025, ERR-005, ERR-006, ERR-008, ERR-009, AC-014, AC-019
+  - External boundary: no
+  - Acceptance criteria:
+    - A local mock server reproduces connection refused, DNS failure, TLS failure, slow response, and a connection dropped mid-response, each producing `TransportException` or the timeout behavior defined in ARCHITECTURE.md.
+    - 5xx with an HTML or empty body, 429, a gzip-encoded response, and an error JSON that differs from the documented shape each produce the documented exception type with status and raw body preserved.
+    - Each case is verified for both synchronous and asynchronous operations with the same outcome.
+    - Request counts confirm no retry in any case.
+    - Unit tests and format checks pass.
+
+- [ ] T-058 Asynchronous and long-running process behavior
+  - Satisfies: PRODUCT_SPEC.md FR-013, FR-026, FR-027, ERR-009, AC-015, AC-022
+  - External boundary: yes
+  - Acceptance criteria:
+    - Starting a Future and discarding it without waiting is tested and its behavior (request sent or not, no warnings, clean shutdown) is documented.
+    - Several hundred concurrent Futures complete correctly, and any concurrency limit is documented or enforced.
+    - Repeated calls in one process for many iterations show no memory growth and no state leaking between a failed call and later calls on the shared Request Executor.
+    - The long-running check is documented for queue workers and Octane-style processes.
+    - Unit tests, format checks, and the full live E2E matrix pass.
+
+- [ ] T-059 Secret exposure and serialization safety
+  - Satisfies: PRODUCT_SPEC.md FR-022, ERR-001, ERR-008, AC-013
+  - External boundary: no
+  - Acceptance criteria:
+    - Raised exceptions, their messages, traces, `var_dump`, `print_r`, `var_export`, and log output never contain `apiSecret` or `webhookSecret`, including with `zend.exception_ignore_args` disabled.
+    - `serialize` of any client or the verifier either fails explicitly or omits the secret, and `unserialize` cannot yield a working client from leaked data.
+    - `__debugInfo` hides secrets for all public clients.
+    - Unit tests and format checks pass.
+
+- [ ] T-060 Dependency, PHP version, and release smoke compatibility
+  - Satisfies: PRODUCT_SPEC.md FR-001, FR-022, AC-001, AC-013
+  - External boundary: yes
+  - Acceptance criteria:
+    - Tests pass with `composer update --prefer-lowest` and with latest dependencies.
+    - CI runs on every supported PHP version from 8.2 through the newest stable, and results are recorded.
+    - A smoke test installs the published v0.2.0 from Packagist in a clean directory and runs one controlled-failure call.
+    - Unit tests and format checks pass.
+
+- [ ] T-061 OpenAPI spec drift detection
+  - Satisfies: PRODUCT_SPEC.md FR-008, FR-009, FR-011, AC-007, AC-008, AC-009
+  - External boundary: yes
+  - Acceptance criteria:
+    - A scheduled CI job fetches the official latest PortOne V2 OpenAPI spec and diffs it against the committed snapshot.
+    - New, removed, and changed operations and schema fields are reported in a readable summary, and the job notifies maintainers.
+    - Updating the snapshot is a documented manual step that reruns the contract tools.
+    - Unit tests and format checks pass.
+
+- [ ] T-062 Static analysis and mutation testing
+  - Satisfies: PRODUCT_SPEC.md FR-011, FR-026, AC-009
+  - External boundary: no
+  - Acceptance criteria:
+    - PHPStan or Psalm passes at the highest level practical, with any baseline entries justified.
+    - Mutation testing (Infection) runs against the response decoders and outcome classification, and surviving mutants are reviewed or covered by new tests.
+    - Unit tests and format checks pass.
+
+- [ ] T-063 Public API stabilization before the Laravel package
+  - Satisfies: PRODUCT_SPEC.md FR-002, FR-007, FR-011, AC-001, AC-022
+  - External boundary: no
+  - Acceptance criteria:
+    - The public API (client names, method signatures, exception hierarchy, response types) is listed in a document, and everything else is marked `@internal`.
+    - A check fails when the public surface changes without an update to that list.
+    - The versioning policy for `0.x` and the version range that laravel-portone will depend on are documented.
+    - Unit tests, format checks, and the OpenAPI contract checks pass.

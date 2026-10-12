@@ -34,7 +34,7 @@ final class PlatformCoreClientsTest extends TestCase
         $result = $client->getB2bBusinessInfos(true, ['1234567890']);
 
         self::assertInstanceOf(GetB2bBusinessInfosResponse::class, $result);
-        self::assertSame('test=1', (string) $history[0]['request']->getUri()->getQuery());
+        self::assertSame('test=true', (string) $history[0]['request']->getUri()->getQuery());
         self::assertSame('{"brnList":["1234567890"]}', (string) $history[0]['request']->getBody());
     }
 
@@ -63,7 +63,7 @@ final class PlatformCoreClientsTest extends TestCase
         $result = $transfers->getPlatformAccountTransfers(true, false, ['number' => 0], ['status' => ['PENDING']]);
 
         self::assertInstanceOf(GetPlatformAccountTransfersResponse::class, $result);
-        self::assertStringContainsString('test=1', (string) $history[0]['request']->getUri());
+        self::assertStringContainsString('test=true', (string) $history[0]['request']->getUri());
         self::assertStringContainsString('requestBody=', (string) $history[0]['request']->getUri());
 
         $platform = $this->client(PlatformClient::class, new MockHandler([
