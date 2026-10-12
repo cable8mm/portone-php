@@ -42,6 +42,7 @@ $probes = [
     'tools/portone_webhook_probe.php',
     'tools/portone_payment_schedule_probe.php',
     'tools/portone_partial_cancellation_probe.php',
+    'tools/portone_duplicate_and_timeout_probe.php',
 ];
 
 foreach ($probes as $probe) {

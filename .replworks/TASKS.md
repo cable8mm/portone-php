@@ -491,7 +491,7 @@
     - Unit tests cover request construction for every cancellation field.
     - Unit tests, format checks, and the full live E2E matrix pass.
 
-- [ ] T-053 Duplicate request and timeout recovery behavior
+- [X] T-053 Duplicate request and timeout recovery behavior
   - Satisfies: PRODUCT_SPEC.md FR-013, FR-023, FR-024, FR-025, ERR-005, ERR-006, ERR-009, AC-014, AC-018
   - External boundary: yes
   - Acceptance criteria:

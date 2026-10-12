@@ -1,0 +1,40 @@
+{
+    "status": "observed",
+    "operations": {
+        "payInstantly_first": {
+            "status": "success",
+            "paymentId": "codex-e2e-dup-84a57af1bb739473",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\PayInstantlyResponse"
+        },
+        "getPayment_after_duplicate": {
+            "status": "success",
+            "paymentStatus": "PAID",
+            "firstPaymentUnaffected": true
+        },
+        "cancelPayment_cleanup": {
+            "status": "success"
+        }
+    },
+    "errors": {
+        "already_paid": {
+            "status": "observed",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "errorType": "ALREADY_PAID",
+            "httpStatus": 409
+        },
+        "timeout": {
+            "status": "observed",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\TransportException",
+            "elapsedSeconds": 10.01,
+            "retryCount": 0
+        }
+    },
+    "recovery": {
+        "getPayment_after_timeout": {
+            "status": "not-found-or-error",
+            "errorType": "PAYMENT_NOT_FOUND",
+            "httpStatus": 404,
+            "procedure": "payment does not exist \u2014 safe to retry with new paymentId"
+        }
+    }
+}
