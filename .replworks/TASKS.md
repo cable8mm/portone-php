@@ -542,7 +542,7 @@
     - Request counts confirm no retry in any case.
     - Unit tests and format checks pass.
 
-- [ ] T-058 Asynchronous and long-running process behavior
+- [X] T-058 Asynchronous and long-running process behavior
   - Satisfies: PRODUCT_SPEC.md FR-013, FR-026, FR-027, ERR-009, AC-015, AC-022
   - External boundary: yes
   - Acceptance criteria:
