@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
+use Cable8mm\PortonePhp\Model\BillingKeyInfoSummary;
 use Cable8mm\PortonePhp\Model\ConfirmIdentityVerificationResponse;
 use Cable8mm\PortonePhp\Model\CreatePaymentScheduleResponse;
 use Cable8mm\PortonePhp\Model\FailedNotOkResponse;
@@ -28,12 +29,14 @@ final class RemainingResponseTest extends TestCase
         self::assertSame(['id' => 'schedule-id'], CreatePaymentScheduleResponse::fromArray([
             'schedule' => ['id' => 'schedule-id'],
         ])->schedule);
-        self::assertSame(['id' => 'billing-key-id'], IssueBillingKeyResponse::fromArray([
-            'billingKeyInfo' => ['id' => 'billing-key-id'],
+        $billingKeyInfo = IssueBillingKeyResponse::fromArray([
+            'billingKeyInfo' => ['billingKey' => 'billing-key-id', 'issuedAt' => '2026-01-01T00:00:00Z'],
             'channelSpecificFailures' => [['channel' => 'pg']],
-        ])->billingKeyInfo);
+        ])->billingKeyInfo;
+        self::assertInstanceOf(BillingKeyInfoSummary::class, $billingKeyInfo);
+        self::assertSame('billing-key-id', $billingKeyInfo->billingKey);
         self::assertSame([['channel' => 'pg']], IssueBillingKeyResponse::fromArray([
-            'billingKeyInfo' => ['id' => 'billing-key-id'],
+            'billingKeyInfo' => ['billingKey' => 'billing-key-id', 'issuedAt' => '2026-01-01T00:00:00Z'],
             'channelSpecificFailures' => [['channel' => 'pg']],
         ])->channelSpecificFailures);
         self::assertSame(['id' => 'cash-receipt-id'], IssueCashReceiptResponse::fromArray([
@@ -55,7 +58,7 @@ final class RemainingResponseTest extends TestCase
         self::assertInstanceOf(PgBillingKeyIssueResponse::class, $unknown);
         self::assertSame(['type' => 'FUTURE', 'value' => 'preserved'], $unknown->payload());
         self::assertNull(IssueBillingKeyResponse::fromArray([
-            'billingKeyInfo' => ['id' => 'billing-key-id'],
+            'billingKeyInfo' => ['billingKey' => 'billing-key-id', 'issuedAt' => '2026-01-01T00:00:00Z'],
         ])->channelSpecificFailures);
         self::assertSame(['schedule-id'], RevokePaymentSchedulesResponse::fromArray([
             'revokedAt' => null,
