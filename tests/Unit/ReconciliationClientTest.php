@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
+use Cable8mm\PortonePhp\Async\Future;
+use Cable8mm\PortonePhp\Client\ReconciliationClient;
 use Cable8mm\PortonePhp\Exception\ForbiddenException;
-use Cable8mm\PortonePhp\Future;
 use Cable8mm\PortonePhp\Http\RequestExecutor;
-use Cable8mm\PortonePhp\ReconciliationClient;
-use Cable8mm\PortonePhp\Response\GetPaymentReconciliationSettlementVatReportResponse;
+use Cable8mm\PortonePhp\Model\GetPaymentReconciliationSettlementVatReportResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;

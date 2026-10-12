@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\Response\GetBillingKeyInfosResponse;
-use Cable8mm\PortonePhp\Response\GetPaymentReconciliationSettlementVatReportResponse;
-use Cable8mm\PortonePhp\Response\GetPgCardPromotionsResponse;
+use Cable8mm\PortonePhp\Model\GetBillingKeyInfosResponse;
+use Cable8mm\PortonePhp\Model\GetPaymentReconciliationSettlementVatReportResponse;
+use Cable8mm\PortonePhp\Model\GetPgCardPromotionsResponse;
 use PHPUnit\Framework\TestCase;
 
 final class DomainListResponseTest extends TestCase

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\Response\ArchivePlatformContractResponse;
-use Cable8mm\PortonePhp\Response\CreatePlatformPartnerResponse;
-use Cable8mm\PortonePhp\Response\RecoverPlatformAdditionalFeePolicyResponse;
+use Cable8mm\PortonePhp\Model\ArchivePlatformContractResponse;
+use Cable8mm\PortonePhp\Model\CreatePlatformPartnerResponse;
+use Cable8mm\PortonePhp\Model\RecoverPlatformAdditionalFeePolicyResponse;
 use PHPUnit\Framework\TestCase;
 
 final class PlatformPolicyResponseTest extends TestCase

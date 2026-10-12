@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\AuthClient;
+use Cable8mm\PortonePhp\Async\Future;
+use Cable8mm\PortonePhp\Client\AuthClient;
 use Cable8mm\PortonePhp\Exception\UnauthorizedException;
-use Cable8mm\PortonePhp\Future;
 use Cable8mm\PortonePhp\Http\RequestExecutor;
-use Cable8mm\PortonePhp\Response\LoginViaApiSecretResponse;
+use Cable8mm\PortonePhp\Model\LoginViaApiSecretResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;

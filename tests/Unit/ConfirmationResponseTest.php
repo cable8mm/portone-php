@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\Response\ConfirmedBillingKeyIssueAndPaySummary;
-use Cable8mm\PortonePhp\Response\ConfirmedBillingKeySummary;
-use Cable8mm\PortonePhp\Response\ConfirmedPaymentSummary;
-use Cable8mm\PortonePhp\Response\GetPlatformCompanyStatePayload;
+use Cable8mm\PortonePhp\Model\ConfirmedBillingKeyIssueAndPaySummary;
+use Cable8mm\PortonePhp\Model\ConfirmedBillingKeySummary;
+use Cable8mm\PortonePhp\Model\ConfirmedPaymentSummary;
+use Cable8mm\PortonePhp\Model\GetPlatformCompanyStatePayload;
 use PHPUnit\Framework\TestCase;
 
 final class ConfirmationResponseTest extends TestCase

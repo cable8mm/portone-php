@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\Response\GetPlatformAccountTransfersResponse;
-use Cable8mm\PortonePhp\Response\GetPlatformPartnersResponse;
-use Cable8mm\PortonePhp\Response\GetPlatformTransferSummariesResponse;
+use Cable8mm\PortonePhp\Model\GetPlatformAccountTransfersResponse;
+use Cable8mm\PortonePhp\Model\GetPlatformPartnersResponse;
+use Cable8mm\PortonePhp\Model\GetPlatformTransferSummariesResponse;
 use PHPUnit\Framework\TestCase;
 
 final class PlatformListResponseTest extends TestCase

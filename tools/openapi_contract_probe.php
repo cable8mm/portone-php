@@ -297,7 +297,7 @@ $root = dirname(__DIR__);
 $fixture = $root.'/tests/fixtures/portone-v2-openapi.json';
 $metadata = json_decode((string) file_get_contents($root.'/tests/fixtures/portone-v2-openapi.meta.json'), true, 512, JSON_THROW_ON_ERROR);
 $document = json_decode((string) file_get_contents($fixture), true, 512, JSON_THROW_ON_ERROR);
-$phpMethods = parsePhpMethods($root.'/src');
+$phpMethods = parsePhpMethods($root.'/src/Client');
 
 $httpMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 $operations = [];

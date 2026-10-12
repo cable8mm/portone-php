@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\Response\B2bBulkTaxInvoice;
-use Cable8mm\PortonePhp\Response\B2bTaxInvoice;
-use Cable8mm\PortonePhp\Response\CreateB2bCounterpartyResponse;
-use Cable8mm\PortonePhp\Response\GetB2bBusinessInfosResponse;
-use Cable8mm\PortonePhp\Response\GetB2bCounterpartiesResponse;
-use Cable8mm\PortonePhp\Response\GetB2bTaxInvoiceAttachmentsResponse;
-use Cable8mm\PortonePhp\Response\GetB2bTaxInvoicesResponse;
-use Cable8mm\PortonePhp\Response\IssueB2bTaxInvoiceResponse;
+use Cable8mm\PortonePhp\Model\B2bBulkTaxInvoice;
+use Cable8mm\PortonePhp\Model\B2bTaxInvoice;
+use Cable8mm\PortonePhp\Model\CreateB2bCounterpartyResponse;
+use Cable8mm\PortonePhp\Model\GetB2bBusinessInfosResponse;
+use Cable8mm\PortonePhp\Model\GetB2bCounterpartiesResponse;
+use Cable8mm\PortonePhp\Model\GetB2bTaxInvoiceAttachmentsResponse;
+use Cable8mm\PortonePhp\Model\GetB2bTaxInvoicesResponse;
+use Cable8mm\PortonePhp\Model\IssueB2bTaxInvoiceResponse;
 use PHPUnit\Framework\TestCase;
 
 final class B2bResponseTest extends TestCase

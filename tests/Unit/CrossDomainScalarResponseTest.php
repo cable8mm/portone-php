@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\Response\CancelCashReceiptResponse;
-use Cable8mm\PortonePhp\Response\CompletePlatformPayoutByPartnerSettlementIdsResponse;
-use Cable8mm\PortonePhp\Response\GetB2bCounterpartyCertificateRegistrationUrlResponse;
-use Cable8mm\PortonePhp\Response\GetKakaopayPaymentOrderResponse;
-use Cable8mm\PortonePhp\Response\ValidateB2bCounterpartyCertificateResponse;
+use Cable8mm\PortonePhp\Model\CancelCashReceiptResponse;
+use Cable8mm\PortonePhp\Model\CompletePlatformPayoutByPartnerSettlementIdsResponse;
+use Cable8mm\PortonePhp\Model\GetB2bCounterpartyCertificateRegistrationUrlResponse;
+use Cable8mm\PortonePhp\Model\GetKakaopayPaymentOrderResponse;
+use Cable8mm\PortonePhp\Model\ValidateB2bCounterpartyCertificateResponse;
 use PHPUnit\Framework\TestCase;
 
 final class CrossDomainScalarResponseTest extends TestCase
@@ -46,7 +46,7 @@ final class CrossDomainScalarResponseTest extends TestCase
             'DeletePlatformTransferResponse',
             'ConfirmPaymentwallDeliveryResponse',
         ] as $name) {
-            $class = 'Cable8mm\\PortonePhp\\Response\\'.$name;
+            $class = 'Cable8mm\\PortonePhp\\Model\\'.$name;
             self::assertInstanceOf($class, $class::fromArray(['ignored' => true]));
         }
     }

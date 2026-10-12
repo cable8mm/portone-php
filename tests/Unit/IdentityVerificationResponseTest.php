@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\Response\GetIdentityVerificationsResponse;
-use Cable8mm\PortonePhp\Response\IdentityVerification;
+use Cable8mm\PortonePhp\Model\GetIdentityVerificationsResponse;
+use Cable8mm\PortonePhp\Model\IdentityVerification;
 use PHPUnit\Framework\TestCase;
 
 final class IdentityVerificationResponseTest extends TestCase

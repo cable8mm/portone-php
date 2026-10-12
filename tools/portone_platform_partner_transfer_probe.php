@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
+use Cable8mm\PortonePhp\Client\PartnerClient;
+use Cable8mm\PortonePhp\Client\PartnerSettlementClient;
+use Cable8mm\PortonePhp\Client\TransferClient;
 use Cable8mm\PortonePhp\Exception\PortOneException;
-use Cable8mm\PortonePhp\PartnerClient;
-use Cable8mm\PortonePhp\PartnerSettlementClient;
-use Cable8mm\PortonePhp\TransferClient;
 
 require __DIR__.'/../vendor/autoload.php';
 

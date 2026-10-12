@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\Response\ConfirmIdentityVerificationResponse;
-use Cable8mm\PortonePhp\Response\CreatePaymentScheduleResponse;
-use Cable8mm\PortonePhp\Response\FailedNotOkResponse;
-use Cable8mm\PortonePhp\Response\FailedPgBillingKeyIssueResponse;
-use Cable8mm\PortonePhp\Response\IssueBillingKeyResponse;
-use Cable8mm\PortonePhp\Response\IssueCashReceiptResponse;
-use Cable8mm\PortonePhp\Response\IssuedPgBillingKeyIssueResponse;
-use Cable8mm\PortonePhp\Response\PgBillingKeyIssueResponse;
-use Cable8mm\PortonePhp\Response\ResendIdentityVerificationResponse;
-use Cable8mm\PortonePhp\Response\RevokePaymentSchedulesResponse;
-use Cable8mm\PortonePhp\Response\SchedulePlatformPartnersResponse;
-use Cable8mm\PortonePhp\Response\SendIdentityVerificationResponse;
+use Cable8mm\PortonePhp\Model\ConfirmIdentityVerificationResponse;
+use Cable8mm\PortonePhp\Model\CreatePaymentScheduleResponse;
+use Cable8mm\PortonePhp\Model\FailedNotOkResponse;
+use Cable8mm\PortonePhp\Model\FailedPgBillingKeyIssueResponse;
+use Cable8mm\PortonePhp\Model\IssueBillingKeyResponse;
+use Cable8mm\PortonePhp\Model\IssueCashReceiptResponse;
+use Cable8mm\PortonePhp\Model\IssuedPgBillingKeyIssueResponse;
+use Cable8mm\PortonePhp\Model\PgBillingKeyIssueResponse;
+use Cable8mm\PortonePhp\Model\ResendIdentityVerificationResponse;
+use Cable8mm\PortonePhp\Model\RevokePaymentSchedulesResponse;
+use Cable8mm\PortonePhp\Model\SchedulePlatformPartnersResponse;
+use Cable8mm\PortonePhp\Model\SendIdentityVerificationResponse;
 use PHPUnit\Framework\TestCase;
 
 final class RemainingResponseTest extends TestCase

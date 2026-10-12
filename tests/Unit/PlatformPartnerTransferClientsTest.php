@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\Future;
+use Cable8mm\PortonePhp\Async\Future;
+use Cable8mm\PortonePhp\Client\PartnerClient;
+use Cable8mm\PortonePhp\Client\PartnerSettlementClient;
+use Cable8mm\PortonePhp\Client\TransferClient;
 use Cable8mm\PortonePhp\Http\RequestExecutor;
-use Cable8mm\PortonePhp\PartnerClient;
-use Cable8mm\PortonePhp\PartnerSettlementClient;
-use Cable8mm\PortonePhp\Response\GetPlatformPartnerSettlementsResponse;
-use Cable8mm\PortonePhp\Response\UpdatePlatformPartnerResponse;
-use Cable8mm\PortonePhp\TransferClient;
+use Cable8mm\PortonePhp\Model\GetPlatformPartnerSettlementsResponse;
+use Cable8mm\PortonePhp\Model\UpdatePlatformPartnerResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;

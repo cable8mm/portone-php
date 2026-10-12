@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\CounterpartyClient;
-use Cable8mm\PortonePhp\Future;
+use Cable8mm\PortonePhp\Async\Future;
+use Cable8mm\PortonePhp\Client\CounterpartyClient;
 use Cable8mm\PortonePhp\Http\RequestExecutor;
-use Cable8mm\PortonePhp\Response\CreateB2bCounterpartyResponse;
-use Cable8mm\PortonePhp\Response\GetB2bCounterpartiesResponse;
+use Cable8mm\PortonePhp\Model\CreateB2bCounterpartyResponse;
+use Cable8mm\PortonePhp\Model\GetB2bCounterpartiesResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;

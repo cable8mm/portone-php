@@ -140,7 +140,7 @@ function parsePhpOperationReturns(string $directory): array
                 continue;
             }
             $return = ltrim($method['return'], '\\');
-            $return = str_starts_with($return, 'Response\\') ? substr($return, 9) : $return;
+            $return = str_starts_with($return, 'Model\\') ? substr($return, 6) : $return;
             $returns[$method['name']] = [
                 'client' => basename($path, '.php'),
                 'returnType' => $return,
@@ -177,8 +177,8 @@ function operationResponse(array $document, string $path, string $method, array 
 
 $root = dirname(__DIR__);
 $document = json_decode((string) file_get_contents($root.'/tests/fixtures/portone-v2-openapi.json'), true, 512, JSON_THROW_ON_ERROR);
-$phpResponses = parsePhpResponses($root.'/src/Response');
-$phpReturns = parsePhpOperationReturns($root.'/src');
+$phpResponses = parsePhpResponses($root.'/src/Model');
+$phpReturns = parsePhpOperationReturns($root.'/src/Client');
 $operations = [];
 $mismatches = [];
 

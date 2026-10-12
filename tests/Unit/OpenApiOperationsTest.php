@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
+use Cable8mm\PortonePhp\Client\PortOneClient;
 use Cable8mm\PortonePhp\Http\RequestExecutor;
-use Cable8mm\PortonePhp\PortOneClient;
-use Cable8mm\PortonePhp\Response\ClosePaymentSessionResponse;
-use Cable8mm\PortonePhp\Response\CreatePaymentSessionResponse;
-use Cable8mm\PortonePhp\Response\EvaluateCheckoutProfileResponse;
-use Cable8mm\PortonePhp\Response\GetBankInfosResponse;
-use Cable8mm\PortonePhp\Response\PaymentSession;
-use Cable8mm\PortonePhp\Response\PaymentSessionAgreement;
-use Cable8mm\PortonePhp\Response\PaymentSessionColors;
-use Cable8mm\PortonePhp\Response\PaymentSessionProduct;
+use Cable8mm\PortonePhp\Model\ClosePaymentSessionResponse;
+use Cable8mm\PortonePhp\Model\CreatePaymentSessionResponse;
+use Cable8mm\PortonePhp\Model\EvaluateCheckoutProfileResponse;
+use Cable8mm\PortonePhp\Model\GetBankInfosResponse;
+use Cable8mm\PortonePhp\Model\PaymentSession;
+use Cable8mm\PortonePhp\Model\PaymentSessionAgreement;
+use Cable8mm\PortonePhp\Model\PaymentSessionColors;
+use Cable8mm\PortonePhp\Model\PaymentSessionProduct;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;

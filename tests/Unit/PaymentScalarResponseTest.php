@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\Response\ApplyEscrowLogisticsResponse;
-use Cable8mm\PortonePhp\Response\CloseVirtualAccountResponse;
-use Cable8mm\PortonePhp\Response\ConfirmEscrowResponse;
-use Cable8mm\PortonePhp\Response\ModifyEscrowLogisticsResponse;
-use Cable8mm\PortonePhp\Response\PaymentWebhookResponse;
-use Cable8mm\PortonePhp\Response\RegisterStoreReceiptResponse;
-use Cable8mm\PortonePhp\Response\StopPaymentCancellationResponse;
+use Cable8mm\PortonePhp\Model\ApplyEscrowLogisticsResponse;
+use Cable8mm\PortonePhp\Model\CloseVirtualAccountResponse;
+use Cable8mm\PortonePhp\Model\ConfirmEscrowResponse;
+use Cable8mm\PortonePhp\Model\ModifyEscrowLogisticsResponse;
+use Cable8mm\PortonePhp\Model\PaymentWebhookResponse;
+use Cable8mm\PortonePhp\Model\RegisterStoreReceiptResponse;
+use Cable8mm\PortonePhp\Model\StopPaymentCancellationResponse;
 use PHPUnit\Framework\TestCase;
 
 final class PaymentScalarResponseTest extends TestCase

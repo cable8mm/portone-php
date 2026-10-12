@@ -3,19 +3,19 @@
     "clients": {
         "payment": {
             "status": "success",
-            "resultType": "Cable8mm\\PortonePhp\\Response\\GetPaymentsResponse"
+            "resultType": "Cable8mm\\PortonePhp\\Model\\GetPaymentsResponse"
         },
         "paymentEvents": {
             "status": "success",
-            "resultType": "Cable8mm\\PortonePhp\\Response\\GetAllPaymentEventsByCursorResponse"
+            "resultType": "Cable8mm\\PortonePhp\\Model\\GetAllPaymentEventsByCursorResponse"
         },
         "billingKey": {
             "status": "success",
-            "resultType": "Cable8mm\\PortonePhp\\Response\\GetBillingKeyInfosResponse"
+            "resultType": "Cable8mm\\PortonePhp\\Model\\GetBillingKeyInfosResponse"
         },
         "cashReceipt": {
             "status": "success",
-            "resultType": "Cable8mm\\PortonePhp\\Response\\GetCashReceiptsResponse"
+            "resultType": "Cable8mm\\PortonePhp\\Model\\GetCashReceiptsResponse"
         },
         "additionalFeature": {
             "status": "portone-failure",
@@ -24,7 +24,7 @@
         },
         "paymentSchedule": {
             "status": "success",
-            "resultType": "Cable8mm\\PortonePhp\\Response\\GetPaymentSchedulesResponse"
+            "resultType": "Cable8mm\\PortonePhp\\Model\\GetPaymentSchedulesResponse"
         },
         "promotion": {
             "status": "portone-failure",

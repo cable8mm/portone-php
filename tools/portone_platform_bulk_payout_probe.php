@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use Cable8mm\PortonePhp\BulkAccountTransferClient;
-use Cable8mm\PortonePhp\BulkPayoutClient;
+use Cable8mm\PortonePhp\Client\BulkAccountTransferClient;
+use Cable8mm\PortonePhp\Client\BulkPayoutClient;
+use Cable8mm\PortonePhp\Client\PayoutClient;
 use Cable8mm\PortonePhp\Exception\PortOneException;
-use Cable8mm\PortonePhp\PayoutClient;
 
 require __DIR__.'/../vendor/autoload.php';
 

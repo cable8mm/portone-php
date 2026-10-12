@@ -3,7 +3,7 @@
     "operations": {
         "loginViaApiSecret": {
             "status": "success",
-            "resultType": "Cable8mm\\PortonePhp\\Response\\LoginViaApiSecretResponse"
+            "resultType": "Cable8mm\\PortonePhp\\Model\\LoginViaApiSecretResponse"
         },
         "refreshTokenAsync": {
             "status": "portone-failure",

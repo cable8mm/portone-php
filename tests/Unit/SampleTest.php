@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\UnrecognizedWebhook;
-use Cable8mm\PortonePhp\WebhookTransactionPaid;
-use Cable8mm\PortonePhp\WebhookVerifier;
+use Cable8mm\PortonePhp\Webhook\UnrecognizedWebhook;
+use Cable8mm\PortonePhp\Webhook\WebhookTransactionPaid;
+use Cable8mm\PortonePhp\Webhook\WebhookVerifier;
 use PHPUnit\Framework\TestCase;
 
 require_once dirname(__DIR__, 2).'/samples/bootstrap.php';

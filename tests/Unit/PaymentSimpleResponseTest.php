@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
-use Cable8mm\PortonePhp\Response\CapturePaymentResponse;
-use Cable8mm\PortonePhp\Response\GetAllPaymentEventsByCursorResponse;
-use Cable8mm\PortonePhp\Response\GetAllPaymentsByCursorResponse;
-use Cable8mm\PortonePhp\Response\PaymentEvent;
-use Cable8mm\PortonePhp\Response\PaymentWithCursor;
-use Cable8mm\PortonePhp\Response\PreRegisterPaymentResponse;
-use Cable8mm\PortonePhp\Response\ResendWebhookResponse;
+use Cable8mm\PortonePhp\Model\CapturePaymentResponse;
+use Cable8mm\PortonePhp\Model\GetAllPaymentEventsByCursorResponse;
+use Cable8mm\PortonePhp\Model\GetAllPaymentsByCursorResponse;
+use Cable8mm\PortonePhp\Model\PaymentEvent;
+use Cable8mm\PortonePhp\Model\PaymentWithCursor;
+use Cable8mm\PortonePhp\Model\PreRegisterPaymentResponse;
+use Cable8mm\PortonePhp\Model\ResendWebhookResponse;
 use PHPUnit\Framework\TestCase;
 
 final class PaymentSimpleResponseTest extends TestCase
