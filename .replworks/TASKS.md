@@ -532,7 +532,7 @@
     - A property-based or fuzz test feeds malformed JSON to every response decoder and asserts that only `UnrecognizedResponseException` is raised, never `TypeError`, `ValueError`, or warnings.
     - Unit tests and format checks pass.
 
-- [ ] T-057 Transport failure matrix with a local mock server
+- [X] T-057 Transport failure matrix with a local mock server
   - Satisfies: PRODUCT_SPEC.md FR-023, FR-024, FR-025, ERR-005, ERR-006, ERR-008, ERR-009, AC-014, AC-019
   - External boundary: no
   - Acceptance criteria:
