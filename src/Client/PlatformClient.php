@@ -30,7 +30,7 @@ final class PlatformClient extends AbstractClient
 
     public readonly TransferClient $transfer;
 
-    public function __construct(string $apiSecret, ?RequestExecutor $executor = null)
+    public function __construct(#[\SensitiveParameter] string $apiSecret, ?RequestExecutor $executor = null)
     {
         parent::__construct($apiSecret, $executor);
         $this->company = new CompanyClient('', $this->executor);

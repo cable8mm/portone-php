@@ -552,7 +552,7 @@
     - The long-running check is documented for queue workers and Octane-style processes.
     - Unit tests, format checks, and the full live E2E matrix pass.
 
-- [ ] T-059 Secret exposure and serialization safety
+- [X] T-059 Secret exposure and serialization safety
   - Satisfies: PRODUCT_SPEC.md FR-022, ERR-001, ERR-008, AC-013
   - External boundary: no
   - Acceptance criteria:

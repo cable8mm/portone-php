@@ -18,45 +18,58 @@ class RequestExecutor
 
     private readonly Client $client;
 
-    public function __construct(private readonly string $apiSecret)
+    private readonly \Closure $authorizationHeader;
+
+    public function __construct(#[\SensitiveParameter] string $apiSecret)
     {
         if ($apiSecret === '') {
             throw new \InvalidArgumentException('apiSecret must not be empty.');
         }
 
+        $this->authorizationHeader = static fn (): string => 'PortOne '.$apiSecret;
         $this->client = $this->createClient();
     }
 
-    /** @param array<string,mixed> $options */
-    public function request(string $method, string $uri, array $options = []): ResponseInterface
+    public function __debugInfo(): array
     {
+        return [];
+    }
+
+    /** @param array<string,mixed> $options */
+    public function request(
+        string $method,
+        string $uri,
+        #[\SensitiveParameter] array $options = [],
+    ): ResponseInterface {
         try {
             return $this->client->request($method, $uri, $this->options($options));
-        } catch (GuzzleException $exception) {
-            throw new TransportException('PortOne request failed.', previous: $exception);
+        } catch (GuzzleException) {
+            throw new TransportException('PortOne request failed.');
         }
     }
 
     /** @param array<string,mixed> $options */
-    public function requestAsync(string $method, string $uri, array $options = []): PromiseInterface
-    {
-        return $this->client->requestAsync($method, $uri, $this->options($options))->then(
-            static fn (ResponseInterface $response): ResponseInterface => $response,
-            static function (\Throwable $exception): never {
-                throw new TransportException('PortOne request failed.', previous: $exception);
-            },
-        );
+    public function requestAsync(
+        string $method,
+        string $uri,
+        #[\SensitiveParameter] array $options = [],
+    ): PromiseInterface {
+        try {
+            return $this->client->requestAsync($method, $uri, $this->options($options));
+        } catch (GuzzleException) {
+            throw new TransportException('PortOne request failed.');
+        }
     }
 
     /** @param array<string,mixed> $options */
-    private function options(array $options): array
+    private function options(#[\SensitiveParameter] array $options): array
     {
         if (isset($options['query']) && is_array($options['query'])) {
             $options['query'] = $this->normalizeQueryParameters($options['query']);
         }
 
         $headers = $options['headers'] ?? [];
-        $headers['Authorization'] = 'PortOne '.$this->apiSecret;
+        $headers['Authorization'] = ($this->authorizationHeader)();
         $headers['Accept'] ??= 'application/json';
 
         return $options + [
