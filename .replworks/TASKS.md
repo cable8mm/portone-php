@@ -1,6 +1,6 @@
 # TASKS.md
 
-- [X] T-001 Project foundation
+- [x] T-001 Project foundation
   - Satisfies: PRODUCT_SPEC.md FR-001
   - External boundary: no
   - Acceptance criteria:
@@ -8,7 +8,7 @@
     - Installing the package with Composer under the package name required by PRODUCT_SPEC.md succeeds on PHP 8.2.
     - The package exposes the PSR-4 public namespace and contains no committed lockfile or secret values.
 
-- [X] T-002 JVM operation catalog and model contract verification
+- [x] T-002 JVM operation catalog and model contract verification
   - Satisfies: PRODUCT_SPEC.md EL-021, FR-008, FR-009, FR-010, FR-026, ERR-003, ERR-004
   - External boundary: yes
   - Acceptance criteria:
@@ -17,7 +17,7 @@
     - The recorded operation and parameter sets are available to the dependent implementation tasks and the probe fails when the PHP public set differs from the recorded JVM set.
     - The probe records the JVM SDK's success decoding, error classification, and unknown-value behavior required by ARCHITECTURE.md RD-03 and RD-04.
 
-- [X] T-003 PortOne API and webhook boundary behavior verification
+- [x] T-003 PortOne API and webhook boundary behavior verification
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-015, FR-016, FR-017, FR-018, ERR-003, ERR-004, ERR-005, ERR-006, ERR-007
   - External boundary: yes
   - Acceptance criteria:
@@ -25,7 +25,7 @@
     - A live webhook probe records the verification inputs, signature format, timestamp handling, known type result, unknown type result, invalid signature failure, and raw-body handling required by ARCHITECTURE.md.
     - Each recorded result has an executable pass/fail check, and the task remains incomplete if the live PortOne boundary is unreachable.
 
-- [X] T-004 End-to-end authenticated operation outcome
+- [x] T-004 End-to-end authenticated operation outcome
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-013, FR-023, FR-024, FR-025, FR-026, FR-027, ERR-003, ERR-004, ERR-005, ERR-006, ERR-008, ERR-009
   - External boundary: yes
   - Acceptance criteria:
@@ -35,7 +35,7 @@
     - The asynchronous counterpart starts one request without waiting, returns a Future, and waiting on it applies the same typed decoding and failure behavior as the synchronous operation.
     - Unit tests pass for request construction, outcome classification, typed decoding, failure propagation, and the invariant that one failed call does not affect a later call.
 
-- [X] T-005 Client construction and accessor hierarchy
+- [x] T-005 Client construction and accessor hierarchy
   - Satisfies: PRODUCT_SPEC.md FR-002, FR-003, FR-004, FR-005, FR-006, FR-007, FR-022, ERR-001
   - External boundary: no
   - Acceptance criteria:
@@ -46,7 +46,7 @@
     - No public client accepts or retains configuration values other than apiSecret.
     - Unit tests pass for all accessors, standalone construction, shared executor identity, and construction failure.
 
-- [X] T-006 Payment operations
+- [x] T-006 Payment operations
   - Satisfies: PRODUCT_SPEC.md EL-002, EL-003, EL-004, EL-005, EL-006, EL-007 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
@@ -56,7 +56,7 @@
     - Unit tests pass for every operation definition and for representative request, response, defined-error, unknown-error, and undecodable-success cases.
     - Unit tests pass for every asynchronous counterpart and verify that waiting resolves the same typed result or failure as the synchronous operation.
 
-- [X] T-007 Identity verification operations
+- [x] T-007 Identity verification operations
   - Satisfies: PRODUCT_SPEC.md EL-008 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
@@ -66,7 +66,7 @@
     - Unit tests pass for every operation definition and representative outcome classifications.
     - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
-- [X] T-008 PG-specific operations
+- [x] T-008 PG-specific operations
   - Satisfies: PRODUCT_SPEC.md EL-009 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
@@ -76,7 +76,7 @@
     - Unit tests pass for every operation definition and representative outcome classifications.
     - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
-- [X] T-009 Authentication operations
+- [x] T-009 Authentication operations
   - Satisfies: PRODUCT_SPEC.md EL-010 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
@@ -86,7 +86,7 @@
     - Unit tests pass for every operation definition and representative outcome classifications.
     - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
-- [X] T-010 Reconciliation operations
+- [x] T-010 Reconciliation operations
   - Satisfies: PRODUCT_SPEC.md EL-011 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
@@ -96,7 +96,7 @@
     - Unit tests pass for every operation definition and representative outcome classifications.
     - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
-- [X] T-011 Platform core operations
+- [x] T-011 Platform core operations
   - Satisfies: PRODUCT_SPEC.md EL-012, EL-013 and FR-005, FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
@@ -106,7 +106,7 @@
     - Unit tests pass for every operation definition and representative outcome classifications.
     - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
-- [X] T-012 Platform bulk and payout operations
+- [x] T-012 Platform bulk and payout operations
   - Satisfies: PRODUCT_SPEC.md EL-013 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
@@ -116,7 +116,7 @@
     - Unit tests pass for every operation definition and representative outcome classifications.
     - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
-- [X] T-013 Platform partner and transfer operations
+- [x] T-013 Platform partner and transfer operations
   - Satisfies: PRODUCT_SPEC.md EL-013 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
@@ -126,7 +126,7 @@
     - Unit tests pass for every operation definition and representative outcome classifications.
     - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
-- [X] T-014 Platform policy operations
+- [x] T-014 Platform policy operations
   - Satisfies: PRODUCT_SPEC.md EL-013 and FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
@@ -136,7 +136,7 @@
     - Unit tests pass for every operation definition and representative outcome classifications.
     - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
-- [X] T-015 B2B tax invoice operations
+- [x] T-015 B2B tax invoice operations
   - Satisfies: PRODUCT_SPEC.md EL-014, EL-015 and FR-006, FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
@@ -146,7 +146,7 @@
     - Unit tests pass for every operation definition and representative outcome classifications.
     - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
-- [X] T-016 B2B counterparty operations
+- [x] T-016 B2B counterparty operations
   - Satisfies: PRODUCT_SPEC.md EL-014, EL-015 and FR-006, FR-008, FR-009, FR-010, FR-011, FR-026, FR-027
   - External boundary: yes
   - Acceptance criteria:
@@ -156,7 +156,7 @@
     - Unit tests pass for every operation definition and representative outcome classifications.
     - Unit tests pass for every asynchronous counterpart and verify equivalent result and failure behavior.
 
-- [X] T-017 Webhook verification and typed results
+- [x] T-017 Webhook verification and typed results
   - Satisfies: PRODUCT_SPEC.md EL-016, EL-017, EL-018 and FR-014, FR-015, FR-016, FR-017, FR-018, ERR-002, ERR-007
   - External boundary: yes
   - Acceptance criteria:
@@ -166,7 +166,7 @@
     - A live E2E check with invalid verification data raises WebhookVerificationException and never decodes an unverified body.
     - Unit tests pass for all recorded JVM verification cases, known and unknown webhook types, raw-body changes, and failure cases.
 
-- [X] T-018 Runnable server-side samples
+- [x] T-018 Runnable server-side samples
   - Satisfies: PRODUCT_SPEC.md EL-020 and FR-019, FR-020, FR-021
   - External boundary: yes
   - Acceptance criteria:
@@ -175,7 +175,7 @@
     - Each sample reads the required secret from the process environment and uses only the public SDK interface.
     - A verification run executes every sample with test credentials or a documented non-secret fixture and observes the expected success or controlled failure behavior.
 
-- [X] T-019 Complete public API and packaging verification
+- [x] T-019 Complete public API and packaging verification
   - Satisfies: PRODUCT_SPEC.md FR-001, FR-002, FR-007, FR-008, FR-009, FR-010, FR-011, FR-013, FR-022, FR-026, FR-027 and AC-001 to AC-022
   - External boundary: yes
   - Acceptance criteria:
@@ -186,7 +186,7 @@
     - Representative asynchronous operations start without waiting and resolve to the same typed results or failures as their synchronous counterparts.
     - No acceptance criterion in PRODUCT_SPEC.md remains unverified.
 
-- [X] T-020 JVM response schema comparison
+- [x] T-020 JVM response schema comparison
   - Satisfies: PRODUCT_SPEC.md FR-011, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -197,7 +197,7 @@
     - Unit tests pass for the comparison parser and the probe exits non-zero when a known response model does not match.
     - The comparison report is explicitly treated as an intermediate JVM compatibility check; PortOne V2 documentation remains the final authority for response schemas.
 
-- [X] T-021 Authentication response DTOs
+- [x] T-021 Authentication response DTOs
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -208,7 +208,7 @@
     - Synchronous and asynchronous authentication operations return the typed DTOs.
     - Unit tests, format checks, and the JVM response schema comparison pass for these two response models.
 
-- [X] T-022 Payment response envelope DTOs
+- [x] T-022 Payment response envelope DTOs
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -220,7 +220,7 @@
     - Synchronous and asynchronous payment operations return the typed DTOs.
     - Unit tests and format checks pass; the payment live probe remains successful; and the JVM response schema comparison identifies these response models as matching.
 
-- [X] T-023 Payment scalar response DTOs
+- [x] T-023 Payment scalar response DTOs
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -230,7 +230,7 @@
     - Required fields reject missing or non-string values, while extra fields are ignored.
     - Unit tests, format checks, the payment live probe, and the JVM response schema comparison pass for these response models.
 
-- [X] T-024 Remaining simple payment response DTOs
+- [x] T-024 Remaining simple payment response DTOs
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -239,7 +239,7 @@
     - JVM empty success responses expose a successful empty DTO and ignore unknown response fields.
     - Unit tests, format checks, the payment live probe, and the JVM response schema comparison pass for these response models.
 
-- [X] T-025 Cross-domain scalar and empty response DTOs
+- [x] T-025 Cross-domain scalar and empty response DTOs
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -248,7 +248,7 @@
     - Empty success responses decode as empty DTOs rather than raw arrays.
     - Unit tests, format checks, a live E2E probe, and the JVM response schema comparison pass for these response models.
 
-- [X] T-026 B2B response envelope DTOs
+- [x] T-026 B2B response envelope DTOs
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -257,7 +257,7 @@
     - Extra response fields are ignored consistently with the recorded JVM JSON behavior.
     - Unit tests, format checks, the B2B live E2E probes, and the JVM response schema comparison pass for these response models.
 
-- [X] T-027 Platform policy and partner response envelopes
+- [x] T-027 Platform policy and partner response envelopes
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -265,7 +265,7 @@
     - Required object fields reject missing or non-array values; extra fields are ignored.
     - Unit tests, format checks, the Platform live probes, and the JVM response schema comparison pass for these response models.
 
-- [X] T-028 Platform schedule and update response envelopes
+- [x] T-028 Platform schedule and update response envelopes
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -274,7 +274,7 @@
     - Required object fields reject missing or non-array values; extra fields are ignored.
     - Unit tests, format checks, Platform live probes, and the JVM response schema comparison pass for these response models.
 
-- [X] T-029 Platform list response DTOs
+- [x] T-029 Platform list response DTOs
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -282,7 +282,7 @@
     - List and object envelope fields are validated consistently through the response model base helpers.
     - Unit tests, format checks, Platform live probes, and the JVM response schema comparison pass for these response models.
 
-- [X] T-030 Payment, identity, and reconciliation list DTOs
+- [x] T-030 Payment, identity, and reconciliation list DTOs
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -290,7 +290,7 @@
     - Card promotion and reconciliation VAT report responses preserve nullable list fields and required summary/object fields.
     - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass for these response models.
 
-- [X] T-031 Remaining non-polymorphic response DTOs
+- [x] T-031 Remaining non-polymorphic response DTOs
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -298,7 +298,7 @@
     - Empty success responses and nullable list/string fields preserve the JVM behavior.
     - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass for these response models.
 
-- [X] T-032 Billing key polymorphic response DTOs
+- [x] T-032 Billing key polymorphic response DTOs
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -307,7 +307,7 @@
     - Unknown variants are accepted as an explicit unrecognized response value without losing the original payload.
     - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass.
 
-- [X] T-033 Simple Platform and B2B nested model DTOs
+- [x] T-033 Simple Platform and B2B nested model DTOs
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -315,7 +315,7 @@
     - Required scalar fields reject missing or invalid values, while nullable fields preserve JVM defaults.
     - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass.
 
-- [X] T-034 Confirmation and company payload DTOs
+- [x] T-034 Confirmation and company payload DTOs
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -323,7 +323,7 @@
     - Required scalar and object fields reject missing or invalid values.
     - Unit tests, format checks, representative live probes, and the JVM response schema comparison pass.
 
-- [X] T-035 OpenAPI operation inventory and contract gap report
+- [x] T-035 OpenAPI operation inventory and contract gap report
   - Satisfies: PRODUCT_SPEC.md FR-008, FR-009, FR-010, AC-007, AC-008
   - External boundary: yes
   - Acceptance criteria:
@@ -332,7 +332,7 @@
     - The report identifies missing and unexpected operations without using the JVM catalog as the authority.
     - Unit tests, format checks, and the OpenAPI inventory check pass for the implemented scope.
 
-- [X] T-036 OpenAPI operation signature comparison
+- [x] T-036 OpenAPI operation signature comparison
   - Satisfies: PRODUCT_SPEC.md FR-008, FR-009, FR-010, FR-026, AC-007, AC-008
   - External boundary: no
   - Acceptance criteria:
@@ -341,7 +341,7 @@
     - The comparison fails with an actionable operation-level report when a signature diverges.
     - Unit tests, format checks, and the complete signature comparison pass.
 
-- [X] T-037 OpenAPI response schema inventory
+- [x] T-037 OpenAPI response schema inventory
   - Satisfies: PRODUCT_SPEC.md FR-011, AC-009
   - External boundary: no
   - Acceptance criteria:
@@ -350,7 +350,7 @@
     - The inventory is reproducible from the committed OpenAPI snapshot and does not use the JVM schema as its authority.
     - Unit tests, format checks, and the response schema inventory pass for the current implementation.
 
-- [X] T-038 Common, checkout, and payment-session schema completion
+- [x] T-038 Common, checkout, and payment-session schema completion
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-026, FR-027, AC-009, AC-022
   - External boundary: yes
   - Acceptance criteria:
@@ -359,7 +359,7 @@
     - Synchronous and asynchronous operations return the same typed results and failures.
     - Unit tests, format checks, representative live probes, and async tests pass.
 
-- [X] T-039 Payment-domain OpenAPI response models
+- [x] T-039 Payment-domain OpenAPI response models
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-016, FR-017, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -368,7 +368,7 @@
     - Required, nullable, enum, and list fields are validated according to the OpenAPI contract.
     - Unit tests, format checks, representative live probes, and unknown-variant tests pass.
 
-- [X] T-040 Identity, PG-specific, authentication, and reconciliation response models
+- [x] T-040 Identity, PG-specific, authentication, and reconciliation response models
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-016, FR-017, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -377,7 +377,7 @@
     - Synchronous and asynchronous operations expose the same typed result model.
     - Unit tests, format checks, representative live probes, and unknown-variant tests pass.
 
-- [X] T-041 B2B OpenAPI response models
+- [x] T-041 B2B OpenAPI response models
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-016, FR-017, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -385,7 +385,7 @@
     - Nested contacts, business information, invoice items, and status unions are typed and forward-compatible.
     - Unit tests, format checks, representative live probes, and asynchronous operation tests pass.
 
-- [X] T-042 Platform OpenAPI response models
+- [x] T-042 Platform OpenAPI response models
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-016, FR-017, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -393,7 +393,7 @@
     - Platform enums, nested fee/contract/account models, nullable fields, and union statuses are typed and forward-compatible.
     - Unit tests, format checks, representative live probes, and asynchronous operation tests pass.
 
-- [X] T-043 OpenAPI error catalog and operation error mapping
+- [x] T-043 OpenAPI error catalog and operation error mapping
   - Satisfies: PRODUCT_SPEC.md ERR-003, ERR-004, ERR-008, AC-018, AC-019
   - External boundary: yes
   - Acceptance criteria:
@@ -402,7 +402,7 @@
     - Defined errors and unknown errors are tested against recorded or live observations.
     - Unit tests, format checks, and representative live error probes pass.
 
-- [X] T-044 Complete synchronous/asynchronous operation parity
+- [x] T-044 Complete synchronous/asynchronous operation parity
   - Satisfies: PRODUCT_SPEC.md FR-013, FR-026, FR-027, ERR-009, AC-015, AC-022
   - External boundary: yes
   - Acceptance criteria:
@@ -411,7 +411,7 @@
     - Representative success, decode failure, API failure, and transport failure cases produce equivalent outcomes.
     - Unit tests, format checks, and live async probes pass.
 
-- [X] T-045 Complete OpenAPI live E2E matrix
+- [x] T-045 Complete OpenAPI live E2E matrix
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-013, AC-009, AC-014, AC-018, AC-019
   - External boundary: yes
   - Acceptance criteria:
@@ -420,7 +420,7 @@
     - The E2E runner executes the complete matrix without treating documented feature-disabled or invalid-resource failures as infrastructure failures.
     - The full live matrix completes successfully and its observations are reviewed.
 
-- [X] T-046 PHP API and internal architecture refactor
+- [x] T-046 PHP API and internal architecture refactor
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-026, FR-027 and ARCHITECTURE.md COMP-001 to COMP-006
   - External boundary: no
   - Acceptance criteria:
@@ -429,7 +429,7 @@
     - Public method names, parameters, return types, authentication, timeouts, and async behavior remain unchanged.
     - Unit tests, format checks, and the OpenAPI contract checks pass before and after the refactor.
 
-- [X] T-047 README and sample documentation for the complete OpenAPI client
+- [x] T-047 README and sample documentation for the complete OpenAPI client
   - Satisfies: PRODUCT_SPEC.md FR-001, FR-014, FR-019, FR-020, FR-021, AC-001, AC-010, AC-011, AC-012
   - External boundary: no
   - Acceptance criteria:
@@ -438,7 +438,7 @@
     - Documentation does not describe the JVM SDK as the implementation or API authority.
     - Documentation verification passes from a clean Composer install.
 
-- [X] T-048 Clean-install, CI, and release verification
+- [x] T-048 Clean-install, CI, and release verification
   - Satisfies: PRODUCT_SPEC.md FR-001, FR-011, FR-022, FR-023, FR-024, FR-025, AC-001, AC-013, AC-014
   - External boundary: yes
   - Acceptance criteria:
@@ -447,7 +447,7 @@
     - No secrets, local paths, generated credentials, or `composer.lock` are committed.
     - The package is ready for a semver release and Packagist installation.
 
-- [X] T-049 Live payment lifecycle typed-success verification
+- [x] T-049 Live payment lifecycle typed-success verification
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-013, FR-026, FR-027, AC-009, AC-022
   - External boundary: yes
   - Acceptance criteria:
@@ -459,7 +459,7 @@
     - The live probe records the operation names, result types, payment identifier metadata, and final status as a reproducible local observation; it does not treat a controlled PortOne API failure as a typed-success pass.
     - Synchronous payment creation, lookup, and cancellation plus an asynchronous final-state lookup, unit tests, format checks, and the complete live E2E verification pass.
 
-- [X] T-050 Billing key lifecycle live verification
+- [x] T-050 Billing key lifecycle live verification
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-013, FR-026, FR-027, AC-009, AC-022
   - External boundary: yes
   - Acceptance criteria:
@@ -471,7 +471,7 @@
     - Synchronous operations and an asynchronous final-state lookup are covered, and no secret or billing key value is committed or printed.
     - Unit tests, format checks, and the full live E2E matrix pass.
 
-- [X] T-051 Payment schedule lifecycle and scheduled-execution webhook
+- [x] T-051 Payment schedule lifecycle and scheduled-execution webhook
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-013, FR-015, FR-016, AC-009, AC-018
   - External boundary: yes
   - Acceptance criteria:
@@ -481,7 +481,7 @@
     - The observed payment created by the schedule is retrieved as a typed `Payment` and cancelled.
     - Unit tests, format checks, and the full live E2E matrix pass.
 
-- [X] T-052 Partial cancellation and refund paths
+- [x] T-052 Partial cancellation and refund paths
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-013, ERR-003, ERR-004, AC-009, AC-018
   - External boundary: yes
   - Acceptance criteria:
@@ -491,7 +491,7 @@
     - Unit tests cover request construction for every cancellation field.
     - Unit tests, format checks, and the full live E2E matrix pass.
 
-- [X] T-053 Duplicate request and timeout recovery behavior
+- [x] T-053 Duplicate request and timeout recovery behavior
   - Satisfies: PRODUCT_SPEC.md FR-013, FR-023, FR-024, FR-025, ERR-005, ERR-006, ERR-009, AC-014, AC-018
   - External boundary: yes
   - Acceptance criteria:
@@ -501,7 +501,7 @@
     - The README documents the recovery procedure for an uncertain payment outcome.
     - Unit tests, format checks, and the full live E2E matrix pass.
 
-- [X] T-054 Real webhook verification and fixture capture
+- [x] T-054 Real webhook verification and fixture capture
   - Satisfies: PRODUCT_SPEC.md FR-014, FR-015, FR-016, FR-017, FR-018, ERR-002, ERR-007, AC-010, AC-018
   - External boundary: yes
   - Acceptance criteria:
@@ -512,7 +512,7 @@
     - Raw body changes of any kind (whitespace, re-serialization, encoding) cause `WebhookVerificationException`, and an unverified body is never decoded.
     - Unit tests, format checks, and the full live E2E matrix pass.
 
-- [X] T-055 Payment method and status union fixtures
+- [x] T-055 Payment method and status union fixtures
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-016, FR-017, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -522,7 +522,7 @@
     - Unknown method and unknown discriminator values are accepted as explicit unrecognized values.
     - Unit tests, format checks, and the full live E2E matrix pass.
 
-- [X] T-056 Decoder robustness and fuzzing
+- [x] T-056 Decoder robustness and fuzzing
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, ERR-004, AC-009, AC-019
   - External boundary: no
   - Acceptance criteria:
@@ -532,7 +532,7 @@
     - A property-based or fuzz test feeds malformed JSON to every response decoder and asserts that only `UnrecognizedResponseException` is raised, never `TypeError`, `ValueError`, or warnings.
     - Unit tests and format checks pass.
 
-- [X] T-057 Transport failure matrix with a local mock server
+- [x] T-057 Transport failure matrix with a local mock server
   - Satisfies: PRODUCT_SPEC.md FR-023, FR-024, FR-025, ERR-005, ERR-006, ERR-008, ERR-009, AC-014, AC-019
   - External boundary: no
   - Acceptance criteria:
@@ -542,7 +542,7 @@
     - Request counts confirm no retry in any case.
     - Unit tests and format checks pass.
 
-- [X] T-058 Asynchronous and long-running process behavior
+- [x] T-058 Asynchronous and long-running process behavior
   - Satisfies: PRODUCT_SPEC.md FR-013, FR-026, FR-027, ERR-009, AC-015, AC-022
   - External boundary: yes
   - Acceptance criteria:
@@ -552,7 +552,7 @@
     - The long-running check is documented for queue workers and Octane-style processes.
     - Unit tests, format checks, and the full live E2E matrix pass.
 
-- [X] T-059 Secret exposure and serialization safety
+- [x] T-059 Secret exposure and serialization safety
   - Satisfies: PRODUCT_SPEC.md FR-022, ERR-001, ERR-008, AC-013
   - External boundary: no
   - Acceptance criteria:
@@ -561,7 +561,7 @@
     - `__debugInfo` hides secrets for all public clients.
     - Unit tests and format checks pass.
 
-- [X] T-060 Dependency, PHP version, and release smoke compatibility
+- [x] T-060 Dependency, PHP version, and release smoke compatibility
   - Satisfies: PRODUCT_SPEC.md FR-001, FR-022, AC-001, AC-013
   - External boundary: yes
   - Acceptance criteria:
@@ -570,7 +570,7 @@
     - A smoke test installs the published v0.2.0 from Packagist in a clean directory and runs one controlled-failure call.
     - Unit tests and format checks pass.
 
-- [X] T-061 OpenAPI spec drift detection
+- [x] T-061 OpenAPI spec drift detection
   - Satisfies: PRODUCT_SPEC.md FR-008, FR-009, FR-011, AC-007, AC-008, AC-009
   - External boundary: yes
   - Acceptance criteria:
@@ -578,20 +578,3 @@
     - New, removed, and changed operations and schema fields are reported in a readable summary, and the job notifies maintainers.
     - Updating the snapshot is a documented manual step that reruns the contract tools.
     - Unit tests and format checks pass.
-
-- [ ] T-062 Static analysis and mutation testing
-  - Satisfies: PRODUCT_SPEC.md FR-011, FR-026, AC-009
-  - External boundary: no
-  - Acceptance criteria:
-    - PHPStan or Psalm passes at the highest level practical, with any baseline entries justified.
-    - Mutation testing (Infection) runs against the response decoders and outcome classification, and surviving mutants are reviewed or covered by new tests.
-    - Unit tests and format checks pass.
-
-- [ ] T-063 Public API stabilization before the Laravel package
-  - Satisfies: PRODUCT_SPEC.md FR-002, FR-007, FR-011, AC-001, AC-022
-  - External boundary: no
-  - Acceptance criteria:
-    - The public API (client names, method signatures, exception hierarchy, response types) is listed in a document, and everything else is marked `@internal`.
-    - A check fails when the public surface changes without an update to that list.
-    - The versioning policy for `0.x` and the version range that laravel-portone will depend on are documented.
-    - Unit tests, format checks, and the OpenAPI contract checks pass.
