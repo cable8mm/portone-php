@@ -390,6 +390,51 @@ composer test
 
 실제 API와 webhook까지 확인하려면 `.env`를 작성한 뒤 `composer e2e`를 추가로 실행합니다.
 
+## 불확실한 결제 결과 복구 절차
+
+`payInstantly`나 `payWithBillingKey` 같은 결제 operation은 요청이 서버에 도달했는지 불분명한 상태에서 실패할 수 있습니다. 이 경우 다음 절차로 복구합니다.
+
+### TransportException 발생 시
+
+`TransportException`(네트워크 단절·timeout)이 발생하면 SDK는 자동으로 재시도하지 않습니다. 결제 존재 여부를 직접 확인해야 합니다.
+
+```php
+try {
+    $client->payInstantly(paymentId: $paymentId, ...);
+} catch (TransportException $e) {
+    // SDK는 재시도하지 않음. getPayment로 상태를 확인합니다.
+    try {
+        $payment = $client->getPayment($paymentId);
+        if ($payment->variant === 'PAID') {
+            // 결제가 실제로 완료됨 → 취소하거나 완료 처리합니다.
+        }
+    } catch (UnknownException $getErr) {
+        if ($getErr->errorType === 'PAYMENT_NOT_FOUND') {
+            // 결제가 존재하지 않음 → 새로운 paymentId로 재시도할 수 있습니다.
+        }
+    }
+}
+```
+
+라이브 관측 결과(`tests/fixtures/duplicate-timeout-boundary-observations.json`): connect_timeout=1 s로 8.8.8.8:81에 요청 시 `TransportException`이 발생했고, 이후 `getPayment`에서 `PAYMENT_NOT_FOUND`(HTTP 404)가 반환되어 결제가 존재하지 않음을 확인했습니다.
+
+### 동일 paymentId로 중복 결제 시
+
+같은 `paymentId`로 두 번 결제를 시도하면 두 번째 시도에서 `UnknownException`이 발생하며 `errorType`이 `ALREADY_PAID`로 설정됩니다. 첫 번째 결제는 그대로 유지됩니다.
+
+```php
+try {
+    $client->payInstantly(paymentId: $sameId, ...);
+} catch (UnknownException $e) {
+    if ($e->errorType === 'ALREADY_PAID') {
+        // 이미 결제 완료 — getPayment로 결제 상태를 확인합니다.
+        $payment = $client->getPayment($sameId);
+    }
+}
+```
+
+라이브 관측 결과: `ALREADY_PAID` (HTTP 409), 첫 번째 결제는 `PAID` 상태 그대로 유지.
+
 ## 예외 처리
 
 모든 SDK runtime failure는 `PortOneException`에서 파생됩니다.
