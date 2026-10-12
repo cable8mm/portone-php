@@ -1,5 +1,30 @@
 # Release Notes
 
+## v0.3.0 - 2026-10-12
+
+### What's Changed
+
+* fix: implement end-to-end payment lifecycle verification and update related configurations by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/portone-php/pull/41
+* feat: enhance E2E testing configuration and improve query parameter normalization by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/portone-php/pull/42
+* feat: implement billing key lifecycle management with E2E verification and related models by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/portone-php/pull/43
+* test: add payment schedule lifecycle probe and related test fixtures by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/portone-php/pull/44
+* test: add partial cancellation and refund paths with E2E probe and unit tests by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/portone-php/pull/45
+* test: add duplicate request and timeout recovery behavior with E2E probe and unit tests by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/portone-php/pull/46
+* feat: implement webhook transaction and billing key handling with typed structures and tests by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/portone-php/pull/47
+* feat: add PaymentMethod model and related tests for payment method and status handling by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/portone-php/pull/48
+* test: add decoder robustness tests for various input scenarios by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/portone-php/pull/49
+* test: add corresponding test file by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/portone-php/pull/50
+* docs: add guide and tests for asynchronous and long-running process behavior by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/portone-php/pull/51
+* feat: enhance security by preventing secret exposure in debug output and serialization by [@sington2014-commits](https://github.com/sington2014-commits) in https://github.com/cable8mm/portone-php/pull/52
+* feat: implement OpenAPI drift detection workflow and related functionality by [@sington2014-commits](https://github.com/sington2014-commits) in https://github.com/cable8mm/portone-php/pull/53
+* fix: remove useless tasks and correct task completion indicators in TASKS.md by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/portone-php/pull/54
+
+### New Contributors
+
+* [@sington2014-commits](https://github.com/sington2014-commits) made their first contribution in https://github.com/cable8mm/portone-php/pull/52
+
+**Full Changelog**: https://github.com/cable8mm/portone-php/compare/v0.2.0...v0.3.0
+
 ## v0.2.0 - 2026-10-12
 
 ### What's Changed
