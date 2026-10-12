@@ -6,16 +6,11 @@ namespace Cable8mm\PortonePhp\Model;
 
 final class CancelPaymentResponse extends OperationResponse
 {
-    /** @param array<string,mixed> $cancellation */
-    public function __construct(public readonly array $cancellation) {}
+    public function __construct(public readonly PaymentCancellation $cancellation) {}
 
     /** @param array<string,mixed> $data */
     public static function fromArray(array $data): static
     {
-        if (! is_array($data['cancellation'] ?? null)) {
-            throw new \UnexpectedValueException('CancelPaymentResponse must contain a cancellation object.');
-        }
-
-        return new self($data['cancellation']);
+        return new self(PaymentCancellation::fromArray(self::requireObject($data, 'cancellation', self::class)));
     }
 }

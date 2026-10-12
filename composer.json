@@ -19,6 +19,7 @@
         "lint": "vendor/bin/pint --test",
         "serve": "php -S 127.0.0.1:8080 -t samples samples/index.php",
         "e2e": "php tools/run_e2e.php",
+        "e2e:payment-lifecycle": "php tools/portone_payment_lifecycle_probe.php",
         "openapi:check": "php tools/openapi_contract_probe.php --check-php",
         "openapi:signatures": "php tools/openapi_contract_probe.php --check-signatures",
         "openapi:responses": "php tools/openapi_response_inventory.php"
