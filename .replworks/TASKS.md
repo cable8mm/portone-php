@@ -501,7 +501,7 @@
     - The README documents the recovery procedure for an uncertain payment outcome.
     - Unit tests, format checks, and the full live E2E matrix pass.
 
-- [ ] T-054 Real webhook verification and fixture capture
+- [X] T-054 Real webhook verification and fixture capture
   - Satisfies: PRODUCT_SPEC.md FR-014, FR-015, FR-016, FR-017, FR-018, ERR-002, ERR-007, AC-010, AC-018
   - External boundary: yes
   - Acceptance criteria:

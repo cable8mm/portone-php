@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Cable8mm\PortonePhp\Webhook\WebhookTransactionPaid;
+use Cable8mm\PortonePhp\Webhook\WebhookTransaction;
 
 require_once __DIR__.'/bootstrap.php';
 
@@ -54,7 +54,7 @@ if ($path === '/api/payment/webhook' && $method === 'POST') {
 
         sampleJson([
             'verified' => true,
-            'type' => $webhook instanceof WebhookTransactionPaid ? $webhook->type : 'unrecognized',
+            'type' => $webhook instanceof WebhookTransaction ? $webhook->type : 'unrecognized',
             'paymentId' => $paymentId,
             'sync' => $sync,
         ]);

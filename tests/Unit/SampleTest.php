@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
 use Cable8mm\PortonePhp\Webhook\UnrecognizedWebhook;
-use Cable8mm\PortonePhp\Webhook\WebhookTransactionPaid;
+use Cable8mm\PortonePhp\Webhook\WebhookTransaction;
 use Cable8mm\PortonePhp\Webhook\WebhookVerifier;
 use PHPUnit\Framework\TestCase;
 
@@ -54,7 +54,7 @@ final class SampleTest extends TestCase
             'Webhook-Signature' => $signature,
         ]);
 
-        self::assertInstanceOf(WebhookTransactionPaid::class, $webhook);
+        self::assertInstanceOf(WebhookTransaction::class, $webhook);
         self::assertSame('payment', sampleWebhookPaymentId($webhook));
 
         $unknownBody = str_replace('Transaction.Paid', 'Future.Event', $body);

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Cable8mm\PortonePhp\Exception\WebhookVerificationException;
 use Cable8mm\PortonePhp\Webhook\UnrecognizedWebhook;
-use Cable8mm\PortonePhp\Webhook\WebhookTransactionPaid;
+use Cable8mm\PortonePhp\Webhook\WebhookTransaction;
 use Cable8mm\PortonePhp\Webhook\WebhookVerifier;
 
 require __DIR__.'/../vendor/autoload.php';
@@ -41,7 +41,7 @@ try {
     $observations['known'] = [
         'status' => 'success',
         'resultType' => $known::class,
-        'isExpectedType' => $known instanceof WebhookTransactionPaid,
+        'isExpectedType' => $known instanceof WebhookTransaction,
     ];
 } catch (WebhookVerificationException $exception) {
     $observations['known'] = ['status' => 'failure', 'exception' => $exception::class];

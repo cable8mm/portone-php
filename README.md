@@ -121,7 +121,7 @@ $webhook = $verifier->verify(
     $headers['webhook-timestamp'] ?? null,
 );
 
-if ($webhook instanceof \Cable8mm\PortonePhp\Webhook\WebhookTransactionPaid) {
+if ($webhook instanceof \Cable8mm\PortonePhp\Webhook\WebhookTransaction) {
     $paymentId = $webhook->data->paymentId;
 }
 ```
@@ -333,7 +333,7 @@ tests/fixtures/payment-lifecycle-boundary-observations.json
    2. 결제 스케줄 생성 → `getPaymentSchedule`로 `SCHEDULED` 상태 확인 → `revokePaymentSchedules`로 취소 → `getPaymentScheduleAsync`로 `REVOKED` 상태 확인
    3. 약 2분 10초 후 실행되는 결제 스케줄 생성
    4. PortOne이 스케줄을 실행하고 webhook을 발송하면 `webhook-capture.php`가 수신
-   5. `WebhookVerifier`로 webhook 서명 검증 → typed `WebhookTransactionPaid` 확인
+   5. `WebhookVerifier`로 webhook 서명 검증 → typed `WebhookTransaction` 확인
    6. 스케줄이 생성한 결제를 `getPayment`로 typed `Payment` (PAID) 조회
    7. `cancelPayment`로 결제 취소 → typed `CancelPaymentResponse` 확인
 

@@ -1,0 +1,75 @@
+{
+    "_note": "Sanitized fixtures for PortOne V2 webhook regression tests (T-054). Payloads are structurally real but paymentIds and storeIds are replaced with stable test values. Signatures are intentionally omitted — tests re-sign with a local test secret.",
+    "Transaction.Paid": {
+        "type": "Transaction.Paid",
+        "timestamp": "2026-10-12T15:09:02Z",
+        "data": {
+            "transactionId": "fixture-transaction-paid-tx-01",
+            "paymentId": "fixture-payment-paid-01",
+            "storeId": "fixture-store-01"
+        }
+    },
+    "Transaction.Cancelled": {
+        "type": "Transaction.Cancelled",
+        "timestamp": "2026-10-12T15:10:00Z",
+        "data": {
+            "transactionId": "fixture-transaction-cancelled-tx-01",
+            "paymentId": "fixture-payment-cancelled-01",
+            "storeId": "fixture-store-01",
+            "cancellationId": "fixture-cancellation-01"
+        }
+    },
+    "Transaction.PartialCancelled": {
+        "type": "Transaction.PartialCancelled",
+        "timestamp": "2026-10-12T15:11:00Z",
+        "data": {
+            "transactionId": "fixture-transaction-partial-tx-01",
+            "paymentId": "fixture-payment-partial-01",
+            "storeId": "fixture-store-01",
+            "cancellationId": "fixture-partial-cancellation-01"
+        }
+    },
+    "Transaction.Failed": {
+        "type": "Transaction.Failed",
+        "timestamp": "2026-10-12T15:12:00Z",
+        "data": {
+            "transactionId": "fixture-transaction-failed-tx-01",
+            "paymentId": "fixture-payment-failed-01",
+            "storeId": "fixture-store-01"
+        }
+    },
+    "Transaction.Ready": {
+        "type": "Transaction.Ready",
+        "timestamp": "2026-10-12T15:13:00Z",
+        "data": {
+            "transactionId": "fixture-transaction-ready-tx-01",
+            "paymentId": "fixture-payment-ready-01",
+            "storeId": "fixture-store-01"
+        }
+    },
+    "Transaction.VirtualAccountIssued": {
+        "type": "Transaction.VirtualAccountIssued",
+        "timestamp": "2026-10-12T15:14:00Z",
+        "data": {
+            "transactionId": "fixture-transaction-va-tx-01",
+            "paymentId": "fixture-payment-va-01",
+            "storeId": "fixture-store-01"
+        }
+    },
+    "BillingKey.Issued": {
+        "type": "BillingKey.Issued",
+        "timestamp": "2026-10-12T15:15:00Z",
+        "data": {
+            "billingKey": "fixture-billing-key-01",
+            "storeId": "fixture-store-01"
+        }
+    },
+    "BillingKey.Deleted": {
+        "type": "BillingKey.Deleted",
+        "timestamp": "2026-10-12T15:16:00Z",
+        "data": {
+            "billingKey": "fixture-billing-key-01",
+            "storeId": "fixture-store-01"
+        }
+    }
+}
