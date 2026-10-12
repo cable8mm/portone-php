@@ -471,7 +471,7 @@
     - Synchronous operations and an asynchronous final-state lookup are covered, and no secret or billing key value is committed or printed.
     - Unit tests, format checks, and the full live E2E matrix pass.
 
-- [ ] T-051 Payment schedule lifecycle and scheduled-execution webhook
+- [X] T-051 Payment schedule lifecycle and scheduled-execution webhook
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-013, FR-015, FR-016, AC-009, AC-018
   - External boundary: yes
   - Acceptance criteria:

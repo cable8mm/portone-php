@@ -1,0 +1,60 @@
+{
+    "status": "observed",
+    "operations": {
+        "issueBillingKey": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\IssueBillingKeyResponse",
+            "billingKeyPayloadType": "Cable8mm\\PortonePhp\\Model\\BillingKeyInfoSummary"
+        },
+        "createPaymentSchedule": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\CreatePaymentScheduleResponse",
+            "scheduleId": "schedule-id-abadd77d-badc-4bea-9c37-430571032cfb",
+            "scheduleStatus": null
+        },
+        "getPaymentSchedule": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\PaymentSchedule",
+            "scheduleStatus": "SCHEDULED"
+        },
+        "revokePaymentSchedules": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\RevokePaymentSchedulesResponse",
+            "revokedScheduleIds": [
+                "schedule-id-abadd77d-badc-4bea-9c37-430571032cfb"
+            ],
+            "revokedAt": "2026-10-12T15:05:53.180679216Z"
+        },
+        "getPaymentScheduleAsync": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\PaymentSchedule",
+            "scheduleStatus": "REVOKED"
+        },
+        "createPaymentScheduleForWebhook": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\CreatePaymentScheduleResponse",
+            "scheduleId": "schedule-id-e73973e4-cbed-4733-811c-db073a90c550",
+            "scheduledPaymentId": "codex-sched-webhook-e2e-32a030e1788d",
+            "timeToPay": "2026-10-12T15:08:03.308+00:00",
+            "webhookCaptureUrl": "https:\/\/737a-211-110-41-15.ngrok-free.app\/webhook-capture.php"
+        },
+        "webhookVerifier": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Webhook\\WebhookTransactionPaid",
+            "isTypedKnownWebhook": true,
+            "webhookPaymentId": "codex-sched-webhook-e2e-32a030e1788d"
+        },
+        "getScheduledPayment": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\Payment",
+            "paymentStatus": "PAID",
+            "paymentId": "codex-sched-webhook-e2e-32a030e1788d"
+        },
+        "cancelScheduledPayment": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\CancelPaymentResponse",
+            "cancellationPayloadType": "Cable8mm\\PortonePhp\\Model\\PaymentCancellation",
+            "cancellationStatus": "SUCCEEDED"
+        }
+    }
+}
