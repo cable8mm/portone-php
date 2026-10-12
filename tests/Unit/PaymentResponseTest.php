@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Tests\Unit;
 
+use Cable8mm\PortonePhp\Model\BillingKeyPaymentSummary;
 use Cable8mm\PortonePhp\Model\CancelPaymentResponse;
 use Cable8mm\PortonePhp\Model\GetPaymentTransactionsResponse;
 use Cable8mm\PortonePhp\Model\InstantPaymentSummary;
@@ -29,10 +30,11 @@ final class PaymentResponseTest extends TestCase
         $payment = PayInstantlyResponse::fromArray(['payment' => ['pgTxId' => 'pg-tx-id', 'paidAt' => '2026-01-01T00:00:00Z']])->payment;
         self::assertInstanceOf(InstantPaymentSummary::class, $payment);
         self::assertSame('pg-tx-id', $payment->pgTxId);
-        self::assertSame(
-            ['id' => 'payment-id'],
-            PayWithBillingKeyResponse::fromArray(['payment' => ['id' => 'payment-id']])->payment,
-        );
+        $billingKeyPayment = PayWithBillingKeyResponse::fromArray(['payment' => [
+            'pgTxId' => 'pg-tx-id', 'paidAt' => '2026-01-01T00:00:00Z',
+        ]])->payment;
+        self::assertInstanceOf(BillingKeyPaymentSummary::class, $billingKeyPayment);
+        self::assertSame('pg-tx-id', $billingKeyPayment->pgTxId);
     }
 
     public function test_payment_response_envelopes_ignore_extra_fields(): void

@@ -1,0 +1,45 @@
+{
+    "status": "observed",
+    "operations": {
+        "issueBillingKey": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\IssueBillingKeyResponse",
+            "billingKeyPayloadType": "Cable8mm\\PortonePhp\\Model\\BillingKeyInfoSummary"
+        },
+        "getBillingKeyInfo": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\BillingKeyInfo",
+            "billingKeyStatus": "ISSUED"
+        },
+        "payWithBillingKey": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\PayWithBillingKeyResponse",
+            "paymentPayloadType": "Cable8mm\\PortonePhp\\Model\\BillingKeyPaymentSummary"
+        },
+        "getPayment": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\Payment",
+            "paymentStatus": "PAID"
+        },
+        "cancelPayment": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\CancelPaymentResponse",
+            "cancellationPayloadType": "Cable8mm\\PortonePhp\\Model\\PaymentCancellation",
+            "cancellationStatus": "SUCCEEDED"
+        },
+        "getPaymentAsync": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\Payment",
+            "paymentStatus": "CANCELLED"
+        },
+        "deleteBillingKey": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\DeleteBillingKeyResponse"
+        },
+        "getBillingKeyInfoAfterDelete": {
+            "status": "expected-deleted-state",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\BillingKeyInfo",
+            "billingKeyStatus": "DELETED"
+        }
+    }
+}

@@ -459,7 +459,7 @@
     - The live probe records the operation names, result types, payment identifier metadata, and final status as a reproducible local observation; it does not treat a controlled PortOne API failure as a typed-success pass.
     - Synchronous payment creation, lookup, and cancellation plus an asynchronous final-state lookup, unit tests, format checks, and the complete live E2E verification pass.
 
-- [ ] T-050 Billing key lifecycle live verification
+- [X] T-050 Billing key lifecycle live verification
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-013, FR-026, FR-027, AC-009, AC-022
   - External boundary: yes
   - Acceptance criteria:
@@ -467,7 +467,7 @@
     - `getBillingKeyInfo` returns a typed billing-key model whose identity matches the issued billing key.
     - `payWithBillingKey` creates a live test-store payment and returns a typed `PayWithBillingKeyResponse` with a typed payment payload.
     - The created payment is retrieved with `getPayment` and cancelled with `cancelPayment`, and the final state is observed as cancelled.
-    - `deleteBillingKey` succeeds on the disposable billing key, and a later lookup returns the observed defined error.
+    - `deleteBillingKey` succeeds on the disposable billing key, and a later lookup returns the typed `DELETED` billing-key state or the observed defined deletion error.
     - Synchronous operations and an asynchronous final-state lookup are covered, and no secret or billing key value is committed or printed.
     - Unit tests, format checks, and the full live E2E matrix pass.
 
