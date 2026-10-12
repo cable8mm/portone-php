@@ -1,0 +1,57 @@
+{
+    "status": "observed",
+    "operations": {
+        "payInstantly": {
+            "status": "success",
+            "paymentId": "codex-e2e-partial-2af86b4a44a04ae4"
+        },
+        "getPayment_after_pay": {
+            "status": "success",
+            "paymentStatus": "PAID"
+        },
+        "cancelPayment_partial_step1": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\CancelPaymentResponse",
+            "cancellationStatus": "SUCCEEDED",
+            "totalAmount": 400
+        },
+        "getPayment_after_partial": {
+            "status": "success",
+            "paymentStatus": "PARTIAL_CANCELLED"
+        },
+        "cancelPayment_final_step2": {
+            "status": "success",
+            "resultType": "Cable8mm\\PortonePhp\\Model\\CancelPaymentResponse",
+            "cancellationStatus": "SUCCEEDED",
+            "totalAmount": 600
+        },
+        "getPayment_after_final": {
+            "status": "success",
+            "paymentStatus": "CANCELLED"
+        },
+        "payInstantly_for_errors": {
+            "status": "success",
+            "paymentId": "codex-e2e-partial-ba8dacd1348d8e39"
+        }
+    },
+    "errors": {
+        "cancel_amount_exceeds": {
+            "status": "observed",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "errorType": "CANCEL_AMOUNT_EXCEEDS_CANCELLABLE_AMOUNT",
+            "httpStatus": 409
+        },
+        "cancellable_amount_consistency_broken": {
+            "status": "observed",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "errorType": "CANCELLABLE_AMOUNT_CONSISTENCY_BROKEN",
+            "httpStatus": 409
+        },
+        "payment_already_cancelled": {
+            "status": "observed",
+            "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+            "errorType": "PAYMENT_ALREADY_CANCELLED",
+            "httpStatus": 409
+        }
+    }
+}

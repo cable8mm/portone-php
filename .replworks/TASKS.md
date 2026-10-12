@@ -481,7 +481,7 @@
     - The observed payment created by the schedule is retrieved as a typed `Payment` and cancelled.
     - Unit tests, format checks, and the full live E2E matrix pass.
 
-- [ ] T-052 Partial cancellation and refund paths
+- [X] T-052 Partial cancellation and refund paths
   - Satisfies: PRODUCT_SPEC.md FR-011, FR-012, FR-013, ERR-003, ERR-004, AC-009, AC-018
   - External boundary: yes
   - Acceptance criteria:

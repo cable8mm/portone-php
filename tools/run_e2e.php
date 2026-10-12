@@ -41,6 +41,7 @@ $probes = [
     'tools/portone_openapi_matrix_probe.php',
     'tools/portone_webhook_probe.php',
     'tools/portone_payment_schedule_probe.php',
+    'tools/portone_partial_cancellation_probe.php',
 ];
 
 foreach ($probes as $probe) {
