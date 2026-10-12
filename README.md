@@ -293,6 +293,58 @@ tests/fixtures/payment-lifecycle-boundary-observations.json
    capture fixture의 원래 timestamp가 오래된 경우에도 probe는 캡처된 live body를 보존하면서 현재 timestamp로 검증용 signature를 재생성합니다.
    실제 webhook endpoint 검증에서는 PortOne이 보낸 원본 timestamp가 그대로 사용됩니다.
 
+### 결제 스케줄 + Webhook lifecycle E2E
+
+결제 스케줄이 실행될 때 PortOne이 실제로 webhook을 발송하고, `WebhookVerifier`로 검증한 뒤 스케줄이 생성한 결제를 typed model로 조회·취소하는 전 과정을 검증합니다.
+
+1. PHP sample 서버를 실행합니다.
+
+   ```sh
+   php -S 0.0.0.0:8899 -t samples/
+   ```
+
+2. 다른 terminal에서 ngrok을 실행합니다.
+
+   ```sh
+   ngrok http 8899
+   ```
+
+3. PortOne 관리자 콘솔의 webhook endpoint를 다음 주소로 등록합니다.
+
+   ```text
+   https://<ngrok-domain>/webhook-capture.php
+   ```
+
+4. probe를 실행합니다. ngrok이 실행 중이면 공개 URL을 자동으로 감지합니다.
+
+   ```sh
+   php tools/portone_payment_schedule_probe.php
+   ```
+
+   수동으로 URL을 지정할 수도 있습니다.
+
+   ```sh
+   php tools/portone_payment_schedule_probe.php https://<ngrok-domain>/webhook-capture.php
+   ```
+
+   probe는 다음 순서로 실행됩니다.
+
+   1. 빌링키 발급
+   2. 결제 스케줄 생성 → `getPaymentSchedule`로 `SCHEDULED` 상태 확인 → `revokePaymentSchedules`로 취소 → `getPaymentScheduleAsync`로 `REVOKED` 상태 확인
+   3. 약 2분 10초 후 실행되는 결제 스케줄 생성
+   4. PortOne이 스케줄을 실행하고 webhook을 발송하면 `webhook-capture.php`가 수신
+   5. `WebhookVerifier`로 webhook 서명 검증 → typed `WebhookTransactionPaid` 확인
+   6. 스케줄이 생성한 결제를 `getPayment`로 typed `Payment` (PAID) 조회
+   7. `cancelPayment`로 결제 취소 → typed `CancelPaymentResponse` 확인
+
+   성공하면 다음 fixture에 모든 operation 결과를 기록합니다.
+
+   ```text
+   tests/fixtures/payment-schedule-boundary-observations.json
+   ```
+
+   webhook 수신 대기는 스케줄 실행 후 최대 90초이며, 그 사이 `tests/fixtures/live-webhook.json`을 5초 간격으로 폴링합니다. 기존 live-webhook.json에 다른 paymentId가 있으면 덮어쓰기 전까지 대기합니다. 결과에 secret, 카드번호, billing key 값은 포함하지 않습니다.
+
 ### PHP sample E2E
 
 먼저 별도 terminal에서 `composer serve`로 샘플 HTTP 서버를 실행합니다. 이 명령이 실행 중인 동안에만 아래 HTTP 요청을 보낼 수 있습니다.
