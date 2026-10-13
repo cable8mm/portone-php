@@ -8,3 +8,5 @@
 .phpunit.cache/
 .vscode/
 .DS_Store
+build/
+cache/
