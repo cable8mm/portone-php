@@ -6,6 +6,9 @@ namespace Cable8mm\PortonePhp\Client;
 
 use Cable8mm\PortonePhp\Http\RequestExecutor;
 
+/**
+ * PortOne V2 API의 기능별 클라이언트를 제공하는 최상위 클라이언트입니다.
+ */
 final class PortOneClient extends AbstractClient
 {
     public readonly PaymentClient $payment;
@@ -28,6 +31,9 @@ final class PortOneClient extends AbstractClient
 
     public readonly PaymentSessionClient $paymentSession;
 
+    /**
+     * PortOneClient 객체를 초기화합니다.
+     */
     public function __construct(#[\SensitiveParameter] string $apiSecret, ?RequestExecutor $executor = null)
     {
         parent::__construct($apiSecret, $executor);

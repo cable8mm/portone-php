@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Cable8mm\PortonePhp\Webhook;
 
 /**
- * Common data payload for Transaction.* webhook events.
- *
- * Fields observed in live PortOne V2 webhook (docs: https://developers.portone.io):
- *  - paymentId, transactionId, storeId — always present on transaction events
- *  - cancellationId — present on Transaction.Cancelled, Transaction.PartialCancelled
+ * Transaction.* 이벤트에 공통으로 포함되는 데이터를 나타냅니다.
  */
 final class WebhookTransactionData
 {
+    /**
+     * WebhookTransactionData 객체를 초기화합니다.
+     */
     public function __construct(
         public readonly string $paymentId,
         public readonly string $storeId,
@@ -20,7 +19,12 @@ final class WebhookTransactionData
         public readonly ?string $cancellationId = null,
     ) {}
 
-    /** @param array<string,mixed> $data */
+    /**
+     * 배열 형식의 API 응답 데이터로 WebhookTransactionData 객체를 생성합니다.
+     *
+     * @param  array<string,mixed>  $data
+     * @return static 변환된 객체입니다.
+     */
     public static function fromArray(array $data): self
     {
         return new self(

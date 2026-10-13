@@ -4,12 +4,19 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Model;
 
+/**
+ * PortOne V2 API의 결제 건을 나타내는 모델입니다.
+ */
 final class Payment extends DiscriminatedResponse
 {
-    /** Decoded payment method, or null when not present in the payload. */
+    /** 응답에 포함된 디코딩된 결제 수단입니다. 없으면 null입니다. */
     public readonly ?PaymentMethod $method;
 
-    /** @param array<string,mixed> $data */
+    /**
+     * Payment 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data
+     */
     public function __construct(array $data, string $variant, bool $knownVariant)
     {
         parent::__construct($data, $variant, $knownVariant);
@@ -18,7 +25,12 @@ final class Payment extends DiscriminatedResponse
         $this->method = $methodData !== null ? PaymentMethod::fromArray($methodData) : null;
     }
 
-    /** @param array<string,mixed> $data */
+    /**
+     * 배열 형식의 API 응답 데이터로 Payment 객체를 생성합니다.
+     *
+     * @param  array<string,mixed>  $data
+     * @return static 변환된 객체입니다.
+     */
     public static function fromArray(array $data): static
     {
         [$variant, $known] = self::decodeVariant($data, 'status', [

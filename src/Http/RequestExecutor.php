@@ -10,6 +10,9 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * PortOne API 요청의 인증, 시간 제한 및 HTTP 전송을 처리합니다.
+ */
 class RequestExecutor
 {
     private const CONNECT_TIMEOUT = 10;
@@ -20,6 +23,9 @@ class RequestExecutor
 
     private readonly \Closure $authorizationHeader;
 
+    /**
+     * PortOne API Secret으로 인증된 HTTP 요청 실행기를 초기화합니다.
+     */
     public function __construct(#[\SensitiveParameter] string $apiSecret)
     {
         if ($apiSecret === '') {
@@ -30,12 +36,19 @@ class RequestExecutor
         $this->client = $this->createClient();
     }
 
+    /**
+     * 인증 정보가 디버그 출력에 노출되지 않도록 빈 정보를 반환합니다.
+     */
     public function __debugInfo(): array
     {
         return [];
     }
 
-    /** @param array<string,mixed> $options */
+    /**
+     * HTTP 요청을 동기적으로 전송하고 원본 응답을 반환합니다.
+     *
+     * @param  array<string,mixed>  $options
+     */
     public function request(
         string $method,
         string $uri,
@@ -48,7 +61,11 @@ class RequestExecutor
         }
     }
 
-    /** @param array<string,mixed> $options */
+    /**
+     * HTTP 요청을 비동기적으로 시작하고 요청 처리를 나타내는 Promise를 반환합니다.
+     *
+     * @param  array<string,mixed>  $options
+     */
     public function requestAsync(
         string $method,
         string $uri,
