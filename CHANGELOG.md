@@ -1,5 +1,13 @@
 # Release Notes
 
+## v0.3.1 - 2026-10-13
+
+### What's Changed
+
+* feat: add GitHub Pages deployment workflow and update documentation generation by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/portone-php/pull/55
+
+**Full Changelog**: https://github.com/cable8mm/portone-php/compare/v0.3.0...v0.3.1
+
 ## v0.3.0 - 2026-10-12
 
 ### What's Changed
