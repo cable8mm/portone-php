@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/cable8mm/portone-php/actions/workflows/ci.yml/badge.svg)](https://github.com/cable8mm/portone-php/actions/workflows/ci.yml)
 [![update-changelog](https://github.com/cable8mm/portone-php/actions/workflows/update-changelog.yml/badge.svg)](https://github.com/cable8mm/portone-php/actions/workflows/update-changelog.yml)
+[![apidoc-to-github-pages](https://github.com/cable8mm/portone-php/actions/workflows/apidoc-to-github-page.yml/badge.svg)](https://github.com/cable8mm/portone-php/actions/workflows/apidoc-to-github-page.yml)
 [![PHP Version](https://img.shields.io/packagist/php-v/cable8mm/portone-php.svg)](https://packagist.org/packages/cable8mm/portone-php)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/cable8mm/portone-php.svg)](https://packagist.org/packages/cable8mm/portone-php)
 [![License](https://img.shields.io/github/license/cable8mm/portone-php.svg)](https://github.com/cable8mm/portone-php/blob/main/LICENSE)
@@ -13,6 +14,8 @@ PortOne V2 REST API용 PHP 서버 SDK입니다. 공식 OpenAPI 명세의 전체 
 - HTTP: Guzzle 8
 - 네임스페이스: `Cable8mm\PortonePhp`
 - 라이선스: MIT
+
+본 패키지는 API 문서를 웹에 제공합니다. 이 문서를 보기 위해서 <https://www.palgle.com/portone-php/>를 방문해 보세요.
 
 ## 지원 범위
 
@@ -161,17 +164,17 @@ Secret을 README, source, fixture, 로그에 넣거나 commit하지 마세요.
 
 위 설정은 SDK 본체가 읽지 않고, 개발용 live E2E probe만 읽습니다. 모든 값은 테스트 환경의 값만 사용하세요.
 
-| 변수 | 얻는 위치와 용도 |
-| --- | --- |
-| `PORTONE_API_SECRET` | PortOne 관리자 콘솔의 `결제 연동 → 연동 관리 → 식별코드·API Keys`에서 V2 API Secret을 발급합니다. 서버와 `.env`에서만 사용합니다. |
-| `PORTONE_WEBHOOK_SECRET` | 관리자 콘솔의 테스트 webhook 설정에서 확인합니다. Webhook E2E와 `WebhookVerifier` 검증에 사용합니다. |
-| `PORTONE_E2E_STORE_ID` | 관리자 콘솔의 `결제 연동 → 연동 관리`에서 테스트 상점 ID를 복사합니다. |
-| `PORTONE_E2E_CHANNEL_KEY` | `결제 연동 → 연동 정보`를 테스트 모드로 전환한 뒤 등록된 테스트 결제 채널의 채널 키를 복사합니다. `payInstantly`와 billing-key 결제에 사용합니다. |
-| `PORTONE_E2E_CHANNEL_GROUP_ID` | `연동 관리 → 스마트 라우팅`에서 테스트 그룹을 생성하고, 저장 후 자동으로 생성된 그룹 ID를 복사합니다. billing-key 발급 시 `channelGroupId`로 사용합니다. |
-| `PORTONE_E2E_CARD_NUMBER` | 선택한 테스트 PG가 제공하는 테스트 카드 번호입니다. 실제 카드 번호를 사용하지 않습니다. |
-| `PORTONE_E2E_CARD_EXPIRY_YEAR` / `PORTONE_E2E_CARD_EXPIRY_MONTH` | 위 테스트 카드의 유효기간입니다. 연도와 월을 각각 2자리로 입력합니다. |
-| `PORTONE_E2E_BIRTH_OR_BUSINESS_NUMBER` | PG 테스트 카드가 요구하는 생년월일 `YYMMDD` 6자리 또는 사업자등록번호 10자리입니다. |
-| `PORTONE_E2E_PASSWORD_TWO_DIGITS` | PG 테스트 카드가 요구하는 카드 비밀번호 앞 2자리입니다. PG가 요구하지 않으면 비워둘 수 있습니다. |
+| 변수                                                             | 얻는 위치와 용도                                                                                                                                         |
+| ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PORTONE_API_SECRET`                                             | PortOne 관리자 콘솔의 `결제 연동 → 연동 관리 → 식별코드·API Keys`에서 V2 API Secret을 발급합니다. 서버와 `.env`에서만 사용합니다.                        |
+| `PORTONE_WEBHOOK_SECRET`                                         | 관리자 콘솔의 테스트 webhook 설정에서 확인합니다. Webhook E2E와 `WebhookVerifier` 검증에 사용합니다.                                                     |
+| `PORTONE_E2E_STORE_ID`                                           | 관리자 콘솔의 `결제 연동 → 연동 관리`에서 테스트 상점 ID를 복사합니다.                                                                                   |
+| `PORTONE_E2E_CHANNEL_KEY`                                        | `결제 연동 → 연동 정보`를 테스트 모드로 전환한 뒤 등록된 테스트 결제 채널의 채널 키를 복사합니다. `payInstantly`와 billing-key 결제에 사용합니다.        |
+| `PORTONE_E2E_CHANNEL_GROUP_ID`                                   | `연동 관리 → 스마트 라우팅`에서 테스트 그룹을 생성하고, 저장 후 자동으로 생성된 그룹 ID를 복사합니다. billing-key 발급 시 `channelGroupId`로 사용합니다. |
+| `PORTONE_E2E_CARD_NUMBER`                                        | 선택한 테스트 PG가 제공하는 테스트 카드 번호입니다. 실제 카드 번호를 사용하지 않습니다.                                                                  |
+| `PORTONE_E2E_CARD_EXPIRY_YEAR` / `PORTONE_E2E_CARD_EXPIRY_MONTH` | 위 테스트 카드의 유효기간입니다. 연도와 월을 각각 2자리로 입력합니다.                                                                                    |
+| `PORTONE_E2E_BIRTH_OR_BUSINESS_NUMBER`                           | PG 테스트 카드가 요구하는 생년월일 `YYMMDD` 6자리 또는 사업자등록번호 10자리입니다.                                                                      |
+| `PORTONE_E2E_PASSWORD_TWO_DIGITS`                                | PG 테스트 카드가 요구하는 카드 비밀번호 앞 2자리입니다. PG가 요구하지 않으면 비워둘 수 있습니다.                                                         |
 
 `PORTONE_E2E_CHANNEL_GROUP_ID`는 PG에서 발급하는 정기자동결제 그룹 ID나 PG 상점 ID가 아닙니다. PortOne의 스마트 라우팅 그룹을 테스트 환경에서 생성한 뒤 PortOne이 자동으로 만든 ID입니다. 채널 그룹을 사용하지 않는 일반 결제는 `PORTONE_E2E_CHANNEL_KEY`를 사용합니다.
 
@@ -342,7 +345,6 @@ tests/fixtures/payment-lifecycle-boundary-observations.json
    ```
 
    probe는 다음 순서로 실행됩니다.
-
    1. 빌링키 발급
    2. 결제 스케줄 생성 → `getPaymentSchedule`로 `SCHEDULED` 상태 확인 → `revokePaymentSchedules`로 취소 → `getPaymentScheduleAsync`로 `REVOKED` 상태 확인
    3. 약 2분 10초 후 실행되는 결제 스케줄 생성
