@@ -16,7 +16,7 @@
 - Web framework: none. Pure PHP.
 - Runtime dependency: PHP extension ext-curl, any version.
 - Runtime dependency: PHP extension ext-json, any version.
-- Runtime dependency: guzzlehttp/guzzle, ^8.0.
+- Runtime dependency: guzzlehttp/guzzle, ^7.8.2 or ^8.0.
 - HTTP transport: Guzzle HTTP client.
 - Async HTTP transport: Guzzle asynchronous requests and promises.
 - Webhook signature computation: PHP built-in hash functions. No library.
