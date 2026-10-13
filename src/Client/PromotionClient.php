@@ -15,6 +15,8 @@ final class PromotionClient extends AbstractClient
     /**
      * 프로모션 단건 조회 기능입니다.
      * 주어진 아이디에 대응되는 프로모션을 조회합니다.
+     *
+     * @param  string|null  $promotionId  조회할 프로모션 아이디
      */
     public function getPromotion(?string $promotionId = null): Model\Promotion
     {
@@ -25,6 +27,8 @@ final class PromotionClient extends AbstractClient
      * 프로모션 단건 조회 기능입니다.
      * 주어진 아이디에 대응되는 프로모션을 조회합니다.
      * 비동기 요청을 시작하며, 반환된 Future에서 결과를 기다릴 수 있습니다.
+     *
+     * @param  string|null  $promotionId  조회할 프로모션 아이디
      */
     public function getPromotionAsync(?string $promotionId = null): Future
     {

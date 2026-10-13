@@ -15,6 +15,11 @@ final class CounterpartyClient extends AbstractClient
     /**
      * 거래처 생성 기능입니다.
      * 거래처를 생성합니다.
+     *
+     * @param  bool|null  $test  테스트 모드 여부: true 이면 테스트 모드로 실행되며, false 이거나 주어지지 않은 경우 테스트 모드를 사용하지 않습니다.
+     * @param  string|null  $counterpartyId  거래처 아이디: 입력하지 않으면 임의의 ID가 채번됩니다.
+     * @param  array<string, mixed>|null  $counterparty  거래처 입력 정보
+     * @param  array<string, mixed>|null  $options  거래처 생성 옵션
      */
     public function createB2bCounterparty(?bool $test = null, ?string $counterpartyId = null, ?array $counterparty = null, ?array $options = null): Model\CreateB2bCounterpartyResponse
     {
@@ -25,6 +30,11 @@ final class CounterpartyClient extends AbstractClient
      * 거래처 생성 기능입니다.
      * 거래처를 생성합니다.
      * 비동기 요청을 시작하며, 반환된 Future에서 결과를 기다릴 수 있습니다.
+     *
+     * @param  bool|null  $test  테스트 모드 여부: true 이면 테스트 모드로 실행되며, false 이거나 주어지지 않은 경우 테스트 모드를 사용하지 않습니다.
+     * @param  string|null  $counterpartyId  거래처 아이디: 입력하지 않으면 임의의 ID가 채번됩니다.
+     * @param  array<string, mixed>|null  $counterparty  거래처 입력 정보
+     * @param  array<string, mixed>|null  $options  거래처 생성 옵션
      */
     public function createB2bCounterpartyAsync(?bool $test = null, ?string $counterpartyId = null, ?array $counterparty = null, ?array $options = null): Future
     {
@@ -34,6 +44,9 @@ final class CounterpartyClient extends AbstractClient
     /**
      * 거래처 삭제 기능입니다.
      * 거래처를 삭제합니다.
+     *
+     * @param  string|null  $counterpartyId  거래처 ID
+     * @param  bool|null  $test  테스트 모드 여부: true 이면 테스트 모드로 실행되며, false 이거나 주어지지 않은 경우 테스트 모드를 사용하지 않습니다.
      */
     public function deleteB2bCounterparty(?string $counterpartyId = null, ?bool $test = null): Model\DeleteB2bCounterpartyResponse
     {
@@ -44,6 +57,9 @@ final class CounterpartyClient extends AbstractClient
      * 거래처 삭제 기능입니다.
      * 거래처를 삭제합니다.
      * 비동기 요청을 시작하며, 반환된 Future에서 결과를 기다릴 수 있습니다.
+     *
+     * @param  string|null  $counterpartyId  거래처 ID
+     * @param  bool|null  $test  테스트 모드 여부: true 이면 테스트 모드로 실행되며, false 이거나 주어지지 않은 경우 테스트 모드를 사용하지 않습니다.
      */
     public function deleteB2bCounterpartyAsync(?string $counterpartyId = null, ?bool $test = null): Future
     {
@@ -53,6 +69,10 @@ final class CounterpartyClient extends AbstractClient
     /**
      * 거래처 검색 기능입니다.
      * 거래처를 검색합니다.
+     *
+     * @param  bool|null  $test  테스트 모드 여부: true 이면 테스트 모드로 실행되며, false 이거나 주어지지 않은 경우 테스트 모드를 사용하지 않습니다.
+     * @param  array<string, mixed>|null  $page  다건 조회 API 에 사용되는 페이지 입력 정보
+     * @param  array<string, mixed>|null  $filter  거래처 검색 필터
      */
     public function getB2bCounterparties(?bool $test = null, ?array $page = null, ?array $filter = null): Model\GetB2bCounterpartiesResponse
     {
@@ -63,6 +83,10 @@ final class CounterpartyClient extends AbstractClient
      * 거래처 검색 기능입니다.
      * 거래처를 검색합니다.
      * 비동기 요청을 시작하며, 반환된 Future에서 결과를 기다릴 수 있습니다.
+     *
+     * @param  bool|null  $test  테스트 모드 여부: true 이면 테스트 모드로 실행되며, false 이거나 주어지지 않은 경우 테스트 모드를 사용하지 않습니다.
+     * @param  array<string, mixed>|null  $page  다건 조회 API 에 사용되는 페이지 입력 정보
+     * @param  array<string, mixed>|null  $filter  거래처 검색 필터
      */
     public function getB2bCounterpartiesAsync(?bool $test = null, ?array $page = null, ?array $filter = null): Future
     {
@@ -72,6 +96,9 @@ final class CounterpartyClient extends AbstractClient
     /**
      * 거래처 조회 기능입니다.
      * 거래처를 조회합니다.
+     *
+     * @param  string|null  $counterpartyId  거래처 ID
+     * @param  bool|null  $test  테스트 모드 여부: true 이면 테스트 모드로 실행되며, false 이거나 주어지지 않은 경우 테스트 모드를 사용하지 않습니다.
      */
     public function getB2bCounterparty(?string $counterpartyId = null, ?bool $test = null): Model\B2bCounterparty
     {
@@ -82,6 +109,9 @@ final class CounterpartyClient extends AbstractClient
      * 거래처 조회 기능입니다.
      * 거래처를 조회합니다.
      * 비동기 요청을 시작하며, 반환된 Future에서 결과를 기다릴 수 있습니다.
+     *
+     * @param  string|null  $counterpartyId  거래처 ID
+     * @param  bool|null  $test  테스트 모드 여부: true 이면 테스트 모드로 실행되며, false 이거나 주어지지 않은 경우 테스트 모드를 사용하지 않습니다.
      */
     public function getB2bCounterpartyAsync(?string $counterpartyId = null, ?bool $test = null): Future
     {
@@ -91,6 +121,9 @@ final class CounterpartyClient extends AbstractClient
     /**
      * 인증서 조회 기능입니다.
      * 연동 사업자의 인증서를 조회합니다.
+     *
+     * @param  string|null  $brn  사업자등록번호
+     * @param  bool|null  $test  테스트 모드 여부: true 이면 테스트 모드로 실행되며, false 이거나 주어지지 않은 경우 테스트 모드를 사용하지 않습니다.
      */
     public function getB2bCounterpartyCertificate(?string $brn = null, ?bool $test = null): Model\B2bCertificate
     {
@@ -101,6 +134,9 @@ final class CounterpartyClient extends AbstractClient
      * 인증서 조회 기능입니다.
      * 연동 사업자의 인증서를 조회합니다.
      * 비동기 요청을 시작하며, 반환된 Future에서 결과를 기다릴 수 있습니다.
+     *
+     * @param  string|null  $brn  사업자등록번호
+     * @param  bool|null  $test  테스트 모드 여부: true 이면 테스트 모드로 실행되며, false 이거나 주어지지 않은 경우 테스트 모드를 사용하지 않습니다.
      */
     public function getB2bCounterpartyCertificateAsync(?string $brn = null, ?bool $test = null): Future
     {
@@ -110,6 +146,9 @@ final class CounterpartyClient extends AbstractClient
     /**
      * 사업자 인증서 등록 URL 조회 기능입니다.
      * 연동 사업자의 인증서를 등록하기 위한 URL을 조회합니다.
+     *
+     * @param  string|null  $brn  사업자등록번호
+     * @param  bool|null  $test  테스트 모드 여부: true 이면 테스트 모드로 실행되며, false 이거나 주어지지 않은 경우 테스트 모드를 사용하지 않습니다.
      */
     public function getB2bCounterpartyCertificateRegistrationUrl(?string $brn = null, ?bool $test = null): Model\GetB2bCounterpartyCertificateRegistrationUrlResponse
     {
@@ -120,6 +159,9 @@ final class CounterpartyClient extends AbstractClient
      * 사업자 인증서 등록 URL 조회 기능입니다.
      * 연동 사업자의 인증서를 등록하기 위한 URL을 조회합니다.
      * 비동기 요청을 시작하며, 반환된 Future에서 결과를 기다릴 수 있습니다.
+     *
+     * @param  string|null  $brn  사업자등록번호
+     * @param  bool|null  $test  테스트 모드 여부: true 이면 테스트 모드로 실행되며, false 이거나 주어지지 않은 경우 테스트 모드를 사용하지 않습니다.
      */
     public function getB2bCounterpartyCertificateRegistrationUrlAsync(?string $brn = null, ?bool $test = null): Future
     {
@@ -129,6 +171,11 @@ final class CounterpartyClient extends AbstractClient
     /**
      * 거래처 정보 수정 기능입니다.
      * 거래처 정보를 수정합니다.
+     *
+     * @param  string|null  $counterpartyId  거래처 ID
+     * @param  bool|null  $test  테스트 모드 여부: true 이면 테스트 모드로 실행되며, false 이거나 주어지지 않은 경우 테스트 모드를 사용하지 않습니다.
+     * @param  array<string, mixed>|null  $counterparty  거래처 입력 정보
+     * @param  array<string, mixed>|null  $options  거래처 생성 옵션: 사업자 정보 및 휴폐업 상태 조회 옵션입니다.
      */
     public function updateB2bCounterparty(?string $counterpartyId = null, ?bool $test = null, ?array $counterparty = null, ?array $options = null): Model\UpdateB2bCounterpartyResponse
     {
@@ -139,6 +186,11 @@ final class CounterpartyClient extends AbstractClient
      * 거래처 정보 수정 기능입니다.
      * 거래처 정보를 수정합니다.
      * 비동기 요청을 시작하며, 반환된 Future에서 결과를 기다릴 수 있습니다.
+     *
+     * @param  string|null  $counterpartyId  거래처 ID
+     * @param  bool|null  $test  테스트 모드 여부: true 이면 테스트 모드로 실행되며, false 이거나 주어지지 않은 경우 테스트 모드를 사용하지 않습니다.
+     * @param  array<string, mixed>|null  $counterparty  거래처 입력 정보
+     * @param  array<string, mixed>|null  $options  거래처 생성 옵션: 사업자 정보 및 휴폐업 상태 조회 옵션입니다.
      */
     public function updateB2bCounterpartyAsync(?string $counterpartyId = null, ?bool $test = null, ?array $counterparty = null, ?array $options = null): Future
     {
@@ -148,6 +200,9 @@ final class CounterpartyClient extends AbstractClient
     /**
      * 사업자 인증서 유효성 검증 기능입니다.
      * 연동 사업자가 등록한 인증서의 유효성을 검증합니다.
+     *
+     * @param  string|null  $brn  사업자등록번호
+     * @param  bool|null  $test  테스트 모드 여부: true 이면 테스트 모드로 실행되며, false 이거나 주어지지 않은 경우 테스트 모드를 사용하지 않습니다.
      */
     public function validateB2bCounterpartyCertificate(?string $brn = null, ?bool $test = null): Model\ValidateB2bCounterpartyCertificateResponse
     {
@@ -158,6 +213,9 @@ final class CounterpartyClient extends AbstractClient
      * 사업자 인증서 유효성 검증 기능입니다.
      * 연동 사업자가 등록한 인증서의 유효성을 검증합니다.
      * 비동기 요청을 시작하며, 반환된 Future에서 결과를 기다릴 수 있습니다.
+     *
+     * @param  string|null  $brn  사업자등록번호
+     * @param  bool|null  $test  테스트 모드 여부: true 이면 테스트 모드로 실행되며, false 이거나 주어지지 않은 경우 테스트 모드를 사용하지 않습니다.
      */
     public function validateB2bCounterpartyCertificateAsync(?string $brn = null, ?bool $test = null): Future
     {

@@ -67,6 +67,11 @@ final class WebhookVerifier
 
     /**
      * 웹훅 서명과 타임스탬프를 검증한 뒤 알려진 유형은 타입 객체로, 알 수 없는 유형은 UnrecognizedWebhook으로 반환합니다.
+     *
+     * @param  string  $body  검증할 웹훅의 원본 요청 본문입니다.
+     * @param  string|null  $msgId  webhook-id 헤더 값입니다.
+     * @param  string|null  $msgSignature  webhook-signature 헤더 값입니다.
+     * @param  string|null  $msgTimestamp  webhook-timestamp 헤더 값입니다.
      */
     public function verify(string $body, ?string $msgId, ?string $msgSignature, ?string $msgTimestamp): Webhook
     {

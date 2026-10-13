@@ -15,6 +15,8 @@ final class AuthClient extends AbstractClient
     /**
      * API secret 를 사용한 토큰 발급 기능입니다.
      * API secret 를 통해 API 인증에 사용할 토큰을 가져옵니다.
+     *
+     * @param  string|null  $apiSecret  발급받은 API secret
      */
     public function loginViaApiSecret(#[\SensitiveParameter] ?string $apiSecret = null): Model\LoginViaApiSecretResponse
     {
@@ -25,6 +27,8 @@ final class AuthClient extends AbstractClient
      * API secret 를 사용한 토큰 발급 기능입니다.
      * API secret 를 통해 API 인증에 사용할 토큰을 가져옵니다.
      * 비동기 요청을 시작하며, 반환된 Future에서 결과를 기다릴 수 있습니다.
+     *
+     * @param  string|null  $apiSecret  발급받은 API secret
      */
     public function loginViaApiSecretAsync(#[\SensitiveParameter] ?string $apiSecret = null): Future
     {
@@ -34,6 +38,8 @@ final class AuthClient extends AbstractClient
     /**
      * 토큰 갱신 기능입니다.
      * 리프레시 토큰을 사용해 유효기간이 연장된 새로운 토큰을 재발급합니다.
+     *
+     * @param  string|null  $refreshToken  리프레시 토큰
      */
     public function refreshToken(?string $refreshToken = null): Model\RefreshTokenResponse
     {
@@ -44,6 +50,8 @@ final class AuthClient extends AbstractClient
      * 토큰 갱신 기능입니다.
      * 리프레시 토큰을 사용해 유효기간이 연장된 새로운 토큰을 재발급합니다.
      * 비동기 요청을 시작하며, 반환된 Future에서 결과를 기다릴 수 있습니다.
+     *
+     * @param  string|null  $refreshToken  리프레시 토큰
      */
     public function refreshTokenAsync(?string $refreshToken = null): Future
     {

@@ -14,6 +14,9 @@ final class ReconciliationClient extends AbstractClient
 {
     /**
      * 정산일 기준 부가세 내역 조회 기능입니다.
+     *
+     * @param  array<string, mixed>|null  $dateRange  정산일 범위
+     * @param  array<string, mixed>|null  $filter  거래대사 정산 요약 내역 필터
      */
     public function getPaymentReconciliationSettlementVatReport(?array $dateRange = null, ?array $filter = null): Model\GetPaymentReconciliationSettlementVatReportResponse
     {
@@ -23,6 +26,9 @@ final class ReconciliationClient extends AbstractClient
     /**
      * 정산일 기준 부가세 내역 조회 기능입니다.
      * 비동기 요청을 시작하며, 반환된 Future에서 결과를 기다릴 수 있습니다.
+     *
+     * @param  array<string, mixed>|null  $dateRange  정산일 범위
+     * @param  array<string, mixed>|null  $filter  거래대사 정산 요약 내역 필터
      */
     public function getPaymentReconciliationSettlementVatReportAsync(?array $dateRange = null, ?array $filter = null): Future
     {
@@ -31,6 +37,9 @@ final class ReconciliationClient extends AbstractClient
 
     /**
      * 거래일 기준 부가세 내역 조회 기능입니다.
+     *
+     * @param  array<string, mixed>|null  $dateRange  거래일 범위
+     * @param  array<string, mixed>|null  $filter  거래대사 거래내역 필터
      */
     public function getPaymentReconciliationTransactionVatReport(?array $dateRange = null, ?array $filter = null): Model\GetPaymentReconciliationTransactionVatReportResponse
     {
@@ -40,6 +49,9 @@ final class ReconciliationClient extends AbstractClient
     /**
      * 거래일 기준 부가세 내역 조회 기능입니다.
      * 비동기 요청을 시작하며, 반환된 Future에서 결과를 기다릴 수 있습니다.
+     *
+     * @param  array<string, mixed>|null  $dateRange  거래일 범위
+     * @param  array<string, mixed>|null  $filter  거래대사 거래내역 필터
      */
     public function getPaymentReconciliationTransactionVatReportAsync(?array $dateRange = null, ?array $filter = null): Future
     {
