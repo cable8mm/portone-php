@@ -1,38 +1,40 @@
 {
-    "name": "cable8mm/portone-php",
-    "description": "PortOne V2 server SDK for PHP.",
-    "type": "library",
-    "license": "MIT",
-    "require": {
-        "php": "^8.2",
-        "ext-curl": "*",
-        "ext-json": "*",
-        "guzzlehttp/guzzle": "^8.0"
-    },
-    "require-dev": {
-        "vlucas/phpdotenv": "^5.6",
-        "phpunit/phpunit": "^11.0",
-        "laravel/pint": "^1.29"
-    },
-    "scripts": {
-        "test": "vendor/bin/phpunit",
-        "lint": "vendor/bin/pint --test",
-        "serve": "php -S 127.0.0.1:8080 -t samples samples/index.php",
-        "e2e": "php tools/run_e2e.php",
-        "e2e:payment-lifecycle": "php tools/portone_payment_lifecycle_probe.php",
-        "e2e:billing-key-lifecycle": "php tools/portone_billing_key_lifecycle_probe.php",
-        "openapi:check": "php tools/openapi_contract_probe.php --check-php",
-        "openapi:signatures": "php tools/openapi_contract_probe.php --check-signatures",
-        "openapi:responses": "php tools/openapi_response_inventory.php"
-    },
-    "autoload": {
-        "psr-4": {
-            "Cable8mm\\PortonePhp\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Cable8mm\\PortonePhp\\Tests\\": "tests/"
-        }
+  "name": "cable8mm/portone-php",
+  "description": "PortOne V2 server SDK for PHP.",
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": "^8.2",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "^8.0"
+  },
+  "require-dev": {
+    "vlucas/phpdotenv": "^5.6",
+    "phpunit/phpunit": "^11.0",
+    "laravel/pint": "^1.29"
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "lint": "vendor/bin/pint --test",
+    "apidoc": "rm -rf build; rm -rf cache; doctum.phar update doctum.php --output-format=github --no-ansi --no-progress -v;",
+    "opendoc": "open build/index.html",
+    "serve": "php -S 127.0.0.1:8080 -t samples samples/index.php",
+    "e2e": "php tools/run_e2e.php",
+    "e2e:payment-lifecycle": "php tools/portone_payment_lifecycle_probe.php",
+    "e2e:billing-key-lifecycle": "php tools/portone_billing_key_lifecycle_probe.php",
+    "openapi:check": "php tools/openapi_contract_probe.php --check-php",
+    "openapi:signatures": "php tools/openapi_contract_probe.php --check-signatures",
+    "openapi:responses": "php tools/openapi_response_inventory.php"
+  },
+  "autoload": {
+    "psr-4": {
+      "Cable8mm\\PortonePhp\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Cable8mm\\PortonePhp\\Tests\\": "tests/"
+    }
+  }
 }
