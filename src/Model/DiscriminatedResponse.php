@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace Cable8mm\PortonePhp\Model;
 
 /**
- * A forward-compatible OpenAPI oneOf response selected by a discriminator.
- *
- * The complete payload remains available through OperationResponse::$data while
- * the discriminator and whether this SDK knows the variant are explicit.
+ * 판별자 값에 따라 유형이 달라지는 응답을 표현하며, 알 수 없는 유형의 데이터도 보존합니다.
  */
 class DiscriminatedResponse extends OperationResponse
 {
-    /** @param array<string,mixed> $data */
+    /**
+     * 원본 응답 데이터, 판별자 값 및 알려진 유형 여부로 응답 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data
+     */
     public function __construct(
         array $data,
         public readonly string $variant,

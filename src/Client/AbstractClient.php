@@ -15,19 +15,27 @@ use Cable8mm\PortonePhp\Exception\UnrecognizedResponseException;
 use Cable8mm\PortonePhp\Http\RequestExecutor;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * PortOne API 클라이언트가 공유하는 요청 실행 기능을 제공합니다.
+ */
 abstract class AbstractClient
 {
     protected readonly RequestExecutor $executor;
 
     /**
-     * The executor argument is internal and is used only when a parent shares
-     * its already-created executor with a child client.
+     * PortOne API Secret과 선택적으로 전달된 공용 요청 실행기로 클라이언트를 초기화합니다.
+     *
+     * @param  string  $apiSecret  PortOne V2 API 요청 인증에 사용하는 API Secret입니다.
+     * @param  RequestExecutor|null  $executor  부모 클라이언트와 공유하는 요청 실행기입니다.
      */
     public function __construct(#[\SensitiveParameter] string $apiSecret, ?RequestExecutor $executor = null)
     {
         $this->executor = $executor ?? $this->createExecutor($apiSecret);
     }
 
+    /**
+     * 인증 정보가 디버그 출력에 노출되지 않도록 빈 정보를 반환합니다.
+     */
     public function __debugInfo(): array
     {
         $properties = get_object_vars($this);
@@ -36,11 +44,17 @@ abstract class AbstractClient
         return $properties;
     }
 
+    /**
+     * 인증 정보가 직렬화되어 노출되지 않도록 직렬화를 거부합니다.
+     */
     public function __serialize(): array
     {
         throw new \LogicException('Client instances cannot be serialized.');
     }
 
+    /**
+     * 인증 정보가 포함된 객체의 역직렬화를 거부합니다.
+     */
     public function __unserialize(#[\SensitiveParameter] array $data): void
     {
         throw new \LogicException('Client instances cannot be unserialized.');

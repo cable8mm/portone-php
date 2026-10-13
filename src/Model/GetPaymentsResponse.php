@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Model;
 
+/**
+ * PortOne V2 API의 결제 건 다건 조회 성공 응답 정보를 나타내는 모델입니다.
+ */
 final class GetPaymentsResponse
 {
     /**
+     * GetPaymentsResponse 객체를 초기화합니다.
+     *
      * @param  list<Payment>  $items
      * @param  array<string, mixed>  $page
      */
@@ -15,7 +20,12 @@ final class GetPaymentsResponse
         public readonly array $page,
     ) {}
 
-    /** @param array<string,mixed> $data */
+    /**
+     * 배열 형식의 API 응답 데이터로 GetPaymentsResponse 객체를 생성합니다.
+     *
+     * @param  array<string,mixed>  $data
+     * @return static 변환된 객체입니다.
+     */
     public static function fromArray(array $data): self
     {
         if (! isset($data['items'], $data['page']) || ! is_array($data['items']) || ! is_array($data['page'])) {

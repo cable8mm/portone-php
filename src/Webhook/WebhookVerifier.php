@@ -6,6 +6,9 @@ namespace Cable8mm\PortonePhp\Webhook;
 
 use Cable8mm\PortonePhp\Exception\WebhookVerificationException;
 
+/**
+ * PortOne 웹훅 서명을 검증하고 본문을 알맞은 웹훅 타입으로 변환합니다.
+ */
 final class WebhookVerifier
 {
     public const HEADER_ID = 'webhook-id';
@@ -18,6 +21,9 @@ final class WebhookVerifier
 
     private readonly \Closure $secretProvider;
 
+    /**
+     * 웹훅 서명 검증에 사용할 webhookSecret으로 검증기를 초기화합니다.
+     */
     public function __construct(#[\SensitiveParameter] string $webhookSecret)
     {
         if ($webhookSecret === '') {
@@ -35,21 +41,38 @@ final class WebhookVerifier
         $this->secretProvider = static fn (): string => $secret;
     }
 
+    /**
+     * 인증 정보가 디버그 출력에 노출되지 않도록 빈 정보를 반환합니다.
+     */
     public function __debugInfo(): array
     {
         return [];
     }
 
+    /**
+     * 인증 정보가 직렬화되어 노출되지 않도록 직렬화를 거부합니다.
+     */
     public function __serialize(): array
     {
         throw new \LogicException('WebhookVerifier instances cannot be serialized.');
     }
 
+    /**
+     * 인증 정보가 포함된 객체의 역직렬화를 거부합니다.
+     */
     public function __unserialize(#[\SensitiveParameter] array $data): void
     {
         throw new \LogicException('WebhookVerifier instances cannot be unserialized.');
     }
 
+    /**
+     * 웹훅 서명과 타임스탬프를 검증한 뒤 알려진 유형은 타입 객체로, 알 수 없는 유형은 UnrecognizedWebhook으로 반환합니다.
+     *
+     * @param  string  $body  검증할 웹훅의 원본 요청 본문입니다.
+     * @param  string|null  $msgId  webhook-id 헤더 값입니다.
+     * @param  string|null  $msgSignature  webhook-signature 헤더 값입니다.
+     * @param  string|null  $msgTimestamp  webhook-timestamp 헤더 값입니다.
+     */
     public function verify(string $body, ?string $msgId, ?string $msgSignature, ?string $msgTimestamp): Webhook
     {
         if ($msgId === null || $msgSignature === null || $msgTimestamp === null) {

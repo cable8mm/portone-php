@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Model;
 
+/**
+ * PortOne V2 API의 빌링키 발급 성공 채널 응답을 나타내는 모델입니다.
+ */
 final class IssuedPgBillingKeyIssueResponse extends OperationResponse
 {
     /**
+     * IssuedPgBillingKeyIssueResponse 객체를 초기화합니다.
+     *
      * @param  array<string, mixed>  $channel
      * @param  array<string, mixed>|null  $method
      */
@@ -16,7 +21,12 @@ final class IssuedPgBillingKeyIssueResponse extends OperationResponse
         public readonly ?array $method,
     ) {}
 
-    /** @param array<string,mixed> $data */
+    /**
+     * 배열 형식의 API 응답 데이터로 IssuedPgBillingKeyIssueResponse 객체를 생성합니다.
+     *
+     * @param  array<string,mixed>  $data
+     * @return static 변환된 객체입니다.
+     */
     public static function fromArray(array $data): static
     {
         $method = $data['method'] ?? null;
@@ -36,7 +46,11 @@ final class IssuedPgBillingKeyIssueResponse extends OperationResponse
         );
     }
 
-    /** @return array<string,mixed> */
+    /**
+     * 응답에 포함된 결제 채널 정보를 반환합니다.
+     *
+     * @return array<string,mixed>
+     */
     public function channel(): array
     {
         return $this->channel;

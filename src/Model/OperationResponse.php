@@ -4,18 +4,34 @@ declare(strict_types=1);
 
 namespace Cable8mm\PortonePhp\Model;
 
+/**
+ * PortOne V2 API 응답 데이터를 담는 기본 모델입니다.
+ */
 class OperationResponse
 {
-    /** @param array<string,mixed> $data */
+    /**
+     * OperationResponse 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data
+     */
     public function __construct(public readonly array $data) {}
 
-    /** @param array<string,mixed> $data */
+    /**
+     * 배열 형식의 API 응답 데이터로 OperationResponse 객체를 생성합니다.
+     *
+     * @param  array<string,mixed>  $data
+     * @return static 변환된 객체입니다.
+     */
     public static function fromArray(array $data): static
     {
         return new static($data);
     }
 
-    /** @return array<string,mixed> */
+    /**
+     * 지정한 필드가 객체 배열인지 확인하고 반환합니다.
+     *
+     * @return array<string,mixed>
+     */
     public static function requireObject(array $data, string $field, string $response): array
     {
         if (! is_array($data[$field] ?? null)) {
@@ -25,7 +41,11 @@ class OperationResponse
         return $data[$field];
     }
 
-    /** @return array<string,mixed>|null */
+    /**
+     * 지정한 필드가 없거나 null이면 null을 반환하고, 값이 있으면 객체 배열인지 확인해 반환합니다.
+     *
+     * @return array<string,mixed>|null
+     */
     public static function optionalObject(array $data, string $field, string $response): ?array
     {
         if (! array_key_exists($field, $data) || $data[$field] === null) {
@@ -35,7 +55,11 @@ class OperationResponse
         return self::requireObject($data, $field, $response);
     }
 
-    /** @return list<array<string,mixed>> */
+    /**
+     * 지정한 필드가 객체 배열의 목록인지 확인하고 반환합니다.
+     *
+     * @return list<array<string,mixed>>
+     */
     public static function requireObjectList(array $data, string $field, string $response): array
     {
         $value = $data[$field] ?? null;
@@ -46,7 +70,11 @@ class OperationResponse
         return $value;
     }
 
-    /** @return list<array<string,mixed>>|null */
+    /**
+     * 지정한 필드가 없거나 null이면 null을 반환하고, 값이 있으면 객체 배열 목록인지 확인해 반환합니다.
+     *
+     * @return list<array<string,mixed>>|null
+     */
     public static function optionalObjectList(array $data, string $field, string $response): ?array
     {
         if (! array_key_exists($field, $data) || $data[$field] === null) {
@@ -56,7 +84,11 @@ class OperationResponse
         return self::requireObjectList($data, $field, $response);
     }
 
-    /** @return array<string,mixed>|null */
+    /**
+     * 지정한 필드가 없으면 null을 반환하고, 값이 있으면 객체 배열인지 확인해 반환합니다.
+     *
+     * @return array<string,mixed>|null
+     */
     public static function optionalNonNullableObject(array $data, string $field, string $response): ?array
     {
         if (! array_key_exists($field, $data)) {
@@ -66,7 +98,11 @@ class OperationResponse
         return self::requireObject($data, $field, $response);
     }
 
-    /** @return list<array<string,mixed>>|null */
+    /**
+     * 지정한 필드가 없으면 null을 반환하고, 값이 있으면 객체 배열 목록인지 확인해 반환합니다.
+     *
+     * @return list<array<string,mixed>>|null
+     */
     public static function optionalNonNullableObjectList(array $data, string $field, string $response): ?array
     {
         if (! array_key_exists($field, $data)) {
@@ -77,6 +113,8 @@ class OperationResponse
     }
 
     /**
+     * 객체 배열 목록의 각 항목에 변환 함수를 적용합니다.
+     *
      * @template T of object
      *
      * @param  list<array<string, mixed>>  $items
@@ -88,7 +126,11 @@ class OperationResponse
         return array_map($factory, $items);
     }
 
-    /** @return list<string> */
+    /**
+     * 지정한 필드가 문자열 목록인지 확인하고 반환합니다.
+     *
+     * @return list<string>
+     */
     public static function requireStringList(array $data, string $field, string $response): array
     {
         $value = $data[$field] ?? null;
@@ -99,6 +141,9 @@ class OperationResponse
         return $value;
     }
 
+    /**
+     * 지정한 필드가 없거나 null이면 null을 반환하고, 값이 있으면 문자열인지 확인해 반환합니다.
+     */
     public static function optionalString(array $data, string $field, string $response): ?string
     {
         if (! array_key_exists($field, $data) || $data[$field] === null) {
@@ -112,6 +157,9 @@ class OperationResponse
         return $data[$field];
     }
 
+    /**
+     * 지정한 필드가 없으면 null을 반환하고, 값이 있으면 문자열인지 확인해 반환합니다.
+     */
     public static function optionalNonNullableString(array $data, string $field, string $response): ?string
     {
         if (! array_key_exists($field, $data)) {
@@ -125,6 +173,9 @@ class OperationResponse
         return $data[$field];
     }
 
+    /**
+     * 지정한 필드가 없으면 null을 반환하고, 값이 있으면 정수인지 확인해 반환합니다.
+     */
     public static function optionalNonNullableInt(array $data, string $field, string $response): ?int
     {
         if (! array_key_exists($field, $data)) {
@@ -137,6 +188,9 @@ class OperationResponse
         return $data[$field];
     }
 
+    /**
+     * 지정한 필드가 없으면 null을 반환하고, 값이 있으면 불리언인지 확인해 반환합니다.
+     */
     public static function optionalNonNullableBool(array $data, string $field, string $response): ?bool
     {
         if (! array_key_exists($field, $data)) {
@@ -149,6 +203,9 @@ class OperationResponse
         return $data[$field];
     }
 
+    /**
+     * 지정한 필드가 문자열인지 확인하고 반환합니다.
+     */
     public static function requireString(array $data, string $field, string $response): string
     {
         if (! is_string($data[$field] ?? null)) {
@@ -158,6 +215,9 @@ class OperationResponse
         return $data[$field];
     }
 
+    /**
+     * 지정한 필드가 불리언인지 확인하고 반환합니다.
+     */
     public static function requireBool(array $data, string $field, string $response): bool
     {
         if (! is_bool($data[$field] ?? null)) {
@@ -167,6 +227,9 @@ class OperationResponse
         return $data[$field];
     }
 
+    /**
+     * 지정한 필드가 정수인지 확인하고 반환합니다.
+     */
     public static function requireInt(array $data, string $field, string $response): int
     {
         if (! is_int($data[$field] ?? null)) {
@@ -176,7 +239,11 @@ class OperationResponse
         return $data[$field];
     }
 
-    /** @return list<int> */
+    /**
+     * 지정한 필드가 정수 목록인지 확인하고 반환합니다.
+     *
+     * @return list<int>
+     */
     public static function requireIntList(array $data, string $field, string $response): array
     {
         $value = $data[$field] ?? null;
