@@ -1,5 +1,14 @@
 # Release Notes
 
+## v0.4.0 - 2026-10-13
+
+### What's Changed
+
+* fix: update guzzlehttp/guzzle version constraint to ^7.8.2 || ^8.0 by [@sington2014-commits](https://github.com/sington2014-commits) in https://github.com/cable8mm/portone-php/pull/58
+* docs: update README to include missing API documentation link by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/portone-php/pull/56
+
+**Full Changelog**: https://github.com/cable8mm/portone-php/compare/v0.3.2...v0.4.0
+
 ## v0.3.2 - 2026-10-13
 
 ### What's Changed
