@@ -1,5 +1,13 @@
 # Release Notes
 
+## v0.3.2 - 2026-10-13
+
+### What's Changed
+
+* chore(comment): enhance model documentation and add constructor descriptions by [@sington2014-commits](https://github.com/sington2014-commits) in https://github.com/cable8mm/portone-php/pull/57
+
+**Full Changelog**: https://github.com/cable8mm/portone-php/compare/v0.3.1...v0.3.2
+
 ## v0.3.1 - 2026-10-13
 
 ### What's Changed
