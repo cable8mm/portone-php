@@ -35,7 +35,7 @@
 - vendor/ (Composer install directory). MUST be git-ignored.
 - composer.lock. MUST be git-ignored.
 - phpunit.xml.dist (PHPUnit configuration).
-- pint.json (Pint configuration, only if a non-default rule is needed).
+- pint.json (Pint configuration, only for a non-default rule or for excluding generated directories such as build/ and cache/).
 - .github/workflows/ (GitHub Actions workflow files).
 - .gitignore.
 
