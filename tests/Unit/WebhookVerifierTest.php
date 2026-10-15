@@ -264,20 +264,26 @@ final class WebhookVerifierTest extends TestCase
         (new WebhookVerifier(self::SECRET))->verify(' '.$body, $id, $sig, $ts);
     }
 
-    public function test_re_serialised_body_with_different_key_order_is_rejected(): void
+    public function test_re_serialised_body_is_rejected(): void
     {
-        $body = '{"type":"Future.Event","data":{"a":1}}';
+        $body = '{"type": "Future.Event", "data": {"a": 1}}';
         [$id, $sig, $ts] = $this->headers($body);
-        // Re-serialise changes key order
+        // Re-serialising drops the spaces of the original body
         $reserialized = json_encode(json_decode($body, true), JSON_THROW_ON_ERROR);
-
-        // Only test this if re-serialisation actually changes the string
-        if ($reserialized === $body) {
-            self::markTestSkipped('Re-serialisation did not change the body.');
-        }
+        $this->assertNotSame($body, $reserialized);
 
         $this->expectException(WebhookVerificationException::class);
         (new WebhookVerifier(self::SECRET))->verify($reserialized, $id, $sig, $ts);
+    }
+
+    public function test_body_with_different_key_order_is_rejected(): void
+    {
+        $body = '{"type":"Future.Event","data":{"a":1}}';
+        [$id, $sig, $ts] = $this->headers($body);
+        $reordered = '{"data":{"a":1},"type":"Future.Event"}';
+
+        $this->expectException(WebhookVerificationException::class);
+        (new WebhookVerifier(self::SECRET))->verify($reordered, $id, $sig, $ts);
     }
 
     public function test_body_with_unicode_escape_instead_of_literal_is_rejected(): void

@@ -4,7 +4,7 @@
 
 - This document defines the internal structure of the product: its components, ownership of responsibilities, information flow, and invariants.
 - The product is an SDK that turns a method call into an authenticated request to the PortOne V2 REST API and turns the response into a typed result or a typed failure.
-- The product also verifies PortOne webhooks.
+- The product also verifies PortOne webhooks and signs webhooks for testing and local checks.
 
 ## Core Concepts
 
@@ -19,6 +19,7 @@
 - Outcome: the classification of a Raw Response. The Outcome kinds are Success, Defined Error, Unknown Error, Unrecognized Success, and Transport Failure.
 - Model: a typed request value, response value, or webhook value.
 - Error Catalog: the set of failure types: PortOneException, the per-operation error types, UnknownException per operation, UnrecognizedResponseException, TransportException, WebhookVerificationException, and InvalidArgumentException.
+- Webhook Signing: producing the webhook-signature value and headers for a body, msgId, and timestamp under webhookSecret, by the same rule that Webhook Verification checks.
 - Webhook Verification: the check that a webhook body, msgId, msgSignature, and msgTimestamp are authentic under webhookSecret.
 - Reference Set: the PortOne V2 OpenAPI document and the PortOne API documentation.
 
@@ -31,7 +32,9 @@
 - The constructed component creates one Request Executor holding the Credentials.
 - A parent Client passes its Request Executor to every child Client it exposes.
 - Caller gives webhookSecret to the Webhook Verifier.
-- The Webhook Verifier rejects an empty webhookSecret with InvalidArgumentException.
+- The Webhook Verifier rejects an empty or invalid webhookSecret with InvalidArgumentException.
+- Caller gives webhookSecret to the Webhook Signer.
+- The Webhook Signer rejects an empty or invalid webhookSecret with InvalidArgumentException.
 
 ### Operation flow
 
@@ -73,7 +76,7 @@
 
 ### COMP-001 Root Client
 
-- Responsibilities: expose the accessors payment, identityVerification, pgSpecific, auth, reconciliation, platform, b2b; create one Request Executor; share it with the Clients it exposes.
+- Responsibilities: expose the accessors payment, identityVerification, pgSpecific, auth, reconciliation, platform, b2b, common, checkout, paymentSession; create one Request Executor; share it with the Clients it exposes.
 - Inputs: apiSecret.
 - Outputs: Client instances.
 - Ownership: the set of top-level accessors and the lifetime of the shared Request Executor.
@@ -128,6 +131,14 @@
 - Ownership: the whole Webhook Verification rule set and the webhook flow.
 - Does not own: Credentials, the Request Executor, any Operation.
 
+### COMP-009 Webhook Signer
+
+- Responsibilities: validate webhookSecret at construction; perform Webhook Signing; generate msgId and timestamp when the caller omits them.
+- Inputs: webhookSecret; body; msgId; timestamp.
+- Outputs: webhook-signature value, or the webhook-id, webhook-signature, and webhook-timestamp headers.
+- Ownership: msgId and timestamp generation for signing.
+- Does not own: the secret interpretation rule and the signature computation rule, which it shares with COMP-007 (RD-13); verification; decoding.
+
 ### COMP-008 Samples
 
 - Responsibilities: demonstrate usage scenarios through the public interface.
@@ -145,6 +156,7 @@
 - Defining the fields of request and response values: COMP-005.
 - Defining failure types: COMP-006.
 - Verifying webhooks: COMP-007.
+- Signing webhooks: COMP-009.
 - Sharing one Request Executor between a parent Client and its children: COMP-001 and COMP-002 parents.
 
 ## Responsibility Boundaries
@@ -159,20 +171,22 @@
 - COMP-005 MUST NOT raise failures other than a decode failure report.
 - COMP-006 MUST NOT contain logic.
 - COMP-007 MUST NOT call COMP-003.
+- COMP-009 MUST NOT call COMP-003, COMP-005, or COMP-007.
 - COMP-008 MUST use only the public interface of COMP-001, COMP-002, and COMP-007.
 - No component other than COMP-003 MUST hold or read the apiSecret after construction.
-- No component other than COMP-007 MUST hold or read the webhookSecret.
+- No component other than COMP-007 and COMP-009 MUST hold or read the webhookSecret.
 
 ## Data Flow
 
 - apiSecret: Caller -> COMP-001 or COMP-002 -> COMP-003. It never flows elsewhere.
-- webhookSecret: Caller -> COMP-007. It never flows elsewhere.
+- webhookSecret: Caller -> COMP-007 or COMP-009. It never flows elsewhere.
 - Operation parameters: Caller -> COMP-002 -> Request Description -> COMP-003.
 - Request Description: COMP-002 -> COMP-003.
 - Raw Response: COMP-003 -> COMP-002 -> COMP-004.
 - Decoded result: COMP-005 -> COMP-004 -> COMP-002 -> Caller.
 - Failure: COMP-003, COMP-004, or COMP-007 -> Caller, using COMP-006 types.
 - Webhook inputs: Caller -> COMP-007 -> COMP-005 -> COMP-007 -> Caller.
+- Webhook signing inputs: Caller -> COMP-009 -> Caller.
 
 ## Architectural Rules
 
@@ -282,3 +296,7 @@
 - RD-12
   - Decided: retain synchronous methods, add Async counterparts returning a typed Future, and keep the transport's asynchronous handle behind that Future.
   - Why: PHP has no standard asynchronous operation result type; a library-owned Future keeps the public API independent of the transport.
+- RD-13
+  - Ambiguous: how COMP-007 and COMP-009 keep the secret interpretation and signature computation identical.
+  - Decided: one internal shared rule holds the secret interpretation and the signature computation; COMP-007 and COMP-009 both use it and neither re-implements it.
+  - Why: signing must match verification exactly; one rule cannot drift.
