@@ -1,5 +1,13 @@
 # Release Notes
 
+## v0.4.1 - 2026-10-15
+
+### What's Changed
+
+* feat: add WebhookSigner for testing and local webhook checks by [@cable8mm](https://github.com/cable8mm) in https://github.com/cable8mm/portone-php/pull/59
+
+**Full Changelog**: https://github.com/cable8mm/portone-php/compare/v0.4.0...v0.4.1
+
 ## v0.4.0 - 2026-10-13
 
 ### What's Changed
