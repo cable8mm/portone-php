@@ -131,6 +131,31 @@ if ($webhook instanceof \Cable8mm\PortonePhp\Webhook\WebhookTransaction) {
 
 지원하지 않는 webhook type은 실패하지 않고 `UnrecognizedWebhook`으로 반환됩니다. 서명이 올바르지 않거나 timestamp가 허용 범위를 벗어나면 `WebhookVerificationException`이 발생합니다.
 
+### Webhook 서명 (테스트·로컬 확인용)
+
+`WebhookSigner`는 테스트와 로컬 확인용으로 webhook에 직접 서명합니다. 실제 PortOne webhook은 PortOne이 서명하므로 운영 코드에서는 `WebhookVerifier`만 사용합니다. 서명기는 `WebhookVerifier`와 같은 `webhookSecret`(`whsec_` 접두사 허용)과 같은 Standard Webhooks HMAC-SHA256 규칙을 사용하므로, 만든 헤더는 `WebhookVerifier::verify()`를 통과합니다.
+
+```php
+use Cable8mm\PortonePhp\Webhook\WebhookSigner;
+use Cable8mm\PortonePhp\Webhook\WebhookVerifier;
+
+$signer = new WebhookSigner($webhookSecret);
+
+// webhook-id, webhook-signature, webhook-timestamp 헤더를 반환합니다.
+// msgId를 생략하면 "msg-{UUID}"를 만들고, timestamp를 생략하면 현재 시각을 씁니다.
+$headers = $signer->headers($body);
+
+$webhook = (new WebhookVerifier($webhookSecret))->verify(
+    $body,
+    $headers[WebhookVerifier::HEADER_ID],
+    $headers[WebhookVerifier::HEADER_SIGNATURE],
+    $headers[WebhookVerifier::HEADER_TIMESTAMP],
+);
+
+// webhook-signature 헤더 값("v1,<Base64 서명>")만 필요하면 sign()을 사용합니다.
+$signature = $signer->sign('msg-example', time(), $body);
+```
+
 ## 로컬 개발 환경
 
 ### Secret 설정

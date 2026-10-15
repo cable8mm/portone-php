@@ -578,3 +578,15 @@
     - New, removed, and changed operations and schema fields are reported in a readable summary, and the job notifies maintainers.
     - Updating the snapshot is a documented manual step that reruns the contract tools.
     - Unit tests and format checks pass.
+
+- [x] T-062 WebhookSigner for testing and local checks
+  - Satisfies: PRODUCT_SPEC.md FR-028, FR-029, FR-030, ERR-010, AC-023
+  - External boundary: no
+  - Acceptance criteria:
+    - `WebhookSigner` and `WebhookVerifier` share one internal secret interpretation and signature computation rule.
+    - Headers and body from `WebhookSigner` pass `WebhookVerifier::verify()` for secrets with and without `whsec_`.
+    - Changing only the body, msgId, timestamp, or secret makes verification fail.
+    - `sign` matches the Standard Webhooks official test vector.
+    - An empty or invalid secret throws `InvalidArgumentException`; `__debugInfo` returns an empty array; serialization and unserialization are rejected.
+    - The README shows signing next to webhook verification and states it is for testing and local checks.
+    - Unit tests and format checks pass.

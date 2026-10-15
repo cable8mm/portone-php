@@ -26,17 +26,7 @@ final class WebhookVerifier
      */
     public function __construct(#[\SensitiveParameter] string $webhookSecret)
     {
-        if ($webhookSecret === '') {
-            throw new \InvalidArgumentException('webhookSecret must not be empty.');
-        }
-
-        $encoded = str_starts_with($webhookSecret, 'whsec_')
-            ? substr($webhookSecret, 6)
-            : $webhookSecret;
-        $secret = base64_decode($encoded, true);
-        if ($secret === false || $secret === '') {
-            throw new \InvalidArgumentException('webhookSecret must be a valid non-empty Base64 value.');
-        }
+        $secret = WebhookSignature::decodeSecret($webhookSecret);
 
         $this->secretProvider = static fn (): string => $secret;
     }
@@ -92,7 +82,7 @@ final class WebhookVerifier
             throw new WebhookVerificationException('Message timestamp too new.');
         }
 
-        $expected = hash_hmac('sha256', $msgId.'.'.$timestamp.'.'.$body, ($this->secretProvider)(), true);
+        $expected = WebhookSignature::compute(($this->secretProvider)(), $msgId, $timestamp, $body);
         $matched = false;
         foreach (explode(' ', $msgSignature) as $versionedSignature) {
             $parts = explode(',', $versionedSignature, 3);
