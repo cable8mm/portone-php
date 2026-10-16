@@ -17,6 +17,7 @@ final class BrowserPaymentRequest
      * BrowserPaymentRequest 객체를 초기화합니다.
      *
      * @param  array<string,string>|null  $windowType  환경별 결제창 유형(pc/mobile 키)
+     * @param  array<string,mixed>  $extra  문서화된 값에 더해 그대로 전달할 브라우저 SDK 값
      */
     public function __construct(
         public readonly string $storeId,
@@ -30,6 +31,7 @@ final class BrowserPaymentRequest
         public readonly ?string $currency = null,
         public readonly ?bool $forceRedirect = null,
         public readonly ?array $windowType = null,
+        public readonly array $extra = [],
     ) {
         if (! self::isAbsoluteHttpUrl($redirectUrl)) {
             throw new \InvalidArgumentException('redirectUrl must be an absolute http:// or https:// URL.');
@@ -72,7 +74,8 @@ final class BrowserPaymentRequest
             $parameters['windowType'] = $this->windowType;
         }
 
-        return $parameters;
+        // Extra keys fill the rest; documented values win on key conflicts.
+        return $parameters + $this->extra;
     }
 
     private static function isAbsoluteHttpUrl(string $url): bool

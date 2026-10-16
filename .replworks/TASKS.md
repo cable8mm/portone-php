@@ -601,3 +601,11 @@
     - The new values hold no secrets, send no requests, and keep no state across processes.
     - A redirect query captured from a live PortOne redirect flow is replayed into `fromQuery` and matches (re-verification at integration; recorded with its source).
     - Unit tests and format checks pass.
+
+- [ ] T-064 Escape hatch for browser payment-request values
+  - Satisfies: PRODUCT_SPEC.md EL-025, FR-032, AC-027; ARCHITECTURE.md RD-14
+  - External boundary: no (pure value construction; extra keys are caller-owned)
+  - Acceptance criteria:
+    - `BrowserPaymentRequest` accepts an `extra` string-keyed array; `toArray` adds the extra keys and documented values win on key conflicts.
+    - Extra values are passed through without validation.
+    - Unit tests and format checks pass.
