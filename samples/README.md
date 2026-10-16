@@ -58,3 +58,17 @@ php tools/portone_boundary_probe.php
 `live-webhook.json`은 테스트 관찰 자료이므로 secret과 함께 commit하지 마세요.
 
 credential 없이도 상품 endpoint는 사용할 수 있습니다. `PORTONE_API_SECRET`이 없는 API 요청과 `PORTONE_WEBHOOK_SECRET`이 없는 webhook 요청은 기본값이나 내장 secret을 사용하지 않고 통제된 오류를 반환합니다.
+
+## 브라우저 왕복 (checkout sample)
+
+서버 샘플에 브라우저 결제창 왕복 데모가 있습니다. 프레임워크 없이 `BrowserPaymentRequest`로 값을 만들고 `RedirectResult`로 복귀를 파싱한 뒤 lookup으로 검증합니다.
+
+```sh
+composer serve
+```
+
+1. `http://127.0.0.1:8080/checkout?storeId=<STORE_ID>&channelKey=<CHANNEL_KEY>`를 엽니다. 상점·채널은 공개 식별자라 쿼리로 넘깁니다.
+2. `Pay with PortOne`을 누르면 결제창이 열립니다. `redirectUrl`과 `forceRedirect: true`가 포함되므로 PC·모바일 모두 리다이렉트로 `/checkout/return`에 돌아옵니다.
+3. 실패 복귀(`?code=`)는 PortOne에 묻지 않고 실패 화면을 보여 줍니다. 성공 복귀는 lookup으로 결제 상태와 상품(주문명·금액·통화)을 대조해 보여 줍니다.
+
+복귀 확인에 secret이 필요 없습니다. 성공 검증에만 `PORTONE_API_SECRET`을 씁니다.

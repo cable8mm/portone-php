@@ -17,7 +17,9 @@ if ($path === '/' && $method === 'GET') {
     sampleText("PortOne PHP server sample is ready.\n\n".
         "GET  /api/item\n".
         "POST /api/payment/complete {\"paymentId\":\"...\"}\n".
-        "POST /api/payment/webhook\n");
+        "POST /api/payment/webhook\n".
+        "GET  /checkout?storeId=...&channelKey=...\n".
+        "GET  /checkout/return\n");
 }
 
 if ($path === '/api/item' && $method === 'GET') {
@@ -61,6 +63,17 @@ if ($path === '/api/payment/webhook' && $method === 'POST') {
     } catch (Throwable $exception) {
         sampleJson(['verified' => false, 'error' => $exception->getMessage()], 400);
     }
+}
+
+if ($path === '/checkout' && $method === 'GET') {
+    $query = $_GET;
+    $storeId = isset($query['storeId']) && is_string($query['storeId']) ? $query['storeId'] : '';
+    $channelKey = isset($query['channelKey']) && is_string($query['channelKey']) ? $query['channelKey'] : '';
+    sampleCheckoutPage($storeId, $channelKey);
+}
+
+if ($path === '/checkout/return' && $method === 'GET') {
+    sampleCheckoutReturn($_GET);
 }
 
 sampleText("Not found\n", 404);
