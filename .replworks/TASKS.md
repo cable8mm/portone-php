@@ -590,3 +590,14 @@
     - An empty or invalid secret throws `InvalidArgumentException`; `__debugInfo` returns an empty array; serialization and unserialization are rejected.
     - The README shows signing next to webhook verification and states it is for testing and local checks.
     - Unit tests and format checks pass.
+
+- [ ] T-063 Browser redirect result and payment-request values
+  - Satisfies: PRODUCT_SPEC.md EL-024, EL-025, FR-031, FR-032, FR-033, ERR-011, AC-024, AC-025, AC-026; ARCHITECTURE.md RD-14
+  - External boundary: no (pure value parsing and construction; shapes traced to the PortOne V2 browser-SDK documentation)
+  - Acceptance criteria:
+    - `RedirectResult::fromQuery` returns the documented values for the documented redirect query shapes; a missing, empty, or non-string paymentId throws `InvalidArgumentException`; `isFailure` is true exactly when code is present; extra keys are ignored.
+    - `BrowserPaymentRequest` requires storeId, channelKey, paymentId, orderName, minor-unit integer totalAmount, and absolute-http(s) redirectUrl; `toArray` uses the documented browser SDK key names and omits unset optional values; windowType passes through; a non-absolute-http(s) redirectUrl throws `InvalidArgumentException`.
+    - `Model\Payment` exposes totalAmount, paidAmount, and cancelledAmount as integers matching the lookup response, and null when the field is absent or not an integer.
+    - The new values hold no secrets, send no requests, and keep no state across processes.
+    - A redirect query captured from a live PortOne redirect flow is replayed into `fromQuery` and matches (re-verification at integration; recorded with its source).
+    - Unit tests and format checks pass.
