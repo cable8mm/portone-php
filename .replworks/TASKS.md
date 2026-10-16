@@ -602,7 +602,7 @@
     - A redirect query captured from a live PortOne redirect flow is replayed into `fromQuery` and matches (re-verification at integration; recorded with its source).
     - Unit tests and format checks pass.
 
-- [ ] T-064 Escape hatch for browser payment-request values
+- [X] T-064 Escape hatch for browser payment-request values
   - Satisfies: PRODUCT_SPEC.md EL-025, FR-032, AC-027; ARCHITECTURE.md RD-14
   - External boundary: no (pure value construction; extra keys are caller-owned)
   - Acceptance criteria:
