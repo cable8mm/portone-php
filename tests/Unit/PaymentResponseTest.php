@@ -9,6 +9,7 @@ use Cable8mm\PortonePhp\Model\CancelPaymentResponse;
 use Cable8mm\PortonePhp\Model\GetPaymentTransactionsResponse;
 use Cable8mm\PortonePhp\Model\InstantPaymentSummary;
 use Cable8mm\PortonePhp\Model\PayInstantlyResponse;
+use Cable8mm\PortonePhp\Model\Payment;
 use Cable8mm\PortonePhp\Model\PaymentCancellation;
 use Cable8mm\PortonePhp\Model\PayWithBillingKeyResponse;
 use PHPUnit\Framework\TestCase;
@@ -65,5 +66,35 @@ final class PaymentResponseTest extends TestCase
                 self::assertTrue(true);
             }
         }
+    }
+
+    public function test_payment_amount_accessors_expose_typed_amounts(): void
+    {
+        $payment = Payment::fromArray([
+            'status' => 'FUTURE_STATUS',
+            'id' => 'payment-1',
+            'amount' => ['total' => 10000, 'paid' => 10000, 'cancelled' => 3000],
+        ]);
+
+        self::assertSame(10000, $payment->totalAmount());
+        self::assertSame(10000, $payment->paidAmount());
+        self::assertSame(3000, $payment->cancelledAmount());
+    }
+
+    public function test_payment_amount_accessors_return_null_without_information(): void
+    {
+        $payment = Payment::fromArray(['status' => 'FUTURE_STATUS', 'id' => 'payment-1']);
+        self::assertNull($payment->totalAmount());
+        self::assertNull($payment->paidAmount());
+        self::assertNull($payment->cancelledAmount());
+
+        $payment = Payment::fromArray([
+            'status' => 'FUTURE_STATUS',
+            'id' => 'payment-1',
+            'amount' => ['total' => '10000', 'paid' => null],
+        ]);
+        self::assertNull($payment->totalAmount());
+        self::assertNull($payment->paidAmount());
+        self::assertNull($payment->cancelledAmount());
     }
 }

@@ -49,4 +49,38 @@ final class Payment extends DiscriminatedResponse
 
         return new self($data, $variant, $known);
     }
+
+    /**
+     * 결제 요청 총액을 돌려줍니다. 정보가 없으면 null입니다.
+     */
+    public function totalAmount(): ?int
+    {
+        return $this->optionalAmount('total');
+    }
+
+    /**
+     * 실제 결제된 총액을 돌려줍니다. 정보가 없으면 null입니다.
+     */
+    public function paidAmount(): ?int
+    {
+        return $this->optionalAmount('paid');
+    }
+
+    /**
+     * 취소된 총액을 돌려줍니다. 정보가 없으면 null입니다.
+     */
+    public function cancelledAmount(): ?int
+    {
+        return $this->optionalAmount('cancelled');
+    }
+
+    private function optionalAmount(string $field): ?int
+    {
+        $amount = $this->data['amount'] ?? null;
+        if (! is_array($amount) || ! is_int($amount[$field] ?? null)) {
+            return null;
+        }
+
+        return $amount[$field];
+    }
 }

@@ -17,7 +17,7 @@
 - Raw Response: status, headers, and body as received, or a transport failure.
 - Future: a typed handle for one in-flight asynchronous Operation call; waiting resolves it to a result or raises one failure.
 - Outcome: the classification of a Raw Response. The Outcome kinds are Success, Defined Error, Unknown Error, Unrecognized Success, and Transport Failure.
-- Model: a typed request value, response value, or webhook value.
+- Model: a typed request value, response value, webhook value, browser redirect value, or browser payment-request value.
 - Error Catalog: the set of failure types: PortOneException, the per-operation error types, UnknownException per operation, UnrecognizedResponseException, TransportException, WebhookVerificationException, and InvalidArgumentException.
 - Webhook Signing: producing the webhook-signature value and headers for a body, msgId, and timestamp under webhookSecret, by the same rule that Webhook Verification checks.
 - Webhook Verification: the check that a webhook body, msgId, msgSignature, and msgTimestamp are authentic under webhookSecret.
@@ -109,7 +109,7 @@
 
 ### COMP-005 Model Catalog
 
-- Responsibilities: define the typed request, response, and webhook values; decode a body into a named type; report decode failure to the caller; provide the webhook type set and the UnrecognizedWebhook type.
+- Responsibilities: define the typed request, response, webhook, browser redirect, and browser payment-request values; decode a body into a named type; report decode failure to the caller; provide the webhook type set and the UnrecognizedWebhook type.
 - Inputs: a body and a target type name.
 - Outputs: a typed value, or a decode failure.
 - Ownership: the field definitions of every Model.
@@ -169,6 +169,7 @@
 - An Async Operation MUST send exactly one request and MUST NOT retry.
 - Waiting on a Future MUST apply the same response classification, decoding, and failure rules as the synchronous Operation.
 - COMP-005 MUST NOT raise failures other than a decode failure report.
+- Browser redirect and payment-request values (COMP-005) MUST NOT hold or read any secret, MUST NOT send requests, and MUST NOT keep state across processes. The redirectUrl absolute-http(s) rule is the single deliberate exception to the no-semantic-validation rule: it fails at construction so a missing mobile return URL can never silently become a PC-only call. windowType values are passed through; the browser SDK and the PG are their only validators.
 - COMP-006 MUST NOT contain logic.
 - COMP-007 MUST NOT call COMP-003.
 - COMP-009 MUST NOT call COMP-003, COMP-005, or COMP-007.
@@ -300,3 +301,7 @@
   - Ambiguous: how COMP-007 and COMP-009 keep the secret interpretation and signature computation identical.
   - Decided: one internal shared rule holds the secret interpretation and the signature computation; COMP-007 and COMP-009 both use it and neither re-implements it.
   - Why: signing must match verification exactly; one rule cannot drift.
+- RD-14
+  - Ambiguous: where browser redirect and payment-request values live, and how strictly they validate.
+  - Decided: they are pure COMP-005 values with no transport and no secrets. RedirectResult requires paymentId (the documented redirect shape carries it in success and failure) and derives failure solely from code presence. BrowserPaymentRequest requires the six values including redirectUrl and enforces only its absolute-http(s) form; all other semantics belong to the browser SDK and the PG. A null amount accessor means "no such information", never zero.
+  - Why: the recurrence to prevent is a silently PC-only call; everything else is passed through so the SDK cannot disagree with the browser SDK or the PG.

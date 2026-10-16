@@ -7,6 +7,7 @@
 - The product lets a PHP program call the PortOne V2 REST API.
 - The product lets a PHP program verify PortOne V2 webhooks.
 - The product lets a PHP program sign webhooks for testing and local checks.
+- The product lets a PHP program build browser payment-request values and parse browser redirect results.
 
 ## Problem
 
@@ -30,6 +31,7 @@
 - webhookSecret: PortOne V2 webhook secret string, given when WebhookVerifier or WebhookSigner is constructed.
 - Operation parameters: named parameters of each operation, in camelCase, matching the OpenAPI operation contract.
 - Webhook body: the raw request body as an unparsed string.
+- Redirect query: the query parameters of a PortOne browser-SDK redirect (`paymentId`, `code`, `message`, `pgCode`, `pgMessage`).
 - msgId: value of the webhook-id header.
 - msgSignature: value of the webhook-signature header.
 - msgTimestamp: value of the webhook-timestamp header.
@@ -40,6 +42,8 @@
 - Async operation result: a typed Future object that can be waited on for the operation result.
 - Webhook result: a typed PHP object representing the verified webhook, or an UnrecognizedWebhook object.
 - Webhook signature: the webhook-signature header value, or the webhook-id, webhook-signature, and webhook-timestamp header values, produced by WebhookSigner.
+- Redirect result: a typed RedirectResult parsed from a redirect query.
+- Browser payment-request values: the array produced by BrowserPaymentRequest for the browser SDK `requestPayment` call.
 - Failure: a thrown exception (see Error Conditions).
 
 ## Constraints
@@ -95,6 +99,8 @@
 - EL-016: WebhookVerifier. Purpose: webhook verification. User actions: construct with webhookSecret; call verify with body, msgId, msgSignature, msgTimestamp.
 - EL-017: Webhook types. Purpose: typed representation of a verified webhook. User actions: check the type of the returned object; read its fields.
 - EL-023: WebhookSigner. Purpose: webhook signing for testing and local checks. User actions: construct with webhookSecret; call sign with msgId, timestamp, body; call headers with body and optional msgId and timestamp.
+- EL-024: RedirectResult. Purpose: typed representation of a PortOne browser-SDK redirect result. User actions: parse with fromQuery; read paymentId, code, message, pgCode, pgMessage; call isFailure.
+- EL-025: BrowserPaymentRequest. Purpose: typed builder for the browser SDK `requestPayment` parameters. User actions: construct with the required values; set the optional values; call toArray.
 - EL-018: UnrecognizedWebhook. Purpose: representation of a webhook whose type this library version does not know. User actions: read the decoded body.
 - EL-019: PortOneException and its subtypes. Purpose: failure reporting. User actions: catch by type; read the error data.
 - EL-020: samples directory. Purpose: runnable PHP samples. User actions: read and run the samples.
@@ -132,6 +138,9 @@
 - FR-028: WebhookSigner MUST be constructible with webhookSecret and MUST interpret it by the same rule as WebhookVerifier: an optional `whsec_` prefix is removed and the rest is Base64-decoded.
 - FR-029: WebhookSigner.sign MUST accept msgId, timestamp (integer), and body (raw string) and MUST return the webhook-signature value `v1,<Base64 HMAC-SHA256 of {msgId}.{timestamp}.{body}>` (Standard Webhooks).
 - FR-030: WebhookSigner.headers MUST accept body, optional msgId, and optional timestamp and MUST return the webhook-id, webhook-signature, and webhook-timestamp headers. A missing msgId MUST be generated as `msg-` followed by a random UUID. A missing timestamp MUST be the current time.
+- FR-031: RedirectResult.fromQuery MUST accept the redirect query as an array and MUST return a RedirectResult with paymentId (required non-empty string) and code, message, pgCode, pgMessage (each a string or null when absent). Extra query keys MUST be ignored. RedirectResult.isFailure MUST return true if and only if code is not null.
+- FR-032: BrowserPaymentRequest MUST require storeId, channelKey, paymentId, orderName, totalAmount (integer in minor units), and redirectUrl, and MUST accept customerId, payMethod, currency, forceRedirect, and windowType (`pc`/`mobile` string map) as optional values. redirectUrl MUST be an absolute `http://` or `https://` URL. toArray MUST return the browser SDK `requestPayment` parameters with the documented key names, omitting unset optional values. windowType values MUST be passed through without validation.
+- FR-033: Model\Payment MUST expose totalAmount, paidAmount, and cancelledAmount, each an integer or null, read from `amount.total`, `amount.paid`, and `amount.cancelled` of the lookup response. A null value means "no such information" (absent field or non-integer value); it MUST NOT be read as zero.
 
 ## User Flows
 
@@ -154,6 +163,7 @@
 - ERR-008: PortOneException MUST extend RuntimeException.
 - ERR-009: Waiting on a Future after a transport, API, decode, or operation failure -> the Future MUST raise the corresponding PortOneException.
 - ERR-010: webhookSecret is an empty string or not valid Base64 at WebhookSigner construction -> the constructor MUST throw InvalidArgumentException.
+- ERR-011: RedirectResult.fromQuery receives a missing, empty, or non-string paymentId, or BrowserPaymentRequest receives an empty or non-absolute-http(s) redirectUrl -> construction MUST throw InvalidArgumentException. totalAmount is a native int and is enforced by the engine. No request is made.
 
 ## Non-Goals
 
@@ -186,3 +196,6 @@
 - AC-021: WebhookVerifier.verify with an invalid signature throws WebhookVerificationException. Verifies ERR-007.
 - AC-022: Waiting on every representative asynchronous operation returns the same typed result or raises the same exception as its synchronous counterpart. Verifies FR-027, ERR-009.
 - AC-023: Headers and body produced by WebhookSigner pass WebhookVerifier.verify for secrets with and without `whsec_`; changing the body, msgId, timestamp, or secret makes verification fail; sign returns `v1,g0hM9SsE+OTPJTGt/tmIKtSyZlE3uFJELVlNIOLJ1OE=` for the Standard Webhooks official test vector; an empty or invalid secret throws InvalidArgumentException. Verifies FR-028, FR-029, FR-030, ERR-010.
+- AC-024: RedirectResult.fromQuery with the documented redirect query shapes returns the matching typed values; a missing, empty, or non-string paymentId throws InvalidArgumentException; isFailure is true exactly when code is present. Verifies FR-031, ERR-011.
+- AC-025: BrowserPaymentRequest with all required values returns toArray with the documented browser SDK key names; unset optional values are omitted; windowType is passed through; an empty or non-absolute-http(s) redirectUrl throws InvalidArgumentException. Verifies FR-032, ERR-011.
+- AC-026: Model\Payment exposes totalAmount, paidAmount, and cancelledAmount as integers matching the lookup response, and null when the field is absent or not an integer. Verifies FR-033.
