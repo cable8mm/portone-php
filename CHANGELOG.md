@@ -1,5 +1,16 @@
 # Release Notes
 
+## v0.6.0 - 2026-10-16
+
+### What's Changed
+
+* test: replay live-captured redirect queries and close T-063 by [@replworks-bot](https://github.com/replworks-bot) in https://github.com/cable8mm/portone-php/pull/61
+* feat: add extra escape hatch to browser payment-request values by [@replworks-bot](https://github.com/replworks-bot) in https://github.com/cable8mm/portone-php/pull/62
+* feat: add browser round-trip sample and plain-PHP web flow recipe by [@replworks-bot](https://github.com/replworks-bot) in https://github.com/cable8mm/portone-php/pull/63
+* docs: close T-064 (verified in #62) by [@replworks-bot](https://github.com/replworks-bot) in https://github.com/cable8mm/portone-php/pull/64
+
+**Full Changelog**: https://github.com/cable8mm/portone-php/compare/v0.5.0...v0.6.0
+
 ## v0.5.0 - 2026-10-16
 
 ### What's Changed
