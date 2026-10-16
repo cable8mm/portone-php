@@ -95,4 +95,33 @@ final class BrowserPaymentRequestTest extends TestCase
             }
         }
     }
+
+    public function test_extra_keys_are_added_and_documented_values_win(): void
+    {
+        $request = new BrowserPaymentRequest(
+            storeId: 'store-1',
+            channelKey: 'channel-1',
+            paymentId: 'payment-1',
+            orderName: 'Order A',
+            totalAmount: 100,
+            redirectUrl: 'https://example.com/payment-redirect',
+            extra: [
+                'bypass' => ['kcp_v2' => ['site_name' => 'Shop']],
+                'totalAmount' => 999,
+            ],
+        );
+
+        $this->assertSame(
+            [
+                'storeId' => 'store-1',
+                'channelKey' => 'channel-1',
+                'paymentId' => 'payment-1',
+                'orderName' => 'Order A',
+                'totalAmount' => 100,
+                'redirectUrl' => 'https://example.com/payment-redirect',
+                'bypass' => ['kcp_v2' => ['site_name' => 'Shop']],
+            ],
+            $request->toArray(),
+        );
+    }
 }

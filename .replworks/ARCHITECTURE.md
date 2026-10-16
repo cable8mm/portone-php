@@ -169,7 +169,7 @@
 - An Async Operation MUST send exactly one request and MUST NOT retry.
 - Waiting on a Future MUST apply the same response classification, decoding, and failure rules as the synchronous Operation.
 - COMP-005 MUST NOT raise failures other than a decode failure report.
-- Browser redirect and payment-request values (COMP-005) MUST NOT hold or read any secret, MUST NOT send requests, and MUST NOT keep state across processes. The redirectUrl absolute-http(s) rule is the single deliberate exception to the no-semantic-validation rule: it fails at construction so a missing mobile return URL can never silently become a PC-only call. windowType values are passed through; the browser SDK and the PG are their only validators.
+- Browser redirect and payment-request values (COMP-005) MUST NOT hold or read any secret, MUST NOT send requests, and MUST NOT keep state across processes. The redirectUrl absolute-http(s) rule is the single deliberate exception to the no-semantic-validation rule: it fails at construction so a missing mobile return URL can never silently become a PC-only call. windowType and extra values are passed through; the browser SDK and the PG are their only validators.
 - COMP-006 MUST NOT contain logic.
 - COMP-007 MUST NOT call COMP-003.
 - COMP-009 MUST NOT call COMP-003, COMP-005, or COMP-007.
@@ -303,5 +303,5 @@
   - Why: signing must match verification exactly; one rule cannot drift.
 - RD-14
   - Ambiguous: where browser redirect and payment-request values live, and how strictly they validate.
-  - Decided: they are pure COMP-005 values with no transport and no secrets. RedirectResult requires paymentId (the documented redirect shape carries it in success and failure) and derives failure solely from code presence. BrowserPaymentRequest requires the six values including redirectUrl and enforces only its absolute-http(s) form; all other semantics belong to the browser SDK and the PG. A null amount accessor means "no such information", never zero.
+  - Decided: they are pure COMP-005 values with no transport and no secrets. RedirectResult requires paymentId (the documented redirect shape carries it in success and failure) and derives failure solely from code presence. BrowserPaymentRequest requires the six values including redirectUrl and enforces only its absolute-http(s) form; all other semantics belong to the browser SDK and the PG. The extra map is merged first so documented values win on key conflicts. A null amount accessor means "no such information", never zero.
   - Why: the recurrence to prevent is a silently PC-only call; everything else is passed through so the SDK cannot disagree with the browser SDK or the PG.
