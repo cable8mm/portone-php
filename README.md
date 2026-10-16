@@ -37,6 +37,7 @@ PortOne V2 REST API용 PHP 서버 SDK입니다. 공식 OpenAPI 명세의 전체 
 - `Model`: API 응답과 중첩 데이터 객체
 - `Async`: 비동기 호출 결과
 - `Webhook`: 웹훅 검증과 데이터 객체
+- `Browser`: 브라우저 결제 요청값과 리다이렉트 결과 객체
 - `Exception`: 예외
 - `Http`: HTTP 전송 처리
 
@@ -154,6 +155,48 @@ $webhook = (new WebhookVerifier($webhookSecret))->verify(
 
 // webhook-signature 헤더 값("v1,<Base64 서명>")만 필요하면 sign()을 사용합니다.
 $signature = $signer->sign('msg-example', time(), $body);
+```
+
+### 프레임워크 없는 웹 결제 흐름
+
+`BrowserPaymentRequest`로 브라우저 `requestPayment` 값을 만들고, `RedirectResult`로 리다이렉트 복귀를 파싱한 뒤 lookup으로 검증합니다. `samples/` 디렉터리의 checkout sample이 같은 흐름을 실행 가능한 형태로 보여 줍니다.
+
+```php
+use Cable8mm\PortonePhp\Browser\BrowserPaymentRequest;
+use Cable8mm\PortonePhp\Browser\RedirectResult;
+use Cable8mm\PortonePhp\Client\PaymentClient;
+
+// 1. 결제창에 넘길 값 만들기. redirectUrl은 필수이며 절대 http(s) URL이어야 합니다.
+$request = new BrowserPaymentRequest(
+    storeId: $storeId,
+    channelKey: $channelKey,
+    paymentId: $paymentId,           // 가맹점이 채번한 고유 ID
+    orderName: $orderName,
+    totalAmount: $totalAmount,        // minor unit 정수 (KRW 1배, USD 100배)
+    redirectUrl: 'https://example.com/payment-redirect',
+    customerId: $customerId,
+    payMethod: 'CARD',
+    currency: 'KRW',
+    forceRedirect: true,             // PC·모바일 단일 리다이렉트 흐름
+    extra: ['customData' => ['item' => $itemId]], // 객체로 넘기면 그대로 저장됩니다
+);
+$parameters = $request->toArray();   // JSON으로 내려 브라우저에서 requestPayment(parameters) 호출
+
+// 2. 리다이렉트 복귀 파싱. 실패 복귀는 PortOne에 묻지 않습니다.
+$redirect = RedirectResult::fromQuery($_GET);
+if ($redirect->isFailure()) {
+    // $redirect->code, $redirect->message, $redirect->pgCode, $redirect->pgMessage
+}
+
+if ($redirect->paymentId !== $paymentId) {
+    throw new RuntimeException('The redirect did not return the expected payment.');
+}
+
+// 3. lookup으로 상태와 금액을 대조합니다. null은 "정보 없음"이며 0으로 읽지 않습니다.
+$payment = (new PaymentClient($apiSecret))->getPayment($redirect->paymentId);
+if ($payment->variant !== 'PAID' || $payment->totalAmount() !== $totalAmount) {
+    throw new RuntimeException('The payment is not complete.');
+}
 ```
 
 ## 로컬 개발 환경

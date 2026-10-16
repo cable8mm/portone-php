@@ -609,3 +609,12 @@
     - `BrowserPaymentRequest` accepts an `extra` string-keyed array; `toArray` adds the extra keys and documented values win on key conflicts.
     - Extra values are passed through without validation.
     - Unit tests and format checks pass.
+
+- [X] T-065 Browser round-trip sample and plain-PHP web flow recipe
+  - Satisfies: PRODUCT_SPEC.md EL-020, EL-024, EL-025; ARCHITECTURE.md COMP-008
+  - External boundary: yes (browser redirect return; live lookup on the success path)
+  - Acceptance criteria:
+    - The sample server serves a checkout page that builds its `requestPayment` values with `BrowserPaymentRequest` (store/channel from the query, absolute redirect URL to the sample return route) and needs no secrets to render.
+    - The sample return route parses the query with `RedirectResult`; a failure return renders the failure without contacting PortOne; a success return verifies through the lookup and item match.
+    - samples/README documents the browser round-trip and the test-channel run; the top README shows the plain-PHP web flow recipe and lists `Browser` in the package structure.
+    - Pint passes; curl-level checks pass without secrets; one live browser run through the sample completes a test payment.
