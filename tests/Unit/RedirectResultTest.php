@@ -56,6 +56,40 @@ final class RedirectResultTest extends TestCase
         $this->assertFalse($result->isFailure());
     }
 
+    /**
+     * Live-captured KCP mobile redirect queries (2026-10-17, test store).
+     *
+     * Success carries no code but extra transactionType/txId keys; the MPOINT
+     * failure carries code, message, pgCode, and pgMessage together with
+     * paymentId. Both shapes parse to the documented values.
+     */
+    public function test_live_captured_redirect_queries_parse(): void
+    {
+        $success = RedirectResult::fromQuery([
+            'paymentId' => '21806b0f-8393-4ebb-aa71-6901d9474be2',
+            'transactionType' => 'PAYMENT',
+            'txId' => '01a146be-b15e-75f3-c4b7-a162f19048ff',
+        ]);
+
+        $this->assertSame('21806b0f-8393-4ebb-aa71-6901d9474be2', $success->paymentId);
+        $this->assertFalse($success->isFailure());
+
+        $failure = RedirectResult::fromQuery([
+            'code' => 'PG_PROVIDER_ERROR',
+            'message' => '결제 승인 과정에서 문제가 발생하였습니다. MPOINT 가맹점 미등록',
+            'paymentId' => 'e7e72327-eb4a-4032-87e5-c8c315465f4a',
+            'pgCode' => '8285',
+            'pgMessage' => 'MPOINT 가맹점 미등록',
+            'transactionType' => 'PAYMENT',
+            'txId' => '01a146bc-befe-f322-e876-b5f5608e8106',
+        ]);
+
+        $this->assertSame('e7e72327-eb4a-4032-87e5-c8c315465f4a', $failure->paymentId);
+        $this->assertTrue($failure->isFailure());
+        $this->assertSame('PG_PROVIDER_ERROR', $failure->code);
+        $this->assertSame('8285', $failure->pgCode);
+    }
+
     public function test_missing_or_invalid_payment_id_throws(): void
     {
         $invalid = [

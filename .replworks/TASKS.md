@@ -591,7 +591,7 @@
     - The README shows signing next to webhook verification and states it is for testing and local checks.
     - Unit tests and format checks pass.
 
-- [ ] T-063 Browser redirect result and payment-request values
+- [x] T-063 Browser redirect result and payment-request values
   - Satisfies: PRODUCT_SPEC.md EL-024, EL-025, FR-031, FR-032, FR-033, ERR-011, AC-024, AC-025, AC-026; ARCHITECTURE.md RD-14
   - External boundary: no (pure value parsing and construction; shapes traced to the PortOne V2 browser-SDK documentation)
   - Acceptance criteria:
