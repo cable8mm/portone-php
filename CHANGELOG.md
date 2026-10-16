@@ -1,5 +1,17 @@
 # Release Notes
 
+## v0.5.0 - 2026-10-16
+
+### What's Changed
+
+* feat: add browser redirect result and payment-request values by [@replworks-bot](https://github.com/replworks-bot) in https://github.com/cable8mm/portone-php/pull/60
+
+### New Contributors
+
+* [@replworks-bot](https://github.com/replworks-bot) made their first contribution in https://github.com/cable8mm/portone-php/pull/60
+
+**Full Changelog**: https://github.com/cable8mm/portone-php/compare/v0.4.1...v0.5.0
+
 ## v0.4.1 - 2026-10-15
 
 ### What's Changed
