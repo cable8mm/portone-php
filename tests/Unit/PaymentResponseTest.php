@@ -97,4 +97,17 @@ final class PaymentResponseTest extends TestCase
         self::assertNull($payment->paidAmount());
         self::assertNull($payment->cancelledAmount());
     }
+
+    public function test_payment_receipt_url_matches_lookup_response(): void
+    {
+        $payment = Payment::fromArray([
+            'status' => 'FUTURE_STATUS',
+            'id' => 'payment-1',
+            'receiptUrl' => 'https://receipt.example.test/bill?tno=1',
+        ]);
+        self::assertSame('https://receipt.example.test/bill?tno=1', $payment->receiptUrl());
+
+        $payment = Payment::fromArray(['status' => 'FUTURE_STATUS', 'id' => 'payment-1']);
+        self::assertNull($payment->receiptUrl());
+    }
 }

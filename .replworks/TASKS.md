@@ -629,7 +629,7 @@
     - The observation states the query keys on success and on failure, and whether they match PRODUCT_SPEC.md FR-035.
     - The [UNVERIFIED] mark is cleared only after human confirmation.
 
-- [ ] T-067 Browser billing-key issue values, easy-pay values, and payment receipt URL
+- [x] T-067 Browser billing-key issue values, easy-pay values, and payment receipt URL
   - Satisfies: PRODUCT_SPEC.md EL-025, EL-026, EL-027, FR-034, FR-035, FR-036, FR-037, ERR-012, AC-028, AC-029, AC-030, AC-031; ARCHITECTURE.md RD-15
   - Depends on: T-066
   - External boundary: no (pure value parsing and construction; shapes traced to the browser SDK type definitions and the T-066 observation; receiptUrl traced to the lookup response recorded by cable8mm/laravel-portone T-030)

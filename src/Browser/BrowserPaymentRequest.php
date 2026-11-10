@@ -9,7 +9,7 @@ namespace Cable8mm\PortonePhp\Browser;
  *
  * redirectUrl은 필수입니다. redirectUrl 없이 호출하면 모바일 결제 UI가
  * 표시되지 않을 수 있으므로, 생성자에서 절대 http(s) 형태를 강제합니다.
- * windowType 값은 그대로 전달합니다. 허용 값의 판정은 브라우저 SDK와 PG의 몫입니다.
+ * windowType, easyPay 값은 그대로 전달합니다. 허용 값의 판정은 브라우저 SDK와 PG의 몫입니다.
  */
 final class BrowserPaymentRequest
 {
@@ -18,6 +18,7 @@ final class BrowserPaymentRequest
      *
      * @param  array<string,string>|null  $windowType  환경별 결제창 유형(pc/mobile 키)
      * @param  array<string,mixed>  $extra  문서화된 값에 더해 그대로 전달할 브라우저 SDK 값
+     * @param  array<string,mixed>|null  $easyPay  간편결제 값(easyPayProvider, availablePayMethods 등)
      */
     public function __construct(
         public readonly string $storeId,
@@ -32,6 +33,7 @@ final class BrowserPaymentRequest
         public readonly ?bool $forceRedirect = null,
         public readonly ?array $windowType = null,
         public readonly array $extra = [],
+        public readonly ?array $easyPay = null,
     ) {
         if (! self::isAbsoluteHttpUrl($redirectUrl)) {
             throw new \InvalidArgumentException('redirectUrl must be an absolute http:// or https:// URL.');
@@ -72,6 +74,10 @@ final class BrowserPaymentRequest
 
         if ($this->windowType !== null) {
             $parameters['windowType'] = $this->windowType;
+        }
+
+        if ($this->easyPay !== null) {
+            $parameters['easyPay'] = $this->easyPay;
         }
 
         // Extra keys fill the rest; documented values win on key conflicts.
