@@ -37,7 +37,7 @@ PortOne V2 REST API용 PHP 서버 SDK입니다. 공식 OpenAPI 명세의 전체 
 - `Model`: API 응답과 중첩 데이터 객체
 - `Async`: 비동기 호출 결과
 - `Webhook`: 웹훅 검증과 데이터 객체
-- `Browser`: 브라우저 결제 요청값과 리다이렉트 결과 객체
+- `Browser`: 브라우저 결제·빌링키 발급 요청값과 리다이렉트 결과 객체
 - `Exception`: 예외
 - `Http`: HTTP 전송 처리
 
@@ -196,6 +196,55 @@ if ($redirect->paymentId !== $paymentId) {
 $payment = (new PaymentClient($apiSecret))->getPayment($redirect->paymentId);
 if ($payment->variant !== 'PAID' || $payment->totalAmount() !== $totalAmount) {
     throw new RuntimeException('The payment is not complete.');
+}
+```
+
+간편결제는 `payMethod: 'EASY_PAY'`와 함께 `easyPay` 배열을 넘기면 `toArray()`의 `easyPay` 키에 그대로 담깁니다. 결제 완료 후 영수증 URL은 lookup 결과의 `$payment->receiptUrl()`로 읽으며, 응답에 없으면 null입니다.
+
+```php
+$request = new BrowserPaymentRequest(
+    // ... 위와 같은 필수 값
+    payMethod: 'EASY_PAY',
+    easyPay: ['easyPayProvider' => 'KAKAOPAY', 'availablePayMethods' => ['CARD', 'MONEY']],
+);
+
+$receiptUrl = $payment->receiptUrl(); // string|null
+```
+
+### 프레임워크 없는 빌링키 발급 흐름
+
+`BrowserBillingKeyRequest`로 브라우저 `requestIssueBillingKey` 값을 만들고, `BillingKeyRedirectResult`로 발급 복귀를 파싱한 뒤 lookup으로 확인합니다. 결제 흐름과 같은 규칙을 따릅니다. redirectUrl은 절대 http(s) URL이어야 하고, 복귀를 자기 기록과 대조할 수 있도록 issueId가 필수입니다.
+
+```php
+use Cable8mm\PortonePhp\Browser\BillingKeyRedirectResult;
+use Cable8mm\PortonePhp\Browser\BrowserBillingKeyRequest;
+use Cable8mm\PortonePhp\Client\BillingKeyClient;
+
+// 1. 발급창에 넘길 값 만들기. customerId는 customer.customerId로 들어갑니다.
+$request = new BrowserBillingKeyRequest(
+    storeId: $storeId,
+    channelKey: $channelKey,
+    billingKeyMethod: 'CARD',          // CARD, MOBILE, EASY_PAY, PAYPAL
+    issueId: $issueId,                 // 가맹점이 채번한 고유 ID
+    issueName: $issueName,
+    redirectUrl: 'https://example.com/billing-key-redirect',
+    customerId: $customerId,
+    forceRedirect: true,
+    // card: [...], easyPay: [...]   // 발급 수단별 값은 그대로 전달됩니다
+);
+$parameters = $request->toArray();   // 브라우저에서 requestIssueBillingKey(parameters) 호출
+
+// 2. 리다이렉트 복귀 파싱. 실패 복귀에 담긴 billingKey는 발급되지 않은 값이므로 billingKey는 null입니다.
+$redirect = BillingKeyRedirectResult::fromQuery($_GET);
+if ($redirect->isFailure()) {
+    // $redirect->code, $redirect->message, $redirect->pgCode, $redirect->pgMessage
+    return;
+}
+
+// 3. lookup으로 발급 상태를 확인한 뒤 빌링키를 서버에 저장합니다.
+$info = (new BillingKeyClient($apiSecret))->getBillingKeyInfo($redirect->billingKey);
+if ($info->variant !== 'ISSUED') {
+    throw new RuntimeException('The billing key is not issued.');
 }
 ```
 

@@ -74,6 +74,16 @@ final class Payment extends DiscriminatedResponse
         return $this->optionalAmount('cancelled');
     }
 
+    /**
+     * 결제 영수증 URL을 돌려줍니다. 응답에 영수증 URL이 없으면 null입니다.
+     */
+    public function receiptUrl(): ?string
+    {
+        $receiptUrl = $this->data['receiptUrl'] ?? null;
+
+        return is_string($receiptUrl) ? $receiptUrl : null;
+    }
+
     private function optionalAmount(string $field): ?int
     {
         $amount = $this->data['amount'] ?? null;

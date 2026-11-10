@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
  * Covers:
  *  - toArray uses the documented browser SDK key names and omits unset optional values.
  *  - windowType passes through untouched.
+ *  - easyPay passes through untouched under easyPay (T-067).
  *  - A missing or non-absolute-http(s) redirectUrl throws InvalidArgumentException (ERR-011).
  */
 final class BrowserPaymentRequestTest extends TestCase
@@ -123,5 +124,23 @@ final class BrowserPaymentRequestTest extends TestCase
             ],
             $request->toArray(),
         );
+    }
+
+    public function test_easy_pay_is_returned_unchanged(): void
+    {
+        $easyPay = ['easyPayProvider' => 'KAKAOPAY', 'availablePayMethods' => ['CARD', 'CHARGE', 'TRANSFER', 'MONEY']];
+
+        $request = new BrowserPaymentRequest(
+            storeId: 'store-1',
+            channelKey: 'channel-1',
+            paymentId: 'payment-1',
+            orderName: 'Order A',
+            totalAmount: 100,
+            redirectUrl: 'https://example.com/payment-redirect',
+            payMethod: 'EASY_PAY',
+            easyPay: $easyPay,
+        );
+
+        $this->assertSame($easyPay, $request->toArray()['easyPay']);
     }
 }
