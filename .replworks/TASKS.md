@@ -619,7 +619,7 @@
     - samples/README documents the browser round-trip and the test-channel run; the top README shows the plain-PHP web flow recipe and lists `Browser` in the package structure.
     - Pint passes; curl-level checks pass without secrets; one live browser run through the sample completes a test payment.
 
-- [ ] T-066 Observe the billing-key issuance redirect
+- [x] T-066 Observe the billing-key issuance redirect
   - Satisfies: PRODUCT_SPEC.md External Systems, PortOne browser SDK billing-key issuance
   - Blocked by: billing-capable PortOne test channel key supplied as a local secret (human step)
   - External boundary: yes (browser billing-key issuance and its redirect)

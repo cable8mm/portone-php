@@ -1,0 +1,64 @@
+{
+    "task": "T-066",
+    "browserSdk": "@portone/browser-sdk 0.1.13",
+    "channel": "NHN KCP test (testspay.kcp.co.kr)",
+    "browser": "the human's desktop browser; the KCP window opened as a popup even with forceRedirect, which the Claude app browser pane blocks for automated clicks",
+    "request": {
+        "billingKeyMethod": "CARD",
+        "forceRedirect": true
+    },
+    "secretsRecorded": false,
+    "runs": {
+        "success": {
+            "observedAt": "2026-11-10T20:54:04+00:00",
+            "source": "redirect query received by redirectUrl",
+            "queryKeys": [
+                "billingKey"
+            ],
+            "query": {
+                "billingKey": "[redacted]"
+            },
+            "lookup": {
+                "result": "success",
+                "model": "Cable8mm\\PortonePhp\\Model\\BillingKeyInfo",
+                "variant": "ISSUED"
+            },
+            "deletion": {
+                "result": "success",
+                "model": "Cable8mm\\PortonePhp\\Model\\DeleteBillingKeyResponse"
+            },
+            "payerAction": "registered a card in the KCP window"
+        },
+        "failure": {
+            "observedAt": "2026-11-10T20:55:00+00:00",
+            "source": "redirect query received by redirectUrl",
+            "queryKeys": [
+                "billingKey",
+                "code",
+                "message",
+                "pgCode",
+                "pgMessage"
+            ],
+            "query": {
+                "billingKey": "[redacted]",
+                "code": "FAILURE_TYPE_PG",
+                "message": "[3001] 사용자 결제 취소",
+                "pgCode": "3001",
+                "pgMessage": "사용자 결제 취소"
+            },
+            "lookup": {
+                "result": "error",
+                "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+                "httpStatus": 404,
+                "errorType": "BILLING_KEY_NOT_FOUND"
+            },
+            "deletion": {
+                "result": "error",
+                "exception": "Cable8mm\\PortonePhp\\Exception\\UnknownException",
+                "httpStatus": 404,
+                "errorType": "BILLING_KEY_NOT_ISSUED"
+            },
+            "payerAction": "closed the KCP window without registering"
+        }
+    }
+}

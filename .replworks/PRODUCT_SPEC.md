@@ -76,13 +76,16 @@
 - PortOne REST API documentation: the reference for operation behavior and rules not expressible in OpenAPI.
 - Sample repository https://github.com/portone-io/portone-sample: the reference for the scenarios covered by the samples in FR-019 to FR-021.
 
-### PortOne browser SDK billing-key issuance [UNVERIFIED]
+### PortOne browser SDK billing-key issuance
 
 - Documented by the browser SDK type definitions (`@portone/browser-sdk` 0.1.13, `IssueBillingKeyRequest`, `IssueBillingKeyResponse`, `PaymentRequestUnionEasyPay`, `IssueBillingKeyRequestUnionEasyPay`):
   - `requestIssueBillingKey` takes storeId, channelKey, billingKeyMethod (`CARD`, `MOBILE`, `EASY_PAY`, `PAYPAL`), issueId, issueName, customer, displayAmount, currency, windowType, redirectUrl, forceRedirect, and a method-specific object (`card`, `easyPay`, `mobile`, `paypal`).
   - The issuance result carries transactionType `ISSUE_BILLING_KEY`, billingKey, and, on failure, code, message, pgCode, pgMessage.
   - `easyPay` takes easyPayProvider and availablePayMethods (`CARD`, `CHARGE`, `TRANSFER`, `MONEY`), for both `requestPayment` and `requestIssueBillingKey`.
-- Unverified: the exact query parameters PortOne appends to redirectUrl after a billing-key issuance, on success and on failure. A live redirect from a billing-capable test channel must be recorded before FR-035 is implemented.
+- Observed (T-066, NHN KCP test channel, `tests/fixtures/billing-key-redirect-boundary-observations.json`): the query PortOne appends to redirectUrl after a billing-key issuance
+  - on success carries only billingKey;
+  - on failure carries billingKey, code, message, pgCode, and pgMessage, and that billingKey was never issued (a lookup returns BILLING_KEY_NOT_FOUND, a deletion BILLING_KEY_NOT_ISSUED);
+  - never carries transactionType.
 
 ## User Interface
 
@@ -156,7 +159,7 @@
 - FR-032: BrowserPaymentRequest MUST require storeId, channelKey, paymentId, orderName, totalAmount (integer in minor units), and redirectUrl, and MUST accept customerId, payMethod, currency, forceRedirect, windowType (`pc`/`mobile` string map), and extra (a string-keyed array) as optional values. redirectUrl MUST be an absolute `http://` or `https://` URL. toArray MUST return the browser SDK `requestPayment` parameters with the documented key names, omitting unset optional values and merging extra first so documented values win on key conflicts. windowType and extra values MUST be passed through without validation.
 - FR-033: Model\Payment MUST expose totalAmount, paidAmount, and cancelledAmount, each an integer or null, read from `amount.total`, `amount.paid`, and `amount.cancelled` of the lookup response. A null value means "no such information" (absent field or non-integer value); it MUST NOT be read as zero.
 - FR-034: BrowserBillingKeyRequest MUST require storeId, channelKey, billingKeyMethod, issueId, issueName, and redirectUrl, and MUST accept customerId, displayAmount (integer in minor units), currency, forceRedirect, windowType, card, easyPay, and extra as optional values. redirectUrl MUST follow the rule of FR-032. toArray MUST return the browser SDK `requestIssueBillingKey` parameters with the documented key names, place customerId under `customer.customerId`, omit unset optional values, and merge extra first so documented values win on key conflicts. billingKeyMethod, windowType, card, easyPay, and extra values MUST be passed through without validation.
-- FR-035: BillingKeyRedirectResult.fromQuery MUST accept the billing-key redirect query as an array and MUST return a BillingKeyRedirectResult with billingKey, code, message, pgCode, pgMessage (each a string or null when absent). Extra query keys MUST be ignored. BillingKeyRedirectResult.isFailure MUST return true if and only if code is not null.
+- FR-035: BillingKeyRedirectResult.fromQuery MUST accept the billing-key redirect query as an array and MUST return a BillingKeyRedirectResult with billingKey, code, message, pgCode, pgMessage (each a string or null when absent). When code is present, billingKey MUST be null, because a failure query carries a billingKey that was never issued. Extra query keys MUST be ignored. BillingKeyRedirectResult.isFailure MUST return true if and only if code is not null.
 - FR-036: BrowserPaymentRequest MUST accept easyPay as an optional string-keyed array, returned by toArray under the key `easyPay` and passed through without validation.
 - FR-037: Model\Payment MUST expose receiptUrl, a string or null, read from `receiptUrl` of the lookup response. A null value means the response carries no receipt URL.
 
@@ -220,6 +223,6 @@
 - AC-027: BrowserPaymentRequest with extra returns toArray with the extra keys added; documented values win on key conflicts; extra values are passed through without validation. Verifies FR-032.
 - AC-026: Model\Payment exposes totalAmount, paidAmount, and cancelledAmount as integers matching the lookup response, and null when the field is absent or not an integer. Verifies FR-033.
 - AC-028: BrowserBillingKeyRequest with all required values returns toArray with the documented browser SDK key names and customerId under `customer.customerId`; unset optional values are omitted; card, easyPay, windowType, and extra are passed through; an empty issueId or an empty or non-absolute-http(s) redirectUrl throws InvalidArgumentException. Verifies FR-034, ERR-012.
-- AC-029: BillingKeyRedirectResult.fromQuery with the recorded live redirect query shapes returns the matching typed values; isFailure is true exactly when code is present; a success query without billingKey throws InvalidArgumentException. Verifies FR-035, ERR-012.
+- AC-029: BillingKeyRedirectResult.fromQuery with the recorded live redirect query shapes returns the matching typed values; isFailure is true exactly when code is present; a failure query that carries billingKey returns billingKey null; a success query without billingKey throws InvalidArgumentException. Verifies FR-035, ERR-012.
 - AC-030: BrowserPaymentRequest with easyPay returns toArray with the `easyPay` key holding the given array unchanged. Verifies FR-036.
 - AC-031: Model\Payment exposes receiptUrl matching the lookup response, and null when it is absent. Verifies FR-037.
