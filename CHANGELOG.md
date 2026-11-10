@@ -1,5 +1,15 @@
 # Release Notes
 
+## v0.7.0 - 2026-11-10
+
+### What's Changed
+
+* docs(spec): add billing-key browser values, easy-pay field, and receipt URL by [@replworks-bot](https://github.com/replworks-bot) in https://github.com/cable8mm/portone-php/pull/66
+* test: record the live billing-key issuance redirect and close T-066 by [@replworks-bot](https://github.com/replworks-bot) in https://github.com/cable8mm/portone-php/pull/67
+* feat: add browser billing-key values, easy-pay values, and payment receipt URL by [@replworks-bot](https://github.com/replworks-bot) in https://github.com/cable8mm/portone-php/pull/68
+
+**Full Changelog**: https://github.com/cable8mm/portone-php/compare/v0.6.0...v0.7.0
+
 ## v0.6.0 - 2026-10-16
 
 ### What's Changed
