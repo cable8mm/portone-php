@@ -618,3 +618,26 @@
     - The sample return route parses the query with `RedirectResult`; a failure return renders the failure without contacting PortOne; a success return verifies through the lookup and item match.
     - samples/README documents the browser round-trip and the test-channel run; the top README shows the plain-PHP web flow recipe and lists `Browser` in the package structure.
     - Pint passes; curl-level checks pass without secrets; one live browser run through the sample completes a test payment.
+
+- [ ] T-066 Observe the billing-key issuance redirect
+  - Satisfies: PRODUCT_SPEC.md External Systems, PortOne browser SDK billing-key issuance
+  - Blocked by: billing-capable PortOne test channel key supplied as a local secret (human step)
+  - External boundary: yes (browser billing-key issuance and its redirect)
+  - Acceptance criteria:
+    - A live `requestIssueBillingKey` with `redirectUrl` and `forceRedirect: true` on a test channel is run once to success and once to failure (window closed or card refused).
+    - The redirect query of both runs is recorded with its source, with the billing key redacted.
+    - The observation states the query keys on success and on failure, and whether they match PRODUCT_SPEC.md FR-035.
+    - The [UNVERIFIED] mark is cleared only after human confirmation.
+
+- [ ] T-067 Browser billing-key issue values, easy-pay values, and payment receipt URL
+  - Satisfies: PRODUCT_SPEC.md EL-025, EL-026, EL-027, FR-034, FR-035, FR-036, FR-037, ERR-012, AC-028, AC-029, AC-030, AC-031; ARCHITECTURE.md RD-15
+  - Depends on: T-066
+  - External boundary: no (pure value parsing and construction; shapes traced to the browser SDK type definitions and the T-066 observation; receiptUrl traced to the lookup response recorded by cable8mm/laravel-portone T-030)
+  - Acceptance criteria:
+    - `BrowserBillingKeyRequest` requires storeId, channelKey, billingKeyMethod, issueId, issueName, and absolute-http(s) redirectUrl; `toArray` uses the documented browser SDK key names, places customerId under `customer.customerId`, and omits unset optional values; card, easyPay, windowType, and extra pass through.
+    - `BillingKeyRedirectResult::fromQuery` returns the typed values for the query shapes recorded by T-066; `isFailure` is true exactly when code is present; a success query without billingKey throws `InvalidArgumentException`.
+    - `BrowserPaymentRequest` accepts easyPay and returns it unchanged under `easyPay`.
+    - `Model\Payment::receiptUrl` returns the lookup response value, or null when absent.
+    - The README shows billing-key issuance next to the browser payment recipe.
+    - Unit tests and format checks pass.
+

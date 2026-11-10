@@ -8,6 +8,7 @@
 - The product lets a PHP program verify PortOne V2 webhooks.
 - The product lets a PHP program sign webhooks for testing and local checks.
 - The product lets a PHP program build browser payment-request values and parse browser redirect results.
+- The product lets a PHP program build browser billing-key-issue values and parse billing-key-issue redirect results.
 
 ## Problem
 
@@ -32,6 +33,7 @@
 - Operation parameters: named parameters of each operation, in camelCase, matching the OpenAPI operation contract.
 - Webhook body: the raw request body as an unparsed string.
 - Redirect query: the query parameters of a PortOne browser-SDK redirect (`paymentId`, `code`, `message`, `pgCode`, `pgMessage`).
+- Billing-key redirect query: the query parameters of a PortOne browser-SDK billing-key-issue redirect (see External Systems, PortOne browser SDK billing-key issuance).
 - msgId: value of the webhook-id header.
 - msgSignature: value of the webhook-signature header.
 - msgTimestamp: value of the webhook-timestamp header.
@@ -44,6 +46,8 @@
 - Webhook signature: the webhook-signature header value, or the webhook-id, webhook-signature, and webhook-timestamp header values, produced by WebhookSigner.
 - Redirect result: a typed RedirectResult parsed from a redirect query.
 - Browser payment-request values: the array produced by BrowserPaymentRequest for the browser SDK `requestPayment` call.
+- Browser billing-key-issue values: the array produced by BrowserBillingKeyRequest for the browser SDK `requestIssueBillingKey` call.
+- Billing-key redirect result: a typed BillingKeyRedirectResult parsed from a billing-key redirect query.
 - Failure: a thrown exception (see Error Conditions).
 
 ## Constraints
@@ -71,6 +75,14 @@
 - Official OpenAPI document (https://developers.portone.io/api/schema/v2/openapi.json): the final reference for the complete set of operations, paths, methods, parameters, request bodies, response schemas, and declared errors.
 - PortOne REST API documentation: the reference for operation behavior and rules not expressible in OpenAPI.
 - Sample repository https://github.com/portone-io/portone-sample: the reference for the scenarios covered by the samples in FR-019 to FR-021.
+
+### PortOne browser SDK billing-key issuance [UNVERIFIED]
+
+- Documented by the browser SDK type definitions (`@portone/browser-sdk` 0.1.13, `IssueBillingKeyRequest`, `IssueBillingKeyResponse`, `PaymentRequestUnionEasyPay`, `IssueBillingKeyRequestUnionEasyPay`):
+  - `requestIssueBillingKey` takes storeId, channelKey, billingKeyMethod (`CARD`, `MOBILE`, `EASY_PAY`, `PAYPAL`), issueId, issueName, customer, displayAmount, currency, windowType, redirectUrl, forceRedirect, and a method-specific object (`card`, `easyPay`, `mobile`, `paypal`).
+  - The issuance result carries transactionType `ISSUE_BILLING_KEY`, billingKey, and, on failure, code, message, pgCode, pgMessage.
+  - `easyPay` takes easyPayProvider and availablePayMethods (`CARD`, `CHARGE`, `TRANSFER`, `MONEY`), for both `requestPayment` and `requestIssueBillingKey`.
+- Unverified: the exact query parameters PortOne appends to redirectUrl after a billing-key issuance, on success and on failure. A live redirect from a billing-capable test channel must be recorded before FR-035 is implemented.
 
 ## User Interface
 
@@ -101,6 +113,8 @@
 - EL-023: WebhookSigner. Purpose: webhook signing for testing and local checks. User actions: construct with webhookSecret; call sign with msgId, timestamp, body; call headers with body and optional msgId and timestamp.
 - EL-024: RedirectResult. Purpose: typed representation of a PortOne browser-SDK redirect result. User actions: parse with fromQuery; read paymentId, code, message, pgCode, pgMessage; call isFailure.
 - EL-025: BrowserPaymentRequest. Purpose: typed builder for the browser SDK `requestPayment` parameters. User actions: construct with the required values; set the optional values; call toArray.
+- EL-026: BrowserBillingKeyRequest. Purpose: typed builder for the browser SDK `requestIssueBillingKey` parameters. User actions: construct with the required values; set the optional values; call toArray.
+- EL-027: BillingKeyRedirectResult. Purpose: typed representation of a PortOne browser-SDK billing-key-issue redirect result. User actions: parse with fromQuery; read billingKey, code, message, pgCode, pgMessage; call isFailure.
 - EL-018: UnrecognizedWebhook. Purpose: representation of a webhook whose type this library version does not know. User actions: read the decoded body.
 - EL-019: PortOneException and its subtypes. Purpose: failure reporting. User actions: catch by type; read the error data.
 - EL-020: samples directory. Purpose: runnable PHP samples. User actions: read and run the samples.
@@ -141,6 +155,10 @@
 - FR-031: RedirectResult.fromQuery MUST accept the redirect query as an array and MUST return a RedirectResult with paymentId (required non-empty string) and code, message, pgCode, pgMessage (each a string or null when absent). Extra query keys MUST be ignored. RedirectResult.isFailure MUST return true if and only if code is not null.
 - FR-032: BrowserPaymentRequest MUST require storeId, channelKey, paymentId, orderName, totalAmount (integer in minor units), and redirectUrl, and MUST accept customerId, payMethod, currency, forceRedirect, windowType (`pc`/`mobile` string map), and extra (a string-keyed array) as optional values. redirectUrl MUST be an absolute `http://` or `https://` URL. toArray MUST return the browser SDK `requestPayment` parameters with the documented key names, omitting unset optional values and merging extra first so documented values win on key conflicts. windowType and extra values MUST be passed through without validation.
 - FR-033: Model\Payment MUST expose totalAmount, paidAmount, and cancelledAmount, each an integer or null, read from `amount.total`, `amount.paid`, and `amount.cancelled` of the lookup response. A null value means "no such information" (absent field or non-integer value); it MUST NOT be read as zero.
+- FR-034: BrowserBillingKeyRequest MUST require storeId, channelKey, billingKeyMethod, issueId, issueName, and redirectUrl, and MUST accept customerId, displayAmount (integer in minor units), currency, forceRedirect, windowType, card, easyPay, and extra as optional values. redirectUrl MUST follow the rule of FR-032. toArray MUST return the browser SDK `requestIssueBillingKey` parameters with the documented key names, place customerId under `customer.customerId`, omit unset optional values, and merge extra first so documented values win on key conflicts. billingKeyMethod, windowType, card, easyPay, and extra values MUST be passed through without validation.
+- FR-035: BillingKeyRedirectResult.fromQuery MUST accept the billing-key redirect query as an array and MUST return a BillingKeyRedirectResult with billingKey, code, message, pgCode, pgMessage (each a string or null when absent). Extra query keys MUST be ignored. BillingKeyRedirectResult.isFailure MUST return true if and only if code is not null.
+- FR-036: BrowserPaymentRequest MUST accept easyPay as an optional string-keyed array, returned by toArray under the key `easyPay` and passed through without validation.
+- FR-037: Model\Payment MUST expose receiptUrl, a string or null, read from `receiptUrl` of the lookup response. A null value means the response carries no receipt URL.
 
 ## User Flows
 
@@ -164,6 +182,7 @@
 - ERR-009: Waiting on a Future after a transport, API, decode, or operation failure -> the Future MUST raise the corresponding PortOneException.
 - ERR-010: webhookSecret is an empty string or not valid Base64 at WebhookSigner construction -> the constructor MUST throw InvalidArgumentException.
 - ERR-011: RedirectResult.fromQuery receives a missing, empty, or non-string paymentId, or BrowserPaymentRequest receives an empty or non-absolute-http(s) redirectUrl -> construction MUST throw InvalidArgumentException. totalAmount is a native int and is enforced by the engine. No request is made.
+- ERR-012: BillingKeyRedirectResult.fromQuery receives a query without code and without a non-empty string billingKey, or BrowserBillingKeyRequest receives an empty issueId or an empty or non-absolute-http(s) redirectUrl -> construction MUST throw InvalidArgumentException. No request is made.
 
 ## Non-Goals
 
@@ -200,3 +219,7 @@
 - AC-025: BrowserPaymentRequest with all required values returns toArray with the documented browser SDK key names; unset optional values are omitted; windowType is passed through; an empty or non-absolute-http(s) redirectUrl throws InvalidArgumentException. Verifies FR-032, ERR-011.
 - AC-027: BrowserPaymentRequest with extra returns toArray with the extra keys added; documented values win on key conflicts; extra values are passed through without validation. Verifies FR-032.
 - AC-026: Model\Payment exposes totalAmount, paidAmount, and cancelledAmount as integers matching the lookup response, and null when the field is absent or not an integer. Verifies FR-033.
+- AC-028: BrowserBillingKeyRequest with all required values returns toArray with the documented browser SDK key names and customerId under `customer.customerId`; unset optional values are omitted; card, easyPay, windowType, and extra are passed through; an empty issueId or an empty or non-absolute-http(s) redirectUrl throws InvalidArgumentException. Verifies FR-034, ERR-012.
+- AC-029: BillingKeyRedirectResult.fromQuery with the recorded live redirect query shapes returns the matching typed values; isFailure is true exactly when code is present; a success query without billingKey throws InvalidArgumentException. Verifies FR-035, ERR-012.
+- AC-030: BrowserPaymentRequest with easyPay returns toArray with the `easyPay` key holding the given array unchanged. Verifies FR-036.
+- AC-031: Model\Payment exposes receiptUrl matching the lookup response, and null when it is absent. Verifies FR-037.

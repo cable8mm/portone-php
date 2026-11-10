@@ -17,7 +17,7 @@
 - Raw Response: status, headers, and body as received, or a transport failure.
 - Future: a typed handle for one in-flight asynchronous Operation call; waiting resolves it to a result or raises one failure.
 - Outcome: the classification of a Raw Response. The Outcome kinds are Success, Defined Error, Unknown Error, Unrecognized Success, and Transport Failure.
-- Model: a typed request value, response value, webhook value, browser redirect value, or browser payment-request value.
+- Model: a typed request value, response value, webhook value, browser redirect value, browser payment-request value, browser billing-key-issue value, or billing-key redirect value.
 - Error Catalog: the set of failure types: PortOneException, the per-operation error types, UnknownException per operation, UnrecognizedResponseException, TransportException, WebhookVerificationException, and InvalidArgumentException.
 - Webhook Signing: producing the webhook-signature value and headers for a body, msgId, and timestamp under webhookSecret, by the same rule that Webhook Verification checks.
 - Webhook Verification: the check that a webhook body, msgId, msgSignature, and msgTimestamp are authentic under webhookSecret.
@@ -109,7 +109,7 @@
 
 ### COMP-005 Model Catalog
 
-- Responsibilities: define the typed request, response, webhook, browser redirect, and browser payment-request values; decode a body into a named type; report decode failure to the caller; provide the webhook type set and the UnrecognizedWebhook type.
+- Responsibilities: define the typed request, response, webhook, browser redirect, browser payment-request, browser billing-key-issue, and billing-key redirect values; decode a body into a named type; report decode failure to the caller; provide the webhook type set and the UnrecognizedWebhook type.
 - Inputs: a body and a target type name.
 - Outputs: a typed value, or a decode failure.
 - Ownership: the field definitions of every Model.
@@ -169,7 +169,7 @@
 - An Async Operation MUST send exactly one request and MUST NOT retry.
 - Waiting on a Future MUST apply the same response classification, decoding, and failure rules as the synchronous Operation.
 - COMP-005 MUST NOT raise failures other than a decode failure report.
-- Browser redirect and payment-request values (COMP-005) MUST NOT hold or read any secret, MUST NOT send requests, and MUST NOT keep state across processes. The redirectUrl absolute-http(s) rule is the single deliberate exception to the no-semantic-validation rule: it fails at construction so a missing mobile return URL can never silently become a PC-only call. windowType and extra values are passed through; the browser SDK and the PG are their only validators.
+- Browser redirect, payment-request, billing-key-issue, and billing-key redirect values (COMP-005) MUST NOT hold or read any secret, MUST NOT send requests, and MUST NOT keep state across processes. The redirectUrl absolute-http(s) rule is the single deliberate exception to the no-semantic-validation rule: it fails at construction so a missing mobile return URL can never silently become a PC-only call. windowType and extra values are passed through; the browser SDK and the PG are their only validators.
 - COMP-006 MUST NOT contain logic.
 - COMP-007 MUST NOT call COMP-003.
 - COMP-009 MUST NOT call COMP-003, COMP-005, or COMP-007.
@@ -305,3 +305,7 @@
   - Ambiguous: where browser redirect and payment-request values live, and how strictly they validate.
   - Decided: they are pure COMP-005 values with no transport and no secrets. RedirectResult requires paymentId (the documented redirect shape carries it in success and failure) and derives failure solely from code presence. BrowserPaymentRequest requires the six values including redirectUrl and enforces only its absolute-http(s) form; all other semantics belong to the browser SDK and the PG. The extra map is merged first so documented values win on key conflicts. A null amount accessor means "no such information", never zero.
   - Why: the recurrence to prevent is a silently PC-only call; everything else is passed through so the SDK cannot disagree with the browser SDK or the PG.
+- RD-15
+  - Ambiguous: how billing-key issuance values and their redirect result relate to the payment values of RD-14.
+  - Decided: BrowserBillingKeyRequest and BillingKeyRedirectResult are separate COMP-005 values that follow every rule of RD-14 (no transport, no secrets, redirectUrl absolute-http(s), extra merged first, everything else passed through). issueId is required as paymentId is for payments, so the caller can always match a redirect to its own record. BillingKeyRedirectResult derives failure solely from code presence and requires billingKey on success. easyPay is a pass-through array on both request values.
+  - Why: one rule set for every browser value keeps the SDK from disagreeing with the browser SDK or the PG, and a required issueId prevents an issuance that the caller cannot match.
