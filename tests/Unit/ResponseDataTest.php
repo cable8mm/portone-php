@@ -16,20 +16,6 @@ use PHPUnit\Framework\TestCase;
  */
 final class ResponseDataTest extends TestCase
 {
-    /**
-     * Models whose decoder disagrees with the bundled OpenAPI definition, so a body built from the
-     * definition is rejected before a model exists. Reported for follow-up tasks; remove an entry
-     * once its decoder follows the definition.
-     */
-    private const DECODER_DRIFT = [
-        'B2bCounterparty' => 'businessStatus is a string enum in the definition; the decoder requires an object.',
-        'GetB2bCounterpartiesResponse' => 'items are B2bCounterparty; see B2bCounterparty.',
-        'GetAllPaymentEventsByCursorResponse' => 'items are PaymentEventWithCursor in the definition; the decoder reads PaymentEvent.',
-        'GetB2bTaxInvoicesResponse' => 'items are B2bTaxInvoiceSummary in the definition; the decoder reads B2bTaxInvoice.',
-        'PlatformContract' => 'settlementCycle is an object in the definition; the decoder requires a string.',
-        'PlatformPartner' => 'type is an object union in the definition; the decoder requires a string.',
-    ];
-
     /** @var array<string, mixed>|null */
     private static ?array $document = null;
 
@@ -83,11 +69,6 @@ final class ResponseDataTest extends TestCase
     #[DataProvider('responseModels')]
     public function test_response_model_exposes_decoded_body_as_data(string $class, array $body): void
     {
-        $name = (new \ReflectionClass($class))->getShortName();
-        if (array_key_exists($name, self::DECODER_DRIFT)) {
-            $this->expectException(\UnexpectedValueException::class);
-        }
-
         $model = $class::fromArray($body);
 
         self::assertInstanceOf($class, $model);

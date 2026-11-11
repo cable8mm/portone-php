@@ -12,7 +12,7 @@ final class GetAllPaymentEventsByCursorResponse extends OperationResponse
     /**
      * GetAllPaymentEventsByCursorResponse 객체를 초기화합니다.
      *
-     * @param  list<PaymentEvent>  $items
+     * @param  list<PaymentEventWithCursor>  $items
      * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
     public function __construct(public readonly array $items, array $data = [])
@@ -32,7 +32,7 @@ final class GetAllPaymentEventsByCursorResponse extends OperationResponse
 
         return new self(self::mapObjectList(
             $items,
-            static fn (array $item): PaymentEvent => PaymentEvent::fromArray($item),
+            static fn (array $item): PaymentEventWithCursor => PaymentEventWithCursor::fromArray($item),
         ), data: $data);
     }
 }

@@ -66,7 +66,7 @@ final class B2bCounterparty extends OperationResponse
             self::optionalNonNullableString($data, 'ntsConnectedAt', self::class),
             self::optionalNonNullableString($data, 'ntsConnectionFailedReason', self::class),
             self::optionalNonNullableString($data, 'partnerId', self::class),
-            self::optionalNonNullableObject($data, 'businessStatus', self::class),
+            self::optionalNonNullableString($data, 'businessStatus', self::class),
             self::optionalNonNullableString($data, 'businessStatusCheckedAt', self::class),
             self::optionalNonNullableObject($data, 'businessStatusVerification', self::class),
             self::optionalNonNullableObject($data, 'businessInfoVerification', self::class),

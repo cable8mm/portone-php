@@ -12,6 +12,7 @@ final class PlatformContract extends OperationResponse
     /**
      * PlatformContract 객체를 초기화합니다.
      *
+     * @param  array<string,mixed>  $settlementCycle  정산 주기입니다.
      * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
     public function __construct(
@@ -20,7 +21,7 @@ final class PlatformContract extends OperationResponse
         public readonly string $name,
         public readonly ?string $memo,
         public readonly array $platformFee,
-        public readonly string $settlementCycle,
+        public readonly array $settlementCycle,
         public readonly string $platformFeeVatPayer,
         public readonly bool $subtractPaymentVatAmount,
         public readonly bool $isArchived,
@@ -45,7 +46,7 @@ final class PlatformContract extends OperationResponse
             self::requireString($data, 'name', self::class),
             self::optionalNonNullableString($data, 'memo', self::class),
             self::requireObject($data, 'platformFee', self::class),
-            self::requireString($data, 'settlementCycle', self::class),
+            self::requireObject($data, 'settlementCycle', self::class),
             self::requireString($data, 'platformFeeVatPayer', self::class),
             self::requireBool($data, 'subtractPaymentVatAmount', self::class),
             self::requireBool($data, 'isArchived', self::class),

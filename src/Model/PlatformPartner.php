@@ -12,6 +12,7 @@ final class PlatformPartner extends OperationResponse
     /**
      * PlatformPartner 객체를 초기화합니다.
      *
+     * @param  array<string,mixed>  $type  파트너 유형별 추가 정보입니다.
      * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
     public function __construct(
@@ -24,7 +25,7 @@ final class PlatformPartner extends OperationResponse
         public readonly string $defaultContractId,
         public readonly ?string $memo,
         public readonly array $tags,
-        public readonly string $type,
+        public readonly array $type,
         public readonly bool $isArchived,
         public readonly string $appliedAt,
         public readonly array $userDefinedProperties,
@@ -47,7 +48,7 @@ final class PlatformPartner extends OperationResponse
             self::requireString($data, 'name', self::class), self::requireObject($data, 'contact', self::class),
             self::requireObject($data, 'account', self::class), self::requireString($data, 'status', self::class),
             self::requireString($data, 'defaultContractId', self::class), self::optionalNonNullableString($data, 'memo', self::class),
-            self::requireStringList($data, 'tags', self::class), self::requireString($data, 'type', self::class),
+            self::requireStringList($data, 'tags', self::class), self::requireObject($data, 'type', self::class),
             self::requireBool($data, 'isArchived', self::class), self::requireString($data, 'appliedAt', self::class),
             self::requireObject($data, 'userDefinedProperties', self::class), self::requireBool($data, 'isForTest', self::class),
             data: $data,
