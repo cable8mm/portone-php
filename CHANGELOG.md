@@ -1,5 +1,23 @@
 # Release Notes
 
+## v0.7.1 - 2026-11-11
+
+Every response model now exposes `data` (FR-038), and five decoders now follow the PortOne OpenAPI definition.
+
+**Changed public types**
+
+- `PlatformContract::$settlementCycle`: string → array
+- `PlatformPartner::$type`: string → array
+- `GetAllPaymentEventsByCursorResponse::$items`: `PaymentEvent` → `PaymentEventWithCursor` (`paymentEvent`, `cursor`)
+- `GetB2bTaxInvoicesResponse::$items`: `B2bTaxInvoice` → `B2bTaxInvoiceSummary`
+
+### What's Changed
+
+* docs: require the response body on every response model by [@replworks-bot](https://github.com/replworks-bot) in https://github.com/cable8mm/portone-php/pull/69
+* fix: set the response body as data on every response model by [@replworks-bot](https://github.com/replworks-bot) in https://github.com/cable8mm/portone-php/pull/70
+
+**Full Changelog**: https://github.com/cable8mm/portone-php/compare/v0.7.0...v0.7.1
+
 ## v0.7.0 - 2026-11-10
 
 ### What's Changed
