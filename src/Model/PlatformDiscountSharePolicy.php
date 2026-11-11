@@ -11,6 +11,8 @@ final class PlatformDiscountSharePolicy extends OperationResponse
 {
     /**
      * PlatformDiscountSharePolicy 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
     public function __construct(
         public readonly string $id,
@@ -21,7 +23,10 @@ final class PlatformDiscountSharePolicy extends OperationResponse
         public readonly bool $isArchived,
         public readonly string $appliedAt,
         public readonly bool $isForTest,
-    ) {}
+        array $data = [],
+    ) {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 PlatformDiscountSharePolicy 객체를 생성합니다.
@@ -40,6 +45,7 @@ final class PlatformDiscountSharePolicy extends OperationResponse
             self::requireBool($data, 'isArchived', self::class),
             self::requireString($data, 'appliedAt', self::class),
             self::requireBool($data, 'isForTest', self::class),
+            data: $data,
         );
     }
 }

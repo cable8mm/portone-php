@@ -13,8 +13,12 @@ final class PlatformDiscountSharePolicyFilterOptions extends OperationResponse
      * PlatformDiscountSharePolicyFilterOptions 객체를 초기화합니다.
      *
      * @param  list<int>  $partnerShareRates
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly array $partnerShareRates) {}
+    public function __construct(public readonly array $partnerShareRates, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 PlatformDiscountSharePolicyFilterOptions 객체를 생성합니다.
@@ -24,6 +28,6 @@ final class PlatformDiscountSharePolicyFilterOptions extends OperationResponse
      */
     public static function fromArray(array $data): static
     {
-        return new self(self::requireIntList($data, 'partnerShareRates', self::class));
+        return new self(self::requireIntList($data, 'partnerShareRates', self::class), data: $data);
     }
 }

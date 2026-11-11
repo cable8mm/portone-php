@@ -14,11 +14,15 @@ final class FailedPgBillingKeyIssueResponse extends OperationResponse
      *
      * @param  array<string, mixed>  $channel
      * @param  array<string, mixed>  $failure
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
     public function __construct(
         private readonly array $channel,
         public readonly array $failure,
-    ) {}
+        array $data = [],
+    ) {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 FailedPgBillingKeyIssueResponse 객체를 생성합니다.
@@ -31,6 +35,7 @@ final class FailedPgBillingKeyIssueResponse extends OperationResponse
         return new self(
             self::requireObject($data, 'channel', self::class),
             self::requireObject($data, 'failure', self::class),
+            data: $data,
         );
     }
 

@@ -13,8 +13,12 @@ final class GetB2bTaxInvoiceAttachmentsResponse extends OperationResponse
      * GetB2bTaxInvoiceAttachmentsResponse 객체를 초기화합니다.
      *
      * @param  list<array<string,mixed>>  $attachments
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly array $attachments) {}
+    public function __construct(public readonly array $attachments, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 GetB2bTaxInvoiceAttachmentsResponse 객체를 생성합니다.
@@ -29,6 +33,6 @@ final class GetB2bTaxInvoiceAttachmentsResponse extends OperationResponse
             throw new \UnexpectedValueException('GetB2bTaxInvoiceAttachmentsResponse must contain a list of attachment objects.');
         }
 
-        return new self($attachments);
+        return new self($attachments, data: $data);
     }
 }

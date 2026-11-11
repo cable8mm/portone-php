@@ -11,8 +11,13 @@ final class CloseVirtualAccountResponse extends OperationResponse
 {
     /**
      * CloseVirtualAccountResponse 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly string $closedAt) {}
+    public function __construct(public readonly string $closedAt, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 CloseVirtualAccountResponse 객체를 생성합니다.
@@ -26,6 +31,6 @@ final class CloseVirtualAccountResponse extends OperationResponse
             throw new \UnexpectedValueException('CloseVirtualAccountResponse must contain string closedAt.');
         }
 
-        return new self($data['closedAt']);
+        return new self($data['closedAt'], data: $data);
     }
 }

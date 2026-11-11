@@ -11,8 +11,13 @@ final class CreatePaymentSessionResponse extends OperationResponse
 {
     /**
      * CreatePaymentSessionResponse 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly string $sessionId, public readonly string $url, public readonly string $expiresAt) {}
+    public function __construct(public readonly string $sessionId, public readonly string $url, public readonly string $expiresAt, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 CreatePaymentSessionResponse 객체를 생성합니다.
@@ -26,6 +31,7 @@ final class CreatePaymentSessionResponse extends OperationResponse
             self::requireString($data, 'sessionId', self::class),
             self::requireString($data, 'url', self::class),
             self::requireString($data, 'expiresAt', self::class),
+            data: $data,
         );
     }
 }

@@ -21,11 +21,12 @@ final class PlatformResponseTest extends TestCase
 
         $partner = PlatformPartner::fromArray([
             'id' => 'partner-id', 'graphqlId' => 'graphql-id', 'name' => 'Partner', 'contact' => [],
-            'account' => [], 'status' => 'ACTIVE', 'defaultContractId' => 'contract-id', 'tags' => [], 'type' => 'BUSINESS',
+            'account' => [], 'status' => 'ACTIVE', 'defaultContractId' => 'contract-id', 'tags' => [], 'type' => ['type' => 'BUSINESS'],
             'isArchived' => false, 'appliedAt' => '2026-10-12T00:00:00Z', 'isForTest' => true,
             'userDefinedProperties' => [],
         ]);
         self::assertSame([], $partner->tags);
+        self::assertSame(['type' => 'BUSINESS'], $partner->type);
     }
 
     public function test_unknown_transfer_type_is_forward_compatible(): void

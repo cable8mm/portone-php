@@ -8,6 +8,7 @@ use Cable8mm\PortonePhp\Model\CapturePaymentResponse;
 use Cable8mm\PortonePhp\Model\GetAllPaymentEventsByCursorResponse;
 use Cable8mm\PortonePhp\Model\GetAllPaymentsByCursorResponse;
 use Cable8mm\PortonePhp\Model\PaymentEvent;
+use Cable8mm\PortonePhp\Model\PaymentEventWithCursor;
 use Cable8mm\PortonePhp\Model\PaymentWithCursor;
 use Cable8mm\PortonePhp\Model\PreRegisterPaymentResponse;
 use Cable8mm\PortonePhp\Model\ResendWebhookResponse;
@@ -17,10 +18,15 @@ final class PaymentSimpleResponseTest extends TestCase
 {
     public function test_cursor_and_webhook_responses_expose_their_payloads(): void
     {
-        $events = GetAllPaymentEventsByCursorResponse::fromArray(['items' => [['type' => 'Future.Event', 'id' => 'event-id']]])->items;
-        self::assertInstanceOf(PaymentEvent::class, $events[0]);
-        self::assertFalse($events[0]->knownVariant);
-        self::assertSame('event-id', $events[0]->data['id']);
+        $events = GetAllPaymentEventsByCursorResponse::fromArray(['items' => [[
+            'paymentEvent' => ['type' => 'Future.Event', 'id' => 'event-id'],
+            'cursor' => 'event-cursor',
+        ]]])->items;
+        self::assertInstanceOf(PaymentEventWithCursor::class, $events[0]);
+        self::assertSame('event-cursor', $events[0]->cursor);
+        self::assertInstanceOf(PaymentEvent::class, $events[0]->paymentEvent);
+        self::assertFalse($events[0]->paymentEvent->knownVariant);
+        self::assertSame('event-id', $events[0]->paymentEvent->data['id']);
         $payments = GetAllPaymentsByCursorResponse::fromArray(['items' => [[
             'payment' => ['status' => 'FUTURE', 'id' => 'payment-id'],
             'cursor' => 'cursor',

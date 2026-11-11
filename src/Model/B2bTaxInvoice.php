@@ -11,6 +11,8 @@ final class B2bTaxInvoice extends OperationResponse
 {
     /**
      * B2bTaxInvoice 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
     public function __construct(
         public readonly string $id,
@@ -53,7 +55,10 @@ final class B2bTaxInvoice extends OperationResponse
         public readonly ?string $ntsResultCode,
         public readonly ?string $ntsResultReceivedAt,
         public readonly ?string $deletedAt,
-    ) {}
+        array $data = [],
+    ) {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 B2bTaxInvoice 객체를 생성합니다.
@@ -104,6 +109,7 @@ final class B2bTaxInvoice extends OperationResponse
             self::optionalNonNullableString($data, 'ntsResultCode', self::class),
             self::optionalNonNullableString($data, 'ntsResultReceivedAt', self::class),
             self::optionalNonNullableString($data, 'deletedAt', self::class),
+            data: $data,
         );
     }
 }

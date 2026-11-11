@@ -11,12 +11,17 @@ final class ApplyEscrowLogisticsResponse extends OperationResponse
 {
     /**
      * ApplyEscrowLogisticsResponse 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
     public function __construct(
         public readonly string $invoiceNumber,
         public readonly string $sentAt,
         public readonly string $appliedAt,
-    ) {}
+        array $data = [],
+    ) {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 ApplyEscrowLogisticsResponse 객체를 생성합니다.
@@ -32,6 +37,6 @@ final class ApplyEscrowLogisticsResponse extends OperationResponse
             }
         }
 
-        return new self($data['invoiceNumber'], $data['sentAt'], $data['appliedAt']);
+        return new self($data['invoiceNumber'], $data['sentAt'], $data['appliedAt'], data: $data);
     }
 }

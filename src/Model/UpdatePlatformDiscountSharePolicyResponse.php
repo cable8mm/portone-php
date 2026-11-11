@@ -11,8 +11,13 @@ final class UpdatePlatformDiscountSharePolicyResponse extends OperationResponse
 {
     /**
      * UpdatePlatformDiscountSharePolicyResponse 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly array $discountSharePolicy) {}
+    public function __construct(public readonly array $discountSharePolicy, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 UpdatePlatformDiscountSharePolicyResponse 객체를 생성합니다.
@@ -26,6 +31,6 @@ final class UpdatePlatformDiscountSharePolicyResponse extends OperationResponse
             throw new \UnexpectedValueException('UpdatePlatformDiscountSharePolicyResponse must contain an object.');
         }
 
-        return new self($data['discountSharePolicy']);
+        return new self($data['discountSharePolicy'], data: $data);
     }
 }

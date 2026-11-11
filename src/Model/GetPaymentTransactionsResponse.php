@@ -13,8 +13,12 @@ final class GetPaymentTransactionsResponse extends OperationResponse
      * GetPaymentTransactionsResponse 객체를 초기화합니다.
      *
      * @param  list<array<string,mixed>>  $items
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly array $items) {}
+    public function __construct(public readonly array $items, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 GetPaymentTransactionsResponse 객체를 생성합니다.
@@ -29,6 +33,6 @@ final class GetPaymentTransactionsResponse extends OperationResponse
             throw new \UnexpectedValueException('GetPaymentTransactionsResponse must contain a list of transaction objects.');
         }
 
-        return new self($items);
+        return new self($items, data: $data);
     }
 }

@@ -11,6 +11,8 @@ final class B2bBulkTaxInvoice extends OperationResponse
 {
     /**
      * B2bBulkTaxInvoice 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
     public function __construct(
         public readonly string $id,
@@ -26,7 +28,10 @@ final class B2bBulkTaxInvoice extends OperationResponse
         public readonly string $statusUpdatedAt,
         public readonly string $sourceType,
         public readonly string $issuanceType,
-    ) {}
+        array $data = [],
+    ) {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 B2bBulkTaxInvoice 객체를 생성합니다.
@@ -50,6 +55,7 @@ final class B2bBulkTaxInvoice extends OperationResponse
             self::requireString($data, 'statusUpdatedAt', self::class),
             self::requireString($data, 'sourceType', self::class),
             self::requireString($data, 'issuanceType', self::class),
+            data: $data,
         );
     }
 }

@@ -14,8 +14,12 @@ final class PlatformPartnerFilterOptions extends OperationResponse
      *
      * @param  list<string>  $tags
      * @param  list<array<string, mixed>>  $contractSummary
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly array $tags, public readonly array $contractSummary) {}
+    public function __construct(public readonly array $tags, public readonly array $contractSummary, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 PlatformPartnerFilterOptions 객체를 생성합니다.
@@ -28,6 +32,7 @@ final class PlatformPartnerFilterOptions extends OperationResponse
         return new self(
             self::requireStringList($data, 'tags', self::class),
             self::requireObjectList($data, 'contractSummary', self::class),
+            data: $data,
         );
     }
 }

@@ -11,8 +11,13 @@ final class ReschedulePlatformContractResponse extends OperationResponse
 {
     /**
      * ReschedulePlatformContractResponse 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly array $scheduledContract) {}
+    public function __construct(public readonly array $scheduledContract, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 ReschedulePlatformContractResponse 객체를 생성합니다.
@@ -26,6 +31,6 @@ final class ReschedulePlatformContractResponse extends OperationResponse
             throw new \UnexpectedValueException('ReschedulePlatformContractResponse must contain an object.');
         }
 
-        return new self($data['scheduledContract']);
+        return new self($data['scheduledContract'], data: $data);
     }
 }

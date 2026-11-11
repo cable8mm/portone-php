@@ -11,8 +11,13 @@ final class GetB2bCounterpartyCertificateRegistrationUrlResponse extends Operati
 {
     /**
      * GetB2bCounterpartyCertificateRegistrationUrlResponse 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly string $url) {}
+    public function __construct(public readonly string $url, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 GetB2bCounterpartyCertificateRegistrationUrlResponse 객체를 생성합니다.
@@ -26,6 +31,6 @@ final class GetB2bCounterpartyCertificateRegistrationUrlResponse extends Operati
             throw new \UnexpectedValueException('GetB2bCounterpartyCertificateRegistrationUrlResponse must contain string url.');
         }
 
-        return new self($data['url']);
+        return new self($data['url'], data: $data);
     }
 }
