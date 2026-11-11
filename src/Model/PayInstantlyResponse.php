@@ -11,8 +11,13 @@ final class PayInstantlyResponse extends OperationResponse
 {
     /**
      * PayInstantlyResponse 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly InstantPaymentSummary $payment) {}
+    public function __construct(public readonly InstantPaymentSummary $payment, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 PayInstantlyResponse 객체를 생성합니다.
@@ -22,6 +27,6 @@ final class PayInstantlyResponse extends OperationResponse
      */
     public static function fromArray(array $data): static
     {
-        return new self(InstantPaymentSummary::fromArray(self::requireObject($data, 'payment', self::class)));
+        return new self(InstantPaymentSummary::fromArray(self::requireObject($data, 'payment', self::class)), data: $data);
     }
 }

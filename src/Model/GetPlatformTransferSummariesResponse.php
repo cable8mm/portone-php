@@ -11,8 +11,13 @@ final class GetPlatformTransferSummariesResponse extends OperationResponse
 {
     /**
      * GetPlatformTransferSummariesResponse 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly array $page, public readonly array $transferSummaries) {}
+    public function __construct(public readonly array $page, public readonly array $transferSummaries, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 GetPlatformTransferSummariesResponse 객체를 생성합니다.
@@ -25,6 +30,7 @@ final class GetPlatformTransferSummariesResponse extends OperationResponse
         return new self(
             self::requireObject($data, 'page', self::class),
             self::requireObjectList($data, 'transferSummaries', self::class),
+            data: $data,
         );
     }
 }

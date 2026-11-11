@@ -11,12 +11,17 @@ final class GetPaymentReconciliationTransactionVatReportResponse extends Operati
 {
     /**
      * GetPaymentReconciliationTransactionVatReportResponse 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
     public function __construct(
         public readonly ?array $items,
         public readonly array $pgSpecifiers,
         public readonly array $summary,
-    ) {}
+        array $data = [],
+    ) {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 GetPaymentReconciliationTransactionVatReportResponse 객체를 생성합니다.
@@ -30,6 +35,7 @@ final class GetPaymentReconciliationTransactionVatReportResponse extends Operati
             self::optionalObjectList($data, 'items', self::class),
             self::optionalObjectList($data, 'pgSpecifiers', self::class) ?? [],
             self::requireObject($data, 'summary', self::class),
+            data: $data,
         );
     }
 }

@@ -11,8 +11,13 @@ final class StopPaymentCancellationResponse extends OperationResponse
 {
     /**
      * StopPaymentCancellationResponse 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly string $stoppedAt) {}
+    public function __construct(public readonly string $stoppedAt, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 StopPaymentCancellationResponse 객체를 생성합니다.
@@ -26,6 +31,6 @@ final class StopPaymentCancellationResponse extends OperationResponse
             throw new \UnexpectedValueException('StopPaymentCancellationResponse must contain string stoppedAt.');
         }
 
-        return new self($data['stoppedAt']);
+        return new self($data['stoppedAt'], data: $data);
     }
 }

@@ -11,6 +11,8 @@ final class PaymentSession extends OperationResponse
 {
     /**
      * PaymentSession 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
     public function __construct(
         public readonly string $id,
@@ -35,7 +37,10 @@ final class PaymentSession extends OperationResponse
         public readonly ?string $orderImageUrl,
         public readonly ?string $customData,
         public readonly ?PaymentSessionColors $colors,
-    ) {}
+        array $data = [],
+    ) {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 PaymentSession 객체를 생성합니다.
@@ -76,6 +81,7 @@ final class PaymentSession extends OperationResponse
             self::optionalNonNullableString($data, 'orderImageUrl', self::class),
             self::optionalNonNullableString($data, 'customData', self::class),
             $colors === null ? null : PaymentSessionColors::fromArray($colors),
+            data: $data,
         );
     }
 }

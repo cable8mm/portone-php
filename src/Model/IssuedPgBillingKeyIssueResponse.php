@@ -14,12 +14,16 @@ final class IssuedPgBillingKeyIssueResponse extends OperationResponse
      *
      * @param  array<string, mixed>  $channel
      * @param  array<string, mixed>|null  $method
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
     public function __construct(
         private readonly array $channel,
         public readonly ?string $pgTxId,
         public readonly ?array $method,
-    ) {}
+        array $data = [],
+    ) {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 IssuedPgBillingKeyIssueResponse 객체를 생성합니다.
@@ -43,6 +47,7 @@ final class IssuedPgBillingKeyIssueResponse extends OperationResponse
             self::requireObject($data, 'channel', self::class),
             $pgTxId,
             $method,
+            data: $data,
         );
     }
 

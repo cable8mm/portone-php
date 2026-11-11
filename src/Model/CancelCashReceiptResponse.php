@@ -11,8 +11,13 @@ final class CancelCashReceiptResponse extends OperationResponse
 {
     /**
      * CancelCashReceiptResponse 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly int $cancelledAmount, public readonly string $cancelledAt) {}
+    public function __construct(public readonly int $cancelledAmount, public readonly string $cancelledAt, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 CancelCashReceiptResponse 객체를 생성합니다.
@@ -26,6 +31,6 @@ final class CancelCashReceiptResponse extends OperationResponse
             throw new \UnexpectedValueException('CancelCashReceiptResponse contains invalid fields.');
         }
 
-        return new self($data['cancelledAmount'], $data['cancelledAt']);
+        return new self($data['cancelledAmount'], $data['cancelledAt'], data: $data);
     }
 }

@@ -11,8 +11,13 @@ final class ConfirmEscrowResponse extends OperationResponse
 {
     /**
      * ConfirmEscrowResponse 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly string $completedAt) {}
+    public function __construct(public readonly string $completedAt, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 ConfirmEscrowResponse 객체를 생성합니다.
@@ -26,6 +31,6 @@ final class ConfirmEscrowResponse extends OperationResponse
             throw new \UnexpectedValueException('ConfirmEscrowResponse must contain string completedAt.');
         }
 
-        return new self($data['completedAt']);
+        return new self($data['completedAt'], data: $data);
     }
 }

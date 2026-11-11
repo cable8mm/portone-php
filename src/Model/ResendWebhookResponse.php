@@ -13,8 +13,12 @@ final class ResendWebhookResponse extends OperationResponse
      * ResendWebhookResponse 객체를 초기화합니다.
      *
      * @param  array<string,mixed>  $webhook
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly array $webhook) {}
+    public function __construct(public readonly array $webhook, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 ResendWebhookResponse 객체를 생성합니다.
@@ -28,6 +32,6 @@ final class ResendWebhookResponse extends OperationResponse
             throw new \UnexpectedValueException('ResendWebhookResponse must contain a webhook object.');
         }
 
-        return new self($data['webhook']);
+        return new self($data['webhook'], data: $data);
     }
 }

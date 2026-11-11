@@ -11,8 +11,13 @@ final class CancelPaymentResponse extends OperationResponse
 {
     /**
      * CancelPaymentResponse 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly PaymentCancellation $cancellation) {}
+    public function __construct(public readonly PaymentCancellation $cancellation, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 CancelPaymentResponse 객체를 생성합니다.
@@ -22,6 +27,6 @@ final class CancelPaymentResponse extends OperationResponse
      */
     public static function fromArray(array $data): static
     {
-        return new self(PaymentCancellation::fromArray(self::requireObject($data, 'cancellation', self::class)));
+        return new self(PaymentCancellation::fromArray(self::requireObject($data, 'cancellation', self::class)), data: $data);
     }
 }

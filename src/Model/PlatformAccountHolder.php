@@ -11,8 +11,13 @@ final class PlatformAccountHolder extends OperationResponse
 {
     /**
      * PlatformAccountHolder 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly string $holderName, public readonly string $accountVerificationId) {}
+    public function __construct(public readonly string $holderName, public readonly string $accountVerificationId, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 PlatformAccountHolder 객체를 생성합니다.
@@ -25,6 +30,7 @@ final class PlatformAccountHolder extends OperationResponse
         return new self(
             self::requireString($data, 'holderName', self::class),
             self::requireString($data, 'accountVerificationId', self::class),
+            data: $data,
         );
     }
 }

@@ -11,8 +11,13 @@ final class ValidateB2bCounterpartyCertificateResponse extends OperationResponse
 {
     /**
      * ValidateB2bCounterpartyCertificateResponse 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly bool $isValid) {}
+    public function __construct(public readonly bool $isValid, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 ValidateB2bCounterpartyCertificateResponse 객체를 생성합니다.
@@ -26,6 +31,6 @@ final class ValidateB2bCounterpartyCertificateResponse extends OperationResponse
             throw new \UnexpectedValueException('ValidateB2bCounterpartyCertificateResponse must contain boolean isValid.');
         }
 
-        return new self($data['isValid']);
+        return new self($data['isValid'], data: $data);
     }
 }

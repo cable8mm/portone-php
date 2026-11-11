@@ -14,8 +14,12 @@ final class GetB2bTaxInvoicesResponse extends OperationResponse
      *
      * @param  list<B2bTaxInvoice>  $items
      * @param  array<string, mixed>  $page
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly array $items, public readonly array $page) {}
+    public function __construct(public readonly array $items, public readonly array $page, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 GetB2bTaxInvoicesResponse 객체를 생성합니다.
@@ -30,6 +34,6 @@ final class GetB2bTaxInvoicesResponse extends OperationResponse
             throw new \UnexpectedValueException('GetB2bTaxInvoicesResponse must contain items and page arrays.');
         }
 
-        return new self(array_map(static fn (array $item): B2bTaxInvoice => B2bTaxInvoice::fromArray($item), $items), $data['page']);
+        return new self(array_map(static fn (array $item): B2bTaxInvoice => B2bTaxInvoice::fromArray($item), $items), $data['page'], data: $data);
     }
 }

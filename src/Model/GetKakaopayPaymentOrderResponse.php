@@ -11,8 +11,13 @@ final class GetKakaopayPaymentOrderResponse extends OperationResponse
 {
     /**
      * GetKakaopayPaymentOrderResponse 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly int $statusCode, public readonly string $body) {}
+    public function __construct(public readonly int $statusCode, public readonly string $body, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 GetKakaopayPaymentOrderResponse 객체를 생성합니다.
@@ -26,6 +31,6 @@ final class GetKakaopayPaymentOrderResponse extends OperationResponse
             throw new \UnexpectedValueException('GetKakaopayPaymentOrderResponse contains invalid fields.');
         }
 
-        return new self($data['statusCode'], $data['body']);
+        return new self($data['statusCode'], $data['body'], data: $data);
     }
 }

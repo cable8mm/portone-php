@@ -641,7 +641,7 @@
     - The README shows billing-key issuance next to the browser payment recipe.
     - Unit tests and format checks pass.
 
-- [ ] T-068 Response body on every response model
+- [x] T-068 Response body on every response model
   - Satisfies: PRODUCT_SPEC.md FR-038
   - Depends on: none
   - Blocked by: none

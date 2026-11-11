@@ -11,13 +11,18 @@ final class CompletePlatformPayoutByPartnerSettlementIdsResponse extends Operati
 {
     /**
      * CompletePlatformPayoutByPartnerSettlementIdsResponse 객체를 초기화합니다.
+     *
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
     public function __construct(
         public readonly ?string $bulkPayoutId,
         public readonly ?string $bulkPayoutGraphqlId,
         public readonly int $payoutCount,
         public readonly int $partnerSettlementCount,
-    ) {}
+        array $data = [],
+    ) {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 CompletePlatformPayoutByPartnerSettlementIdsResponse 객체를 생성합니다.
@@ -36,6 +41,6 @@ final class CompletePlatformPayoutByPartnerSettlementIdsResponse extends Operati
             throw new \UnexpectedValueException('CompletePlatformPayoutByPartnerSettlementIdsResponse contains invalid counts.');
         }
 
-        return new self($data['bulkPayoutId'] ?? null, $data['bulkPayoutGraphqlId'] ?? null, $data['payoutCount'], $data['partnerSettlementCount']);
+        return new self($data['bulkPayoutId'] ?? null, $data['bulkPayoutGraphqlId'] ?? null, $data['payoutCount'], $data['partnerSettlementCount'], data: $data);
     }
 }

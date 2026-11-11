@@ -13,8 +13,12 @@ final class GetBankInfosResponse extends OperationResponse
      * GetBankInfosResponse 객체를 초기화합니다.
      *
      * @param  list<BankInfo>  $items
+     * @param  array<string,mixed>  $data  디코딩된 응답 본문입니다.
      */
-    public function __construct(public readonly array $items) {}
+    public function __construct(public readonly array $items, array $data = [])
+    {
+        parent::__construct($data);
+    }
 
     /**
      * 배열 형식의 API 응답 데이터로 GetBankInfosResponse 객체를 생성합니다.
@@ -27,6 +31,6 @@ final class GetBankInfosResponse extends OperationResponse
         return new self(self::mapObjectList(
             self::requireObjectList($data, 'items', self::class),
             static fn (array $item): BankInfo => BankInfo::fromArray($item),
-        ));
+        ), data: $data);
     }
 }
