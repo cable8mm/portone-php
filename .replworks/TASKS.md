@@ -641,3 +641,13 @@
     - The README shows billing-key issuance next to the browser payment recipe.
     - Unit tests and format checks pass.
 
+- [ ] T-068 Response body on every response model
+  - Satisfies: PRODUCT_SPEC.md FR-038
+  - Depends on: none
+  - Blocked by: none
+  - External boundary: no (response shapes come from the bundled OpenAPI definition; the failure was observed in cable8mm/laravel-portone T-045, tools/probes/portone-billing-key-observation.json)
+  - Acceptance criteria:
+    - Every OperationResponse subclass passes the decoded body to the base class, so `data` is set on DeleteBillingKeyResponse, CancelPaymentResponse, and every other typed model.
+    - A test decodes every response model from a sample body and reads `data` without an error.
+    - Unit tests and format checks pass.
+

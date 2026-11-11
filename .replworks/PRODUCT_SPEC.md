@@ -162,6 +162,7 @@
 - FR-035: BillingKeyRedirectResult.fromQuery MUST accept the billing-key redirect query as an array and MUST return a BillingKeyRedirectResult with billingKey, code, message, pgCode, pgMessage (each a string or null when absent). When code is present, billingKey MUST be null, because a failure query carries a billingKey that was never issued. Extra query keys MUST be ignored. BillingKeyRedirectResult.isFailure MUST return true if and only if code is not null.
 - FR-036: BrowserPaymentRequest MUST accept easyPay as an optional string-keyed array, returned by toArray under the key `easyPay` and passed through without validation.
 - FR-037: Model\Payment MUST expose receiptUrl, a string or null, read from `receiptUrl` of the lookup response. A null value means the response carries no receipt URL.
+- FR-038: Every response model returned by an operation MUST expose `data`, the decoded response body as a string-keyed array, next to its typed properties. Reading `data` MUST NOT throw.
 
 ## User Flows
 
