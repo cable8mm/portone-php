@@ -1,5 +1,17 @@
 # Release Notes
 
+## v0.8.0 - 2026-11-17
+
+`BrowserPaymentRequest` accepts an optional `customerName` and sends it as `customer.fullName` (FR-039). KCP's receipt lookup asks for the buyer name, so apps no longer need to pass `customer` through `extra`.
+
+No breaking changes. The new argument is the last named parameter.
+
+### What's Changed
+
+* feat: add the buyer name to browser payment values by [@replworks-bot](https://github.com/replworks-bot) in https://github.com/cable8mm/portone-php/pull/72
+
+**Full Changelog**: https://github.com/cable8mm/portone-php/compare/v0.7.1...v0.8.0
+
 ## v0.7.1 - 2026-11-11
 
 Every response model now exposes `data` (FR-038), and five decoders now follow the PortOne OpenAPI definition.
