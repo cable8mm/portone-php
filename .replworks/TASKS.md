@@ -651,3 +651,13 @@
     - A test decodes every response model from a sample body and reads `data` without an error.
     - Unit tests and format checks pass.
 
+- [x] T-069 Buyer name on browser payment values
+  - Satisfies: PRODUCT_SPEC.md EL-025, FR-039, AC-032
+  - Depends on: none
+  - Blocked by: none
+  - External boundary: no (pure value construction; `customer.fullName` is a field of the documented browser SDK `customer` object, and replworks/digikey T-067 live-verified it on the KCP test channel on 2026-11-17)
+  - Acceptance criteria:
+    - `BrowserPaymentRequest` accepts an optional customerName and `toArray` returns it under `customer.fullName`, next to `customer.customerId` when that is set.
+    - Unset customerName adds no fullName; documented customer values win over an `extra` customer key.
+    - The README browser payment recipe shows customerName.
+    - Unit tests and format checks pass.

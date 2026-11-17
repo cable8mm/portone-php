@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
  *  - toArray uses the documented browser SDK key names and omits unset optional values.
  *  - windowType passes through untouched.
  *  - easyPay passes through untouched under easyPay (T-067).
+ *  - customerName goes under customer.fullName, next to or without customerId (T-069).
  *  - A missing or non-absolute-http(s) redirectUrl throws InvalidArgumentException (ERR-011).
  */
 final class BrowserPaymentRequestTest extends TestCase
@@ -142,5 +143,55 @@ final class BrowserPaymentRequestTest extends TestCase
         );
 
         $this->assertSame($easyPay, $request->toArray()['easyPay']);
+    }
+
+    public function test_customer_name_is_returned_as_full_name_next_to_customer_id(): void
+    {
+        $request = new BrowserPaymentRequest(
+            storeId: 'store-1',
+            channelKey: 'channel-1',
+            paymentId: 'payment-1',
+            orderName: 'Order A',
+            totalAmount: 10000,
+            redirectUrl: 'https://example.com/payment-redirect',
+            customerId: 'customer-1',
+            customerName: '홍길동',
+        );
+
+        $this->assertSame(
+            ['customerId' => 'customer-1', 'fullName' => '홍길동'],
+            $request->toArray()['customer'],
+        );
+    }
+
+    public function test_customer_name_without_customer_id_sets_only_full_name(): void
+    {
+        $request = new BrowserPaymentRequest(
+            storeId: 'store-1',
+            channelKey: 'channel-1',
+            paymentId: 'payment-1',
+            orderName: 'Order A',
+            totalAmount: 10000,
+            redirectUrl: 'https://example.com/payment-redirect',
+            customerName: '홍길동',
+        );
+
+        $this->assertSame(['fullName' => '홍길동'], $request->toArray()['customer']);
+    }
+
+    public function test_documented_customer_wins_over_extra_customer(): void
+    {
+        $request = new BrowserPaymentRequest(
+            storeId: 'store-1',
+            channelKey: 'channel-1',
+            paymentId: 'payment-1',
+            orderName: 'Order A',
+            totalAmount: 10000,
+            redirectUrl: 'https://example.com/payment-redirect',
+            customerName: '홍길동',
+            extra: ['customer' => ['fullName' => 'Other']],
+        );
+
+        $this->assertSame(['fullName' => '홍길동'], $request->toArray()['customer']);
     }
 }
