@@ -175,6 +175,7 @@ $request = new BrowserPaymentRequest(
     totalAmount: $totalAmount,        // minor unit 정수 (KRW 1배, USD 100배)
     redirectUrl: 'https://example.com/payment-redirect',
     customerId: $customerId,
+    customerName: $customerName,     // customer.fullName (KCP 영수증 조회의 구매자명)
     payMethod: 'CARD',
     currency: 'KRW',
     forceRedirect: true,             // PC·모바일 단일 리다이렉트 흐름

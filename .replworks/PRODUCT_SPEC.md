@@ -163,6 +163,7 @@
 - FR-036: BrowserPaymentRequest MUST accept easyPay as an optional string-keyed array, returned by toArray under the key `easyPay` and passed through without validation.
 - FR-037: Model\Payment MUST expose receiptUrl, a string or null, read from `receiptUrl` of the lookup response. A null value means the response carries no receipt URL.
 - FR-038: Every response model returned by an operation MUST expose `data`, the decoded response body as a string-keyed array, next to its typed properties. Reading `data` MUST NOT throw.
+- FR-039: BrowserPaymentRequest MUST accept customerName as an optional string, returned by toArray under `customer.fullName` next to `customer.customerId` when both are set, or alone in `customer` when customerId is unset.
 
 ## User Flows
 
@@ -227,3 +228,4 @@
 - AC-029: BillingKeyRedirectResult.fromQuery with the recorded live redirect query shapes returns the matching typed values; isFailure is true exactly when code is present; a failure query that carries billingKey returns billingKey null; a success query without billingKey throws InvalidArgumentException. Verifies FR-035, ERR-012.
 - AC-030: BrowserPaymentRequest with easyPay returns toArray with the `easyPay` key holding the given array unchanged. Verifies FR-036.
 - AC-031: Model\Payment exposes receiptUrl matching the lookup response, and null when it is absent. Verifies FR-037.
+- AC-032: BrowserPaymentRequest with customerName returns toArray with `customer.fullName` holding the given name, next to `customer.customerId` when customerId is set; without customerName, `customer` carries no fullName. Verifies FR-039.

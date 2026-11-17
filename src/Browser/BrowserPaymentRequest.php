@@ -19,6 +19,7 @@ final class BrowserPaymentRequest
      * @param  array<string,string>|null  $windowType  환경별 결제창 유형(pc/mobile 키)
      * @param  array<string,mixed>  $extra  문서화된 값에 더해 그대로 전달할 브라우저 SDK 값
      * @param  array<string,mixed>|null  $easyPay  간편결제 값(easyPayProvider, availablePayMethods 등)
+     * @param  string|null  $customerName  구매자 이름. customer.fullName으로 들어갑니다
      */
     public function __construct(
         public readonly string $storeId,
@@ -34,6 +35,7 @@ final class BrowserPaymentRequest
         public readonly ?array $windowType = null,
         public readonly array $extra = [],
         public readonly ?array $easyPay = null,
+        public readonly ?string $customerName = null,
     ) {
         if (! self::isAbsoluteHttpUrl($redirectUrl)) {
             throw new \InvalidArgumentException('redirectUrl must be an absolute http:// or https:// URL.');
@@ -56,8 +58,18 @@ final class BrowserPaymentRequest
             'redirectUrl' => $this->redirectUrl,
         ];
 
+        $customer = [];
+
         if ($this->customerId !== null) {
-            $parameters['customer'] = ['customerId' => $this->customerId];
+            $customer['customerId'] = $this->customerId;
+        }
+
+        if ($this->customerName !== null) {
+            $customer['fullName'] = $this->customerName;
+        }
+
+        if ($customer !== []) {
+            $parameters['customer'] = $customer;
         }
 
         if ($this->payMethod !== null) {
